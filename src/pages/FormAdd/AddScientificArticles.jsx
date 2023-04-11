@@ -65,7 +65,6 @@ function Dashboard() {
     mode: "onChange",
     defaultValues: {
       name: '',
-      type: '',
       code: '',
       index_article: '',
       total_time: '',

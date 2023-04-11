@@ -1,10 +1,10 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { STAFF_DETAIL, STAFF_LIST } from '../constants/QueryKey';
+import { ROOM_DETAIL, ROOM_LIST } from '../constants/QueryKey';
 import axios from '../config/axios';
 import API from '../constants/api';
 import { PAGE_SIZE } from '../constants';
 
-export const useStaffList = (tableParams) => {
+export const useRoomList = (tableParams) => {
     var sort, sortColumn, limit, page;
     if (tableParams !== undefined) {
         sort = tableParams.sorter?.sort || 'desc'
@@ -13,9 +13,9 @@ export const useStaffList = (tableParams) => {
         page = tableParams.sorter?.current || 1
     }
 
-    return useQuery([STAFF_LIST, sort, sortColumn, limit, page], async () => {
+    return useQuery([ROOM_LIST, sort, sortColumn, limit, page], async () => {
         const { data, headers } = await axios.get(
-            `${API.API_ROOT}${API.STAFF.LIST}`,
+            `${API.API_ROOT}${API.ROOM.LIST}`,
             {
                 params: {
                     sort: sort,
@@ -29,39 +29,53 @@ export const useStaffList = (tableParams) => {
     })
 }
 
-export const useStaffDetail = (staffId) => {
-    return useQuery([STAFF_DETAIL], async () => {
-        const { data } = await axios.get(`${API.API_ROOT}${API.STAFF.UPDATE}`.replace(':id', staffId))
+export const useRoomDetail = (roomId) => {
+    return useQuery([ROOM_DETAIL], async () => {
+        const { data } = await axios.get(`${API.API_ROOT}${API.ROOM.UPDATE}`.replace(':id', roomId))
 
         return data;
     })
 }
 
-export const useStaffDelete = () => {
+export const useRoomDelete = () => {
     const queryClient = useQueryClient();
     return useMutation(
-        async (staffId) => {
+        async (roomId) => {
             return await axios.delete(
-                `${API.API_ROOT}${API.STAFF.UPDATE.replace(":id", staffId)}`
+                `${API.API_ROOT}${API.ROOM.UPDATE.replace(":id", roomId)}`
             );
         },
         {
             onSuccess: () => {
-                queryClient.invalidateQueries(STAFF_LIST);
+                queryClient.invalidateQueries(ROOM_LIST);
             },
         }
     );
 };
 
-export const useCreateStaff = () => {
+export const useCreateRoom = () => {
     const queryClient = useQueryClient();
     return useMutation(
         async (data) => {
-            return await axios.post(`${API.API_ROOT}${API.STAFF.LIST}`, data);
+            return await axios.post(`${API.API_ROOT}${API.ROOM.LIST}`, data);
         },
         {
             onSuccess: () => {
-                queryClient.invalidateQueries(STAFF_LIST);
+                queryClient.invalidateQueries(ROOM_LIST);
+            },
+        }
+    );
+};
+
+export const useUpdateRoom = (roomId) => {
+    const queryClient = useQueryClient();
+    return useMutation(
+        async (data) => {
+            return await axios.put(`${API.API_ROOT}${API.ROOM.UPDATE.replace(':id', roomId)}`, data);
+        },
+        {
+            onSuccess: () => {
+                queryClient.invalidateQueries(ROOM_LIST);
             },
         }
     );
