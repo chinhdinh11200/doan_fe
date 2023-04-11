@@ -1,10 +1,10 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { STAFF_DETAIL, STAFF_LIST } from '../constants/QueryKey';
+import { EXAM_DETAIL, EXAM_LIST } from '../constants/QueryKey';
 import axios from '../config/axios';
 import API from '../constants/api';
 import { PAGE_SIZE } from '../constants';
 
-export const useStaffList = (tableParams) => {
+export const useExamList = (tableParams) => {
     var sort, sortColumn, limit, page;
     if (tableParams !== undefined) {
         sort = tableParams.sorter?.sort || 'desc'
@@ -13,9 +13,9 @@ export const useStaffList = (tableParams) => {
         page = tableParams.sorter?.current || 1
     }
 
-    return useQuery([STAFF_LIST, sort, sortColumn, limit, page], async () => {
+    return useQuery([EXAM_LIST, sort, sortColumn, limit, page], async () => {
         const { data, headers } = await axios.get(
-            `${API.API_ROOT}${API.STAFF.LIST}`,
+            `${API.API_ROOT}${API.EXAM.LIST}`,
             {
                 params: {
                     sort: sort,
@@ -29,39 +29,53 @@ export const useStaffList = (tableParams) => {
     })
 }
 
-export const useStaffDetail = (staffId) => {
-    return useQuery([STAFF_DETAIL], async () => {
-        const { data } = await axios.get(`${API.API_ROOT}${API.STAFF.UPDATE}`.replace(':id', staffId))
+export const useExamDetail = (examId) => {
+    return useQuery([EXAM_DETAIL], async () => {
+        const { data } = await axios.get(`${API.API_ROOT}${API.EXAM.UPDATE}`.replace(':id', examId))
 
         return data;
     })
 }
 
-export const useStaffDelete = () => {
+export const useExamDelete = () => {
     const queryClient = useQueryClient();
     return useMutation(
-        async (staffId) => {
+        async (examId) => {
             return await axios.delete(
-                `${API.API_ROOT}${API.STAFF.UPDATE.replace(":id", staffId)}`
+                `${API.API_ROOT}${API.EXAM.UPDATE.replace(":id", examId)}`
             );
         },
         {
             onSuccess: () => {
-                queryClient.invalidateQueries(STAFF_LIST);
+                queryClient.invalidateQueries(EXAM_LIST);
             },
         }
     );
 };
 
-export const useCreateStaff = () => {
+export const useCreateExam = () => {
     const queryClient = useQueryClient();
     return useMutation(
         async (data) => {
-            return await axios.post(`${API.API_ROOT}${API.STAFF.LIST}`, data);
+            return await axios.post(`${API.API_ROOT}${API.EXAM.LIST}`, data);
         },
         {
             onSuccess: () => {
-                queryClient.invalidateQueries(STAFF_LIST);
+                queryClient.invalidateQueries(EXAM_LIST);
+            },
+        }
+    );
+};
+
+export const useUpdateExam = (examId) => {
+    const queryClient = useQueryClient();
+    return useMutation(
+        async (data) => {
+            return await axios.put(`${API.API_ROOT}${API.EXAM.UPDATE.replace(':id', examId)}`, data);
+        },
+        {
+            onSuccess: () => {
+                queryClient.invalidateQueries(EXAM_LIST);
             },
         }
     );
