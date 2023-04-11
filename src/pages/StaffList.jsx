@@ -22,7 +22,7 @@ function Dashboard() {
     },
   });
   const [page, setPage] = useState(1);
-  const pageSizeRef = useRef(PAGE_SIZE);
+  const pageSizeRef = useRef(PAGE_SIZE); //luu kick co trang hiren tai
 
   const columns = [
     {

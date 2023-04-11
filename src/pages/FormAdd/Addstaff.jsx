@@ -27,13 +27,13 @@ function Dashboard() {
   })
 
   const schema = yup.object().shape({
-    name: yup.string().trim().required('Tên nhân viên là bắt buộc').max(191, 'Tên không dài quá 191 kí tự'),
-    email: yup.string().trim().required('Tên nhân viên là bắt buộc').matches(
+    name: yup.string().trim().required('Vui lòng nhập tên nhân viên').max(191, 'Tên không dài quá 191 kí tự'),
+    email: yup.string().trim().required('Vui lòng nhập email').matches(
       /^([a-z0-9_+.-]+)(\.[a-z0-9_-]+)*@([a-z0-9_-]+\.)+[a-z]{2,6}$/,
       "Email không đúng định dạng"
-    ).max(191, 'Tên không dài quá 191 kí tự'),
+    ).max(191, 'Email không quá 191 kí tự'),
     password: yup.string().min(8, "Mật khẩu không được nhỏ hơn 8 kí tự."),
-    code: yup.string().required('Mã nhân viên là bắt buộc.').min(4, "Mã nhân viên không được nhỏ hơn 4 kí tự."),
+    code: yup.string().required('Vui lòng nhập mã nhân viên').min(4, "Mã nhân viên không được nhỏ hơn 4 kí tự."),
     position: yup.string(),
     // department_id: yup.string().required('Trường phòng ban là bắt buộc.'),
     number_salary: yup.number(),
