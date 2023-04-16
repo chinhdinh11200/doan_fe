@@ -8,6 +8,7 @@ import Loading from '../components/Loading';
 import { Button, Modal, Space, Table, Tooltip } from 'antd';
 import { BiEdit, BiTrash } from 'react-icons/bi';
 import { PAGE_SIZE } from '../constants';
+import Search from '../components/Search';
 
 function Dashboard() {
   const [tableParams, setTableParams] = useState({
@@ -20,6 +21,7 @@ function Dashboard() {
       // sortColumn: null,
       // sort: null,
     },
+    search: '',
   });
   const [page, setPage] = useState(1);
   const pageSizeRef = useRef(PAGE_SIZE); //luu kick co trang hiren tai
@@ -160,6 +162,14 @@ function Dashboard() {
     }
   }, [isLoading]);
 
+  const onChangeSearch = (search) => {
+    setTableParams({
+      ...tableParams,
+      search: search
+    })
+    console.log(search);
+  }
+
   return (
     <div className="flex h-screen overflow-hidden">
 
@@ -180,6 +190,7 @@ function Dashboard() {
                 <div className="flex justify-between flex-row-reverse gap-4">
                   {/* Filter button */}
                   <FilterButton />
+                  <Search onChangeSearch={onChangeSearch} />
                   <NavLink end to="/add-article" className="btn bg-indigo-500 hover:bg-indigo-600 text-white">
                     <svg className="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
                       <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
