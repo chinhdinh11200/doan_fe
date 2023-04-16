@@ -5,10 +5,9 @@ import API from '../constants/api';
 
 export const useDepartmentList = () => {
     return useQuery([DEPARTMENT_LIST], async () => {
-        const { data } = await axios.get(`${API.API_ROOT}${API.DEPARTMENT.LIST}`)
-        const data2 = data.rows
-        
-        return {data: data.rows, count: data.count};
+        const { data, headers } = await axios.get(`${API.API_ROOT}${API.DEPARTMENT.LIST}`)
+
+        return { data, total: headers["x-total-count"] };
     })
 }
 

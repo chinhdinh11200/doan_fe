@@ -5,6 +5,7 @@ let failAuth = 0;
 const instance = axios.create({
     baseURL: API_ROOT,
     timeout: TIME_OUT,
+    // withCredentials: true,
 });
 
 instance.interceptors.response.use(
