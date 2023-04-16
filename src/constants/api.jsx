@@ -41,20 +41,4 @@ export default {
         LIST: '/thesis',
         UPDATE: '/thesis/:id',
     },
-    CLASS: {
-        LIST: '/class',
-        UPDATE: '/class/:id',
-    },
-    SUBJECT: {
-        LIST: '/subject',
-        UPDATE: '/subject/:id',
-    },
-    EXAM: {
-        LIST: '/exam',
-        UPDATE: '/exam/:id',
-    },
-    ROOM: {
-        LIST: '/room',
-        UPDATE: '/room/:id',
-    },
 };

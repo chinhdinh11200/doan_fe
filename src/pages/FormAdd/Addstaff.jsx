@@ -18,8 +18,8 @@ function Dashboard() {
     isLoading,
     error,
     data: dataCreate } = useCreateStaff();
-  const { data: { data: departments = [], total } = { }, isLoading : isLoadingDepartment } = useDepartmentList();
-  departments?.map(department => {
+  const { data: departments } = useDepartmentList();
+  departments?.data?.map(department => {
     department.label = department.name
     department.value = department.id
 
@@ -111,7 +111,7 @@ function Dashboard() {
                       name="category_id"
                       render={({ field: { value, onChange, ref } }) => (
                         <Select
-                          options={departments}
+                          options={departments?.data}
                           name="department_id"
                           id="department_id"
                           placeholder="Lựa chọn"
