@@ -37,14 +37,6 @@ import AddScientificArticles from './pages/FormAdd/AddScientificArticles';
 import AddBuildProgram from './pages/FormAdd/AddBuildProgram';
 
 import FormAddMaterialCompilation from './pages/ListMaterialCompilation'
-import ClassList from './pages/ClassList';
-import AddClass from './pages/FormAdd/AddClass';
-import SubjectList from './pages/SubjectList';
-import AddSubject from './pages/FormAdd/AddSubject';
-import ExamList from './pages/ExamList';
-import AddExam from './pages/FormAdd/AddExam';
-import RoomList from './pages/RoomList';
-import AddRoom from './pages/FormAdd/RoomAdd';
 const Test = () =>{
   return  <div>test</div>;
 }
@@ -66,10 +58,6 @@ function App() {
         <Route exact path="/" element={<LoginPage/>} />
         <Route path="/forgotpassword" element={<ForgotPassPage/>} />
         <Route path="/ListStaff" element={<StaffList/>} />
-        <Route path="/ListClass" element={<ClassList/>} />
-        <Route path="/ListSubject" element={<SubjectList/>} />
-        <Route path="/ListExam" element={<ExamList/>} />
-        <Route path="/ListRoom" element={<RoomList/>} />
         <Route path="/AllTeaching" element={<AllTeaching/>} />
         <Route path="/CourseList" element={<CourseList/>} />
         <Route path="/thesis-list" element={<ThesisList/>} />
@@ -84,10 +72,6 @@ function App() {
         <Route path="/ecommerce/customers" element={<Test />}/>
         <Route path="/material-compilation-list" element={<FormAddMaterialCompilation />}/>
         <Route path="/addstaff" element={<AddStaff/>}/>
-        <Route path="/add-class" element={<AddClass/>}/>
-        <Route path="/add-subject" element={<AddSubject/>}/>
-        <Route path="/add-exam" element={<AddExam/>}/>
-        <Route path="/add-room" element={<AddRoom/>}/>
         <Route path="/addteaching" element={<AddTeaching/>}/>
         <Route path="/add-term-exam" element={<AddTermExam/>}/>
         <Route path="/add-research" element={<AddResearch/>}/>
@@ -97,10 +81,6 @@ function App() {
         <Route path="/add-instructions" element={<AddInstruction/>}/>
         <Route path="/add-prizeList" element={<AddLicense/>}/>
         <Route path="/add-build-program" element={<AddBuildProgram/>}/>
-        <Route path="/edit-subject" element={<AddSubject/>}/>
-        <Route path="/edit-class" element={<AddClass/>}/>
-        <Route path="/edit-exam" element={<AddExam/>}/>
-        <Route path="/edit-room" element={<AddRoom/>}/>
       </Routes>
     </>
   );
