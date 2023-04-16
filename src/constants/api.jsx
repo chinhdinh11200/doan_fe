@@ -24,6 +24,10 @@ export default {
         LIST: '/book',
         UPDATE: '/book/:id',
     },
+    INVENTIONS: {
+        LIST: '/invention',
+        UPDATE: '/invention/:id',
+    },
     SCIENTIFIC: {
         LIST: '/scientific',
         UPDATE: '/scientific/:id',
