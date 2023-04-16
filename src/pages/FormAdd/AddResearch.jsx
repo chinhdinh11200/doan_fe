@@ -4,10 +4,11 @@ import Header from '../../partials/Header';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from 'react-hook-form';
-import { useCreateTopic } from '../../hooks/research';
+import { useCreateTopic } from '../../hooks/topic';
 import { useDepartmentList } from '../../hooks/departments';
 import Select from 'react-select';
 import { useNavigate } from 'react-router-dom';
+
 const role = [
   {
     label: "Chủ trì",
@@ -49,8 +50,9 @@ const level = [
     label: "Nhà nước",
     value: 3
   },
-]
+];
 function Dashboard() {
+
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { mutate,
@@ -68,10 +70,10 @@ function Dashboard() {
 
   const schema = yup.object().shape({
     name: yup.string().trim().required('Vui lòng nhập tên đề tài/dự án'),
-    number_person: yup.string().trim().required('Vui lòng nhập số người tham gia'),
-    code: yup.string().required('Vui lòng nhập mã đè tài/dự án.').min(4, "Mã dự án không được nhỏ hơn 4 kí tự."),
-    num_person: yup.number(),
+    code: yup.string().required('Vui lòng nhập mã đề tài/dự án').min(4, "Mã đề tài/dự án không được nhỏ hơn 4 kí tự."),
     endDate: yup.date(),
+    startDate: yup.date(),
+    num_person: yup.number()
   })
 
   const {
@@ -86,16 +88,19 @@ function Dashboard() {
     defaultValues: {
       name: '',
       code: '',
-      level: '',
+      level:'',
       endDate: '',
       result: '',
       num_person: '',
+      startDate:'',
+      acceptDate:'',
+      role: '',
       type: 1,
     }
   })
 
   useEffect(() => {
-    console.log(dataCreate);
+    console.log("dataCreate");
     if (dataCreate) {
       navigate('/ResearchList');
     }
@@ -103,7 +108,10 @@ function Dashboard() {
 
   return (
     <div className="flex h-screen overflow-hidden">
+
+      {/* Sidebar */}
       <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+
       {/* Content area */}
       <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
 
@@ -112,17 +120,18 @@ function Dashboard() {
 
         <main className='bg-white w-9/12 mx-auto p-8 shadow-md my-4'>
           <div className='py-5 mb-4 w-auto text-center'><span className='p-3 rounded-lg bg-slate-800 border
-           text-white hover:text-slate-800 hover:bg-white hover:border-slate-800'>Thêm nghiên cứu khoa học</span></div>
+           text-white hover:text-slate-800 hover:bg-white hover:border-slate-800'> Thêm nghiên cứu khoa học</span></div>
           <div className="w-full">
             <div className="border-b border-gray-900/10 pb-12">
-            <form
-                name='add-topic'
+              <form
+                name='add-scientific-articles'
                 onSubmit={handleSubmit((values) => {
+                  console.log(values);
                   mutate(values)
                 })}
               >
                 <div className="col-span-full mb-2.5">
-                  <label htmlFor="code" className="block text-sm font-medium leading-6 text-gray-900">Mã Dự án</label>
+                  <label htmlFor="code" className="block text-sm font-medium leading-6 text-gray-900">Mã đề tài/dự án</label>
                   <div className="mt-2">
                     <input
                       type="text"
@@ -136,7 +145,7 @@ function Dashboard() {
                   </div>
                 </div>
                 <div className="col-span-full mb-2.5">
-                  <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">Tên đề tài / dự án</label>
+                  <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">Tên đề tài/dự án</label>
                   <div className="mt-2">
                     <input
                       type="text"
@@ -149,29 +158,6 @@ function Dashboard() {
                     {errors.name && <p className="text-red-500">{errors.name.message}</p>}
                   </div>
                 </div>
-                <div className="col-span-full mb-2.5">
-                  <label htmlFor="level" className="block text-sm font-medium leading-6 text-gray-900">Cấp đê tài</label>
-                  <div className="mt-2">
-                    <Controller
-                      control={control}
-                      name="level"
-                      render={({ field: { value, onChange, ref } }) => (
-                        <Select
-                          options={level}
-                          name="level"
-                          id="level"
-                          placeholder="Lựa chọn"
-                          {...register('level')}
-                          onChange={(val) => {
-                            onChange(val);
-                            setValue("level", val.id);
-                          }}
-                        />
-                      )}
-                    />
-                    {errors.level && <p className="text-red-500">{errors.level.message}</p>}
-                  </div>
-                </div>      
                 <div className="col-span-full mb-2.5">
                   <label htmlFor="startDate" className="block text-sm font-medium leading-6 text-gray-900">Ngày bắt đầu</label>
                   <div className="mt-2">
@@ -219,7 +205,7 @@ function Dashboard() {
 Số người tham gia</label>
                   <div className="mt-2">
                     <input
-                      type="text"
+                      type="number"
                       name="num_person"
                       id="num_person"
                       autoComplete="num_person"
@@ -253,7 +239,7 @@ Số người tham gia</label>
                   </div>
                 </div> 
                 <div className="col-span-full mb-2.5">
-                  <label htmlFor="result" className="block text-sm font-medium leading-6 text-gray-900">Kết quả đạt được</label>
+                  <label htmlFor="result" className="block text-sm font-medium leading-6 text-gray-900">Kết quả</label>
                   <div className="mt-2">
                     <Controller
                       control={control}
@@ -281,8 +267,8 @@ Số người tham gia</label>
                   focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Lưu</button>
                 </div>
               </form>
-              </div>
-              </div>
+            </div>
+          </div>
         </main>
       </div>
     </div>

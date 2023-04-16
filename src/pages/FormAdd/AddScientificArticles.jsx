@@ -19,7 +19,7 @@ const role = [
     value: 3
   },
 ];
-const type = [
+const type_article = [
   {
     label: "Tạp chí",
     value: 4
@@ -65,7 +65,7 @@ function Dashboard() {
     mode: "onChange",
     defaultValues: {
       name: '',
-      type: '',
+      type_article: '',
       code: '',
       index_article: '',
       total_time: '',
@@ -135,26 +135,26 @@ function Dashboard() {
                   </div>
                 </div>
                 <div className="col-span-full mb-2.5">
-                  <label htmlFor="type" className="block text-sm font-medium leading-6 text-gray-900">Thể loại</label>
+                  <label htmlFor="type_article" className="block text-sm font-medium leading-6 text-gray-900">Thể loại</label>
                   <div className="mt-2">
                     <Controller
                       control={control}
-                      name="type"
+                      name="type_article"
                       render={({ field: { value, onChange, ref } }) => (
                         <Select
-                          options={type}
-                          name="type"
-                          id="type"
+                          options={type_article}
+                          name="type_article"
+                          id="type_article"
                           placeholder="Lựa chọn"
-                          {...register('type')}
+                          {...register('type_article')}
                           onChange={(val) => {
                             onChange(val);
-                            setValue("type", val.id);
+                            setValue("type_article", val.id);
                           }}
                         />
                       )}
                     />
-                    {errors.type && <p className="text-red-500">{errors.type.message}</p>}
+                    {errors.type_article && <p className="text-red-500">{errors.type_article.message}</p>}
                   </div>
                 </div>
                 <div className="col-span-full mb-2.5">
@@ -212,7 +212,7 @@ function Dashboard() {
                   <label htmlFor="total_time" className="block text-sm font-medium leading-6 text-gray-900">Tổng thời gian</label>
                   <div className="mt-2">
                     <input
-                      type="text"
+                      type="number"
                       name="total_time"
                       id="total_time"
                       autoComplete="total_time"

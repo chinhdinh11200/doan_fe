@@ -3,7 +3,7 @@ import Sidebar from '../partials/Sidebar';
 import Header from '../partials/Header';
 import { NavLink } from 'react-router-dom';
 import FilterButton from '../partials/actions/FilterButton';
-import { useTopicDelete, useTopicDetail, useTopicList } from '../hooks/research';
+import { useTopicDelete, useTopicDetail, useTopicList } from '../hooks/topic';
 import Loading from '../components/Loading';
 import { Button, Modal, Space, Table, Tooltip } from 'antd';
 import { BiEdit, BiTrash } from 'react-icons/bi';
