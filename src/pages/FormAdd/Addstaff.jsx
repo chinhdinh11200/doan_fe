@@ -18,14 +18,13 @@ function Dashboard() {
     isLoading,
     error,
     data: dataCreate } = useCreateStaff();
-  const { data: departments } = useDepartmentList();
-  departments?.data?.map(department => {
+    const { data: { data: departments = [], total } = { }, isLoading : isLoadingDepartment } = useDepartmentList();
+    departments?.map(department => {
     department.label = department.name
     department.value = department.id
 
     return department;
   })
-
   const schema = yup.object().shape({
     name: yup.string().trim().required('Vui lòng nhập tên nhân viên').max(191, 'Tên không dài quá 191 kí tự'),
     email: yup.string().trim().required('Vui lòng nhập email').matches(
@@ -60,7 +59,7 @@ function Dashboard() {
 
   useEffect(() => {
     console.log(dataCreate);
-    if (dataCreate) {
+    if (dataCreate?.data.success) {
       navigate('/ListStaff');
     }
   }, [isSuccess]);
@@ -111,7 +110,7 @@ function Dashboard() {
                       name="category_id"
                       render={({ field: { value, onChange, ref } }) => (
                         <Select
-                          options={departments?.data}
+                          options={departments}
                           name="department_id"
                           id="department_id"
                           placeholder="Lựa chọn"
@@ -187,7 +186,7 @@ function Dashboard() {
                   <label htmlFor="number_salary" className="block text-sm font-medium leading-6 text-gray-900">Hệ số lương</label>
                   <div className="mt-2">
                     <input
-                      type="text"
+                      type="number"
                       name="number_salary"
                       id="number_salary"
                       autoComplete="number_salary"

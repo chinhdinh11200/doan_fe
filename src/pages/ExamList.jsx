@@ -4,7 +4,7 @@ import Sidebar from '../partials/Sidebar';
 import Header from '../partials/Header';
 import FilterButton from '../partials/actions/FilterButton';
 import { FORM_EXAM, PAGE_SIZE } from '../constants';
-import { useExamDelete, useExamList } from '../hooks/exams';
+import { useExamDelete, useExamList } from '../hooks/exam';
 import { Button, Modal, Space, Table, Tooltip } from 'antd';
 import Loading from '../components/Loading';
 function ExamList() {

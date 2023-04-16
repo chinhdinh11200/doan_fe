@@ -76,8 +76,7 @@ function Dashboard() {
   })
 
   useEffect(() => {
-    console.log(dataCreate);
-    if (dataCreate) {
+    if (dataCreate?.data.success) {
       navigate('/scientific-article-list');
     }
   }, [isSuccess]);

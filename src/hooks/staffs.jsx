@@ -2,11 +2,16 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { STAFF_DETAIL, STAFF_LIST } from '../constants/QueryKey';
 import axios from '../config/axios';
 import API from '../constants/api';
+import { PAGE_SIZE } from '../constants';
 
 export const useStaffList = (tableParams) => {
-    const { sort = "desc", sortColumn = "id" } = tableParams.sorter;
-    const { pageSize: limit = PAGE_SIZE, current: page = 1 } =
-        tableParams.pagination;
+    var sort, sortColumn, limit, page;
+    if (tableParams !== undefined) {
+        sort = tableParams.sorter?.sort || 'desc'
+        sortColumn = tableParams.sorter?.sortColumn || 'id'
+        limit = tableParams.sorter?.pageSize || PAGE_SIZE
+        page = tableParams.sorter?.current || 1
+    }
 
     return useQuery([STAFF_LIST, sort, sortColumn, limit, page], async () => {
         const { data, headers } = await axios.get(

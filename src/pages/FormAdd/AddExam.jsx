@@ -10,7 +10,7 @@ import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useSubjectAll, useSubjectList } from '../../hooks/subject';
 import { useStaffList } from '../../hooks/staffs';
 import { FORM_EXAM, SEMESTER, TYPE_EXAM } from '../../constants';
-import { useCreateExam, useExamDetail, useUpdateExam } from '../../hooks/exams';
+import { useCreateExam, useExamDetail, useUpdateExam } from '../../hooks/exam';
 
 function AddExam() {
   const currentLocation = useLocation();

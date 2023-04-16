@@ -7,7 +7,8 @@ import { Controller, useForm } from 'react-hook-form';
 import { useCreateTopic } from '../../hooks/topic';
 import { useDepartmentList } from '../../hooks/departments';
 import Select from 'react-select';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useStaffList } from '../../hooks/staffs';
 
 const role = [
   {
@@ -60,6 +61,13 @@ function Dashboard() {
     isLoading,
     error,
     data: dataCreate } = useCreateTopic();
+  const { data: { data: staffs = [] } = {}, isLoading: isLoadingStaff } = useStaffList();
+  staffs?.map(staff => {
+    staff.label = staff.name
+    staff.value = staff.id
+
+    return staff;
+  })
   const { data: departments } = useDepartmentList();
   departments?.data?.map(department => {
     department.label = department.name
@@ -69,11 +77,11 @@ function Dashboard() {
   })
 
   const schema = yup.object().shape({
-    name: yup.string().trim().required('Vui lòng nhập tên đề tài/dự án'),
-    code: yup.string().required('Vui lòng nhập mã đề tài/dự án').min(4, "Mã đề tài/dự án không được nhỏ hơn 4 kí tự."),
-    endDate: yup.date(),
-    startDate: yup.date(),
-    num_person: yup.number()
+    // name: yup.string().trim().required('Vui lòng nhập tên đề tài/dự án'),
+    // code: yup.string().required('Vui lòng nhập mã đề tài/dự án').min(4, "Mã đề tài/dự án không được nhỏ hơn 4 kí tự."),
+    // endDate: yup.date(),
+    // startDate: yup.date(),
+    // num_person: yup.number()
   })
 
   const {
@@ -88,12 +96,12 @@ function Dashboard() {
     defaultValues: {
       name: '',
       code: '',
-      level:'',
+      level: '',
       endDate: '',
       result: '',
       num_person: '',
-      startDate:'',
-      acceptDate:'',
+      startDate: '',
+      acceptDate: '',
       role: '',
       type: 1,
     }
@@ -124,10 +132,10 @@ function Dashboard() {
           <div className="w-full">
             <div className="border-b border-gray-900/10 pb-12">
               <form
-                name='add-scientific-articles'
+                name='add-topic'
                 onSubmit={handleSubmit((values) => {
-                  console.log(values);
                   mutate(values)
+                  console.log(values)
                 })}
               >
                 <div className="col-span-full mb-2.5">
@@ -156,6 +164,30 @@ function Dashboard() {
                       {...register('name', { required: true })}
                     />
                     {errors.name && <p className="text-red-500">{errors.name.message}</p>}
+                  </div>
+                </div>
+                <div className="col-span-full mb-2.5">
+                  <label htmlFor="level" className="block text-sm font-medium leading-6 text-gray-900">Cấp đê tài</label>
+                  <div className="mt-2">
+                    <Controller
+                      control={control}
+                      name="levelSelect"
+                      render={({ field: { value, onChange, ref } }) => (
+                        <Select
+                          options={level}
+                          name="level"
+                          id="level"
+                          placeholder="Lựa chọn"
+                          {...register('level')}
+                          onChange={(val) => {
+                            onChange(val);
+                            console.log(val.value)
+                            setValue("level", val.value);
+                          }}
+                        />
+                      )}
+                    />
+                    {errors.level && <p className="text-red-500">{errors.level.message}</p>}
                   </div>
                 </div>
                 <div className="col-span-full mb-2.5">
@@ -202,7 +234,7 @@ function Dashboard() {
                 </div>
                 <div className="col-span-full mb-2.5">
                   <label htmlFor="num_person" className="block text-sm font-medium leading-6 text-gray-900">
-Số người tham gia</label>
+                    Số người tham gia</label>
                   <div className="mt-2">
                     <input
                       type="number"
@@ -223,27 +255,28 @@ Số người tham gia</label>
                       name="role"
                       render={({ field: { value, onChange, ref } }) => (
                         <Select
-                          options={role}
+                          options={staffs}
                           name="role"
+                          isMulti
                           id="role"
                           placeholder="Lựa chọn"
                           {...register('role')}
                           onChange={(val) => {
-                            onChange(val);
-                            setValue("role", val.id);
+                            let rol = val.map(item => item.value).join(',')
+                            setValue('role', rol)
                           }}
                         />
                       )}
                     />
                     {errors.role && <p className="text-red-500">{errors.role.message}</p>}
                   </div>
-                </div> 
+                </div>
                 <div className="col-span-full mb-2.5">
                   <label htmlFor="result" className="block text-sm font-medium leading-6 text-gray-900">Kết quả</label>
                   <div className="mt-2">
                     <Controller
                       control={control}
-                      name="result"
+                      name="resultSelect"
                       render={({ field: { value, onChange, ref } }) => (
                         <Select
                           options={result}
@@ -253,14 +286,14 @@ Số người tham gia</label>
                           {...register('result')}
                           onChange={(val) => {
                             onChange(val);
-                            setValue("result", val.id);
+                            setValue("result", val.value);
                           }}
                         />
                       )}
                     />
                     {errors.result && <p className="text-red-500">{errors.result.message}</p>}
                   </div>
-                </div>             
+                </div>
                 <div className="mt-6 flex items-center justify-end gap-x-6">
                   <button type="button" className="text-sm font-semibold leading-6 text-gray-900 hover:underline">Hủy</button>
                   <button type="submit" className="rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 
