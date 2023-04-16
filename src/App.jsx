@@ -75,7 +75,7 @@ function App() {
         <Route path="/addteaching" element={<AddTeaching/>}/>
         <Route path="/add-term-exam" element={<AddTermExam/>}/>
         <Route path="/add-research" element={<AddResearch/>}/>
-        <Route path="/add-scientific-articles" element={<AddScientificArticles/>}/>
+        <Route path="/add-article" element={<AddScientificArticles/>}/>
         <Route path="/add-thesis" element={<AddThesis/>}/>
         <Route path="/add-book" element={<AddTextBook/>}/>
         <Route path="/add-instructions" element={<AddInstruction/>}/>
