@@ -138,7 +138,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                     <React.Fragment>
                       <NavLink
                         end
-                        to="/ListStaff"
+                        to="/list-staff"
                         className={`block text-slate-200 truncate transition duration-150 ${pathname.includes('community') ? 'hover:text-slate-200' : 'hover:text-white'
                           }`}
 
@@ -213,7 +213,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
-                              to="/AllTeaching"
+                              to="/list-teach"
                               className={({ isActive }) =>
                                 'block transition duration-150 truncate ' + (isActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200')
                               }
@@ -226,7 +226,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
-                              to="/ListSubject"
+                              to="/list-subject"
                               className={({ isActive }) =>
                                 'block transition duration-150 truncate ' + (isActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200')
                               }
@@ -239,7 +239,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
-                              to="/ListClass"
+                              to="/list-class"
                               className={({ isActive }) =>
                                 'block transition duration-150 truncate ' + (isActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200')
                               }
@@ -252,7 +252,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
-                              to="/ListExam"
+                              to="/list-exam"
                               className={({ isActive }) =>
                                 'block transition duration-150 truncate ' + (isActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200')
                               }
@@ -265,7 +265,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
-                              to="/ListRoom"
+                              to="/list-room"
                               className={({ isActive }) =>
                                 'block transition duration-150 truncate ' + (isActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200')
                               }
@@ -278,7 +278,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
-                              to="/addteaching"
+                              to="/add-teaching"
                               className={({ isActive }) =>
                                 'block transition duration-150 truncate ' + (isActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200')
                               }
@@ -301,7 +301,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                   return (
                     <React.Fragment>
                       <Link
-                        href="/CourseList"
+                        href="/list-course"
                         className={`block text-slate-200 truncate transition duration-150 ${pathname.includes('job') ? 'hover:text-slate-200' : 'hover:text-white'
                           }`}
                         onClick={(e) => {
@@ -342,7 +342,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
-                              to="/CourseList"
+                              to="/list-course"
                               className={({ isActive }) =>
                                 'block transition duration-150 truncate ' + (isActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200')
                               }
@@ -355,7 +355,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
-                              to="/CourseList"
+                              to="/list-course"
                               className={({ isActive }) =>
                                 'block transition duration-150 truncate ' + (isActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200')
                               }
@@ -391,7 +391,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                   return (
                     <React.Fragment>
                       <Link
-                        href="/thesis-list"
+                        href="/list-thesis"
                         className={`block text-slate-200 truncate transition duration-150 ${pathname.includes('tasks') ? 'hover:text-slate-200' : 'hover:text-white'
                           }`}
                         onClick={(e) => {
@@ -432,7 +432,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
-                              to="/thesis-list"
+                              to="/list-thesis"
                               className={({ isActive }) =>
                                 'block transition duration-150 truncate ' + (isActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200')
                               }
@@ -501,7 +501,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
-                              to="/ResearchList"
+                              to="/list-research"
                               className={({ isActive }) =>
                                 'block transition duration-150 truncate ' + (isActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200')
                               }

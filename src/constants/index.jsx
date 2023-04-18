@@ -19,6 +19,21 @@ export const FORM_EXAM = [
   },
 ]
 
+export const POSITION_STAFF = [
+  {
+    value: 1,
+    label: 'Trưởng Khoa'
+  },
+  {
+    value: 2,
+    label: 'Phó Khoa'
+  },
+  {
+    value: 2,
+    label: 'Giảng viên'
+  },
+]
+
 export const TYPE_EXAM = [
   {
     value: 1,

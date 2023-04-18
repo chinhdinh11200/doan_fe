@@ -65,15 +65,15 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route exact path="/" element={<LoginPage />} />
         <Route path="/forgotpassword" element={<ForgotPassPage />} />
-        <Route path="/ListStaff" element={<StaffList />} />
-        <Route path="/ListClass" element={<ClassList />} />
-        <Route path="/ListSubject" element={<SubjectList />} />
-        <Route path="/ListExam" element={<ExamList />} />
-        <Route path="/ListRoom" element={<RoomList />} />
-        <Route path="/AllTeaching" element={<AllTeaching />} />
-        <Route path="/CourseList" element={<CourseList />} />
-        <Route path="/thesis-list" element={<ThesisList />} />
-        <Route path="/ResearchList" element={<ResearchList />} />
+        <Route path="/list-staff" element={<StaffList />} />
+        <Route path="/list-class" element={<ClassList />} />
+        <Route path="/list-subject" element={<SubjectList />} />
+        <Route path="/list-exam" element={<ExamList />} />
+        <Route path="/list-room" element={<RoomList />} />
+        <Route path="/list-teach" element={<AllTeaching />} />
+        <Route path="/list-course" element={<CourseList />} />
+        <Route path="/list-thesis" element={<ThesisList />} />
+        <Route path="/list-research" element={<ResearchList />} />
         <Route path="/scientific-article-list" element={<ScientificArticles />} />
         <Route path="/book-list" element={<TextBook />} />
         <Route path="/invention-list" element={<LicenseInvention />} />
@@ -83,12 +83,12 @@ function App() {
         <Route path="/personal-infor" element={<EditAccount />} />
         <Route path="/ecommerce/customers" element={<Test />} />
         <Route path="/material-compilation-list" element={<FormAddMaterialCompilation />} />
-        <Route path="/addstaff" element={<AddStaff />} />
+        <Route path="/add-staff" element={<AddStaff />} />
         <Route path="/add-class" element={<AddClass />} />
         <Route path="/add-subject" element={<AddSubject />} />
         <Route path="/add-exam" element={<AddExam />} />
         <Route path="/add-room" element={<AddRoom />} />
-        <Route path="/addteaching" element={<AddTeaching />} />
+        <Route path="/add-teaching" element={<AddTeaching />} />
         <Route path="/add-term-exam" element={<AddTermExam />} />
         <Route path="/add-research" element={<AddResearch />} />
         <Route path="/add-scientific-articles" element={<AddScientificArticles />} />
@@ -101,6 +101,7 @@ function App() {
         <Route path="/edit-class" element={<AddClass />} />
         <Route path="/edit-exam" element={<AddExam />} />
         <Route path="/edit-room" element={<AddRoom />} />
+        <Route path="/edit-staff" element={<AddStaff />} />
       </Routes>
     </>
   );

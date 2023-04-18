@@ -66,3 +66,17 @@ export const useCreateStaff = () => {
         }
     );
 };
+
+export const useUpdateStaff = (staffId) => {
+    const queryClient = useQueryClient();
+    return useMutation(
+        async (data) => {
+            return await axios.put(`${API.API_ROOT}${API.STAFF.UPDATE}`.replace(':id', staffId), data);
+        },
+        {
+            onSuccess: () => {
+                queryClient.invalidateQueries(STAFF_LIST);
+            },
+        }
+    );
+};
