@@ -7,18 +7,9 @@ import { Controller, useForm } from 'react-hook-form';
 import { useCreateArticle } from '../../hooks/articles';
 import { useDepartmentList } from '../../hooks/departments';
 import Select from 'react-select';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useStaffList } from '../../hooks/staffs';
 
-const role = [
-  {
-    label: "Tác giả chính",
-    value: 1
-  },
-  {
-    label: "Thành viên",
-    value: 3
-  },
-];
 const type_article = [
   {
     label: "Tạp chí",
@@ -38,6 +29,13 @@ function Dashboard() {
     isLoading,
     error,
     data: dataCreate } = useCreateArticle();
+    const { data: { data: staffs = [] } = {}, isLoading: isLoadingStaff } = useStaffList();
+    staffs?.map(staff => {
+      staff.label = staff.name
+      staff.value = staff.id
+  
+      return staff;
+    })
   const { data: departments } = useDepartmentList();
   departments?.data?.map(department => {
     department.label = department.name
@@ -45,13 +43,12 @@ function Dashboard() {
 
     return department;
   })
-
   const schema = yup.object().shape({
-    name: yup.string().trim().required('Vui lòng nhập tên bài báo'),
-    code: yup.string().required('Vui lòng nhập mã bài báo').min(4, "Mã bài báo không được nhỏ hơn 4 kí tự."),
-    index_article: yup.string(),
-    total_time: yup.number(),
-    num_person: yup.number()
+    // name: yup.string().trim().required('Vui lòng nhập tên bài báo'),
+    // code: yup.string().required('Vui lòng nhập mã bài báo').min(4, "Mã bài báo không được nhỏ hơn 4 kí tự."),
+    // index_article: yup.string(),
+    // total_time: yup.number(),
+    // num_person: yup.number()
   })
 
   const {
@@ -138,7 +135,7 @@ function Dashboard() {
                   <div className="mt-2">
                     <Controller
                       control={control}
-                      name="type_article"
+                      name="typeArticle"
                       render={({ field: { value, onChange, ref } }) => (
                         <Select
                           options={type_article}
@@ -156,20 +153,7 @@ function Dashboard() {
                     {errors.type_article && <p className="text-red-500">{errors.type_article.message}</p>}
                   </div>
                 </div>
-                <div className="col-span-full mb-2.5">
-                  <label htmlFor="num_person" className="block text-sm font-medium leading-6 text-gray-900">Số người tham gia</label>
-                  <div className="mt-2">
-                    <input
-                      type="text"
-                      name="num_person"
-                      id="num_person"
-                      autoComplete="num_person"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      {...register('num_person', { required: true })}
-                    />
-                    {errors.num_person && <p className="text-red-500">{errors.num_person.message}</p>}
-                  </div>
-                </div>
+               
                 <div className="col-span-full mb-2.5">
                   <label htmlFor="role" className="block text-sm font-medium leading-6 text-gray-900">Vai trò</label>
                   <div className="mt-2">
@@ -178,14 +162,15 @@ function Dashboard() {
                       name="role"
                       render={({ field: { value, onChange, ref } }) => (
                         <Select
-                          options={role}
+                          options={staffs}
                           name="role"
                           id="role"
+                          isMulti
                           placeholder="Lựa chọn"
                           {...register('role')}
                           onChange={(val) => {
-                            onChange(val);
-                            setValue("role", val.id);
+                            let rol = val.map(item => item.value).join(',')
+                            setValue('role', rol);
                           }}
                         />
                       )}

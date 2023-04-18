@@ -91,7 +91,7 @@ function FormCreate() {
             mutate(values)
           })}
         >
-          <div className="col-span-full">
+          <div className="col-span-full mb-2">
             <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">Tên môn học</label>
             <div className="mt-2">
               <input
@@ -105,7 +105,7 @@ function FormCreate() {
               {errors.name && <p className="text-red-500">{errors.name.message}</p>}
             </div>
           </div>
-          <div className="col-span-full">
+          <div className="col-span-full mb-2">
             <label htmlFor="code" className="block text-sm font-medium leading-6 text-gray-900">Mã môn học</label>
             <div className="mt-2">
               <input
@@ -119,7 +119,7 @@ function FormCreate() {
               {errors.code && <p className="text-red-500">{errors.code.message}</p>}
             </div>
           </div>
-          {/* <div className="col-span-full">
+          {/* <div className="col-span-full mb-2">
             <label htmlFor="form_exam" className="block text-sm font-medium leading-6 text-gray-900">Hình thức thi</label>
             <div className="mt-2">
               <Controller
@@ -224,7 +224,7 @@ function FormEdit({subjectId}) {
             mutate(values)
           })}
         >
-          <div className="col-span-full">
+          <div className="col-span-full mb-2">
             <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">Tên môn học</label>
             <div className="mt-2">
               <input
@@ -238,7 +238,7 @@ function FormEdit({subjectId}) {
               {errors.name && <p className="text-red-500">{errors.name.message}</p>}
             </div>
           </div>
-          <div className="col-span-full">
+          <div className="col-span-full mb-2">
             <label htmlFor="code" className="block text-sm font-medium leading-6 text-gray-900">Mã môn học</label>
             <div className="mt-2">
               <input
@@ -252,7 +252,7 @@ function FormEdit({subjectId}) {
               {errors.code && <p className="text-red-500">{errors.code.message}</p>}
             </div>
           </div>
-          <div className="col-span-full">
+          <div className="col-span-full mb-2">
             <label htmlFor="form_exam" className="block text-sm font-medium leading-6 text-gray-900">Hình thức thi</label>
             <div className="mt-2">
               {/* <Controller

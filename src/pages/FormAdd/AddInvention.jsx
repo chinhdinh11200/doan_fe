@@ -7,7 +7,8 @@ import { Controller, useForm } from 'react-hook-form';
 import { useCreateInventions } from '../../hooks/inventions';
 import { useDepartmentList } from '../../hooks/departments';
 import Select from 'react-select';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useStaffList } from '../../hooks/staffs';
 
 const role = [
   {
@@ -29,6 +30,13 @@ function Dashboard() {
     isLoading,
     error,
     data: dataCreate } = useCreateInventions();
+    const { data: { data: staffs = [] } = {}, isLoading: isLoadingStaff } = useStaffList();
+    staffs?.map(staff => {
+      staff.label = staff.name
+      staff.value = staff.id
+  
+      return staff;
+    })
   const { data: departments } = useDepartmentList();
   departments?.data?.map(department => {
     department.label = department.name
@@ -38,12 +46,12 @@ function Dashboard() {
   })
 
   const schema = yup.object().shape({
-    name: yup.string().trim().required('Vui lòng nhập tên bẳng sáng chế/giải thưởng'),
-    code: yup.string().required('Vui lòng nhập mã tên bẳng sáng chế/giải thưởng').min(4, "Mã tên bẳng sáng chế/giải thưởng không được nhỏ hơn 4 kí tự."),
-    num_person: yup.number(),
-    // department_id: yup.string().required('Trường phòng ban là bắt buộc.'),
-    date_recognition: yup.date(),
-    number_recognition: yup.string(),
+    // name: yup.string().trim().required('Vui lòng nhập tên bẳng sáng chế/giải thưởng'),
+    // code: yup.string().required('Vui lòng nhập mã tên bẳng sáng chế/giải thưởng').min(4, "Mã tên bẳng sáng chế/giải thưởng không được nhỏ hơn 4 kí tự."),
+    // num_person: yup.number(),
+    // // department_id: yup.string().required('Trường phòng ban là bắt buộc.'),
+    // date_recognition: yup.date(),
+    // number_recognition: yup.string(),
   })
 
   const {
@@ -124,20 +132,7 @@ function Dashboard() {
                     {errors.name && <p className="text-red-500">{errors.name.message}</p>}
                   </div>
                 </div>
-                <div className="col-span-full mb-2.5">
-                  <label htmlFor="num_person" className="block text-sm font-medium leading-6 text-gray-900">Số người tham gia</label>
-                  <div className="mt-2">
-                    <input
-                      type="number"
-                      name="num_person"
-                      id="num_person"
-                      autoComplete="num_person"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      {...register('num_person', { required: true })}
-                    />
-                    {errors.num_person && <p className="text-red-500">{errors.num_person.message}</p>}
-                  </div>
-                </div>
+               
                 <div className="col-span-full mb-2.5">
                   <label htmlFor="role" className="block text-sm font-medium leading-6 text-gray-900">Vai trò</label>
                   <div className="mt-2">
@@ -146,14 +141,15 @@ function Dashboard() {
                       name="role"
                       render={({ field: { value, onChange, ref } }) => (
                         <Select
-                          options={role}
+                          options={staffs}
                           name="role"
                           id="role"
                           placeholder="Lựa chọn"
                           {...register('role')}
+                          isMulti
                           onChange={(val) => {
-                            onChange(val);
-                            setValue("role", val.id);
+                            let rol = val.map(item => item.value).join(',')
+                            setValue('role', rol);
                           }}
                         />
                       )}

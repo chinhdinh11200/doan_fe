@@ -22,7 +22,7 @@ function Dashboard() {
            text-white hover:text-slate-800 hover:bg-white hover:border-slate-800'>Thêm đánh giá học phần</span></div>
           <div className="w-full">
             <div className="border-b border-gray-900/10 pb-12">
-            <div className="col-span-full my-3">
+            <div className="col-span-full mb-2 my-3">
                 <label for="CountPerson" className="block text-sm font-medium leading-6 text-gray-900 capitalize">Chọn loại hình</label>
                 <div className="mt-2">
                 <select className="block w-full
@@ -32,7 +32,7 @@ function Dashboard() {
                 </select>
                 </div>
               </div>
-            <div className="col-span-full my-3">
+            <div className="col-span-full mb-2 my-3">
                 <label for="CountPerson" className="block text-sm font-medium leading-6 text-gray-900 capitalize">Chọn học kì</label>
                 <div className="mt-2">
                 <select className="block w-full
@@ -65,28 +65,28 @@ function Dashboard() {
                   </div>
                 </div>
               </fieldset>
-              <div className="col-span-full my-3">
+              <div className="col-span-full mb-2 my-3">
                 <label for="CountPerson" className="block text-sm font-medium leading-6 text-gray-900 capitalize">Tên học phần</label>
                 <div className="mt-2">
                   <input type="number" name="CountPerson" id="CountPerson" autocomplete="CountPerson" className="block w-full
              rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                 </div>
               </div>
-              <div className="col-span-full my-3">
+              <div className="col-span-full mb-2 my-3">
                 <label for="name" className="block text-sm font-medium leading-6 text-gray-900 capitalize">số sinh viên</label>
                 <div className="mt-2">
                   <input type="text" name="name" id="name" autocomplete="name" className="block w-full
              rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                 </div>
               </div>
-              <div className="col-span-full my-3">
+              <div className="col-span-full mb-2 my-3">
                 <label for="course" className="block text-sm font-medium leading-6 text-gray-900 capitalize">Lớp học phần</label>
                 <div className="mt-2">
                   <input type="text" name="course" id="course" autocomplete="course" className="block w-full
              rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                 </div>
               </div>
-              <div className="col-span-full my-3">
+              <div className="col-span-full mb-2 my-3">
                 <label for="numberDecide" className="block text-sm font-medium leading-6 text-gray-900 capitalize">số đề</label>
                 <div className="mt-2">
                   <input type="text" name="numberDecide" id="numberDecide" autocomplete="numberDecide" className="block w-full

@@ -95,7 +95,7 @@ const FormCreate = () => {
             console.log(values)
           })}
         >
-          <div className="col-span-full">
+          <div className="col-span-full mb-2">
             <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">Tên đề thi</label>
             <div className="mt-2">
               <input
@@ -109,7 +109,7 @@ const FormCreate = () => {
               {errors.name && <p className="text-red-500">{errors.name.message}</p>}
             </div>
           </div>
-          <div className="col-span-full">
+          <div className="col-span-full mb-2">
             <label htmlFor="code" className="block text-sm font-medium leading-6 text-gray-900">Mã đề thi</label>
             <div className="mt-2">
               <input
@@ -123,7 +123,7 @@ const FormCreate = () => {
               {errors.code && <p className="text-red-500">{errors.code.message}</p>}
             </div>
           </div>
-          <div className="col-span-full">
+          <div className="col-span-full mb-2">
             <label htmlFor="subject_id" className="block text-sm font-medium leading-6 text-gray-900">Môn thi</label>
             <div className="mt-2">
               <Controller
@@ -146,7 +146,7 @@ const FormCreate = () => {
               {errors.subject_id && <p className="text-red-500">{errors.subject_id.message}</p>}
             </div>
           </div>
-          <div className="col-span-full">
+          <div className="col-span-full mb-2">
             <label htmlFor="user_id" className="block text-sm font-medium leading-6 text-gray-900">Người ra đề</label>
             <div className="mt-2">
               <Controller
@@ -169,7 +169,7 @@ const FormCreate = () => {
               {errors.user_id && <p className="text-red-500">{errors.user_id.message}</p>}
             </div>
           </div>
-          <div className="col-span-full">
+          <div className="col-span-full mb-2">
             <label htmlFor="type" className="block text-sm font-medium leading-6 text-gray-900">Loai đề thi</label>
             <div className="mt-2">
               <Controller
@@ -192,7 +192,7 @@ const FormCreate = () => {
               {errors.type && <p className="text-red-500">{errors.type.message}</p>}
             </div>
           </div>
-          <div className="col-span-full">
+          <div className="col-span-full mb-2">
             <label htmlFor="form_exam" className="block text-sm font-medium leading-6 text-gray-900">Hình thức thi</label>
             <div className="mt-2">
               <Controller
@@ -215,7 +215,7 @@ const FormCreate = () => {
               {errors.form_exam && <p className="text-red-500">{errors.form_exam.message}</p>}
             </div>
           </div>
-          <div className="col-span-full">
+          <div className="col-span-full mb-2">
             <label htmlFor="number_question" className="block text-sm font-medium leading-6 text-gray-900">Số câu hỏi</label>
             <div className="mt-2">
               <input
@@ -229,7 +229,7 @@ const FormCreate = () => {
               {errors.number_question && <p className="text-red-500">{errors.number_question.message}</p>}
             </div>
           </div>
-          <div className="col-span-full">
+          <div className="col-span-full mb-2">
             <label htmlFor="num_code" className="block text-sm font-medium leading-6 text-gray-900">Số mã đề</label>
             <div className="mt-2">
               <input
@@ -243,7 +243,7 @@ const FormCreate = () => {
               {errors.num_code && <p className="text-red-500">{errors.num_code.message}</p>}
             </div>
           </div>
-          <div className="col-span-full">
+          <div className="col-span-full mb-2">
             <label htmlFor="time_work" className="block text-sm font-medium leading-6 text-gray-900">Thời gian làm bài</label>
             <div className="mt-2">
               <input
@@ -257,7 +257,7 @@ const FormCreate = () => {
               {errors.time_work && <p className="text-red-500">{errors.time_work.message}</p>}
             </div>
           </div>
-          <div className="col-span-full">
+          <div className="col-span-full mb-2">
             <label htmlFor="semester_id" className="block text-sm font-medium leading-6 text-gray-900">Kì học</label>
             <div className="mt-2">
               <Controller
@@ -357,7 +357,7 @@ const FormEdit = ({ examId }) => {
             mutate(values)
           })}
         >
-          <div className="col-span-full">
+          <div className="col-span-full mb-2">
             <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">Tên đề thi</label>
             <div className="mt-2">
               <input
@@ -371,7 +371,7 @@ const FormEdit = ({ examId }) => {
               {errors.name && <p className="text-red-500">{errors.name.message}</p>}
             </div>
           </div>
-          <div className="col-span-full">
+          <div className="col-span-full mb-2">
             <label htmlFor="code" className="block text-sm font-medium leading-6 text-gray-900">Mã đề thi</label>
             <div className="mt-2">
               <input
@@ -385,7 +385,7 @@ const FormEdit = ({ examId }) => {
               {errors.code && <p className="text-red-500">{errors.code.message}</p>}
             </div>
           </div>
-          <div className="col-span-full">
+          <div className="col-span-full mb-2">
             <label htmlFor="subject_id" className="block text-sm font-medium leading-6 text-gray-900">Môn thi</label>
             <div className="mt-2">
               <Controller
@@ -409,7 +409,7 @@ const FormEdit = ({ examId }) => {
               {errors.subject_id && <p className="text-red-500">{errors.subject_id.message}</p>}
             </div>
           </div>
-          <div className="col-span-full">
+          <div className="col-span-full mb-2">
             <label htmlFor="user_id" className="block text-sm font-medium leading-6 text-gray-900">Người ra đề</label>
             <div className="mt-2">
               <Controller
@@ -432,7 +432,7 @@ const FormEdit = ({ examId }) => {
               {errors.user_id && <p className="text-red-500">{errors.user_id.message}</p>}
             </div>
           </div>
-          <div className="col-span-full">
+          <div className="col-span-full mb-2">
             <label htmlFor="type" className="block text-sm font-medium leading-6 text-gray-900">Loai đề thi</label>
             <div className="mt-2">
               <Controller
@@ -455,7 +455,7 @@ const FormEdit = ({ examId }) => {
               {errors.type && <p className="text-red-500">{errors.type.message}</p>}
             </div>
           </div>
-          <div className="col-span-full">
+          <div className="col-span-full mb-2">
             <label htmlFor="form_exam" className="block text-sm font-medium leading-6 text-gray-900">Hình thức thi</label>
             <div className="mt-2">
               <Controller
@@ -478,7 +478,7 @@ const FormEdit = ({ examId }) => {
               {errors.form_exam && <p className="text-red-500">{errors.form_exam.message}</p>}
             </div>
           </div>
-          <div className="col-span-full">
+          <div className="col-span-full mb-2">
             <label htmlFor="number_question" className="block text-sm font-medium leading-6 text-gray-900">Số câu hỏi</label>
             <div className="mt-2">
               <input
@@ -492,7 +492,7 @@ const FormEdit = ({ examId }) => {
               {errors.number_question && <p className="text-red-500">{errors.number_question.message}</p>}
             </div>
           </div>
-          <div className="col-span-full">
+          <div className="col-span-full mb-2">
             <label htmlFor="num_code" className="block text-sm font-medium leading-6 text-gray-900">Số mã đề</label>
             <div className="mt-2">
               <input
@@ -506,7 +506,7 @@ const FormEdit = ({ examId }) => {
               {errors.num_code && <p className="text-red-500">{errors.num_code.message}</p>}
             </div>
           </div>
-          <div className="col-span-full">
+          <div className="col-span-full mb-2">
             <label htmlFor="time_work" className="block text-sm font-medium leading-6 text-gray-900">Thời gian làm bài</label>
             <div className="mt-2">
               <input
@@ -520,7 +520,7 @@ const FormEdit = ({ examId }) => {
               {errors.time_work && <p className="text-red-500">{errors.time_work.message}</p>}
             </div>
           </div>
-          <div className="col-span-full">
+          <div className="col-span-full mb-2">
             <label htmlFor="semester_id" className="block text-sm font-medium leading-6 text-gray-900">Kì học</label>
             <div className="mt-2">
               <Controller

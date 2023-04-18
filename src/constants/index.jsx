@@ -55,3 +55,14 @@ export const SEMESTER = [
     label: 'Kì 2 năm 2022-2023'
   },
 ]
+
+export const TYPE_ARTICLE = [
+  {
+    label: "Tạp chí",
+    value: 4
+  },
+  {
+    label: "Hội nghị",
+    value: 5
+  },
+]

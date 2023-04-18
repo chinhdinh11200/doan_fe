@@ -100,7 +100,7 @@ function FormCreate() {
             // mutate(values)
           })}
         >
-          <div className="col-span-full">
+          <div className="col-span-full mb-2">
             <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">Tên Nhân Viên</label>
             <div className="mt-2">
               <input
@@ -114,7 +114,7 @@ function FormCreate() {
               {errors.name && <p className="text-red-500">{errors.name.message}</p>}
             </div>
           </div>
-          <div className="col-span-full">
+          <div className="col-span-full mb-2">
             <label htmlFor="department_id" className="block text-sm font-medium leading-6 text-gray-900">Phòng ban</label>
             <div className="mt-2">
               <Controller
@@ -138,7 +138,7 @@ function FormCreate() {
               {errors.department_id && <p className="text-red-500">{errors.department_id.message}</p>}
             </div>
           </div>
-          <div className="col-span-full">
+          <div className="col-span-full mb-2">
             <label htmlFor="code" className="block text-sm font-medium leading-6 text-gray-900">Mã nhân viên</label>
             <div className="mt-2">
               <input
@@ -152,7 +152,7 @@ function FormCreate() {
               {errors.code && <p className="text-red-500">{errors.code.message}</p>}
             </div>
           </div>
-          <div className="col-span-full">
+          <div className="col-span-full mb-2">
             <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">Email</label>
             <div className="mt-2">
               <input
@@ -166,7 +166,7 @@ function FormCreate() {
               {errors.email && <p className="text-red-500">{errors.email.message}</p>}
             </div>
           </div>
-          <div className="col-span-full">
+          <div className="col-span-full mb-2">
             <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">Mật khẩu</label>
             <div className="mt-2">
               <input
@@ -180,7 +180,7 @@ function FormCreate() {
               {errors.password && <p className="text-red-500">{errors.password.message}</p>}
             </div>
           </div>
-          <div className="col-span-full">
+          <div className="col-span-full mb-2">
             <label htmlFor="position" className="block text-sm font-medium leading-6 text-gray-900">Vị trí</label>
             <div className="mt-2">
               <Controller
@@ -203,7 +203,7 @@ function FormCreate() {
               {errors.position && <p className="text-red-500">{errors.position.message}</p>}
             </div>
           </div>
-          <div className="col-span-full">
+          <div className="col-span-full mb-2">
             <label htmlFor="number_salary" className="block text-sm font-medium leading-6 text-gray-900">Hệ số lương</label>
             <div className="mt-2">
               <input
@@ -217,7 +217,7 @@ function FormCreate() {
               {errors.number_salary && <p className="text-red-500">{errors.number_salary.message}</p>}
             </div>
           </div>
-          <div className="col-span-full">
+          <div className="col-span-full mb-2">
             <label htmlFor="income" className="block text-sm font-medium leading-6 text-gray-900">Thu nhập</label>
             <div className="mt-2">
               <input
@@ -303,7 +303,7 @@ function FormEdit({ staffId }) {
             mutate(values)
           })}
         >
-          <div className="col-span-full">
+          <div className="col-span-full mb-2">
             <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">Tên Nhân Viên</label>
             <div className="mt-2">
               <input
@@ -317,7 +317,7 @@ function FormEdit({ staffId }) {
               {errors.name && <p className="text-red-500">{errors.name.message}</p>}
             </div>
           </div>
-          <div className="col-span-full">
+          <div className="col-span-full mb-2">
             <label htmlFor="department_id" className="block text-sm font-medium leading-6 text-gray-900">Phòng ban</label>
             <div className="mt-2">
               <Controller
@@ -342,7 +342,7 @@ function FormEdit({ staffId }) {
               {errors.department_id && <p className="text-red-500">{errors.department_id.message}</p>}
             </div>
           </div>
-          <div className="col-span-full">
+          <div className="col-span-full mb-2">
             <label htmlFor="code" className="block text-sm font-medium leading-6 text-gray-900">Mã nhân viên</label>
             <div className="mt-2">
               <input
@@ -356,7 +356,7 @@ function FormEdit({ staffId }) {
               {errors.code && <p className="text-red-500">{errors.code.message}</p>}
             </div>
           </div>
-          <div className="col-span-full">
+          <div className="col-span-full mb-2">
             <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">Email</label>
             <div className="mt-2">
               <input
@@ -370,7 +370,7 @@ function FormEdit({ staffId }) {
               {errors.email && <p className="text-red-500">{errors.email.message}</p>}
             </div>
           </div>
-          {/* <div className="col-span-full">
+          {/* <div className="col-span-full mb-2">
             <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">Mật khẩu</label>
             <div className="mt-2">
               <input
@@ -384,7 +384,7 @@ function FormEdit({ staffId }) {
               {errors.password && <p className="text-red-500">{errors.password.message}</p>}
             </div>
           </div> */}
-          <div className="col-span-full">
+          <div className="col-span-full mb-2">
             <label htmlFor="position" className="block text-sm font-medium leading-6 text-gray-900">Vị trí</label>
             <div className="mt-2">
               <Controller
@@ -408,7 +408,7 @@ function FormEdit({ staffId }) {
               {errors.position && <p className="text-red-500">{errors.position.message}</p>}
             </div>
           </div>
-          <div className="col-span-full">
+          <div className="col-span-full mb-2">
             <label htmlFor="number_salary" className="block text-sm font-medium leading-6 text-gray-900">Hệ số lương</label>
             <div className="mt-2">
               <input
@@ -422,7 +422,7 @@ function FormEdit({ staffId }) {
               {errors.number_salary && <p className="text-red-500">{errors.number_salary.message}</p>}
             </div>
           </div>
-          <div className="col-span-full">
+          <div className="col-span-full mb-2">
             <label htmlFor="income" className="block text-sm font-medium leading-6 text-gray-900">Thu nhập</label>
             <div className="mt-2">
               <input

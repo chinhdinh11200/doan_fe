@@ -7,18 +7,8 @@ import { Controller, useForm } from 'react-hook-form';
 import { useCreateThesis } from '../../hooks/thesis';
 import { useDepartmentList } from '../../hooks/departments';
 import Select from 'react-select';
-import { useNavigate } from 'react-router-dom';
-
-const role = [
-    {
-      label: "Hướng dẫn chính",
-      value: 1
-    },
-    {
-      label: "Hướng dẫn hai",
-      value: 2
-    },
-  ];
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useStaffList } from '../../hooks/staffs';
 
 function Dashboard() {
 
@@ -30,6 +20,13 @@ function Dashboard() {
     error,
     data: dataCreate } = useCreateThesis();
   const { data: departments } = useDepartmentList();
+  const { data: { data: staffs = [] } = {}, isLoading: isLoadingStaff } = useStaffList();
+  staffs?.map(staff => {
+    staff.label = staff.name
+    staff.value = staff.id
+
+    return staff;
+  })
   departments?.data?.map(department => {
     department.label = department.name
     department.value = department.id
@@ -94,7 +91,7 @@ function Dashboard() {
                   mutate(values)
                 })}
               >
-                <div className="col-span-full mb-2.5">
+                <div className="col-span-full mb-2 mb-2.5">
                   <label htmlFor="code" className="block text-sm font-medium leading-6 text-gray-900">Mã luận án / luận văn</label>
                   <div className="mt-2">
                     <input
@@ -108,7 +105,7 @@ function Dashboard() {
                     {errors.code && <p className="text-red-500">{errors.code.message}</p>}
                   </div>
                 </div>
-                <div className="col-span-full mb-2.5">
+                <div className="col-span-full mb-2 mb-2.5">
                   <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">Họ tên NCS/Học viên/ Sinh viên </label>
                   <div className="mt-2">
                     <input
@@ -122,7 +119,7 @@ function Dashboard() {
                     {errors.name && <p className="text-red-500">{errors.name.message}</p>}
                   </div>
                 </div>
-                <div className="col-span-full mb-2.5">
+                <div className="col-span-full mb-2 mb-2.5">
                   <label htmlFor="num_decision" className="block text-sm font-medium leading-6 text-gray-900">Số QĐ giao nhiệm vụ</label>
                   <div className="mt-2">
                     <input
@@ -136,7 +133,7 @@ function Dashboard() {
                     {errors.num_decision && <p className="text-red-500">{errors.num_decision.message}</p>}
                   </div>
                 </div>
-                <div className="col-span-full mb-2.5">
+                <div className="col-span-full mb-2 mb-2.5">
                   <label htmlFor="date_decision" className="block text-sm font-medium leading-6 text-gray-900">Ngày ký QĐ giao nhiệm vụ</label>
                   <div className="mt-2">
                     <input
@@ -150,7 +147,7 @@ function Dashboard() {
                     {errors.date_decision && <p className="text-red-500">{errors.date_decision.message}</p>}
                   </div>
                 </div>
-                <div className="col-span-full mb-2.5">
+                <div className="col-span-full mb-2 mb-2.5">
                   <label htmlFor="course" className="block text-sm font-medium leading-6 text-gray-900">Khóa đào tạo</label>
                   <div className="mt-2">
                     <input
@@ -164,21 +161,7 @@ function Dashboard() {
                     {errors.course && <p className="text-red-500">{errors.course.message}</p>}
                   </div>
                 </div>
-                <div className="col-span-full mb-2.5">
-                  <label htmlFor="num_person" className="block text-sm font-medium leading-6 text-gray-900">Số người hướng dẫn</label>
-                  <div className="mt-2">
-                    <input
-                      type="number"
-                      name="num_person"
-                      id="num_person"
-                      autoComplete="num_person"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      {...register('num_person', { required: true })}
-                    />
-                    {errors.num_person && <p className="text-red-500">{errors.num_person.message}</p>}
-                  </div>
-                </div>
-                <div className="col-span-full mb-2.5">
+                <div className="col-span-full mb-2 mb-2.5">
                   <label htmlFor="role" className="block text-sm font-medium leading-6 text-gray-900">Vai trò</label>
                   <div className="mt-2">
                     <Controller
@@ -186,14 +169,15 @@ function Dashboard() {
                       name="role"
                       render={({ field: { value, onChange, ref } }) => (
                         <Select
-                          options={role}
+                          options={staffs}
                           name="role"
                           id="role"
+                          isMulti
                           placeholder="Lựa chọn"
                           {...register('role')}
                           onChange={(val) => {
-                            onChange(val);
-                            setValue("role", val.id);
+                            let rol = val.map(item => item.value).join(',')
+                            setValue('role', rol)
                           }}
                         />
                       )}

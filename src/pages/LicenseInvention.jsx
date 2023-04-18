@@ -8,7 +8,7 @@ import Loading from '../components/Loading';
 import { Button, Modal, Space, Table, Tooltip } from 'antd';
 import { BiEdit, BiTrash } from 'react-icons/bi';
 import { PAGE_SIZE } from '../constants';
-
+import Search from '../components/Search';
 function Dashboard() {
   const [tableParams, setTableParams] = useState({
     pagination: {
@@ -58,13 +58,7 @@ function Dashboard() {
       sortDirections: ["descend", "ascend", "descend"],
       sorter: () => { },
     },
-    {
-      title: <div className="text-center uppercase">SỐ NGƯỜI THAM GIA</div>,
-      dataIndex: "num_person",
-      key: "num_person",
-      sortDirections: ["descend", "ascend", "descend"],
-      sorter: () => { },
-    },
+   
     {
       title: <div className="text-center uppercase">Hành động</div>,
       key: "action",
@@ -159,7 +153,14 @@ function Dashboard() {
       setIsLoading(false);
     }
   }, [isLoading]);
-
+  
+  const onChangeSearch = (search) => {
+    setTableParams({
+      ...tableParams,
+      search: search
+    })
+    console.log(search);
+  }
   return (
     <div className="flex h-screen overflow-hidden">
 
@@ -176,10 +177,12 @@ function Dashboard() {
           <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
             <div className="container max-w-7xl mx-auto mt-3">
               <div className="mb-4">
-                <h1 className="w-fit text-2xl pb-1 mb-4 mx-auto text-center font-bold uppercase border-b border-gray-300">Danh sách bằng sáng chế / giải thưởng</h1>      
-                          <div className="flex justify-between flex-row-reverse gap-4">
-                  {/* Filter button */}
-                  <FilterButton />
+                <h1 className="w-fit text-2xl pb-1 mb-4 mx-auto text-center font-bold uppercase border-b border-gray-300">Danh sách bằng sáng chế / giải thưởng</h1>
+                <div className="flex justify-between flex-row-reverse gap-4">
+                  <div className='flex gap-2'>
+                    <Search onChangeSearch={onChangeSearch} />
+                    <FilterButton />
+                  </div>
                   <NavLink end to="/add-prizeList" className="btn bg-indigo-500 hover:bg-indigo-600 text-white">
                     <svg className="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
                       <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
