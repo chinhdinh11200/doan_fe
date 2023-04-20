@@ -61,3 +61,17 @@ export const useCreateCompilation = () => {
         }
     );
 };
+
+export const useUpdateCompilation = (compilationId) => {
+    const queryClient = useQueryClient();
+    return useMutation(
+        async (data) => {
+            return await axios.put(`${API.API_ROOT}${API.COMPILATION.UPDATE}`.replace(':id', compilationId), data);
+        },
+        {
+            onSuccess: () => {
+                queryClient.invalidateQueries(COMPILATION_LIST);
+            },
+        }
+    );
+};

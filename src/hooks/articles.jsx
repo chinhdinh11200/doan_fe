@@ -61,3 +61,17 @@ export const useCreateArticle = () => {
         }
     );
 };
+
+export const useUpdateArticle = (ArticleId) => {
+    const queryClient = useQueryClient();
+    return useMutation(
+        async (data) => {
+            return await axios.put(`${API.API_ROOT}${API.ARTICLE.UPDATE}`.replace(':id', ArticleId), data);
+        },
+        {
+            onSuccess: () => {
+                queryClient.invalidateQueries(ARTICLE_LIST);
+            },
+        }
+    );
+};

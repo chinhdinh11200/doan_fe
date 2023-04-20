@@ -32,7 +32,7 @@ import AddResearch from './pages/FormAdd/AddResearch';
 import AddMaterialCompilation from './pages/FormAdd/AddMaterialCompilation';
 import AddTextBook from './pages/FormAdd/AddTextBook';
 import AddInstruction from './pages/FormAdd/AddInstruction';
-import AddLicense from './pages/FormAdd/AddInvention';
+import AddInvention from './pages/FormAdd/AddInvention';
 import AddScientificArticles from './pages/FormAdd/AddScientificArticles';
 import AddBuildProgram from './pages/FormAdd/AddBuildProgram';
 
@@ -95,13 +95,20 @@ function App() {
         <Route path="/add-thesis" element={<AddThesis />} />
         <Route path="/add-book" element={<AddTextBook />} />
         <Route path="/add-instructions" element={<AddInstruction />} />
-        <Route path="/add-prizeList" element={<AddLicense />} />
+        <Route path="/add-invention" element={<AddInvention />} />
         <Route path="/add-build-program" element={<AddBuildProgram />} />
         <Route path="/edit-subject" element={<AddSubject />} />
         <Route path="/edit-class" element={<AddClass />} />
         <Route path="/edit-exam" element={<AddExam />} />
         <Route path="/edit-room" element={<AddRoom />} />
         <Route path="/edit-staff" element={<AddStaff />} />
+        <Route path="/edit-topic" element={<AddResearch />} />
+        <Route path="/edit-article" element={<AddScientificArticles />} />
+        <Route path="/edit-book" element={<AddTextBook />} />
+        <Route path="/edit-invention" element={<AddInvention />} />
+        <Route path="/edit-scientific" element={<AddInstruction />} />
+        <Route path="/edit-compilation" element={<AddMaterialCompilation />} />
+        <Route path="/edit-program" element={<AddBuildProgram />} />
       </Routes>
     </>
   );

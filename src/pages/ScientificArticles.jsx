@@ -67,6 +67,13 @@ function Dashboard() {
       render: (_, record) => {
         return (
           <Space size="middle" className="flex justify-center">
+            <NavLink
+              end
+              to={`/edit-article?id=${record.id}`}
+              className={({ isActive }) =>
+                'block transition duration-150 truncate ' + (isActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200')
+              }
+            >
             <Tooltip placement="top" title='Sửa'>
               <a href="#" className="text-indigo-600 hover:text-indigo-900" title='edit'>
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24"
@@ -76,6 +83,7 @@ function Dashboard() {
                 </svg>
               </a>
             </Tooltip>
+            </NavLink>
             <Tooltip placement="top" title='Chi tiết'>
               <a href="#" className="text-gray-600 hover:text-gray-900" title='view'>
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24"

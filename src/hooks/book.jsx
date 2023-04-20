@@ -61,3 +61,17 @@ export const useCreateBooks = () => {
         }
     );
 };
+
+export const useUpdateBooks = (BookId) => {
+    const queryClient = useQueryClient();
+    return useMutation(
+        async (data) => {
+            return await axios.put(`${API.API_ROOT}${API.BOOKS.UPDATE}`.replace(':id', BookId), data);
+        },
+        {
+            onSuccess: () => {
+                queryClient.invalidateQueries(BOOKS_LIST);
+            },
+        }
+    );
+};

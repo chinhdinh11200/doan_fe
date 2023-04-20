@@ -61,3 +61,17 @@ export const useCreateInventions = () => {
         }
     );
 };
+
+export const useUpdateInventions = (InventionsId) => {
+    const queryClient = useQueryClient();
+    return useMutation(
+        async (data) => {
+            return await axios.put(`${API.API_ROOT}${API.INVENTIONS.UPDATE}`.replace(':id', InventionsId), data);
+        },
+        {
+            onSuccess: () => {
+                queryClient.invalidateQueries(INVENTIONS_LIST);
+            },
+        }
+    );
+};

@@ -61,3 +61,17 @@ export const useCreateEducation = () => {
         }
     );
 };
+
+export const useUpdateEducation = (educationId) => {
+    const queryClient = useQueryClient();
+    return useMutation(
+        async (data) => {
+            return await axios.put(`${API.API_ROOT}${API.EDUCATION.UPDATE}`.replace(':id', educationId), data);
+        },
+        {
+            onSuccess: () => {
+                queryClient.invalidateQueries(EDUCATION_LIST);
+            },
+        }
+    );
+};

@@ -61,3 +61,16 @@ export const useCreateScientific = () => {
         }
     );
 };
+export const useUpdateScientific = (scientificId) => {
+    const queryClient = useQueryClient();
+    return useMutation(
+        async (data) => {
+            return await axios.put(`${API.API_ROOT}${API.SCIENTIFIC.UPDATE}`.replace(':id', scientificId), data);
+        },
+        {
+            onSuccess: () => {
+                queryClient.invalidateQueries(SCIENTIFIC_LIST);
+            },
+        }
+    );
+};

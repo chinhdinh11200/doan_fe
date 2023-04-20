@@ -61,3 +61,17 @@ export const useCreateTopic= () => {
         }
     );
 };
+
+export const useUpdateTopic = (topicId) => {
+    const queryClient = useQueryClient();
+    return useMutation(
+        async (data) => {
+            return await axios.put(`${API.API_ROOT}${API.TOPIC.UPDATE}`.replace(':id', topicId), data);
+        },
+        {
+            onSuccess: () => {
+                queryClient.invalidateQueries(TOPIC_LIST);
+            },
+        }
+    );
+};

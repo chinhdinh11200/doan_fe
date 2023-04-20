@@ -58,7 +58,7 @@ function Dashboard() {
       sortDirections: ["descend", "ascend", "descend"],
       sorter: () => { },
     },
-   
+
     {
       title: <div className="text-center uppercase">Hành động</div>,
       key: "action",
@@ -66,15 +66,22 @@ function Dashboard() {
       render: (_, record) => {
         return (
           <Space size="middle" className="flex justify-center">
-            <Tooltip placement="top" title='Sửa'>
-              <a href="#" className="text-indigo-600 hover:text-indigo-900" title='edit'>
-                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24"
-                  stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokewith="2"
-                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                </svg>
-              </a>
-            </Tooltip>
+            <NavLink
+              end
+              to={`/edit-invention?id=${record.id}`}
+              className={({ isActive }) =>
+                'block transition duration-150 truncate ' + (isActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200')
+              }
+            >
+              <Tooltip placement="top" title='Sửa'>
+                <a href="#" className="text-indigo-600 hover:text-indigo-900" title='edit'>
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokewith="2"
+                      d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                  </svg>
+                </a>
+              </Tooltip></NavLink>
             <Tooltip placement="top" title='Chi tiết'>
               <a href="#" className="text-gray-600 hover:text-gray-900" title='view'>
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24"
@@ -153,7 +160,7 @@ function Dashboard() {
       setIsLoading(false);
     }
   }, [isLoading]);
-  
+
   const onChangeSearch = (search) => {
     setTableParams({
       ...tableParams,
@@ -183,7 +190,7 @@ function Dashboard() {
                     <Search onChangeSearch={onChangeSearch} />
                     <FilterButton />
                   </div>
-                  <NavLink end to="/add-prizeList" className="btn bg-indigo-500 hover:bg-indigo-600 text-white">
+                  <NavLink end to="/add-invention" className="btn bg-indigo-500 hover:bg-indigo-600 text-white">
                     <svg className="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
                       <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
                     </svg>
