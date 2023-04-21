@@ -10,62 +10,62 @@ import { BiEdit, BiTrash } from 'react-icons/bi';
 import { PAGE_SIZE } from '../constants';
 import Search from '../components/Search';
 function Dashboard() {
-    const [tableParams, setTableParams] = useState({
-      pagination: {
-        current: 1,
-        pageSize: PAGE_SIZE,
-        locale: { items_per_page: "/ trang" },
-      },
-      sorter: {
-        // sortColumn: null,
-        // sort: null,
-      },
-    });
-    const [page, setPage] = useState(1);
-    const pageSizeRef = useRef(PAGE_SIZE); //luu kick co trang hiren tai
-  
-    const columns = [
-      {
-        title: <div className="text-center">STT</div>,
-        dataIndex: "index",
-        key: "index",
-        width: "1%",
-        render: (text, t, index) => (
-          <p className="text-center">
-            {(page - 1) * pageSizeRef.current + index + 1}
-          </p>
-        ),
-      },
-      {
-        title: <div className="text-center">Mã dự án</div>,
-        dataIndex: "code",
-        key: "code",
-        render: (_, record) => <> {record.code}</>,
-        sortDirections: ["descend", "ascend", "descend"],
-        sorter: () => { },
-      },
-      {
-        title: <div className="text-center">Tên đề tài/dự án</div>,
-        dataIndex: "name",
-        key: "name",
-        sortDirections: ["descend", "ascend", "descend"],
-        sorter: () => { },
-      },
-      {
-        title: <div className="text-center">Cấp đề tài</div>,
-        dataIndex: "level",
-        key: "level",
-        sortDirections: ["descend", "ascend", "descend"],
-        sorter: () => { },
-      },
-      {
-        title: <div className="text-center">Hành động</div>,
-        key: "action",
-        width: "150px",
-        render: (_, record) => {
-          return (
-            <Space size="middle" className="flex justify-center">
-               <NavLink
+  const [tableParams, setTableParams] = useState({
+    pagination: {
+      current: 1,
+      pageSize: PAGE_SIZE,
+      locale: { items_per_page: "/ trang" },
+    },
+    sorter: {
+      // sortColumn: null,
+      // sort: null,
+    },
+  });
+  const [page, setPage] = useState(1);
+  const pageSizeRef = useRef(PAGE_SIZE); //luu kick co trang hiren tai
+
+  const columns = [
+    {
+      title: <div className="text-center">STT</div>,
+      dataIndex: "index",
+      key: "index",
+      width: "1%",
+      render: (text, t, index) => (
+        <p className="text-center">
+          {(page - 1) * pageSizeRef.current + index + 1}
+        </p>
+      ),
+    },
+    {
+      title: <div className="text-center">Mã dự án</div>,
+      dataIndex: "code",
+      key: "code",
+      render: (_, record) => <> {record.code}</>,
+      sortDirections: ["descend", "ascend", "descend"],
+      sorter: () => { },
+    },
+    {
+      title: <div className="text-center">Tên đề tài/dự án</div>,
+      dataIndex: "name",
+      key: "name",
+      sortDirections: ["descend", "ascend", "descend"],
+      sorter: () => { },
+    },
+    {
+      title: <div className="text-center">Cấp đề tài</div>,
+      dataIndex: "level",
+      key: "level",
+      sortDirections: ["descend", "ascend", "descend"],
+      sorter: () => { },
+    },
+    {
+      title: <div className="text-center">Hành động</div>,
+      key: "action",
+      width: "150px",
+      render: (_, record) => {
+        return (
+          <Space size="middle" className="flex justify-center">
+            <NavLink
               end
               to={`/edit-topic?id=${record.id}`}
               className={({ isActive }) =>
@@ -81,94 +81,94 @@ function Dashboard() {
                   </svg>
                 </a>
               </Tooltip>
-              </NavLink>
-              <Tooltip placement="top" title='Chi tiết'>
-                <a href="#" className="text-gray-600 hover:text-gray-900" title='view'>
-                  <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokewith="2"
-                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokewith="2"
-                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                  </svg>
-                </a>
-              </Tooltip>
-              <Tooltip placement='top' title='Xoá'>
-                <span title='delete'><svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-red-600 hover:text-red-800"
-                  fill="none" viewBox="0 0 24 24" stroke="currentColor" onClick={() => showDeleteModal(record.id)}>
+            </NavLink>
+            <Tooltip placement="top" title='Chi tiết' onClick={() => setShowModal(true)}>
+              <a href="#" className="text-gray-600 hover:text-gray-900" title='view'>
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokewith="2"
-                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                </svg></span>
-              </Tooltip>
-            </Space>
-          );
-        },
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokewith="2"
+                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+              </a>
+            </Tooltip>
+            <Tooltip placement='top' title='Xoá'>
+              <span title='delete'><svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-red-600 hover:text-red-800"
+                fill="none" viewBox="0 0 24 24" stroke="currentColor" onClick={() => showDeleteModal(record.id)}>
+                <path strokeLinecap="round" strokeLinejoin="round" strokewith="2"
+                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+              </svg></span>
+            </Tooltip>
+          </Space>
+        );
       },
-    ];
-  
-    const [sidebarOpen, setSidebarOpen] = useState(false);
-    const [topicIdDelete, setTopicIdDelete] = useState(null);
-    const [openDeleteModal, setOpenDeleteModal] = useState(false);
-    const [isLoadingg, setIsLoading] = useState(false);
-    const { data: { data: dataUser = [], total } = {}, isLoading } = useTopicList(tableParams);
-    const { mutate, isLoading: isLoadingDelete, isSuccess } = useTopicDelete();
-    // const { data: detail } = useStaffDetail(3);
-    const onChangeTableParams = (pagination, filters, sorter, extra) => {
-      setPage(pagination.current);
-      pageSizeRef.current = pagination.pageSize;
+    },
+  ];
+  const [showModal, setShowModal] = React.useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [topicIdDelete, setTopicIdDelete] = useState(null);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const [isLoadingg, setIsLoading] = useState(false);
+  const { data: { data: dataUser = [], total } = {}, isLoading } = useTopicList(tableParams);
+  const { mutate, isLoading: isLoadingDelete, isSuccess } = useTopicDelete();
+  // const { data: detail } = useStaffDetail(3);
+  const onChangeTableParams = (pagination, filters, sorter, extra) => {
+    setPage(pagination.current);
+    pageSizeRef.current = pagination.pageSize;
+    setTableParams({
+      ...tableParams,
+      pagination: {
+        ...pagination,
+      },
+      sorter: {
+        sort: sorter?.order === "ascend" ? "asc" : "desc",
+        sortColumn: sorter?.columnKey,
+      },
+    });
+  };
+
+  const showDeleteModal = (staffId) => {
+    setOpenDeleteModal(true);
+    setTopicIdDelete(staffId);
+  };
+  const handleDeleteOk = () => {
+    handleDelete();
+    setOpenDeleteModal(false);
+  };
+  const handleDeleteCancel = () => {
+    setTopicIdDelete(null);
+    setOpenDeleteModal(false);
+  };
+
+  const handleDelete = () => {
+    if (dataUser.length === 1) {
       setTableParams({
         ...tableParams,
         pagination: {
-          ...pagination,
-        },
-        sorter: {
-          sort: sorter?.order === "ascend" ? "asc" : "desc",
-          sortColumn: sorter?.columnKey,
+          ...tableParams.pagination,
+          current: tableParams.pagination.current - 1,
         },
       });
-    };
-  
-    const showDeleteModal = (staffId) => {
-      setOpenDeleteModal(true);
-      setTopicIdDelete(staffId);
-    };
-    const handleDeleteOk = () => {
-      handleDelete();
-      setOpenDeleteModal(false);
-    };
-    const handleDeleteCancel = () => {
-      setTopicIdDelete(null);
-      setOpenDeleteModal(false);
-    };
-  
-    const handleDelete = () => {
-      if (dataUser.length === 1) {
-        setTableParams({
-          ...tableParams,
-          pagination: {
-            ...tableParams.pagination,
-            current: tableParams.pagination.current - 1,
-          },
-        });
-      }
-      mutate(topicIdDelete);
-    };
-  
-    useEffect(() => {
-      if (isLoading) {
-        setIsLoading(true);
-      } else {
-        setIsLoading(false);
-      }
-    }, [isLoading]);
-    
-    const onChangeSearch = (search) => {
-      setTableParams({
-        ...tableParams,
-        search: search
-      })
-      console.log(search);
     }
+    mutate(topicIdDelete);
+  };
+
+  useEffect(() => {
+    if (isLoading) {
+      setIsLoading(true);
+    } else {
+      setIsLoading(false);
+    }
+  }, [isLoading]);
+
+  const onChangeSearch = (search) => {
+    setTableParams({
+      ...tableParams,
+      search: search
+    })
+    console.log(search);
+  }
   return (
     <div className="flex h-screen overflow-hidden">
 
@@ -191,7 +191,7 @@ function Dashboard() {
                   <div className='flex gap-2'>
                     <Search onChangeSearch={onChangeSearch} />
                     <FilterButton />
-                </div>
+                  </div>
                   <NavLink end to="/add-research" className="btn bg-indigo-500 hover:bg-indigo-600 text-white">
                     <svg className="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
                       <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
@@ -222,203 +222,7 @@ function Dashboard() {
                           }}
                         />
                       )}
-                    </div>                    {/* <table className="min-w-full">
-                      <thead>
-                        <tr>
-                          <th
-                            className="px-4 py-2 text-xs font-medium leading-4 tracking-wider text-center text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                            ID</th>
-                          <th
-                            className="px-4 py-2 text-xs font-medium leading-4 tracking-wider text-center text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                            Tên dự án/ Đề tài</th>
-                          <th
-                            className="px-4 py-2 text-xs font-medium leading-4 tracking-wider text-center text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                            Chủ trì / Thư ký / Thành viên</th>
-                          <th
-                            className="px-4 py-2 text-xs font-medium leading-4 tracking-wider text-center text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                            Cấp đề tài</th>
-                          <th
-                            className="px-4 py-2 text-xs font-medium leading-4 tracking-wider text-center text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                            Ngày nghiệm thu</th>
-                          <th
-                            className="px-4 py-2 text-xs font-medium leading-4 tracking-wider text-center text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                            Kết quả xếp loại</th>
-                          <th className="px-6 py-3 text-sm text-left text-gray-500 border-b border-gray-200 bg-gray-50" colspan="3">
-                            Action</th>
-                        </tr>
-                      </thead>
-
-                      <tbody className="bg-white  text-sm">
-                        <tr>
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <div className="flex items-center">
-                              3
-                            </div>
-
-                          </td>
-
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <div className="text-sm leading-5">Create CURD with NodeJS
-                            </div>
-                          </td>
-
-
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <p>Lorem ipsum dolor</p>
-                          </td>
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <p>Lorem ipsum dolor</p>
-                          </td>
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <p>Lorem ipsum dolor</p>
-                          </td>
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <p>Lorem ipsum dolor</p>
-                          </td>
-                          <td className="text-sm font-medium leading-5 text-center whitespace-no-wrap border-b border-gray-200 ">
-                            <a href="#" className="text-indigo-600 hover:text-indigo-900">
-                              <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                              </svg>
-                            </a>
-
-                          </td>
-                          <td className="text-sm font-medium leading-5 text-center whitespace-no-wrap border-b border-gray-200 ">
-                            <a href="#" className="text-gray-600 hover:text-gray-900">
-                              <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                              </svg>
-                            </a>
-
-                          </td>
-                          <td className="text-sm font-medium leading-5 whitespace-no-wrap border-b border-gray-200 ">
-                            <a href="#"><svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-red-600 hover:text-red-800"
-                              fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                            </svg></a>
-
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <div className="flex items-center">
-                              3
-                            </div>
-
-                          </td>
-
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <div className="text-sm leading-5">Create CURD with NodeJS
-                            </div>
-                          </td>
-
-
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <p>Lorem ipsum dolor</p>
-                          </td>
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <p>Lorem ipsum dolor</p>
-                          </td>
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <p>Lorem ipsum dolor</p>
-                          </td>
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <p>Lorem ipsum dolor</p>
-                          </td>
-                          <td className="text-sm font-medium leading-5 text-center whitespace-no-wrap border-b border-gray-200 ">
-                            <a href="#" className="text-indigo-600 hover:text-indigo-900">
-                              <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                              </svg>
-                            </a>
-
-                          </td>
-                          <td className="text-sm font-medium leading-5 text-center whitespace-no-wrap border-b border-gray-200 ">
-                            <a href="#" className="text-gray-600 hover:text-gray-900">
-                              <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                              </svg>
-                            </a>
-
-                          </td>
-                          <td className="text-sm font-medium leading-5 whitespace-no-wrap border-b border-gray-200 ">
-                            <a href="#"><svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-red-600 hover:text-red-800"
-                              fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                            </svg></a>
-
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <div className="flex items-center">
-                              3
-                            </div>
-
-                          </td>
-
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <div className="text-sm leading-5">Create CURD with NodeJS
-                            </div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <p>Lorem ipsum dolor</p>
-                          </td>
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <p>Lorem ipsum dolor</p>
-                          </td>
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <p>Lorem ipsum dolor</p>
-                          </td>
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <p>Lorem ipsum dolor</p>
-                          </td><td className="text-sm font-medium leading-5 text-center whitespace-no-wrap border-b border-gray-200 ">
-                            <a href="#" title='edit' className="text-indigo-600 hover:text-indigo-900">
-                              <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                              </svg>
-                            </a>
-
-                          </td>
-                          <td className="text-sm font-medium leading-5 text-center whitespace-no-wrap border-b border-gray-200 ">
-                            <a href="#" title='view' className="text-gray-600 hover:text-gray-900">
-                              <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                              </svg>
-                            </a>
-
-                          </td>
-                          <td className="text-sm font-medium leading-5 whitespace-no-wrap border-b border-gray-200 ">
-                            <a href="#" title='delete'><svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-red-600 hover:text-red-800"
-                              fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                            </svg></a>
-
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table> */}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -427,30 +231,101 @@ function Dashboard() {
         </main>
       </div>
       <Modal
-      title="Bạn có chắc chắn muốn xoá ?"
-      open={openDeleteModal}
-      onOk={handleDeleteOk}
-      centered
-      onCancel={handleDeleteCancel}
-      footer={[
-        <Button
-          onClick={handleDeleteCancel}
-          className="bg-blue mr-3"
-          key="cancel"
-        >
-          Huỷ
-        </Button>,
-        <Button
-          onClick={handleDeleteOk}
-          className="bg-danger mr-3"
-          key="confirm"
-        >
-          Đồng ý
-        </Button>,
-      ]}
-    />
-  </div>
-);
+        title="Bạn có chắc chắn muốn xoá ?"
+        open={openDeleteModal}
+        onOk={handleDeleteOk}
+        centered
+        onCancel={handleDeleteCancel}
+        footer={[
+          <Button
+            onClick={handleDeleteCancel}
+            className="bg-blue mr-3"
+            key="cancel"
+          >
+            Huỷ
+          </Button>,
+          <Button
+            onClick={handleDeleteOk}
+            className="bg-danger mr-3"
+            key="confirm"
+          >
+            Đồng ý
+          </Button>,
+        ]}
+      />
+      <>
+        {showModal ? (
+          <>
+            <div className="justify-center items-center flex overflow-x-hidden 
+            overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+            >
+            <div className="relative w-auto mx-5 my-6 md:mx-auto max-w-3xl md:w-[500px]">
+                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full p-6 bg-white outline-none focus:outline-none">
+                  <button
+                    className="flex items-center justify-end"
+                    type="button"
+                    onClick={() => setShowModal(false)}
+                  >
+                    <svg viewPort="0 0 12 12" version="1.1" height="30" width="13"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <line x1="1" y1="11"
+                        x2="11" y2="1"
+                        stroke="black"
+                        stroke-width="2" />
+                      <line x1="1" y1="1"
+                        x2="11" y2="11"
+                        stroke="black"
+                        stroke-width="2" />
+                    </svg>
+                  </button>
+
+                  <div className="relative border">
+                    <div class="flex justify-between py-2 pl-2 border-b">
+                      <p class="w-1/2">Mã dự án:</p>
+                      <p class="w-1/2">12345</p>
+                    </div>
+                    <div class="flex justify-between py-2 pl-2 border-b">
+                      <p class="w-1/2">Tên dự án:</p>
+                      <p class="w-1/2">12345</p>
+                    </div> 
+                    <div class="flex justify-between py-2 pl-2 border-b">
+                      <p class="w-1/2">Cấp đề tài:</p>
+                      <p class="w-1/2">12345</p>
+                    </div>
+                    <div class="flex justify-between py-2 pl-2 border-b">
+                      <p class="w-1/2">Số người tham gia:</p>
+                      <p class="w-1/2">Tailwind CSS is a utility-based low-level CSS framework intended to ea 12345</p>
+                    </div>
+                    <div class="flex justify-between py-2 pl-2 border-b">
+                      <p class="w-1/2">Vai Trò:</p>
+                      <p class="w-1/2">12345</p>
+                    </div>
+                    <div class="flex justify-between py-2 pl-2 border-b">
+                      <p class="w-1/2">Ngày bắt đầu:</p>
+                      <p class="w-1/2">12345</p>
+                    </div>
+                    <div class="flex justify-between py-2 pl-2 border-b">
+                      <p class="w-1/2">Ngày kết thúc:</p>
+                      <p class="w-1/2">12345</p>
+                    </div>
+                    <div class="flex justify-between py-2 pl-2 border-b">
+                      <p class="w-1/2">Ngày nghiệm thu:</p>
+                      <p class="w-1/2">12345</p>
+                    </div>
+                    <div class="flex justify-between py-2 pl-2 border-b">
+                      <p class="w-1/2">Kết quả xếp loại:</p>
+                      <p class="w-1/2">12345</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+          </>
+        ) : null}
+      </>
+    </div>
+  );
 }
 
 export default Dashboard;
