@@ -3,12 +3,12 @@ import Sidebar from '../partials/Sidebar';
 import Header from '../partials/Header';
 import { NavLink } from 'react-router-dom';
 import FilterButton from '../partials/actions/FilterButton';
-import { useStaffDelete, useStaffDetail, useStaffList } from '../hooks/staffs';
+import { useStaffDelete, useStaffList } from '../hooks/staffs';
 import Loading from '../components/Loading';
 import { Button, Modal, Space, Table, Tooltip } from 'antd';
-import { BiEdit, BiTrash } from 'react-icons/bi';
 import { PAGE_SIZE } from '../constants';
 import Search from '../components/Search';
+import { debounce } from 'lodash';
 
 function Dashboard() {
   const [tableParams, setTableParams] = useState({
@@ -21,6 +21,7 @@ function Dashboard() {
       // sortColumn: null,
       // sort: null,
     },
+    search: ''
   });
   const [page, setPage] = useState(1);
   const pageSizeRef = useRef(PAGE_SIZE); //luu kick co trang hiren tai
@@ -162,13 +163,15 @@ function Dashboard() {
       setIsLoading(false);
     }
   }, [isLoading]);
-
-  const onChangeSearch = (search) => {
+  const changeDebounce = debounce((search) => {
     setTableParams({
       ...tableParams,
       search: search
     })
-    console.log(search);
+  }, 1000);
+
+  const onChangeSearch = (search) => {
+    changeDebounce(search);
   }
   return (
     <div className="flex h-screen overflow-hidden">
@@ -190,8 +193,8 @@ function Dashboard() {
                 <div className="flex justify-between flex-row-reverse gap-4">
                   {/* Filter button */}
                   <div className='flex gap-2'>
-                  <Search onChangeSearch={onChangeSearch} />
-                  <FilterButton />
+                    <Search onChangeSearch={onChangeSearch} />
+                    <FilterButton />
                   </div>
                   <NavLink end to="/add-staff" className="btn bg-indigo-500 hover:bg-indigo-600 text-white">
                     <svg className="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">

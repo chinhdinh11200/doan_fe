@@ -5,15 +5,16 @@ import API from '../constants/api';
 import { PAGE_SIZE } from '../constants';
 
 export const useStaffList = (tableParams) => {
-    var sort, sortColumn, limit, page;
+    var sort, sortColumn, limit, page, search;
     if (tableParams !== undefined) {
         sort = tableParams.sorter?.sort || 'desc'
         sortColumn = tableParams.sorter?.sortColumn || 'id'
         limit = tableParams.sorter?.pageSize || PAGE_SIZE
         page = tableParams.sorter?.current || 1
+        search = tableParams.search
     }
 
-    return useQuery([STAFF_LIST, sort, sortColumn, limit, page], async () => {
+    return useQuery([STAFF_LIST, sort, sortColumn, limit, page, search], async () => {
         const { data, headers } = await axios.get(
             `${API.API_ROOT}${API.STAFF.LIST}`,
             {
@@ -21,6 +22,7 @@ export const useStaffList = (tableParams) => {
                     sort: sort,
                     sortColumn: sortColumn,
                     limit: limit,
+                    search,
                     offset: page == 1 ? page - 1 : page
                 },
             })
