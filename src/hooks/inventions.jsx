@@ -32,7 +32,7 @@ export const useInventionList = (tableParams) => {
 }
 
 export const useInventionsDetail = (InventionsId) => {
-    return useQuery([INVENTIONS_DETAIL], async () => {
+    return useQuery([INVENTIONS_DETAIL,InventionsId], async () => {
         const { data } = await axios.get(`${API.API_ROOT}${API.INVENTIONS.UPDATE}`.replace(':id', InventionsId))
 
         return data;

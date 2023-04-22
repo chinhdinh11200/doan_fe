@@ -32,7 +32,7 @@ export const useRoomList = (tableParams) => {
 }
 
 export const useRoomDetail = (roomId) => {
-    return useQuery([ROOM_DETAIL], async () => {
+    return useQuery([ROOM_DETAIL,roomId], async () => {
         const { data } = await axios.get(`${API.API_ROOT}${API.ROOM.UPDATE}`.replace(':id', roomId))
 
         return data;

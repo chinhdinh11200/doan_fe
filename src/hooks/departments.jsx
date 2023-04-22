@@ -24,3 +24,10 @@ export const useCreateDepartment = () => {
         }
     );
 };
+export const useDepartmentDetail = (departmentId) => {
+    return useQuery([Department_DETAIL,departmentId], async () => {
+        const { data } = await axios.get(`${API.API_ROOT}${API.DEPARTMENT.UPDATE}`.replace(':id', departmentId))
+
+        return data;
+    })
+}

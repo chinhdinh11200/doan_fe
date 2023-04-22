@@ -32,7 +32,7 @@ export const useCompilationList = (tableParams) => {
 }
 
 export const useCompilationDetail = (compilationId) => {
-    return useQuery([COMPILATION_DETAIL], async () => {
+    return useQuery([COMPILATION_DETAIL,compilationId], async () => {
         const { data } = await axios.get(`${API.API_ROOT}${API.COMPILATION.UPDATE}`.replace(':id', compilationId))
 
         return data;

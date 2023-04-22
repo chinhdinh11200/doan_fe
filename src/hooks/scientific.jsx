@@ -32,7 +32,7 @@ export const useScientificList = (tableParams) => {
 }
 
 export const useScientificDetail = (scientificId) => {
-    return useQuery([SCIENTIFIC_DETAIL], async () => {
+    return useQuery([SCIENTIFIC_DETAIL,scientificId], async () => {
         const { data } = await axios.get(`${API.API_ROOT}${API.SCIENTIFIC.UPDATE}`.replace(':id', scientificId))
 
         return data;

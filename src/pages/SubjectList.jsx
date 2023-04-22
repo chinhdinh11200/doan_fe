@@ -206,6 +206,7 @@ function SubjectList() {
                     <Search onChangeSearch={onChangeSearch} />
                     <FilterButton />
                   </div>
+                  <div class="flex bg-grey-lighter gap-2">
                   <NavLink end to="/add-subject" className="btn bg-indigo-500 hover:bg-indigo-600 text-white">
                     <svg className="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
                       <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
@@ -214,6 +215,15 @@ function SubjectList() {
                       Thêm môn học
                     </span>
                   </NavLink>
+                  
+                    <label class="flex  items-center gap-4 px-4 bg-white text-blue rounded-md shadow-lg border border-blue cursor-pointer hover:bg-indigo-500 hover:text-white">
+                        <svg width="15" height="20" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+                        </svg>
+                        <span class="leading-normal">Import file</span>
+                        <input type='file' class="hidden" />
+                    </label>
+                </div>
                 </div>
               </div>
               <div className="flex flex-col">

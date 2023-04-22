@@ -32,7 +32,7 @@ export const useThesisList = (tableParams) => {
 }
 
 export const useThesisDetail = (thesisId) => {
-    return useQuery([THESIS_DETAIL], async () => {
+    return useQuery([THESIS_DETAIL, thesisId], async () => {
         const { data } = await axios.get(`${API.API_ROOT}${API.THESIS.UPDATE}`.replace(':id', thesisId))
 
         return data;

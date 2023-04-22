@@ -32,7 +32,7 @@ export const useStaffList = (tableParams) => {
 }
 
 export const useStaffDetail = (staffId) => {
-    return useQuery([STAFF_DETAIL], async () => {
+    return useQuery([STAFF_DETAIL,staffId], async () => {
         const { data } = await axios.get(`${API.API_ROOT}${API.STAFF.UPDATE}`.replace(':id', staffId))
 
         return data;

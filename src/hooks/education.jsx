@@ -32,7 +32,7 @@ export const useEducationList = (tableParams) => {
 }
 
 export const useEducationDetail = (educationId) => {
-    return useQuery([EDUCATION_DETAIL], async () => {
+    return useQuery([EDUCATION_DETAIL,educationId], async () => {
         const { data } = await axios.get(`${API.API_ROOT}${API.EDUCATION.UPDATE}`.replace(':id', educationId))
 
         return data;

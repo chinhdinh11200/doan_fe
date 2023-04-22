@@ -32,7 +32,7 @@ export const useArticleList = (tableParams) => {
 }
 
 export const useArticleDetail = (ArticleId) => {
-    return useQuery([ARTICLE_DETAIL], async () => {
+    return useQuery([ARTICLE_DETAIL,ArticleId], async () => {
         const { data } = await axios.get(`${API.API_ROOT}${API.ARTICLE.UPDATE}`.replace(':id', ArticleId))
 
         return data;
