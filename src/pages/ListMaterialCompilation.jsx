@@ -9,6 +9,8 @@ import { Button, Modal, Space, Table, Tooltip } from 'antd';
 import { BiEdit, BiTrash } from 'react-icons/bi';
 import { PAGE_SIZE } from '../constants';
 import Search from '../components/Search';
+import { debounce } from 'lodash';
+
 function Dashboard() {
   const [tableParams, setTableParams] = useState({
     pagination: {
@@ -20,6 +22,7 @@ function Dashboard() {
       // sortColumn: null,
       // sort: null,
     },
+    search: ''
   });
   const [page, setPage] = useState(1);
   const pageSizeRef = useRef(PAGE_SIZE); //luu kick co trang hiren tai
@@ -160,13 +163,18 @@ function Dashboard() {
       setIsLoading(false);
     }
   }, [isLoading]);
-  const onChangeSearch = (search) => {
+
+  const changeDebounce = debounce((search) => {
     setTableParams({
       ...tableParams,
       search: search
     })
-    console.log(search);
+  }, 1000);
+
+  const onChangeSearch = (search) => {
+    changeDebounce(search);
   }
+
   return (
     <div className="flex h-screen overflow-hidden">
 

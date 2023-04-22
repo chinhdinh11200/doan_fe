@@ -2,13 +2,19 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { INVENTIONS_DETAIL, INVENTIONS_LIST } from '../constants/QueryKey';
 import axios from '../config/axios';
 import API from '../constants/api';
+import { PAGE_SIZE } from '../constants';
 
 export const useInventionList = (tableParams) => {
-    const { sort = "desc", sortColumn = "id" } = tableParams.sorter;
-    const { pageSize: limit = PAGE_SIZE, current: page = 1 } =
-        tableParams.pagination;
+    var sort, sortColumn, limit, page, search;
+    if (tableParams !== undefined) {
+        sort = tableParams.sorter?.sort || 'desc'
+        sortColumn = tableParams.sorter?.sortColumn || 'id'
+        limit = tableParams.sorter?.pageSize || PAGE_SIZE
+        page = tableParams.sorter?.current || 1
+        search = tableParams.search
+    }
 
-    return useQuery([INVENTIONS_LIST, sort, sortColumn, limit, page], async () => {
+    return useQuery([INVENTIONS_LIST, sort, sortColumn, limit, page, search], async () => {
         const { data, headers } = await axios.get(
             `${API.API_ROOT}${API.INVENTIONS.LIST}`,
             {
@@ -16,6 +22,7 @@ export const useInventionList = (tableParams) => {
                     sort: sort,
                     sortColumn: sortColumn,
                     limit: limit,
+                    search,
                     offset: page == 1 ? page - 1 : page
                 },
             })
