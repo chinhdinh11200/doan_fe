@@ -35,7 +35,7 @@ import AddInstruction from './pages/FormAdd/AddInstruction';
 import AddInvention from './pages/FormAdd/AddInvention';
 import AddScientificArticles from './pages/FormAdd/AddScientificArticles';
 import AddBuildProgram from './pages/FormAdd/AddBuildProgram';
-
+import AddCoach from './pages/FormAdd/AddCoach'
 import FormAddMaterialCompilation from './pages/ListMaterialCompilation'
 import ClassList from './pages/ClassList';
 import SubjectList from './pages/SubjectList';
@@ -97,6 +97,7 @@ function App() {
         <Route path="/add-instructions" element={<AddInstruction />} />
         <Route path="/add-invention" element={<AddInvention />} />
         <Route path="/add-build-program" element={<AddBuildProgram />} />
+        <Route path="/add-coach" element={<AddCoach />} />
         <Route path="/edit-subject" element={<AddSubject />} />
         <Route path="/edit-class" element={<AddClass />} />
         <Route path="/edit-exam" element={<AddExam />} />

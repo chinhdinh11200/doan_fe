@@ -4,27 +4,17 @@ import Header from '../../partials/Header';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from 'react-hook-form';
-import { useCreateBooks, useBookList, useBooksDetail, useUpdateBooks } from '../../hooks/book';
+import { useCreateScientific, useScientificDetail, useScientificList, useUpdateScientific } from '../../hooks/scientific';
 import { useDepartmentList } from '../../hooks/departments';
 import Select from 'react-select';
 import { NavLink, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useStaffList } from '../../hooks/staffs';
-import { POSITION_STAFF, TYPE_BOOK } from '../../constants';
+import { POSITION_STAFF, TYPE_COACH} from '../../constants';
 
-const role = [
-  {
-    label: "Tác giả chính",
-    value: 0
-  },
-  {
-    label: "Thành viên",
-    value: 1
-  },
-];
-function AddBook() {
+function AddScientific() {
   const currentLocation = useLocation();
   const [searchParams] = useSearchParams();
-  const bookId = searchParams.get('id');
+  const scientificId = searchParams.get('id');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   return (
     <div className="flex h-screen overflow-hidden">
@@ -40,8 +30,8 @@ function AddBook() {
 
         <main className='bg-white w-9/12 mx-auto p-8 shadow-md my-4'>
           <div className='py-5 mb-4 w-auto text-center'><span className='p-3 rounded-lg bg-slate-800 border
-           text-white hover:text-slate-800 hover:bg-white hover:border-slate-800'>{currentLocation.pathname == '/edit-book' ? 'Cập Nhật Sách/Giáo Trình' : 'Thêm Sách/Giáo Trình'}</span></div>
-          {currentLocation.pathname == '/edit-book' ? <FormEdit bookId={bookId} /> : <FormCreate />}
+             text-white hover:text-slate-800 hover:bg-white hover:border-slate-800'>{currentLocation.pathname == '/edit-scientific' ? 'Cập Nhật huấn luyện' : 'Thêm huấn luyện'}</span></div>
+          {currentLocation.pathname == '/edit-scientific' ? <FormEdit scientificId={scientificId} /> : <FormCreate />}
         </main>
       </div>
     </div>
@@ -55,15 +45,8 @@ function FormCreate() {
     isSuccess,
     isLoading,
     error,
-    data: dataCreate } = useCreateBooks();
+    data: dataCreate } = useCreateScientific();
   const { data: departments } = useDepartmentList();
-  const { data: { data: staffs = [] } = {}, isLoading: isLoadingStaff } = useStaffList();
-  staffs?.map(staff => {
-    staff.label = staff.name
-    staff.value = staff.id
-
-    return staff;
-  })
   departments?.data?.map(department => {
     department.label = department.name
     department.value = department.id
@@ -72,10 +55,11 @@ function FormCreate() {
   })
 
   const schema = yup.object().shape({
-    name: yup.string().trim().required('Vui lòng nhập tên sách/giáo trình'),
-    code: yup.string().required('Vui lòng nhập mã sách/giáo trình').min(4, "Mã sách/giáo trình không được nhỏ hơn 4 kí tự."),
-    num_publish: yup.string(),
-    num_page: yup.number(),
+    name: yup.string().trim().required('Vui lòng nhập tên cuộc thi'),
+    code: yup.string().required('Vui lòng nhập mã cuộc thi').min(4, "Mã cuộc thi không được nhỏ hơn 4 kí tự."),
+    date_decision: yup.date().required(),
+    num_decision: yup.string().required(),
+    num_credit: yup.number().required(),
   })
 
   const {
@@ -90,19 +74,19 @@ function FormCreate() {
     defaultValues: {
       name: '',
       code: '',
-      num_page: '',
-      num_publish: '',
-      num_person: '',
-      type_book:'',
-      role: '',
-      type: 4,
+      date_decision: '',
+      num_decision: '',
+      num_credit: '',
+      type_coach:'',
+      form_construction: '',
+      type: 5,
     }
   })
 
   useEffect(() => {
     console.log("dataCreate");
     if (dataCreate) {
-      navigate('/book-list');
+      navigate('/intruction-list');
     }
   }, [isSuccess]);
 
@@ -110,14 +94,14 @@ function FormCreate() {
     <div className="w-full">
       <div className="border-b border-gray-900/10 pb-12">
         <form
-          name='add-scientific-articles'
+          name='add-scientific'
           onSubmit={handleSubmit((values) => {
             console.log(values);
             mutate(values)
           })}
         >
           <div className="col-span-full mb-2.5">
-            <label htmlFor="code" className="block text-sm font-medium leading-6 text-gray-900">Mã sách/giáo trình</label>
+            <label htmlFor="code" className="block text-sm font-medium leading-6 text-gray-900">Mã cuộc thi</label>
             <div className="mt-2">
               <input
                 type="text"
@@ -131,7 +115,7 @@ function FormCreate() {
             </div>
           </div>
           <div className="col-span-full mb-2.5">
-            <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">Tên sách/giáo trình</label>
+            <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">Tên cuộc thi </label>
             <div className="mt-2">
               <input
                 type="text"
@@ -145,102 +129,78 @@ function FormCreate() {
             </div>
           </div>
           <div className="col-span-full mb-2.5">
-            <label htmlFor="num_publish" className="block text-sm font-medium leading-6 text-gray-900">Số xuất bản</label>
+            <label htmlFor="num_decision" className="block text-sm font-medium leading-6 text-gray-900">Số QĐ giao nhiệm vụ</label>
             <div className="mt-2">
               <input
                 type="text"
-                name="num_publish"
-                id="num_publish"
-                autoComplete="num_publish"
+                name="num_decision"
+                id="num_decision"
+                autoComplete="num_decision"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                {...register('num_publish', { required: true })}
+                {...register('num_decision', { required: true })}
               />
-              {errors.num_publish && <p className="text-red-500">{errors.num_publish.message}</p>}
+              {errors.num_decision && <p className="text-red-500">{errors.num_decision.message}</p>}
             </div>
           </div>
           <div className="col-span-full mb-2.5">
-            <label htmlFor="type_book" className="block text-sm font-medium leading-6 text-gray-900">Thể loại</label>
-            <div className="mt-2">
-              <Controller
-                control={control}
-                name="type_book"
-                render={({ field: { value, onChange, ref } }) => (
-                  <Select
-                    options={TYPE_BOOK}
-                    isMulti
-                    name="type_book"
-                    id="type_book"
-                    placeholder="Lựa chọn"
-                    {...register('type_book')}
-                    onChange={(val) => {
-                      let rol = val.map(item => item.value).join(',')
-                      setValue('type_book', rol)
-                    }}
-                  />
-                )}
-              />
-              {errors.type_book && <p className="text-red-500">{errors.type_book.message}</p>}
-            </div>
-          </div>
-          <div className="col-span-full mb-2.5">
-            <label htmlFor="num_page" className="block text-sm font-medium leading-6 text-gray-900">Số trang</label>
+            <label htmlFor="date_decision" className="block text-sm font-medium leading-6 text-gray-900">Ngày ký QĐ giao nhiệm vụ</label>
             <div className="mt-2">
               <input
-                type="number"
-                name="num_page"
-                id="num_page"
-                autoComplete="num_page"
+                type="date"
+                name="date_decision"
+                id="date_decision"
+                autoComplete="date_decision"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                {...register('num_page', { required: true })}
+                {...register('date_decision', { required: true })}
               />
-              {errors.num_page && <p className="text-red-500">{errors.num_page.message}</p>}
+              {errors.date_decision && <p className="text-red-500">{errors.date_decision.message}</p>}
             </div>
           </div>
-
           <div className="col-span-full mb-2.5">
-            <label htmlFor="role" className="block text-sm font-medium leading-6 text-gray-900">Vai trò</label>
+            <label htmlFor="type_coach" className="block text-sm font-medium leading-6 text-gray-900">Loại cuộc thi</label>
             <div className="mt-2">
               <Controller
                 control={control}
-                name="role"
+                name="type_coach"
                 render={({ field: { value, onChange, ref } }) => (
                   <Select
-                    options={staffs}
-                    isMulti
-                    name="role"
-                    id="role"
+                    options={TYPE_COACH}
+                    name="type_coach"
+                    id="type_coach"
                     placeholder="Lựa chọn"
-                    {...register('role')}
+                    {...register('type_coach')}
                     onChange={(val) => {
-                      let rol = val.map(item => item.value).join(',')
-                      setValue('role', rol)
+                      onChange(val);
+                      setValue("type_coach", val.id);
                     }}
                   />
                 )}
               />
-              {errors.role && <p className="text-red-500">{errors.role.message}</p>}
+              {errors.type_coach && <p className="text-red-500">{errors.type_coach.message}</p>}
             </div>
           </div>
           <div className="mt-6 flex items-center justify-end gap-x-6">
-            <button onClick={() => navigate(-1)} type="button" className="text-sm font-semibold leading-6 text-gray-900 hover:underline">Hủy</button>
+            <button onClick={() => navigate(-1)} className="text-sm font-semibold leading-6 text-gray-900 hover:underline">Hủy</button>
             <button type="submit" className="rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 
                   focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Lưu</button>
           </div>
         </form>
       </div>
+
     </div>
-  )
+  );
 }
 
-function FormEdit({ bookId }) {
+
+function FormEdit({ scientificId }) {
   const navigate = useNavigate();
   const { mutate,
     isSuccess,
     isLoading,
     error,
-    data: dataCreate } = useUpdateBooks(bookId);
+    data: dataCreate } = useUpdateScientific(scientificId);
 
-  const { data: dataBook } = useBooksDetail(bookId);
+  const { data: dataScientific } = useScientificDetail(scientificId);
   const { data: { data: staffs = [] } = {}, isLoading: isLoadingStaff } = useStaffList();
   staffs?.map(staff => {
     staff.label = staff.name
@@ -248,12 +208,7 @@ function FormEdit({ bookId }) {
 
     return staff;
   });
-  dataBook?.users?.map(user => {
-    user.label = user.name
-    user.value = user.id
 
-    return user;
-  });
   const { data: { data: departments = [], total } = {}, isLoading: isLoadingDepartment } = useDepartmentList();
   departments?.map(department => {
     department.label = department.name
@@ -261,14 +216,13 @@ function FormEdit({ bookId }) {
 
     return department;
   });
-
   const schema = yup.object().shape({
-    name: yup.string().trim().required('Vui lòng nhập tên sách/giáo trình'),
-    code: yup.string().required('Vui lòng nhập mã sách/giáo trình').min(4, "Mã sách/giáo trình không được nhỏ hơn 4 kí tự."),
-    num_publish: yup.string(),
-    num_page: yup.number(),
+    name: yup.string().trim().required('Vui lòng nhập tên đề tài'),
+    code: yup.string().required('Vui lòng nhập mã đề tài').min(4, "Mã đề tài không được nhỏ hơn 4 kí tự."),
+    date_decision: yup.date().required(),
+    num_decision: yup.string().required(),
+    num_credit: yup.number().required()
   })
-  
   const {
     register,
     handleSubmit,
@@ -283,36 +237,33 @@ function FormEdit({ bookId }) {
 
   useEffect(() => {
     if (dataCreate?.data.success) {
-      navigate('/book-list');
+      navigate('/instruction-list');
     }
   }, [isSuccess]);
 
   useEffect(() => {
-    if (dataBook) {
+    if (dataScientific) {
       reset({
-        ...dataBook,
+        ...dataScientific,
         password: '',
-        departmentSelected: departments?.find(department => department.id === dataBook.department_id),
-        positionSelected: POSITION_STAFF.find(position => position.value == dataBook.position),
-        roleSelected: dataTopic?.users,
-        role: dataTopic?.users?.map(user => user.id).join(','),
-        type: 4
+        departmentSelected: departments?.find(department => department.id === dataScientific.department_id),
+        positionSelected: POSITION_STAFF.find(position => position.value == dataScientific.position)
       })
     }
-  }, [dataBook]);
+  }, [dataScientific]);
 
   return (
     <div className="w-full">
       <div className="border-b border-gray-900/10 pb-12">
         <form
-          name='add-book'
+          name='add-scientific'
           onSubmit={handleSubmit((values) => {
             console.log(values);
             mutate(values)
           })}
         >
           <div className="col-span-full mb-2.5">
-            <label htmlFor="code" className="block text-sm font-medium leading-6 text-gray-900">Mã sách/giáo trình</label>
+            <label htmlFor="code" className="block text-sm font-medium leading-6 text-gray-900">Mã đề tài</label>
             <div className="mt-2">
               <input
                 type="text"
@@ -326,7 +277,7 @@ function FormEdit({ bookId }) {
             </div>
           </div>
           <div className="col-span-full mb-2.5">
-            <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">Tên sách/giáo trình</label>
+            <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">Tên đề tài </label>
             <div className="mt-2">
               <input
                 type="text"
@@ -340,69 +291,90 @@ function FormEdit({ bookId }) {
             </div>
           </div>
           <div className="col-span-full mb-2.5">
-            <label htmlFor="num_publish" className="block text-sm font-medium leading-6 text-gray-900">Số xuất bản</label>
+            <label htmlFor="num_decision" className="block text-sm font-medium leading-6 text-gray-900">Số QĐ giao nhiệm vụ</label>
             <div className="mt-2">
               <input
                 type="text"
-                name="num_publish"
-                id="num_publish"
-                autoComplete="num_publish"
+                name="num_decision"
+                id="num_decision"
+                autoComplete="num_decision"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                {...register('num_publish', { required: true })}
+                {...register('num_decision', { required: true })}
               />
-              {errors.num_publish && <p className="text-red-500">{errors.num_publish.message}</p>}
+              {errors.num_decision && <p className="text-red-500">{errors.num_decision.message}</p>}
             </div>
           </div>
           <div className="col-span-full mb-2.5">
-            <label htmlFor="num_page" className="block text-sm font-medium leading-6 text-gray-900">Số trang</label>
+            <label htmlFor="date_decision" className="block text-sm font-medium leading-6 text-gray-900">Ngày ký QĐ giao nhiệm vụ</label>
             <div className="mt-2">
               <input
-                type="number"
-                name="num_page"
-                id="num_page"
-                autoComplete="num_page"
+                type="date"
+                name="date_decision"
+                id="date_decision"
+                autoComplete="date_decision"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                {...register('num_page', { required: true })}
+                {...register('date_decision', { required: true })}
               />
-              {errors.num_page && <p className="text-red-500">{errors.num_page.message}</p>}
+              {errors.date_decision && <p className="text-red-500">{errors.date_decision.message}</p>}
             </div>
           </div>
-
           <div className="col-span-full mb-2.5">
-            <label htmlFor="role" className="block text-sm font-medium leading-6 text-gray-900">Vai trò</label>
+            <label htmlFor="result_level" className="block text-sm font-medium leading-6 text-gray-900">Kết quả bảo vệ cấp Khoa</label>
             <div className="mt-2">
-            <Controller
+              <Controller
                 control={control}
-                name="roleSelected"
+                name="result_level"
                 render={({ field: { value, onChange, ref } }) => (
                   <Select
-                    options={staffs}
-                    name="role"
-                    isMulti
-                    id="role"
-                    value={value}
+                    options={result_level}
+                    name="result_level"
+                    id="result_level"
                     placeholder="Lựa chọn"
-                    {...register('role')}
+                    {...register('result_level')}
                     onChange={(val) => {
-                      onChange();
-                      let rol = val.map(item => item.value).join(',')
-                      setValue('role', rol)
+                      onChange(val);
+                      setValue("result_level", val.id);
                     }}
                   />
                 )}
               />
-              {errors.role && <p className="text-red-500">{errors.role.message}</p>}
+              {errors.result_level && <p className="text-red-500">{errors.result_level.message}</p>}
             </div>
           </div>
+          <div className="col-span-full mb-2.5">
+            <label htmlFor="result_level_2" className="block text-sm font-medium leading-6 text-gray-900">Kết quả bảo vệ cấp Học viện</label>
+            <div className="mt-2">
+              <Controller
+                control={control}
+                name="result_level_2"
+                render={({ field: { value, onChange, ref } }) => (
+                  <Select
+                    options={result_level_2}
+                    name="result_level_2"
+                    id="result_level_2"
+                    placeholder="Lựa chọn"
+                    {...register('result_level_2')}
+                    onChange={(val) => {
+                      onChange(val);
+                      setValue("result_level_2", val.id);
+                    }}
+                  />
+                )}
+              />
+              {errors.result_level_2 && <p className="text-red-500">{errors.result_level_2.message}</p>}
+            </div>
+          </div>
+
           <div className="mt-6 flex items-center justify-end gap-x-6">
-            <button onClick={() => navigate(-1)} type="button" className="text-sm font-semibold leading-6 text-gray-900 hover:underline">Hủy</button>
+            <button onClick={() => navigate(-1)} className="text-sm font-semibold leading-6 text-gray-900 hover:underline">Hủy</button>
             <button type="submit" className="rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 
-                  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Lưu</button>
+          focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Lưu</button>
           </div>
         </form>
       </div>
+
     </div>
   );
 }
 
-export default AddBook;
+export default AddScientific;

@@ -14,11 +14,11 @@ import { POSITION_STAFF } from '../../constants';
 const type_article = [
   {
     label: "Tạp chí",
-    value: 4
+    value: 0
   },
   {
     label: "Hội nghị",
-    value: 5
+    value: 1
   },
 ]
 function AddArticle() {
@@ -76,7 +76,6 @@ function FormCreate() {
     code: yup.string().required('Vui lòng nhập mã bài báo').min(4, "Mã bài báo không được nhỏ hơn 4 kí tự."),
     index_article: yup.string(),
     total_time: yup.number(),
-    num_person: yup.number()
   })
 
   const {
@@ -268,7 +267,6 @@ function FormEdit({articleId}) {
     code: yup.string().required('Vui lòng nhập mã đề tài/dự án').min(4, "Mã đề tài/dự án không được nhỏ hơn 4 kí tự."),
     endDate: yup.date(),
     startDate: yup.date(),
-    num_person: yup.number()
   });
   const {
     register,

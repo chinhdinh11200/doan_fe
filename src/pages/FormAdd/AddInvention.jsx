@@ -9,16 +9,16 @@ import { useDepartmentList } from '../../hooks/departments';
 import Select from 'react-select';
 import { NavLink, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useStaffList } from '../../hooks/staffs';
-import { POSITION_STAFF } from '../../constants';
+import { POSITION_STAFF, TYPE_INVENTIONS } from '../../constants';
 
 const role = [
   {
     label: "Tác giả chính",
-    value: 1
+    value: 0
   },
   {
     label: "Thành viên",
-    value: 2
+    value: 1
   },
 ];
 function AddInvention() {
@@ -74,7 +74,6 @@ function FormCreate() {
   const schema = yup.object().shape({
     name: yup.string().trim().required('Vui lòng nhập tên bẳng sáng chế/giải thưởng'),
     code: yup.string().required('Vui lòng nhập mã tên bẳng sáng chế/giải thưởng').min(4, "Mã tên bẳng sáng chế/giải thưởng không được nhỏ hơn 4 kí tự."),
-    num_person: yup.number(),
     date_recognition: yup.date(),
     number_recognition: yup.string(),
   })
@@ -94,6 +93,7 @@ function FormCreate() {
       num_person: '',
       number_recognition: '',
       level: '',
+      type_inventions:'',
     }
   })
 
@@ -146,7 +146,7 @@ function FormCreate() {
           <div className="col-span-full mb-2.5">
             <label htmlFor="role" className="block text-sm font-medium leading-6 text-gray-900">Vai trò</label>
             <div className="mt-2">
-            <Controller
+              <Controller
                 control={control}
                 name="roleSelected"
                 render={({ field: { value, onChange, ref } }) => (
@@ -195,6 +195,32 @@ function FormCreate() {
                 {...register('number_recognition', { required: true })}
               />
               {errors.number_recognition && <p className="text-red-500">{errors.number_recognition.message}</p>}
+            </div>
+          </div>
+          <div className="col-span-full mb-2.5">
+            <label htmlFor="type_inventions" className="block text-sm font-medium leading-6 text-gray-900">Giải thưởng</label>
+            <div className="mt-2">
+              <Controller
+                control={control}
+                name="type_inventions"
+                render={({ field: { value, onChange, ref } }) => (
+                  <Select
+                    options={TYPE_INVENTIONS}
+                    name="type_inventions"
+                    isMulti
+                    id="type_inventions"
+                    value={value}
+                    placeholder="Lựa chọn"
+                    {...register('type_inventions')}
+                    onChange={(val) => {
+                      onChange();
+                      let rol = val.map(item => item.value).join(',')
+                      setValue('type_inventions', rol)
+                    }}
+                  />
+                )}
+              />
+              {errors.type_inventions && <p className="text-red-500">{errors.type_inventions.message}</p>}
             </div>
           </div>
           <div className="mt-6 flex items-center justify-end gap-x-6">
@@ -247,7 +273,6 @@ function FormEdit({ inventionId }) {
   const schema = yup.object().shape({
     name: yup.string().trim().required('Vui lòng nhập tên bẳng sáng chế/giải thưởng'),
     code: yup.string().required('Vui lòng nhập mã tên bẳng sáng chế/giải thưởng').min(4, "Mã tên bẳng sáng chế/giải thưởng không được nhỏ hơn 4 kí tự."),
-    num_person: yup.number(),
     date_recognition: yup.date(),
     number_recognition: yup.string(),
   })

@@ -13,43 +13,43 @@ import { POSITION_STAFF } from '../../constants';
 const role = [
   {
     label: "Chủ trì",
-    value: 1
+    value: 0
   },
   {
     label: "Thư kí",
-    value: 2
+    value: 1
   },
   {
     label: "Thành viên",
-    value: 3
+    value: 2
   },
 ];
 const result = [
   {
     label: "Đạt",
-    value: 1
+    value: 0
   },
   {
     label: "Giỏi",
-    value: 2
+    value: 1
   },
   {
     label: "Xuất sắc",
-    value: 3
+    value: 2
   },
 ];
 const level = [
   {
     label: "Cơ sở",
-    value: 1
+    value: 0
   },
   {
     label: "Ban",
-    value: 2
+    value: 1
   },
   {
     label: "Nhà nước",
-    value: 3
+    value: 2
   },
 ];
 function AddTopic() {
@@ -107,7 +107,6 @@ function FormCreate() {
     code: yup.string().required('Vui lòng nhập mã đề tài/dự án').min(4, "Mã đề tài/dự án không được nhỏ hơn 4 kí tự."),
     endDate: yup.date(),
     startDate: yup.date(),
-    num_person: yup.number()
   })
 
   const {
@@ -338,7 +337,6 @@ function FormEdit({ topicId }) {
     code: yup.string().required('Vui lòng nhập mã đề tài/dự án').min(4, "Mã đề tài/dự án không được nhỏ hơn 4 kí tự."),
     endDate: yup.date(),
     startDate: yup.date(),
-    num_person: yup.number()
   });
   const {
     register,

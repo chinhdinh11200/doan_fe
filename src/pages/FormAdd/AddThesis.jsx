@@ -38,7 +38,6 @@ function Dashboard() {
     name: yup.string().trim().required('Vui lòng nhập mục này'),
     code: yup.string().required('Vui lòng nhập mục này').min(4, "Mã luận án/ luận v không được nhỏ hơn 4 kí tự."),
     date_decision: yup.date().required(),
-    num_person: yup.number().required(),
     course: yup.string().required()
   })
   const {

@@ -9,44 +9,8 @@ import { useDepartmentList } from '../../hooks/departments';
 import Select from 'react-select';
 import { NavLink, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useStaffList } from '../../hooks/staffs';
-import { POSITION_STAFF } from '../../constants';
+import { POSITION_STAFF, RESULT_FACULTY, RESULT_ACADEMY } from '../../constants';
 
-const result_level = [
-  {
-    label: "Giải nhất",
-    value: 1
-  },
-  {
-    label: "Giải nhì",
-    value: 2
-  },
-  {
-    label: "Giải ba",
-    value: 3
-  },
-  {
-    label: "Giải khuyến khích",
-    value: 4
-  },
-];
-const result_level_2 = [
-  {
-    label: "Giải nhất",
-    value: 1
-  },
-  {
-    label: "Giải nhì",
-    value: 2
-  },
-  {
-    label: "Giải ba",
-    value: 3
-  },
-  {
-    label: "Giải khuyến khích",
-    value: 4
-  },
-];
 function AddScientific() {
   const currentLocation = useLocation();
   const [searchParams] = useSearchParams();
@@ -95,7 +59,7 @@ function FormCreate() {
     code: yup.string().required('Vui lòng nhập mã đề tài').min(4, "Mã đề tài không được nhỏ hơn 4 kí tự."),
     date_decision: yup.date().required(),
     num_decision: yup.string().required(),
-    num_credit: yup.number().required()
+    num_credit: yup.number().required(),
   })
 
   const {
@@ -113,6 +77,8 @@ function FormCreate() {
       date_decision: '',
       num_decision: '',
       num_credit: '',
+      result_faculty:'',
+      result_academy:'',
       form_construction: '',
       type: 5,
     }
@@ -192,49 +158,49 @@ function FormCreate() {
             </div>
           </div>
           <div className="col-span-full mb-2.5">
-            <label htmlFor="result_level" className="block text-sm font-medium leading-6 text-gray-900">Kết quả bảo vệ cấp Khoa</label>
+            <label htmlFor="result_faculty" className="block text-sm font-medium leading-6 text-gray-900">Kết quả bảo vệ cấp Khoa</label>
             <div className="mt-2">
               <Controller
                 control={control}
-                name="result_level"
+                name="result_faculty"
                 render={({ field: { value, onChange, ref } }) => (
                   <Select
-                    options={result_level}
-                    name="result_level"
-                    id="result_level"
+                    options={RESULT_FACULTY}
+                    name="result_faculty"
+                    id="result_faculty"
                     placeholder="Lựa chọn"
-                    {...register('result_level')}
+                    {...register('result_faculty')}
                     onChange={(val) => {
                       onChange(val);
-                      setValue("result_level", val.id);
+                      setValue("result_faculty", val.id);
                     }}
                   />
                 )}
               />
-              {errors.result_level && <p className="text-red-500">{errors.result_level.message}</p>}
+              {errors.result_faculty && <p className="text-red-500">{errors.result_faculty.message}</p>}
             </div>
           </div>
           <div className="col-span-full mb-2.5">
-            <label htmlFor="result_level_2" className="block text-sm font-medium leading-6 text-gray-900">Kết quả bảo vệ cấp Học viện</label>
+            <label htmlFor="result_academy" className="block text-sm font-medium leading-6 text-gray-900">Kết quả bảo vệ cấp Học viện</label>
             <div className="mt-2">
               <Controller
                 control={control}
-                name="result_level_2"
+                name="result_academy"
                 render={({ field: { value, onChange, ref } }) => (
                   <Select
-                    options={result_level_2}
-                    name="result_level_2"
-                    id="result_level_2"
+                    options={RESULT_ACADEMY}
+                    name="result_academy"
+                    id="result_academy"
                     placeholder="Lựa chọn"
-                    {...register('result_level_2')}
+                    {...register('result_academy')}
                     onChange={(val) => {
                       onChange(val);
-                      setValue("result_level_2", val.id);
+                      setValue("result_academy", val.id);
                     }}
                   />
                 )}
               />
-              {errors.result_level_2 && <p className="text-red-500">{errors.result_level_2.message}</p>}
+              {errors.result_academy && <p className="text-red-500">{errors.result_academy.message}</p>}
             </div>
           </div>
 

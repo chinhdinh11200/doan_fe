@@ -14,11 +14,11 @@ import { POSITION_STAFF } from '../../constants';
 const role = [
     {
       label: "Tác giả chính",
-      value: 1
+      value: 0
     },
     {
       label: "Thành viên",
-      value: 2
+      value: 1
     },
   ];
   function AddCompilation() {
@@ -75,7 +75,6 @@ const role = [
     name: yup.string().trim().required('Vui lòng nhập tên giáo trình/bài giảng'),
     code: yup.string().required('Vui lòng nhập mã giáo trình/bài giảng').min(4, "Mã giáo trình/bài giảng không được nhỏ hơn 4 kí tự."),
     date_decision: yup.date().required(),
-    num_person: yup.number().required(),
     num_credit: yup.number().required()
   })
   const {
@@ -257,7 +256,6 @@ function FormEdit({ compilationId }) {
     name: yup.string().trim().required('Vui lòng nhập tên giáo trình/bài giảng'),
     code: yup.string().required('Vui lòng nhập mã giáo trình/bài giảng').min(4, "Mã giáo trình/bài giảng không được nhỏ hơn 4 kí tự."),
     date_decision: yup.date().required(),
-    num_person: yup.number().required(),
     num_credit: yup.number().required()
   })
   const {

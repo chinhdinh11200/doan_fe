@@ -14,11 +14,11 @@ import { POSITION_STAFF } from '../../constants';
 const form_construction = [
     {
       label: "Mới",
-      value: 1
+      value: 0
     },
     {
       label: "Tu sửa",
-      value: 2
+      value: 1
     },
   ];
   function AddProgram() {
