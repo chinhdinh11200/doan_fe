@@ -5,10 +5,14 @@ import API from '../constants/api';
 import { PAGE_SIZE } from '../constants';
 
 export const useSubjectList = (tableParams) => {
-    const { sort = "desc", sortColumn = "id" } = tableParams?.sorter;
-    const { pageSize: limit = PAGE_SIZE, current: page = 1 } =
-        tableParams.pagination;
-
+    var sort, sortColumn, limit, page, search;
+    if (tableParams !== undefined) {
+        sort = tableParams.sorter?.sort || 'desc'
+        sortColumn = tableParams.sorter?.sortColumn || 'id'
+        limit = tableParams.sorter?.pageSize || PAGE_SIZE
+        page = tableParams.sorter?.current || 1
+        search = tableParams.search
+    }
     return useQuery([SUBJECT_LIST, sort, sortColumn, limit, page], async () => {
         const { data, headers } = await axios.get(
             `${API.API_ROOT}${API.SUBJECT.LIST}`,
@@ -17,7 +21,8 @@ export const useSubjectList = (tableParams) => {
                     sort: sort,
                     sortColumn: sortColumn,
                     limit: limit,
-                    offset: page == 1 ? page - 1 : page
+                    offset: page == 1 ? page - 1 : page,
+                    search,
                 },
             })
 

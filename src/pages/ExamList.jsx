@@ -7,6 +7,9 @@ import { FORM_EXAM, PAGE_SIZE } from '../constants';
 import { useExamDelete, useExamList } from '../hooks/exam';
 import { Button, Modal, Space, Table, Tooltip } from 'antd';
 import Loading from '../components/Loading';
+import Search from '../components/Search';
+import { debounce } from 'lodash';
+
 function ExamList() {
   const [tableParams, setTableParams] = useState({
     pagination: {
@@ -18,10 +21,20 @@ function ExamList() {
       // sortColumn: null,
       // sort: null,
     },
+    search: '',
   });
   const [page, setPage] = useState(1);
   const pageSizeRef = useRef(PAGE_SIZE);
+  const changeDebounce = debounce((search) => {
+    setTableParams({
+      ...tableParams,
+      search: search
+    })
+  }, 1000);
 
+  const onChangeSearch = (search) => {
+    changeDebounce(search);
+  }
   const columns = [
     {
       title: <div className="text-center">STT</div>,
@@ -81,13 +94,6 @@ function ExamList() {
       title: <div className="text-center">Số mã đề</div>,
       dataIndex: "num_code",
       key: "num_code",
-      sortDirections: ["descend", "ascend", "descend"],
-      sorter: () => { },
-    },
-    {
-      title: <div className="text-center">Thời gian làm bài</div>,
-      dataIndex: "time_work",
-      key: "time_work",
       sortDirections: ["descend", "ascend", "descend"],
       sorter: () => { },
     },
@@ -207,10 +213,13 @@ function ExamList() {
           <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
             <div className="container max-w-7xl mx-auto mt-3">
               <div className="mb-4">
-                <h1 className="w-fit text-2xl pb-1 mb-8 mx-auto text-center font-bold uppercase border-b border-gray-300">Danh sách đánh giá học phần</h1>
+                <h1 className="font-sans w-fit text-3xl pb-1 mb-8 mx-auto text-center font-bold uppercase border-b border-gray-300">Danh sách đề thi</h1>
                 <div className="flex justify-between flex-row-reverse gap-4">
-                  {/* Filter button */}
-                  <FilterButton />
+                   {/* Filter button */}
+                   <div className='flex gap-2'>
+                      <Search onChangeSearch={onChangeSearch} />
+                      <FilterButton />
+                    </div>
                   <NavLink end to="/add-exam" className="btn bg-indigo-500 hover:bg-indigo-600 text-white">
                     <svg className="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
                       <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />

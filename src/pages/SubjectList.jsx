@@ -7,6 +7,9 @@ import { PAGE_SIZE } from '../constants';
 import { useSubjectDelete, useSubjectList } from '../hooks/subject';
 import { Button, Modal, Space, Table, Tooltip } from 'antd';
 import Loading from '../components/Loading';
+import Search from '../components/Search';
+import { debounce } from 'lodash';
+
 function SubjectList() {
   const [tableParams, setTableParams] = useState({
     pagination: {
@@ -18,9 +21,21 @@ function SubjectList() {
       // sortColumn: null,
       // sort: null,
     },
+    search: '',
   });
   const [page, setPage] = useState(1);
   const pageSizeRef = useRef(PAGE_SIZE);
+
+  const changeDebounce = debounce((search) => {
+    setTableParams({
+      ...tableParams,
+      search: search
+    })
+  }, 1000);
+
+  const onChangeSearch = (search) => {
+    changeDebounce(search);
+  }
 
   const columns = [
     {
@@ -186,8 +201,11 @@ function SubjectList() {
               <div className="mb-4">
                 <h1 className="font-serif w-fit text-2xl pb-1 mb-8 mx-auto text-center font-bold uppercase border-b border-gray-300">Danh sách môn học</h1>
                 <div className="flex justify-between flex-row-reverse gap-4">
-                  {/* Filter button */}
-                  <FilterButton />
+                   {/* Filter button */}
+                   <div className='flex gap-2'>
+                    <Search onChangeSearch={onChangeSearch} />
+                    <FilterButton />
+                  </div>
                   <NavLink end to="/add-subject" className="btn bg-indigo-500 hover:bg-indigo-600 text-white">
                     <svg className="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
                       <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />

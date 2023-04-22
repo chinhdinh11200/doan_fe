@@ -8,17 +8,33 @@ import { Button, Modal, Space, Table, Tooltip } from 'antd';
 import { BiEdit, BiTrash } from 'react-icons/bi';
 import { PAGE_SIZE } from '../constants';
 import Search from '../components/Search';
+import { debounce } from 'lodash';
 
 function Dashboard() {
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
-  const onChangeSearch = (search) => {
+  const [tableParams, setTableParams] = useState({
+    pagination: {
+      current: 1,
+      pageSize: PAGE_SIZE,
+      locale: { items_per_page: "/ trang" },
+    },
+    sorter: {
+      // sortColumn: null,
+      // sort: null,
+    },
+    search: ''
+  });
+  
+  const changeDebounce = debounce((search) => {
     setTableParams({
       ...tableParams,
       search: search
     })
-    console.log(search);
+  }, 1000);
+
+  const onChangeSearch = (search) => {
+    changeDebounce(search);
   }
   return (
     <div className="flex h-screen overflow-hidden">
