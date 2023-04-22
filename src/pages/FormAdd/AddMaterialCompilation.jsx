@@ -283,8 +283,8 @@ function FormEdit({ compilationId }) {
         password: '',
         departmentSelected: departments?.find(department => department.id === dataCompilation.department_id),
         positionSelected: POSITION_STAFF.find(position => position.value == dataCompilation.position),
-        roleSelected: dataTopic?.users,
-        role: dataTopic?.users?.map(user => user.id).join(','),
+        roleSelected: dataCompilation?.users,
+        role: dataCompilation?.users?.map(user => user.id).join(','),
         type: 7
       })
     }

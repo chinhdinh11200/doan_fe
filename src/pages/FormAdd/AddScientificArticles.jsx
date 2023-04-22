@@ -292,9 +292,9 @@ function FormEdit({articleId}) {
         ...dataArticle,
         password: '',
         departmentSelected: departments?.find(department => department.id === dataArticle.department_id),
-         positionSelected: POSITION_STAFF.find(position => position.value == dataTopic.position),
-          roleSelected: dataTopic?.users,
-          role: dataTopic?.users?.map(user => user.id).join(','),
+         positionSelected: POSITION_STAFF.find(position => position.value == dataArticle.position),
+          roleSelected: dataArticle?.users,
+          role: dataArticle?.users?.map(user => user.id).join(','),
           type: 2
       })
     }

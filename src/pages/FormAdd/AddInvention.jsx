@@ -301,8 +301,8 @@ function FormEdit({ inventionId }) {
         password: '',
         departmentSelected: departments?.find(department => department.id === dataInvention.department_id),
         positionSelected: POSITION_STAFF.find(position => position.value == dataInvention.position),
-        roleSelected: dataTopic?.users,
-        role: dataTopic?.users?.map(user => user.id).join(','),
+        roleSelected: dataInvention?.users,
+        role: dataInvention?.users?.map(user => user.id).join(','),
         type: 3
       })
     }

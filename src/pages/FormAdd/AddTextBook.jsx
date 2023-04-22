@@ -294,8 +294,8 @@ function FormEdit({ bookId }) {
         password: '',
         departmentSelected: departments?.find(department => department.id === dataBook.department_id),
         positionSelected: POSITION_STAFF.find(position => position.value == dataBook.position),
-        roleSelected: dataTopic?.users,
-        role: dataTopic?.users?.map(user => user.id).join(','),
+        roleSelected: dataBook?.users,
+        role: dataBook?.users?.map(user => user.id).join(','),
         type: 4
       })
     }
