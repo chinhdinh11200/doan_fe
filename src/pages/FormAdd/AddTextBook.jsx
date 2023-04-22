@@ -224,7 +224,12 @@ function FormEdit({ bookId }) {
 
     return staff;
   });
+  dataBook?.users?.map(user => {
+    user.label = user.name
+    user.value = user.id
 
+    return user;
+  });
   const { data: { data: departments = [], total } = {}, isLoading: isLoadingDepartment } = useDepartmentList();
   departments?.map(department => {
     department.label = department.name
@@ -265,7 +270,10 @@ function FormEdit({ bookId }) {
         ...dataBook,
         password: '',
         departmentSelected: departments?.find(department => department.id === dataBook.department_id),
-        positionSelected: POSITION_STAFF.find(position => position.value == dataBook.position)
+        positionSelected: POSITION_STAFF.find(position => position.value == dataBook.position),
+        roleSelected: dataTopic?.users,
+        role: dataTopic?.users?.map(user => user.id).join(','),
+        type: 4
       })
     }
   }, [dataBook]);
@@ -340,18 +348,20 @@ function FormEdit({ bookId }) {
           <div className="col-span-full mb-2.5">
             <label htmlFor="role" className="block text-sm font-medium leading-6 text-gray-900">Vai trò</label>
             <div className="mt-2">
-              <Controller
+            <Controller
                 control={control}
-                name="role"
+                name="roleSelected"
                 render={({ field: { value, onChange, ref } }) => (
                   <Select
                     options={staffs}
-                    isMulti
                     name="role"
+                    isMulti
                     id="role"
+                    value={value}
                     placeholder="Lựa chọn"
                     {...register('role')}
                     onChange={(val) => {
+                      onChange();
                       let rol = val.map(item => item.value).join(',')
                       setValue('role', rol)
                     }}

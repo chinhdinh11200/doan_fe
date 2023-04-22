@@ -189,24 +189,26 @@ const role = [
                 <div className="col-span-full mb-2.5">
                   <label htmlFor="role" className="block text-sm font-medium leading-6 text-gray-900">Vai trò</label>
                   <div className="mt-2">
-                    <Controller
-                      control={control}
-                      name="role"
-                      render={({ field: { value, onChange, ref } }) => (
-                        <Select
-                          options={staffs}
-                          isMulti
-                          name="role"
-                          id="role"
-                          placeholder="Lựa chọn"
-                          {...register('role')}
-                          onChange={(val) => {
-                            let rol = val.map(item => item.value).join(',')
-                            setValue('role', rol);
-                          }}
-                        />
-                      )}
-                    />
+                  <Controller
+                control={control}
+                name="roleSelected"
+                render={({ field: { value, onChange, ref } }) => (
+                  <Select
+                    options={staffs}
+                    name="role"
+                    isMulti
+                    id="role"
+                    value={value}
+                    placeholder="Lựa chọn"
+                    {...register('role')}
+                    onChange={(val) => {
+                      onChange();
+                      let rol = val.map(item => item.value).join(',')
+                      setValue('role', rol)
+                    }}
+                  />
+                )}
+              />
                     {errors.role && <p className="text-red-500">{errors.role.message}</p>}
                   </div>
                 </div>
@@ -245,7 +247,12 @@ function FormEdit({ compilationId }) {
 
     return department;
   });
+  dataCompilation?.users?.map(user => {
+    user.label = user.name
+    user.value = user.id
 
+    return user;
+  });
   const schema = yup.object().shape({
     name: yup.string().trim().required('Vui lòng nhập tên giáo trình/bài giảng'),
     code: yup.string().required('Vui lòng nhập mã giáo trình/bài giảng').min(4, "Mã giáo trình/bài giảng không được nhỏ hơn 4 kí tự."),
@@ -277,7 +284,10 @@ function FormEdit({ compilationId }) {
         ...dataCompilation,
         password: '',
         departmentSelected: departments?.find(department => department.id === dataCompilation.department_id),
-        positionSelected: POSITION_STAFF.find(position => position.value == dataCompilation.position) 
+        positionSelected: POSITION_STAFF.find(position => position.value == dataCompilation.position),
+        roleSelected: dataTopic?.users,
+        role: dataTopic?.users?.map(user => user.id).join(','),
+        type: 7
       })
     }
   }, [dataCompilation]);

@@ -91,7 +91,7 @@ function Dashboard() {
                   mutate(values)
                 })}
               >
-                <div className="col-span-full mb-2 mb-2.5">
+                <div className="col-span-full mb-2">
                   <label htmlFor="code" className="block text-sm font-medium leading-6 text-gray-900">Mã luận án / luận văn</label>
                   <div className="mt-2">
                     <input
@@ -105,7 +105,7 @@ function Dashboard() {
                     {errors.code && <p className="text-red-500">{errors.code.message}</p>}
                   </div>
                 </div>
-                <div className="col-span-full mb-2 mb-2.5">
+                <div className="col-span-full mb-2">
                   <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">Họ tên NCS/Học viên/ Sinh viên </label>
                   <div className="mt-2">
                     <input
@@ -119,7 +119,7 @@ function Dashboard() {
                     {errors.name && <p className="text-red-500">{errors.name.message}</p>}
                   </div>
                 </div>
-                <div className="col-span-full mb-2 mb-2.5">
+                <div className="col-span-full mb-2">
                   <label htmlFor="num_decision" className="block text-sm font-medium leading-6 text-gray-900">Số QĐ giao nhiệm vụ</label>
                   <div className="mt-2">
                     <input
@@ -133,7 +133,7 @@ function Dashboard() {
                     {errors.num_decision && <p className="text-red-500">{errors.num_decision.message}</p>}
                   </div>
                 </div>
-                <div className="col-span-full mb-2 mb-2.5">
+                <div className="col-span-full mb-2">
                   <label htmlFor="date_decision" className="block text-sm font-medium leading-6 text-gray-900">Ngày ký QĐ giao nhiệm vụ</label>
                   <div className="mt-2">
                     <input
@@ -147,7 +147,7 @@ function Dashboard() {
                     {errors.date_decision && <p className="text-red-500">{errors.date_decision.message}</p>}
                   </div>
                 </div>
-                <div className="col-span-full mb-2 mb-2.5">
+                <div className="col-span-full mb-2">
                   <label htmlFor="course" className="block text-sm font-medium leading-6 text-gray-900">Khóa đào tạo</label>
                   <div className="mt-2">
                     <input
@@ -161,7 +161,7 @@ function Dashboard() {
                     {errors.course && <p className="text-red-500">{errors.course.message}</p>}
                   </div>
                 </div>
-                <div className="col-span-full mb-2 mb-2.5">
+                <div className="col-span-full mb-2">
                   <label htmlFor="role" className="block text-sm font-medium leading-6 text-gray-900">Vai trò</label>
                   <div className="mt-2">
                     <Controller

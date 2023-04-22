@@ -146,20 +146,22 @@ function FormCreate() {
           <div className="col-span-full mb-2.5">
             <label htmlFor="role" className="block text-sm font-medium leading-6 text-gray-900">Vai trò</label>
             <div className="mt-2">
-              <Controller
+            <Controller
                 control={control}
-                name="role"
+                name="roleSelected"
                 render={({ field: { value, onChange, ref } }) => (
                   <Select
                     options={staffs}
                     name="role"
+                    isMulti
                     id="role"
+                    value={value}
                     placeholder="Lựa chọn"
                     {...register('role')}
-                    isMulti
                     onChange={(val) => {
+                      onChange();
                       let rol = val.map(item => item.value).join(',')
-                      setValue('role', rol);
+                      setValue('role', rol)
                     }}
                   />
                 )}
@@ -223,7 +225,12 @@ function FormEdit({ inventionId }) {
 
     return staff;
   });
+  dataInvention?.users?.map(user => {
+    user.label = user.name
+    user.value = user.id
 
+    return user;
+  });
   const { data: { data: departments = [], total } = {}, isLoading: isLoadingDepartment } = useDepartmentList();
   departments?.map(department => {
     department.label = department.name
@@ -231,7 +238,12 @@ function FormEdit({ inventionId }) {
 
     return department;
   });
+  dataInvention?.users?.map(user => {
+    user.label = user.name
+    user.value = user.id
 
+    return user;
+  });
   const schema = yup.object().shape({
     name: yup.string().trim().required('Vui lòng nhập tên bẳng sáng chế/giải thưởng'),
     code: yup.string().required('Vui lòng nhập mã tên bẳng sáng chế/giải thưởng').min(4, "Mã tên bẳng sáng chế/giải thưởng không được nhỏ hơn 4 kí tự."),
@@ -263,7 +275,10 @@ function FormEdit({ inventionId }) {
         ...dataInvention,
         password: '',
         departmentSelected: departments?.find(department => department.id === dataInvention.department_id),
-        positionSelected: POSITION_STAFF.find(position => position.value == dataInvention.position)
+        positionSelected: POSITION_STAFF.find(position => position.value == dataInvention.position),
+        roleSelected: dataTopic?.users,
+        role: dataTopic?.users?.map(user => user.id).join(','),
+        type: 3
       })
     }
   }, [dataInvention]);

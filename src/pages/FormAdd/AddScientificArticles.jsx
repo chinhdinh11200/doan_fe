@@ -248,6 +248,13 @@ function FormEdit({articleId}) {
     return staff;
   });
 
+  dataArticle?.users?.map(user => {
+    user.label = user.name
+    user.value = user.id
+
+    return user;
+  });
+
   const { data: { data: departments = [], total } = {}, isLoading: isLoadingDepartment } = useDepartmentList();
   departments?.map(department => {
     department.label = department.name
@@ -287,7 +294,10 @@ function FormEdit({articleId}) {
         ...dataArticle,
         password: '',
         departmentSelected: departments?.find(department => department.id === dataArticle.department_id),
-        positionSelected: POSITION_STAFF.find(position => position.value == dataArticle.position)
+         positionSelected: POSITION_STAFF.find(position => position.value == dataTopic.position),
+          roleSelected: dataTopic?.users,
+          role: dataTopic?.users?.map(user => user.id).join(','),
+          type: 2
       })
     }
   }, [dataArticle]);
@@ -357,20 +367,22 @@ function FormEdit({articleId}) {
           <div className="col-span-full mb-2.5">
             <label htmlFor="role" className="block text-sm font-medium leading-6 text-gray-900">Vai trò</label>
             <div className="mt-2">
-              <Controller
+            <Controller
                 control={control}
-                name="role"
+                name="roleSelected"
                 render={({ field: { value, onChange, ref } }) => (
                   <Select
                     options={staffs}
                     name="role"
-                    id="role"
                     isMulti
+                    id="role"
+                    value={value}
                     placeholder="Lựa chọn"
                     {...register('role')}
                     onChange={(val) => {
+                      onChange();
                       let rol = val.map(item => item.value).join(',')
-                      setValue('role', rol);
+                      setValue('role', rol)
                     }}
                   />
                 )}
