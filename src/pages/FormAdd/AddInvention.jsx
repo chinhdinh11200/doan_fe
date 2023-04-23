@@ -399,6 +399,32 @@ function FormEdit({ inventionId }) {
               {errors.number_recognition && <p className="text-red-500">{errors.number_recognition.message}</p>}
             </div>
           </div>
+          <div className="col-span-full mb-2.5">
+            <label htmlFor="type_inventions" className="block text-sm font-medium leading-6 text-gray-900">Giải thưởng</label>
+            <div className="mt-2">
+              <Controller
+                control={control}
+                name="type_inventions"
+                render={({ field: { value, onChange, ref } }) => (
+                  <Select
+                    options={TYPE_INVENTIONS}
+                    name="type_inventions"
+                    isMulti
+                    id="type_inventions"
+                    value={value}
+                    placeholder="Lựa chọn"
+                    {...register('type_inventions')}
+                    onChange={(val) => {
+                      onChange();
+                      let rol = val.map(item => item.value).join(',')
+                      setValue('type_inventions', rol)
+                    }}
+                  />
+                )}
+              />
+              {errors.type_inventions && <p className="text-red-500">{errors.type_inventions.message}</p>}
+            </div>
+          </div>
           <div className="mt-6 flex items-center justify-end gap-x-6">
             <button onClick={() => navigate(-1)} type="button" className="text-sm font-semibold leading-6 text-gray-900 hover:underline">Hủy</button>
             <button type="submit" className="rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 

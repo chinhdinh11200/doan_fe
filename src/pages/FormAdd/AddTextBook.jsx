@@ -354,6 +354,30 @@ function FormEdit({ bookId }) {
             </div>
           </div>
           <div className="col-span-full mb-2.5">
+            <label htmlFor="type_book" className="block text-sm font-medium leading-6 text-gray-900">Thể loại</label>
+            <div className="mt-2">
+              <Controller
+                control={control}
+                name="type_book"
+                render={({ field: { value, onChange, ref } }) => (
+                  <Select
+                    options={TYPE_BOOK}
+                    isMulti
+                    name="type_book"
+                    id="type_book"
+                    placeholder="Lựa chọn"
+                    {...register('type_book')}
+                    onChange={(val) => {
+                      let rol = val.map(item => item.value).join(',')
+                      setValue('type_book', rol)
+                    }}
+                  />
+                )}
+              />
+              {errors.type_book && <p className="text-red-500">{errors.type_book.message}</p>}
+            </div>
+          </div>
+          <div className="col-span-full mb-2.5">
             <label htmlFor="num_page" className="block text-sm font-medium leading-6 text-gray-900">Số trang</label>
             <div className="mt-2">
               <input
