@@ -158,7 +158,7 @@ function FormCreate() {
                     {...register('type_article')}
                     onChange={(val) => {
                       onChange(val);
-                      setValue("type_article", val.id);
+                      setValue("type_article", val.value);
                     }}
                   />
                 )}
@@ -295,7 +295,8 @@ function FormEdit({articleId}) {
          positionSelected: POSITION_STAFF.find(position => position.value == dataArticle.position),
           roleSelected: dataArticle?.users,
           role: dataArticle?.users?.map(user => user.id).join(','),
-          type: 2
+          type: 2,
+          type_article: dataArticle.type
       })
     }
   }, [dataArticle]);

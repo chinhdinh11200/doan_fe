@@ -48,7 +48,6 @@ function AddBook() {
   );
 }
 function FormCreate() {
-
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { mutate,
@@ -76,6 +75,7 @@ function FormCreate() {
     code: yup.string().required('Vui lòng nhập mã sách/giáo trình').min(4, "Mã sách/giáo trình không được nhỏ hơn 4 kí tự."),
     num_publish: yup.string(),
     num_page: yup.number(),
+    type_book: yup.number()
   })
 
   const {
@@ -163,18 +163,17 @@ function FormCreate() {
             <div className="mt-2">
               <Controller
                 control={control}
-                name="type_book"
+                name="type_bookSelected"
                 render={({ field: { value, onChange, ref } }) => (
                   <Select
                     options={TYPE_BOOK}
-                    isMulti
                     name="type_book"
                     id="type_book"
                     placeholder="Lựa chọn"
                     {...register('type_book')}
                     onChange={(val) => {
-                      let rol = val.map(item => item.value).join(',')
-                      setValue('type_book', rol)
+                      onChange()
+                      setValue('type_book', val.value)
                     }}
                   />
                 )}
@@ -197,6 +196,30 @@ function FormCreate() {
             </div>
           </div>
 
+          <div className="col-span-full mb-2.5">
+            <label htmlFor="role" className="block text-sm font-medium leading-6 text-gray-900">Vai trò</label>
+            <div className="mt-2">
+              <Controller
+                control={control}
+                name="role"
+                render={({ field: { value, onChange, ref } }) => (
+                  <Select
+                    options={staffs}
+                    isMulti
+                    name="role"
+                    id="role"
+                    placeholder="Lựa chọn"
+                    {...register('role')}
+                    onChange={(val) => {
+                      let rol = val.map(item => item.value).join(',')
+                      setValue('role', rol)
+                    }}
+                  />
+                )}
+              />
+              {errors.role && <p className="text-red-500">{errors.role.message}</p>}
+            </div>
+          </div>
           <div className="col-span-full mb-2.5">
             <label htmlFor="role" className="block text-sm font-medium leading-6 text-gray-900">Vai trò</label>
             <div className="mt-2">
@@ -296,7 +319,8 @@ function FormEdit({ bookId }) {
         positionSelected: POSITION_STAFF.find(position => position.value == dataBook.position),
         roleSelected: dataBook?.users,
         role: dataBook?.users?.map(user => user.id).join(','),
-        type: 4
+        type: 4,
+        type_book: dataBook.type,
       })
     }
   }, [dataBook]);

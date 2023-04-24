@@ -94,6 +94,7 @@ function FormCreate() {
       number_recognition: '',
       level: '',
       type_inventions:'',
+      type: 3
     }
   })
 
@@ -207,15 +208,14 @@ function FormCreate() {
                   <Select
                     options={TYPE_INVENTIONS}
                     name="type_inventions"
-                    isMulti
+                    // isMulti
                     id="type_inventions"
-                    value={value}
+                    // value={value}
                     placeholder="Lựa chọn"
                     {...register('type_inventions')}
                     onChange={(val) => {
                       onChange();
-                      let rol = val.map(item => item.value).join(',')
-                      setValue('type_inventions', rol)
+                      setValue('type_inventions', val.value)
                     }}
                   />
                 )}

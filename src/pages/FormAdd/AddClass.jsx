@@ -9,6 +9,7 @@ import Select from 'react-select';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useSubjectAll, useSubjectList } from '../../hooks/subject';
 import { useStaffList } from '../../hooks/staffs';
+import { Checkbox } from 'antd';
 
 function AddClass() {
   const currentLocation = useLocation();
@@ -312,6 +313,10 @@ const FormEdit = ({ classId }) => {
     return staff;
   })
 
+  const [marking, setMarking] = useState(false);
+  const [exam_create, setExamCreate] = useState(false);
+  const [exam_supervision, setExamSupervision] = useState(false);
+
   const schema = yup.object().shape({
     name: yup.string().trim().required('Tên nhân viên là bắt buộc').max(191, 'Tên không dài quá 191 kí tự'),
     code: yup.string().required('Mã nhân viên là bắt buộc.').min(4, "Mã nhân viên không được nhỏ hơn 4 kí tự."),
@@ -333,17 +338,20 @@ const FormEdit = ({ classId }) => {
   })
 
   useEffect(() => {
-    if (dataCreate) {
-      navigate('/ListClass');
+    if (dataCreate?.data?.success) {
+      navigate('/list-class');
     }
   }, [isSuccess]);
 
   useEffect(() => {
     if (classs) {
+      setMarking(classs.marking == 1 ? true : false);
+      setExamCreate(classs.exam_create == 1 ? true : false);
+      setExamSupervision(classs.exam_supervision == 1 ? true : false);
       reset({
         ...classs,
         subjectSelected: subjects?.find((subject) => subject.id === classs.subject_id),
-        userSelected: staffs?.find((staff) => staff.id === classs.user_id)
+        userSelected: staffs?.find((staff) => staff.id === classs.user_id),
       })
     }
   }, [classs]);
@@ -353,7 +361,8 @@ const FormEdit = ({ classId }) => {
         <form
           name='add-class'
           onSubmit={handleSubmit((values) => {
-            mutate(values)
+            console.log({ marking, exam_create, exam_supervision });
+            mutate({ ...values /*, marking: marking, exam_create: exam_create, exam_supervision: exam_supervision*/ })
           })}
         >
           <div className="col-span-full mb-2">
@@ -487,7 +496,7 @@ const FormEdit = ({ classId }) => {
               {errors.num_credit && <p className="text-red-500">{errors.num_credit.message}</p>}
             </div>
           </div>
-          <div className="col-span-full mb-2">
+          {/* <div className="col-span-full mb-2">
             <label htmlFor="classroom" className="block text-sm font-medium leading-6 text-gray-900">Phòng học</label>
             <div className="mt-2">
               <input
@@ -528,7 +537,7 @@ const FormEdit = ({ classId }) => {
               />
               {errors.endDate && <p className="text-red-500">{errors.endDate.message}</p>}
             </div>
-          </div>
+          </div> */}
           <div className="col-span-full mb-2">
             <label htmlFor="semester" className="block text-sm font-medium leading-6 text-gray-900">Kì học</label>
             <div className="mt-2">
@@ -541,6 +550,48 @@ const FormEdit = ({ classId }) => {
                 {...register('semester', { required: true })}
               />
               {errors.semester && <p className="text-red-500">{errors.semester.message}</p>}
+            </div>
+          </div>
+          <div className="col-span-full mb-2 flex items-center">
+            <div className="mt-2 flex items-center">
+              <input
+                type="checkbox"
+                name="exam_create"
+                id="exam_create"
+                checked={exam_create}
+                onChange={() => { setExamCreate(!exam_create); setValue('exam_create', !exam_create ? 1 : 0) }}
+                autoComplete="exam_create"
+                className="rounded-md border-0"
+              // {...register('exam_create', { required: true })}
+              />
+              <label htmlFor="exam_create" className="text-sm font-medium leading-6 text-gray-900 pr-2">Ra đề thi giữa kì</label>
+            </div>
+            <div className="mt-2 flex items-center">
+              <input
+                type="checkbox"
+                name="exam_supervision"
+                id="exam_supervision"
+                checked={exam_supervision}
+                onChange={(e) => { setExamSupervision(!exam_supervision); setValue('exam_supervision', !exam_supervision ? 1 : 0); console.log(e.target, e) }}
+                autoComplete="exam_supervision"
+                className="rounded-md border-0"
+              // {...register('exam_supervision', { required: true })}
+              />
+              <label htmlFor="exam_supervision" className="text-sm font-medium leading-6 text-gray-900 pr-2">Coi thi giữa kì</label>
+            </div>
+            <div className="mt-2 flex items-center">
+              <input
+                type="checkbox"
+                name="marking"
+                id="marking"
+                checked={marking}
+                onChange={() => { setMarking(!marking); setValue('marking', !marking ? 1 : 0) }}
+                autoComplete="marking"
+                className="rounded-md border-0"
+              // {...register('marking', { required: true })}
+              />
+              {/* <Checkbox  onChange={() => console.log("ccccc")}>Chấm thi giữa kì</Checkbox> */}
+              <label htmlFor="marking" className="text-sm font-medium leading-6 text-gray-900 pr-2">Chấm thi giữa kì</label>
             </div>
           </div>
           <div className="mt-6 flex items-center justify-end gap-x-6">
