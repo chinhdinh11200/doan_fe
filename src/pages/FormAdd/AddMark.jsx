@@ -9,14 +9,15 @@ import Select from 'react-select';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useSubjectAll, useSubjectList } from '../../hooks/subject';
 import { useStaffList } from '../../hooks/staffs';
-import { FORM_EXAM, SEMESTER, TYPE_EXAM } from '../../constants';
-import { useCreateExam, useExamDetail, useExamList, useUpdateExam } from '../../hooks/exam';
 import { useCreateRoom, useRoomDetail, useUpdateRoom } from '../../hooks/room';
+import { FORM_EXAM, FORM_MARK } from '../../constants';
+import { useCreateMark, useMarkDetail, useUpdateMark } from '../../hooks/mark';
+import { useExamDetail } from '../../hooks/exam';
 
-function AddRoom() {
+function AddMark() {
   const currentLocation = useLocation();
   const [searchParams] = useSearchParams();
-  const roomId = searchParams.get('id');
+  const markId = searchParams.get('id');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   return (
     <div className="flex h-screen overflow-hidden">
@@ -32,8 +33,8 @@ function AddRoom() {
 
         <main className='bg-white w-9/12 mx-auto p-8 shadow-md my-4'>
           <div className='py-5 mb-4 w-auto text-center'><span className='p-3 rounded-lg bg-slate-800 border
-           text-white hover:text-slate-800 hover:bg-white hover:border-slate-800'>{currentLocation.pathname == '/edit-room' ? 'Cập Nhật Coi Thi' : 'Thêm Coi Thi'}</span></div>
-          {currentLocation.pathname == '/edit-room' ? <FormEdit roomId={roomId} /> : <FormCreate />}
+           text-white hover:text-slate-800 hover:bg-white hover:border-slate-800'>{currentLocation.pathname == '/edit-mark' ? 'Cập Nhật Chấm Thi' : 'Thêm Chấm Thi'}</span></div>
+          {currentLocation.pathname == '/edit-mark' ? <FormEdit markId={markId} /> : <FormCreate />}
         </main>
       </div>
     </div>
@@ -46,7 +47,7 @@ const FormCreate = () => {
     isSuccess,
     isLoading,
     error,
-    data: dataCreate } = useCreateRoom();
+    data: dataCreate } = useCreateMark();
   const { data: { data: subjects = [], total } = {}, isLoading: isLoadingsubject } = useSubjectAll();
   subjects?.map(subject => {
     subject.label = subject.name
@@ -83,7 +84,7 @@ const FormCreate = () => {
 
   useEffect(() => {
     if (dataCreate) {
-      navigate('/list-room');
+      navigate('/list-mark');
     }
   }, [isSuccess]);
   return (
@@ -97,7 +98,7 @@ const FormCreate = () => {
           })}
         >
           <div className="col-span-full mb-2">
-            <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">Tên coi thi</label>
+            <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">Tên chấm thi</label>
             <div className="mt-2">
               <input
                 type="text"
@@ -111,7 +112,7 @@ const FormCreate = () => {
             </div>
           </div>
           <div className="col-span-full mb-2">
-            <label htmlFor="code" className="block text-sm font-medium leading-6 text-gray-900">Mã coi thi</label>
+            <label htmlFor="code" className="block text-sm font-medium leading-6 text-gray-900">Mã chấm thi</label>
             <div className="mt-2">
               <input
                 type="text"
@@ -147,7 +148,7 @@ const FormCreate = () => {
             </div>
           </div>
           <div className="col-span-full mb-2">
-            <label htmlFor="user_id" className="block text-sm font-medium leading-6 text-gray-900">Người coi thi</label>
+            <label htmlFor="user_id" className="block text-sm font-medium leading-6 text-gray-900">Người chấm thi</label>
             <div className="mt-2">
               <Controller
                 control={control}
@@ -169,45 +170,53 @@ const FormCreate = () => {
             </div>
           </div>
           <div className="col-span-full mb-2">
-            <label htmlFor="num_exam_session" className="block text-sm font-medium leading-6 text-gray-900">Số ca coi thi</label>
+            <label htmlFor="type" className="block text-sm font-medium leading-6 text-gray-900">Hình thức chấm thi</label>
             <div className="mt-2">
-              <input
-                type="number"
-                name="num_exam_session"
-                id="num_exam_session"
-                autoComplete="num_exam_session"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                {...register('num_exam_session', { required: true })}
+              <Controller
+                control={control}
+                name="type"
+                render={({ field: { value, onChange, ref } }) => (
+                  <Select
+                    options={FORM_MARK}
+                    id="type"
+                    placeholder="Lựa chọn"
+                    {...register('type')}
+                    onChange={(val) => {
+                      onChange(val);
+                      setValue("type", val.value);
+                    }}
+                  />
+                )}
               />
-              {errors.num_exam_session && <p className="text-red-500">{errors.num_exam_session.message}</p>}
+              {errors.type && <p className="text-red-500">{errors.type.message}</p>}
             </div>
           </div>
           <div className="col-span-full mb-2">
-            <label htmlFor="time" className="block text-sm font-medium leading-6 text-gray-900">Thời gian làm bài</label>
+            <label htmlFor="num_exam" className="block text-sm font-medium leading-6 text-gray-900">Số bài chấm thi</label>
             <div className="mt-2">
               <input
                 type="number"
-                name="time"
-                id="time"
-                autoComplete="time"
+                name="num_exam"
+                id="num_exam"
+                autoComplete="num_exam"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                {...register('time', { required: true })}
+                {...register('num_exam', { required: true })}
               />
-              {errors.time && <p className="text-red-500">{errors.time.message}</p>}
+              {errors.num_exam && <p className="text-red-500">{errors.num_exam.message}</p>}
             </div>
           </div>
           <div className="col-span-full mb-2">
-            <label htmlFor="startDate" className="block text-sm font-medium leading-6 text-gray-900">Ngày coi thi</label>
+            <label htmlFor="date_exam" className="block text-sm font-medium leading-6 text-gray-900">Ngày chấm thi</label>
             <div className="mt-2">
               <input
                 type="date"
-                name="startDate"
-                id="startDate"
-                autoComplete="startDate"
+                name="date_exam"
+                id="date_exam"
+                autoComplete="date_exam"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                {...register('startDate', { required: true })}
+                {...register('date_exam', { required: true })}
               />
-              {errors.startDate && <p className="text-red-500">{errors.startDate.message}</p>}
+              {errors.date_exam && <p className="text-red-500">{errors.date_exam.message}</p>}
             </div>
           </div>
           <div className="mt-6 flex items-center justify-end gap-x-6">
@@ -220,13 +229,13 @@ const FormCreate = () => {
   )
 }
 
-const FormEdit = ({ roomId }) => {
+const FormEdit = ({ markId }) => {
   const navigate = useNavigate();
   const { mutate,
     isSuccess,
     isLoading,
     error,
-    data: dataCreate } = useUpdateRoom(roomId);
+    data: dataCreate } = useUpdateMark(markId);
   const { data: { data: subjects = [], total } = {}, isLoading: isLoadingSubject } = useSubjectAll();
   subjects?.map(subject => {
     subject.label = subject.name
@@ -235,7 +244,7 @@ const FormEdit = ({ roomId }) => {
     return subject;
   })
   const { data: { data: staffs = [] } = {}, isLoading: isLoadingStaff } = useStaffList();
-  const { data: room = {} } = useRoomDetail(roomId);
+  const { data: mark = {} } = useMarkDetail(markId);
   staffs?.map(staff => {
     staff.label = staff.name
     staff.value = staff.id
@@ -261,21 +270,21 @@ const FormEdit = ({ roomId }) => {
 
   useEffect(() => {
     if (dataCreate) {
-      navigate('/list-room');
+      navigate('/list-mark');
     }
   }, [isSuccess]);
 
   useEffect(() => {
-    if (room) {
+    if (mark) {
+      console.log( staffs?.find((user) => user.id === mark.user_id));
       reset({
-        ...room,
-        subjectSelected: subjects?.find((subject) => subject.id === room.subject_id),
-        userSelected: staffs?.find((user) => user.id === room.user_id),
-        // typeSelected: TYPE_EXAM?.find((type) => type.value === room.type),
-        // semesterSelected: SEMESTER?.find((semester) => semester.value == room.semester_id),
+        ...mark,
+        subjectSelected: subjects?.find((subject) => subject.id === mark.subject_id),
+        userSelected: staffs?.find((user) => user.id === mark.user_id),
+        formMarkSelected: FORM_MARK?.find((formMark) => formMark.value == mark.type),
       })
     }
-  }, [room]);
+  }, [mark]);
   return (
     <div className="w-full">
       <div className="border-b border-gray-900/10 pb-12">
@@ -286,8 +295,8 @@ const FormEdit = ({ roomId }) => {
             console.log(values)
           })}
         >
-          <div className="col-span-full mb-2">
-            <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">Tên coi thi</label>
+          {/* <div className="col-span-full mb-2">
+            <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">Tên chấm thi</label>
             <div className="mt-2">
               <input
                 type="text"
@@ -301,7 +310,7 @@ const FormEdit = ({ roomId }) => {
             </div>
           </div>
           <div className="col-span-full mb-2">
-            <label htmlFor="code" className="block text-sm font-medium leading-6 text-gray-900">Mã coi thi</label>
+            <label htmlFor="code" className="block text-sm font-medium leading-6 text-gray-900">Mã chấm thi</label>
             <div className="mt-2">
               <input
                 type="text"
@@ -313,9 +322,9 @@ const FormEdit = ({ roomId }) => {
               />
               {errors.code && <p className="text-red-500">{errors.code.message}</p>}
             </div>
-          </div>
+          </div> */}
           <div className="col-span-full mb-2">
-            <label htmlFor="subject_id" className="block text-sm font-medium leading-6 text-gray-900">Đề thi</label>
+            <label htmlFor="subject_id" className="block text-sm font-medium leading-6 text-gray-900">Môn thi</label>
             <div className="mt-2">
               <Controller
                 control={control}
@@ -339,7 +348,7 @@ const FormEdit = ({ roomId }) => {
             </div>
           </div>
           <div className="col-span-full mb-2">
-            <label htmlFor="user_id" className="block text-sm font-medium leading-6 text-gray-900">Người coi thi</label>
+            <label htmlFor="user_id" className="block text-sm font-medium leading-6 text-gray-900">Người chấm thi</label>
             <div className="mt-2">
               <Controller
                 control={control}
@@ -363,45 +372,55 @@ const FormEdit = ({ roomId }) => {
             </div>
           </div>
           <div className="col-span-full mb-2">
-            <label htmlFor="num_exam_session" className="block text-sm font-medium leading-6 text-gray-900">Số ca coi thi</label>
+            <label htmlFor="user_id" className="block text-sm font-medium leading-6 text-gray-900">Hình thức chấm thi</label>
             <div className="mt-2">
-              <input
-                type="number"
-                name="num_exam_session"
-                id="num_exam_session"
-                autoComplete="num_exam_session"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                {...register('num_exam_session', { required: true })}
+              <Controller
+                control={control}
+                name="formMarkSelected"
+                render={({ field: { value, onChange, ref } }) => (
+                  <Select
+                    options={FORM_MARK}
+                    id="type"
+                    value={value}
+                    placeholder="Lựa chọn"
+                    {...register('type')}
+                    onChange={(val) => {
+                      onChange(val);
+                      setValue("type", val.value);
+                    }}
+                  />
+                )}
               />
-              {errors.num_exam_session && <p className="text-red-500">{errors.num_exam_session.message}</p>}
+
+              {errors.type && <p className="text-red-500">{errors.type.message}</p>}
             </div>
           </div>
           <div className="col-span-full mb-2">
-            <label htmlFor="time" className="block text-sm font-medium leading-6 text-gray-900">Thời gian làm bài</label>
+            <label htmlFor="num_exam" className="block text-sm font-medium leading-6 text-gray-900">Số bài chấm thi</label>
             <div className="mt-2">
               <input
                 type="number"
-                name="time"
-                id="time"
-                autoComplete="time"
+                name="num_exam"
+                id="num_exam"
+                autoComplete="num_exam"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                {...register('time', { required: true })}
+                {...register('num_exam', { required: true })}
               />
-              {errors.time && <p className="text-red-500">{errors.time.message}</p>}
+              {errors.num_exam && <p className="text-red-500">{errors.num_exam.message}</p>}
             </div>
           </div>
           <div className="col-span-full mb-2">
-            <label htmlFor="startDate" className="block text-sm font-medium leading-6 text-gray-900">Ngày coi thi</label>
+            <label htmlFor="date_exam" className="block text-sm font-medium leading-6 text-gray-900">Ngày chấm thi</label>
             <div className="mt-2">
               <input
                 type="date"
-                name="startDate"
-                id="startDate"
-                autoComplete="startDate"
+                name="date_exam"
+                id="date_exam"
+                autoComplete="date_exam"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                {...register('startDate', { required: true })}
+                {...register('date_exam', { required: true })}
               />
-              {errors.startDate && <p className="text-red-500">{errors.startDate.message}</p>}
+              {errors.date_exam && <p className="text-red-500">{errors.date_exam.message}</p>}
             </div>
           </div>
           <div className="mt-6 flex items-center justify-end gap-x-6">
@@ -414,4 +433,4 @@ const FormEdit = ({ roomId }) => {
   )
 }
 
-export default AddRoom;
+export default AddMark;

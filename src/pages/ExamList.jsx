@@ -61,12 +61,6 @@ function ExamList() {
       key: "code",
       sortDirections: ["descend", "ascend", "descend"],
       sorter: () => { },
-      render: (_, record) => {
-        console.log(FORM_EXAM.find(formExam => formExam.value == record.form_exam).label);
-        return (<>
-          {record.form_exam}
-        </>)
-      }
     },
     {
       title: <div className="text-center">Người ra đề</div>,
@@ -78,22 +72,18 @@ function ExamList() {
     },
     {
       title: <div className="text-center">Hình thức thi</div>,
-      dataIndex: "form_exam",
-      key: "form_exam",
+      dataIndex: "type",
+      key: "type",
       sortDirections: ["descend", "ascend", "descend"],
       sorter: () => { },
+      render: (_, record) => {
+        return (FORM_EXAM.find(formExam => formExam.value == record.type).label)
+      }
     },
     {
       title: <div className="text-center">Số câu hỏi</div>,
-      dataIndex: "number_question",
-      key: "number_question",
-      sortDirections: ["descend", "ascend", "descend"],
-      sorter: () => { },
-    },
-    {
-      title: <div className="text-center">Số mã đề</div>,
-      dataIndex: "num_code",
-      key: "num_code",
+      dataIndex: "num_question",
+      key: "num_question",
       sortDirections: ["descend", "ascend", "descend"],
       sorter: () => { },
     },
@@ -215,11 +205,11 @@ function ExamList() {
               <div className="mb-4">
                 <h1 className="font-sans w-fit text-3xl pb-1 mb-8 mx-auto text-center font-bold uppercase border-b border-gray-300">Danh sách đề thi</h1>
                 <div className="flex justify-between flex-row-reverse gap-4">
-                   {/* Filter button */}
-                   <div className='flex gap-2'>
-                      <Search onChangeSearch={onChangeSearch} />
-                      <FilterButton />
-                    </div>
+                  {/* Filter button */}
+                  <div className='flex gap-2'>
+                    <Search onChangeSearch={onChangeSearch} />
+                    <FilterButton />
+                  </div>
                   <NavLink end to="/add-exam" className="btn bg-indigo-500 hover:bg-indigo-600 text-white">
                     <svg className="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
                       <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />

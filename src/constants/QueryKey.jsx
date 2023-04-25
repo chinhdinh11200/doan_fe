@@ -26,3 +26,5 @@ export const SUBJECT_DETAIL = 'subject-detail';
 export const SUBJECT_LIST_ALL = 'subject-all';
 export const ROOM_LIST = 'room-list';
 export const ROOM_DETAIL = 'room-detail';
+export const MARK_LIST = 'mark-list';
+export const MARK_DETAIL = 'mark-detail';

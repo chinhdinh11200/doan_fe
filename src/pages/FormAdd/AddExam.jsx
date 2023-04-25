@@ -82,7 +82,7 @@ const FormCreate = () => {
 
   useEffect(() => {
     if (dataCreate) {
-      navigate('/ListExam');
+      navigate('/list-exam');
     }
   }, [isSuccess]);
   return (
@@ -170,14 +170,14 @@ const FormCreate = () => {
             </div>
           </div>
           <div className="col-span-full mb-2">
-            <label htmlFor="type" className="block text-sm font-medium leading-6 text-gray-900">Loai đề thi</label>
+            <label htmlFor="type" className="block text-sm font-medium leading-6 text-gray-900">Hình thức thi</label>
             <div className="mt-2">
               <Controller
                 control={control}
                 name="type"
                 render={({ field: { value, onChange, ref } }) => (
                   <Select
-                    options={TYPE_EXAM}
+                    options={FORM_EXAM}
                     name="type"
                     id="type"
                     placeholder="Lựa chọn"
@@ -193,93 +193,20 @@ const FormCreate = () => {
             </div>
           </div>
           <div className="col-span-full mb-2">
-            <label htmlFor="form_exam" className="block text-sm font-medium leading-6 text-gray-900">Hình thức thi</label>
-            <div className="mt-2">
-              <Controller
-                control={control}
-                name="form_exam"
-                render={({ field: { value, onChange, ref } }) => (
-                  <Select
-                    options={FORM_EXAM}
-                    name="form_exam"
-                    id="form_exam"
-                    placeholder="Lựa chọn"
-                    {...register('form_exam')}
-                    onChange={(val) => {
-                      onChange(val);
-                      setValue("form_exam", val.value);
-                    }}
-                  />
-                )}
-              />
-              {errors.form_exam && <p className="text-red-500">{errors.form_exam.message}</p>}
-            </div>
-          </div>
-          <div className="col-span-full mb-2">
-            <label htmlFor="number_question" className="block text-sm font-medium leading-6 text-gray-900">Số câu hỏi</label>
+            <label htmlFor="num_question" className="block text-sm font-medium leading-6 text-gray-900">Số câu hỏi/ số đề (tự luận)</label>
             <div className="mt-2">
               <input
                 type="number"
-                name="number_question"
-                id="number_question"
-                autoComplete="number_question"
+                name="num_question"
+                id="num_question"
+                autoComplete="num_question"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                {...register('number_question', { required: true })}
+                {...register('num_question', { required: true })}
               />
-              {errors.number_question && <p className="text-red-500">{errors.number_question.message}</p>}
+              {errors.num_question && <p className="text-red-500">{errors.num_question.message}</p>}
             </div>
           </div>
-          <div className="col-span-full mb-2">
-            <label htmlFor="num_code" className="block text-sm font-medium leading-6 text-gray-900">Số mã đề</label>
-            <div className="mt-2">
-              <input
-                type="number"
-                name="num_code"
-                id="num_code"
-                autoComplete="num_code"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                {...register('num_code', { required: true })}
-              />
-              {errors.num_code && <p className="text-red-500">{errors.num_code.message}</p>}
-            </div>
-          </div>
-          <div className="col-span-full mb-2">
-            <label htmlFor="time_work" className="block text-sm font-medium leading-6 text-gray-900">Thời gian làm bài</label>
-            <div className="mt-2">
-              <input
-                type="number"
-                name="time_work"
-                id="time_work"
-                autoComplete="time_work"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                {...register('time_work', { required: true })}
-              />
-              {errors.time_work && <p className="text-red-500">{errors.time_work.message}</p>}
-            </div>
-          </div>
-          <div className="col-span-full mb-2">
-            <label htmlFor="semester_id" className="block text-sm font-medium leading-6 text-gray-900">Kì học</label>
-            <div className="mt-2">
-              <Controller
-                control={control}
-                name="semester_id"
-                render={({ field: { value, onChange, ref } }) => (
-                  <Select
-                    options={SEMESTER}
-                    name="semester_id"
-                    id="semester_id"
-                    placeholder="Lựa chọn"
-                    {...register('semester_id')}
-                    onChange={(val) => {
-                      onChange(val);
-                      setValue("semester_id", val.value);
-                    }}
-                  />
-                )}
-              />
-              {errors.semester && <p className="text-red-500">{errors.semester.message}</p>}
-            </div>
-          </div>
+
           <div className="mt-6 flex items-center justify-end gap-x-6">
             <button type="button" className="text-sm font-semibold leading-6 text-gray-900 hover:underline">Hủy</button>
             <button type="submit" className="rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Lưu</button>
@@ -331,7 +258,7 @@ const FormEdit = ({ examId }) => {
 
   useEffect(() => {
     if (dataCreate) {
-      navigate('/ListClass');
+      navigate('/list-exam');
     }
   }, [isSuccess]);
 
@@ -341,7 +268,7 @@ const FormEdit = ({ examId }) => {
         ...exam,
         subjectSelected: subjects?.find((subject) => subject.id === exam.subject_id),
         userSelected: staffs?.find((staff) => staff.id === exam.user_id),
-        formSelected: FORM_EXAM?.find((form) => form.value === exam.form_exam),
+        formSelected: FORM_EXAM?.find((form) => form.value === exam.type),
         typeSelected: TYPE_EXAM?.find((type) => type.value === exam.type),
         semesterSelected: SEMESTER?.find((semester) => semester.value === exam.semester_id),
       })
@@ -432,21 +359,21 @@ const FormEdit = ({ examId }) => {
               {errors.user_id && <p className="text-red-500">{errors.user_id.message}</p>}
             </div>
           </div>
+          
           <div className="col-span-full mb-2">
-            <label htmlFor="type" className="block text-sm font-medium leading-6 text-gray-900">Loai đề thi</label>
+            <label htmlFor="type" className="block text-sm font-medium leading-6 text-gray-900">Hình thức thi</label>
             <div className="mt-2">
               <Controller
                 control={control}
-                name="typeSelected"
+                name="formSelected"
                 render={({ field: { value, onChange, ref } }) => (
                   <Select
-                    options={TYPE_EXAM}
+                    options={FORM_EXAM}
                     value={value}
                     id="type"
                     placeholder="Lựa chọn"
                     {...register('type')}
                     onChange={(val) => {
-                      onChange(val);
                       setValue("type", val.value);
                     }}
                   />
@@ -456,93 +383,20 @@ const FormEdit = ({ examId }) => {
             </div>
           </div>
           <div className="col-span-full mb-2">
-            <label htmlFor="form_exam" className="block text-sm font-medium leading-6 text-gray-900">Hình thức thi</label>
-            <div className="mt-2">
-              <Controller
-                control={control}
-                name="formSelected"
-                render={({ field: { value, onChange, ref } }) => (
-                  <Select
-                    options={FORM_EXAM}
-                    value={value}
-                    id="form_exam"
-                    placeholder="Lựa chọn"
-                    {...register('form_exam')}
-                    onChange={(val) => {
-                      onChange(val);
-                      setValue("form_exam", val.value);
-                    }}
-                  />
-                )}
-              />
-              {errors.form_exam && <p className="text-red-500">{errors.form_exam.message}</p>}
-            </div>
-          </div>
-          <div className="col-span-full mb-2">
-            <label htmlFor="number_question" className="block text-sm font-medium leading-6 text-gray-900">Số câu hỏi</label>
+            <label htmlFor="num_question" className="block text-sm font-medium leading-6 text-gray-900">Số câu hỏi</label>
             <div className="mt-2">
               <input
                 type="number"
-                name="number_question"
-                id="number_question"
-                autoComplete="number_question"
+                name="num_question"
+                id="num_question"
+                autoComplete="num_question"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                {...register('number_question', { required: true })}
+                {...register('num_question', { required: true })}
               />
-              {errors.number_question && <p className="text-red-500">{errors.number_question.message}</p>}
+              {errors.num_question && <p className="text-red-500">{errors.num_question.message}</p>}
             </div>
           </div>
-          <div className="col-span-full mb-2">
-            <label htmlFor="num_code" className="block text-sm font-medium leading-6 text-gray-900">Số mã đề</label>
-            <div className="mt-2">
-              <input
-                type="number"
-                name="num_code"
-                id="num_code"
-                autoComplete="num_code"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                {...register('num_code', { required: true })}
-              />
-              {errors.num_code && <p className="text-red-500">{errors.num_code.message}</p>}
-            </div>
-          </div>
-          <div className="col-span-full mb-2">
-            <label htmlFor="time_work" className="block text-sm font-medium leading-6 text-gray-900">Thời gian làm bài</label>
-            <div className="mt-2">
-              <input
-                type="number"
-                name="time_work"
-                id="time_work"
-                autoComplete="time_work"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                {...register('time_work', { required: true })}
-              />
-              {errors.time_work && <p className="text-red-500">{errors.time_work.message}</p>}
-            </div>
-          </div>
-          <div className="col-span-full mb-2">
-            <label htmlFor="semester_id" className="block text-sm font-medium leading-6 text-gray-900">Kì học</label>
-            <div className="mt-2">
-              <Controller
-                control={control}
-                name="semesterSelected"
-                render={({ field: { value, onChange, ref } }) => (
-                  <Select
-                    options={SEMESTER}
-                    value={value}
-                    id="semester_id"
-                    placeholder="Lựa chọn"
-                    {...register('semester_id')}
-                    onChange={(val) => {
-                      onChange(val);
-                      setValue("semester_id", val.value);
-                    }}
-                  />
-                )}
-              />
-              {errors.semester && <p className="text-red-500">{errors.semester.message}</p>}
-            </div>
-          </div>
+          
           <div className="mt-6 flex items-center justify-end gap-x-6">
             <button type="button" className="text-sm font-semibold leading-6 text-gray-900 hover:underline">Hủy</button>
             <button type="submit" className="rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Lưu</button>
