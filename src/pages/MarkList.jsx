@@ -9,8 +9,10 @@ import Loading from '../components/Loading';
 import { useRoomDelete, useRoomList } from '../hooks/room';
 import Search from '../components/Search';
 import { debounce } from 'lodash';
+import { useExamList } from '../hooks/exam';
+import { useMarkDelete, useMarkList } from '../hooks/mark';
 
-function RoomList() {
+function MarkList() {
   const [tableParams, setTableParams] = useState({
     pagination: {
       current: 1,
@@ -47,46 +49,56 @@ function RoomList() {
         </p>
       ),
     },
-    {
-      title: <div className="text-center">Tên coi thi</div>,
-      dataIndex: "name",
-      key: "name",
-      render: (_, record) => <> {record.name}</>,
-      sortDirections: ["descend", "ascend", "descend"],
-      sorter: () => { },
-    },
-    {
-      title: <div className="text-center">Mã coi thi</div>,
-      dataIndex: "code",
-      key: "code",
-      sortDirections: ["descend", "ascend", "descend"],
-      sorter: () => { },
-    },
+    // {
+    //   title: <div className="text-center">Tên chấm thi</div>,
+    //   dataIndex: "name",
+    //   key: "name",
+    //   render: (_, record) => <> {record.name}</>,
+    //   sortDirections: ["descend", "ascend", "descend"],
+    //   sorter: () => { },
+    // },
+    // {
+    //   title: <div className="text-center">Mã chấm thi</div>,
+    //   dataIndex: "code",
+    //   key: "code",
+    //   sortDirections: ["descend", "ascend", "descend"],
+    //   sorter: () => { },
+    // },
     {
       title: <div className="text-center">Môn thi</div>,
       dataIndex: "subject_id",
       key: "subject_id",
       sortDirections: ["descend", "ascend", "descend"],
       sorter: () => { },
+      render: (_, record) => {
+        return (
+          <>{record.subject.name}</>
+        )
+      }
     },
     {
-      title: <div className="text-center">Người coi thi</div>,
+      title: <div className="text-center">Người chấm thi</div>,
       dataIndex: "user_id",
       key: "user_id",
       sortDirections: ["descend", "ascend", "descend"],
       sorter: () => { },
+      render: (_, record) => {
+        return (
+          <>{record.user.name}</>
+        )
+      }
     },
     {
-      title: <div className="text-center">Số ca coi thi</div>,
-      dataIndex: "num_exam_session",
-      key: "num_exam_session",
+      title: <div className="text-center">Số bài chấm thi</div>,
+      dataIndex: "num_exam",
+      key: "num_exam",
       sortDirections: ["descend", "ascend", "descend"],
       sorter: () => { },
     },
     {
-      title: <div className="text-center">Ngày coi thi</div>,
-      dataIndex: "startDate",
-      key: "startDate",
+      title: <div className="text-center">Ngày chấm thi</div>,
+      dataIndex: "date_exam",
+      key: "date_exam",
       sortDirections: ["descend", "ascend", "descend"],
       sorter: () => { },
     },
@@ -100,7 +112,7 @@ function RoomList() {
             <Tooltip placement="top" title='Sửa'>
               <NavLink
                 end
-                to={`/edit-room?id=${record.id}`}
+                to={`/edit-mark?id=${record.id}`}
                 className={({ isActive }) =>
                   'block transition duration-150 truncate ' + (isActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200')
                 }
@@ -139,9 +151,9 @@ function RoomList() {
   const [roomIdDelete, setRoomIdDelete] = useState(null);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [isLoadingg, setIsLoading] = useState(false);
-  const { data: { data: dataRoom = [], total } = {}, isLoading } = useRoomList(tableParams);
-  console.log(dataRoom);
-  const { mutate, isLoading: isLoadingDelete, isSuccess } = useRoomDelete();
+  const { data: { data: dataExam = [], total } = {}, isLoading } = useMarkList(tableParams);
+  console.log(dataExam);
+  const { mutate, isLoading: isLoadingDelete, isSuccess } = useMarkDelete();
   const onChangeTableParams = (pagination, filters, sorter, extra) => {
     setPage(pagination.current);
     pageSizeRef.current = pagination.pageSize;
@@ -171,7 +183,7 @@ function RoomList() {
   };
 
   const handleDelete = () => {
-    if (dataRoom.length === 1) {
+    if (dataExam.length === 1) {
       setTableParams({
         ...tableParams,
         pagination: {
@@ -206,18 +218,18 @@ function RoomList() {
           <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
             <div className="container max-w-7xl mx-auto mt-3">
               <div className="mb-4">
-                <h1 className="font-serif w-fit text-2xl pb-1 mb-8 mx-auto text-center font-bold uppercase border-b border-gray-300">Danh sách coi thi</h1>
+                <h1 className="font-serif w-fit text-2xl pb-1 mb-8 mx-auto text-center font-bold uppercase border-b border-gray-300">Danh sách chấm thi</h1>
                 <div className="flex justify-between flex-row-reverse gap-4">
                 <div className='flex gap-2'>
                     <Search onChangeSearch={onChangeSearch} />
                     <FilterButton />
                   </div>
-                  <NavLink end to="/add-room" className="btn bg-indigo-500 hover:bg-indigo-600 text-white">
+                  <NavLink end to="/add-mark" className="btn bg-indigo-500 hover:bg-indigo-600 text-white">
                     <svg className="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
                       <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
                     </svg>
                     <span className="ml-2">
-                      Thêm coi thi
+                      Thêm chấm thi
                     </span>
                   </NavLink>
                 </div>
@@ -230,7 +242,7 @@ function RoomList() {
                     ) : (
                       <Table
                         columns={columns}
-                        dataSource={dataRoom}
+                        dataSource={dataExam}
                         onChange={onChangeTableParams}
                         rowKey={(record) => record.id}
                         pagination={{
@@ -275,4 +287,4 @@ function RoomList() {
   );
 }
 
-export default RoomList;
+export default MarkList;

@@ -61,4 +61,8 @@ export default {
         LIST: '/room',
         UPDATE: '/room/:id',
     },
+    MARK: {
+        LIST: '/mark',
+        UPDATE: '/mark/:id',
+    },
 };

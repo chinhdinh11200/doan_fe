@@ -2,20 +2,20 @@ export const PAGE_SIZE = 10;
 
 export const FORM_EXAM = [
   {
-    value: 1,
+    value: 0,
     label: 'Tự luận'
   },
   {
-    value: 2,
+    value: 1,
     label: 'Trắc nghiệm'
   },
   {
-    value: 3,
-    label: 'Thực hành'
+    value: 2,
+    label: 'Vấn đáp, thực hành'
   },
   {
-    value: 4,
-    label: 'Vấn đáp'
+    value: 3,
+    label: 'Tiểu luận'
   },
 ]
 
@@ -135,6 +135,21 @@ export const TYPE_COACH = [
   {
     label: "Huấn luyện trong nước",
     value: 1
+  },
+]
+
+export const FORM_MARK = [
+  {
+    label: "Chấm tự luận, trắc nghiệm",
+    value: 0
+  },
+  {
+    label: "Chấm vấn đáp, tiểu luận 1 sinh viên",
+    value: 1
+  },
+  {
+    label: "Chấm tiểu luận nhóm sinh viên",
+    value: 2
   },
 ]
 

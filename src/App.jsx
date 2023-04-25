@@ -45,6 +45,8 @@ import AddSubject from './pages/FormAdd/AddSubject';
 import AddClass from './pages/FormAdd/AddClass';
 import AddExam from './pages/FormAdd/AddExam';
 import AddRoom from './pages/FormAdd/AddRoom';
+import MarkList from './pages/MarkList';
+import AddMark from './pages/FormAdd/AddMark';
 const Test = () => {
   return <div>test</div>;
 }
@@ -70,6 +72,7 @@ function App() {
         <Route path="/list-subject" element={<SubjectList />} />
         <Route path="/list-exam" element={<ExamList />} />
         <Route path="/list-room" element={<RoomList />} />
+        <Route path="/list-mark" element={<MarkList />} />
         <Route path="/list-teach" element={<AllTeaching />} />
         <Route path="/list-course" element={<CourseList />} />
         <Route path="/list-thesis" element={<ThesisList />} />
@@ -88,6 +91,7 @@ function App() {
         <Route path="/add-subject" element={<AddSubject />} />
         <Route path="/add-exam" element={<AddExam />} />
         <Route path="/add-room" element={<AddRoom />} />
+        <Route path="/add-mark" element={<AddMark />} />
         <Route path="/add-teaching" element={<AddTeaching />} />
         <Route path="/add-term-exam" element={<AddTermExam />} />
         <Route path="/add-research" element={<AddResearch />} />
@@ -102,6 +106,7 @@ function App() {
         <Route path="/edit-class" element={<AddClass />} />
         <Route path="/edit-exam" element={<AddExam />} />
         <Route path="/edit-room" element={<AddRoom />} />
+        <Route path="/edit-mark" element={<AddMark />} />
         <Route path="/edit-staff" element={<AddStaff />} />
         <Route path="/edit-topic" element={<AddResearch />} />
         <Route path="/edit-article" element={<AddScientificArticles />} />
