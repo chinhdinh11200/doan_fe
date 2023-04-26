@@ -63,8 +63,8 @@ const FormCreate = () => {
   })
 
   const schema = yup.object().shape({
-    name: yup.string().trim().required('Tên nhân viên là bắt buộc').max(191, 'Tên không dài quá 191 kí tự'),
-    code: yup.string().required('Mã nhân viên là bắt buộc.').min(4, "Mã nhân viên không được nhỏ hơn 4 kí tự."),
+    subject_id: yup.string().trim().required('Môn học là bắt buộc'),
+    code: yup.string().required('Mã môn học là bắt buộc.').min(4, "Mã môn học không được nhỏ hơn 4 kí tự."),
     position: yup.string(),
   })
 
@@ -96,20 +96,6 @@ const FormCreate = () => {
             console.log(values)
           })}
         >
-          <div className="col-span-full mb-2">
-            <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">Tên coi thi</label>
-            <div className="mt-2">
-              <input
-                type="text"
-                name="name"
-                id="name"
-                autoComplete="name"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                {...register('name', { required: true })}
-              />
-              {errors.name && <p className="text-red-500">{errors.name.message}</p>}
-            </div>
-          </div>
           <div className="col-span-full mb-2">
             <label htmlFor="code" className="block text-sm font-medium leading-6 text-gray-900">Mã coi thi</label>
             <div className="mt-2">
@@ -286,20 +272,7 @@ const FormEdit = ({ roomId }) => {
             console.log(values)
           })}
         >
-          <div className="col-span-full mb-2">
-            <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">Tên coi thi</label>
-            <div className="mt-2">
-              <input
-                type="text"
-                name="name"
-                id="name"
-                autoComplete="name"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                {...register('name', { required: true })}
-              />
-              {errors.name && <p className="text-red-500">{errors.name.message}</p>}
-            </div>
-          </div>
+          
           <div className="col-span-full mb-2">
             <label htmlFor="code" className="block text-sm font-medium leading-6 text-gray-900">Mã coi thi</label>
             <div className="mt-2">

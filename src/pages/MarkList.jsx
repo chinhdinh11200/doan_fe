@@ -218,7 +218,7 @@ function MarkList() {
           <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
             <div className="container max-w-7xl mx-auto mt-3">
               <div className="mb-4">
-                <h1 className="font-serif w-fit text-2xl pb-1 mb-8 mx-auto text-center font-bold uppercase border-b border-gray-300">Danh sách chấm thi</h1>
+                <h1 className="w-fit text-2xl pb-1 mb-8 mx-auto text-center font-bold uppercase border-b border-gray-300">Danh sách chấm thi</h1>
                 <div className="flex justify-between flex-row-reverse gap-4">
                 <div className='flex gap-2'>
                     <Search onChangeSearch={onChangeSearch} />

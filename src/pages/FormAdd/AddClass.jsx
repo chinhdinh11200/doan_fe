@@ -61,8 +61,8 @@ const FormCreate = () => {
   })
 
   const schema = yup.object().shape({
-    name: yup.string().trim().required('Tên nhân viên là bắt buộc').max(191, 'Tên không dài quá 191 kí tự'),
-    code: yup.string().required('Mã nhân viên là bắt buộc.').min(4, "Mã nhân viên không được nhỏ hơn 4 kí tự."),
+    name: yup.string().trim().required('Tên lớp học là bắt buộc').max(191, 'Tên không dài quá 191 kí tự'),
+    code: yup.string().required('Mã lớp học là bắt buộc.').min(4, "Mã lớp học không được nhỏ hơn 4 kí tự."),
     position: yup.string(),
   })
 
@@ -81,7 +81,7 @@ const FormCreate = () => {
 
   useEffect(() => {
     if (dataCreate) {
-      navigate('/ListClass');
+      navigate('/list-class');
     }
   }, [isSuccess]);
   return (
@@ -242,7 +242,7 @@ const FormCreate = () => {
             <label htmlFor="startDate" className="block text-sm font-medium leading-6 text-gray-900">Ngày bắt đầu</label>
             <div className="mt-2">
               <input
-                type="text"
+                type="date"
                 name="startDate"
                 id="startDate"
                 autoComplete="startDate"
@@ -256,7 +256,7 @@ const FormCreate = () => {
             <label htmlFor="endDate" className="block text-sm font-medium leading-6 text-gray-900">Ngày két thúc</label>
             <div className="mt-2">
               <input
-                type="text"
+                type="date"
                 name="endDate"
                 id="endDate"
                 autoComplete="endDate"
@@ -318,8 +318,8 @@ const FormEdit = ({ classId }) => {
   const [exam_supervision, setExamSupervision] = useState(false);
 
   const schema = yup.object().shape({
-    name: yup.string().trim().required('Tên nhân viên là bắt buộc').max(191, 'Tên không dài quá 191 kí tự'),
-    code: yup.string().required('Mã nhân viên là bắt buộc.').min(4, "Mã nhân viên không được nhỏ hơn 4 kí tự."),
+    name: yup.string().trim().required('Tên lớp học là bắt buộc').max(191, 'Tên không dài quá 191 kí tự'),
+    code: yup.string().required('Mã lớp học là bắt buộc.').min(4, "Mã lớp học không được nhỏ hơn 4 kí tự."),
     position: yup.string(),
   })
 
@@ -496,48 +496,6 @@ const FormEdit = ({ classId }) => {
               {errors.num_credit && <p className="text-red-500">{errors.num_credit.message}</p>}
             </div>
           </div>
-          {/* <div className="col-span-full mb-2">
-            <label htmlFor="classroom" className="block text-sm font-medium leading-6 text-gray-900">Phòng học</label>
-            <div className="mt-2">
-              <input
-                type="text"
-                name="classroom"
-                id="classroom"
-                autoComplete="classroom"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                {...register('classroom', { required: true })}
-              />
-              {errors.classroom && <p className="text-red-500">{errors.classroom.message}</p>}
-            </div>
-          </div>
-          <div className="col-span-full mb-2">
-            <label htmlFor="startDate" className="block text-sm font-medium leading-6 text-gray-900">Ngày bắt đầu</label>
-            <div className="mt-2">
-              <input
-                type="text"
-                name="startDate"
-                id="startDate"
-                autoComplete="startDate"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                {...register('startDate', { required: true })}
-              />
-              {errors.startDate && <p className="text-red-500">{errors.startDate.message}</p>}
-            </div>
-          </div>
-          <div className="col-span-full mb-2">
-            <label htmlFor="endDate" className="block text-sm font-medium leading-6 text-gray-900">Ngày két thúc</label>
-            <div className="mt-2">
-              <input
-                type="text"
-                name="endDate"
-                id="endDate"
-                autoComplete="endDate"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                {...register('endDate', { required: true })}
-              />
-              {errors.endDate && <p className="text-red-500">{errors.endDate.message}</p>}
-            </div>
-          </div> */}
           <div className="col-span-full mb-2">
             <label htmlFor="semester" className="block text-sm font-medium leading-6 text-gray-900">Kì học</label>
             <div className="mt-2">
@@ -552,45 +510,41 @@ const FormEdit = ({ classId }) => {
               {errors.semester && <p className="text-red-500">{errors.semester.message}</p>}
             </div>
           </div>
-          <div className="col-span-full mb-2 flex items-center">
-            <div className="mt-2 flex items-center">
+          <div className="col-span-full mb-2 flex items-center justify-between">
+            <div className="mt-2 flex items-center gap-2">
               <input
                 type="checkbox"
                 name="exam_create"
                 id="exam_create"
                 checked={exam_create}
+                className='border-gray-300'
                 onChange={() => { setExamCreate(!exam_create); setValue('exam_create', !exam_create ? 1 : 0) }}
                 autoComplete="exam_create"
-                className="rounded-md border-0"
-              // {...register('exam_create', { required: true })}
               />
               <label htmlFor="exam_create" className="text-sm font-medium leading-6 text-gray-900 pr-2">Ra đề thi giữa kì</label>
             </div>
-            <div className="mt-2 flex items-center">
+            <div className="mt-2 flex items-center gap-2">
               <input
                 type="checkbox"
                 name="exam_supervision"
                 id="exam_supervision"
                 checked={exam_supervision}
+                className='border-gray-300'
                 onChange={(e) => { setExamSupervision(!exam_supervision); setValue('exam_supervision', !exam_supervision ? 1 : 0); console.log(e.target, e) }}
                 autoComplete="exam_supervision"
-                className="rounded-md border-0"
-              // {...register('exam_supervision', { required: true })}
               />
               <label htmlFor="exam_supervision" className="text-sm font-medium leading-6 text-gray-900 pr-2">Coi thi giữa kì</label>
             </div>
-            <div className="mt-2 flex items-center">
+            <div className="mt-2 flex items-center gap-2">
               <input
                 type="checkbox"
                 name="marking"
                 id="marking"
+                className='border-gray-300'
                 checked={marking}
                 onChange={() => { setMarking(!marking); setValue('marking', !marking ? 1 : 0) }}
                 autoComplete="marking"
-                className="rounded-md border-0"
-              // {...register('marking', { required: true })}
               />
-              {/* <Checkbox  onChange={() => console.log("ccccc")}>Chấm thi giữa kì</Checkbox> */}
               <label htmlFor="marking" className="text-sm font-medium leading-6 text-gray-900 pr-2">Chấm thi giữa kì</label>
             </div>
           </div>

@@ -78,7 +78,7 @@ function FormCreate() {
 
   useEffect(() => {
     if (dataCreate) {
-      navigate('/ListSubject');
+      navigate('/list-subject');
     }
   }, [isSuccess]);
   return (
@@ -204,7 +204,7 @@ function FormEdit({subjectId}) {
 
   useEffect(() => {
     if (dataCreate) {
-      navigate('/ListSubject');
+      navigate('/list-subject');
     }
   }, [isSuccess]);
 

@@ -182,7 +182,7 @@ function FormCreate() {
             </div>
           </div>
           <div className="col-span-full mb-2.5">
-            <label htmlFor="num_person" className="block text-sm font-medium leading-6 text-gray-900">Vai trò</label>
+            <label htmlFor="num_person" className="block text-sm font-medium leading-6 text-gray-900">Tác giả</label>
             <div className="mt-2">
               <Controller
                 control={control}

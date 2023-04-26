@@ -55,9 +55,9 @@ function Dashboard() {
       sorter: () => { },
     },
     {
-      title: <div className="text-center uppercase">Tổng thời gian</div>,
-      dataIndex: "total_time",
-      key: "total_time",
+      title: <div className="text-center uppercase">Thể loại</div>,
+      dataIndex: "type",
+      key: "type",
       sortDirections: ["descend", "ascend", "descend"],
       sorter: () => { },
     },
@@ -304,7 +304,7 @@ function Dashboard() {
                       <p class="w-1/2">Tailwind CSS is a utility-based low-level CSS framework intended to ea 12345</p>
                     </div>
                     <div class="flex justify-between py-2 pl-2 border-b">
-                      <p class="w-1/2">Vai Trò:</p>
+                      <p class="w-1/2">Tác giả:</p>
                       <p class="w-1/2">12345</p>
                     </div>
                     <div class="flex justify-between py-2 pl-2 border-b">

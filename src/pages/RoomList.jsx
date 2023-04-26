@@ -48,14 +48,6 @@ function RoomList() {
       ),
     },
     {
-      title: <div className="text-center">Tên coi thi</div>,
-      dataIndex: "name",
-      key: "name",
-      render: (_, record) => <> {record.name}</>,
-      sortDirections: ["descend", "ascend", "descend"],
-      sorter: () => { },
-    },
-    {
       title: <div className="text-center">Mã coi thi</div>,
       dataIndex: "code",
       key: "code",

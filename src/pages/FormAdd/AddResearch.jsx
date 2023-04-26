@@ -134,7 +134,7 @@ function FormCreate() {
 
   useEffect(() => {
     if (dataCreate) {
-      navigate('/ResearchList');
+      navigate('/list-research');
     }
   }, [isSuccess]);
 
@@ -242,7 +242,7 @@ function FormCreate() {
             </div>
           </div>
           <div className="col-span-full mb-2.5">
-            <label htmlFor="role" className="block text-sm font-medium leading-6 text-gray-900">Vai trò</label>
+            <label htmlFor="role" className="block text-sm font-medium leading-6 text-gray-900">Tác giả</label>
             <div className="mt-2">
               <Controller
                 control={control}
@@ -474,7 +474,7 @@ function FormEdit({ topicId }) {
             </div>
           </div>
           <div className="col-span-full mb-2.5">
-            <label htmlFor="role" className="block text-sm font-medium leading-6 text-gray-900">Vai trò</label>
+            <label htmlFor="role" className="block text-sm font-medium leading-6 text-gray-900">Tác giả</label>
             <div className="mt-2">
               <Controller
                 control={control}

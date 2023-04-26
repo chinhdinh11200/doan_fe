@@ -9,7 +9,7 @@ import { useDepartmentList } from '../../hooks/departments';
 import Select from 'react-select';
 import { NavLink, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useStaffList } from '../../hooks/staffs';
-import { POSITION_STAFF } from '../../constants';
+import { POSITION_STAFF, TYPE_ARTICLESCIENTIFIC } from '../../constants';
 
 const type_article = [
   {
@@ -168,7 +168,7 @@ function FormCreate() {
           </div>
 
           <div className="col-span-full mb-2.5">
-            <label htmlFor="role" className="block text-sm font-medium leading-6 text-gray-900">Vai trò</label>
+            <label htmlFor="role" className="block text-sm font-medium leading-6 text-gray-900">Tác giả</label>
             <div className="mt-2">
               <Controller
                 control={control}
@@ -206,19 +206,29 @@ function FormCreate() {
             </div>
           </div>
           <div className="col-span-full mb-2.5">
-            <label htmlFor="total_time" className="block text-sm font-medium leading-6 text-gray-900">Tổng thời gian</label>
+            <label htmlFor="type_articlescientific" className="block text-sm font-medium leading-6 text-gray-900">Loại tạp chí</label>
             <div className="mt-2">
-              <input
-                type="number"
-                name="total_time"
-                id="total_time"
-                autoComplete="total_time"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                {...register('total_time', { required: true })}
+              <Controller
+                control={control}
+                name="TYPE_ARTICLESCIENTIFIC"
+                render={({ field: { value, onChange, ref } }) => (
+                  <Select
+                    options={TYPE_ARTICLESCIENTIFIC}
+                    name="type_articlescientific"
+                    id="type_articlescientific"
+                    placeholder="Lựa chọn"
+                    {...register('type_articlescientific')}
+                    onChange={(val) => {
+                      onChange(val);
+                      setValue("type_articlescientific", val.value);
+                    }}
+                  />
+                )}
               />
-              {errors.total_time && <p className="text-red-500">{errors.total_time.message}</p>}
+              {errors.type_articlescientific && <p className="text-red-500">{errors.type_articlescientific.message}</p>}
             </div>
           </div>
+
           <div className="mt-6 flex items-center justify-end gap-x-6">
             <button type="button" className="text-sm font-semibold leading-6 text-gray-900 hover:underline">Hủy</button>
             <button type="submit" className="rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 
@@ -362,9 +372,8 @@ function FormEdit({articleId}) {
               {errors.type_article && <p className="text-red-500">{errors.type_article.message}</p>}
             </div>
           </div>
-
           <div className="col-span-full mb-2.5">
-            <label htmlFor="role" className="block text-sm font-medium leading-6 text-gray-900">Vai trò</label>
+            <label htmlFor="role" className="block text-sm font-medium leading-6 text-gray-900">Tác giả</label>
             <div className="mt-2">
             <Controller
                 control={control}
@@ -404,17 +413,40 @@ function FormEdit({articleId}) {
             </div>
           </div>
           <div className="col-span-full mb-2.5">
-            <label htmlFor="total_time" className="block text-sm font-medium leading-6 text-gray-900">Tổng thời gian</label>
+            <label htmlFor="type_articlescientific" className="block text-sm font-medium leading-6 text-gray-900">Loại tạp chí</label>
             <div className="mt-2">
-              <input
-                type="number"
-                name="total_time"
-                id="total_time"
-                autoComplete="total_time"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                {...register('total_time', { required: true })}
+              <Controller
+                control={control}
+                name="TYPE_ARTICLESCIENTIFIC"
+                render={({ field: { value, onChange, ref } }) => (
+                  <Select
+                    options={TYPE_ARTICLESCIENTIFIC}
+                    name="type_articlescientific"
+                    id="type_articlescientific"
+                    placeholder="Lựa chọn"
+                    {...register('type_articlescientific')}
+                    onChange={(val) => {
+                      onChange(val);
+                      setValue("type_articlescientific", val.value);
+                    }}
+                  />
+                )}
               />
-              {errors.total_time && <p className="text-red-500">{errors.total_time.message}</p>}
+              {errors.type_articlescientific && <p className="text-red-500">{errors.type_articlescientific.message}</p>}
+            </div>
+          </div>
+          <div className="col-span-full mb-2.5">
+              <div className="mt-4 flex items-center gap-2 text-sm">
+              <input
+                type="checkbox"
+                name="open_access"
+                id="open_access"
+                autoComplete="open_access"
+                className="block border-gray-300"
+                {...register('open_access', { required: true })}
+              />
+              <label htmlFor="open_access">Open Access</label>
+              {errors.open_access && <p className="text-red-500">{errors.open_access.message}</p>}
             </div>
           </div>
           <div className="mt-6 flex items-center justify-end gap-x-6">

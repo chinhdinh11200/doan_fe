@@ -48,14 +48,6 @@ function ExamList() {
       ),
     },
     {
-      title: <div className="text-center">Tên đề thi</div>,
-      dataIndex: "name",
-      key: "name",
-      render: (_, record) => <> {record.name}</>,
-      sortDirections: ["descend", "ascend", "descend"],
-      sorter: () => { },
-    },
-    {
       title: <div className="text-center">Mã đề thi</div>,
       dataIndex: "code",
       key: "code",

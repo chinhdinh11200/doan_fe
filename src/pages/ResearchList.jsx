@@ -304,7 +304,7 @@ function Dashboard() {
                       <p class="w-1/2">Tailwind CSS is a utility-based low-level CSS framework intended to ea 12345</p>
                     </div>
                     <div class="flex justify-between py-2 pl-2 border-b">
-                      <p class="w-1/2">Vai Trò:</p>
+                      <p class="w-1/2">Tác giả:</p>
                       <p class="w-1/2">12345</p>
                     </div>
                     <div class="flex justify-between py-2 pl-2 border-b">

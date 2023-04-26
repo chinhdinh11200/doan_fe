@@ -59,10 +59,6 @@ function FormCreate() {
     ).max(191, 'Email không quá 191 kí tự'),
     password: yup.string().min(8, "Mật khẩu không được nhỏ hơn 8 kí tự."),
     code: yup.string().required('Vui lòng nhập mã nhân viên').min(4, "Mã nhân viên không được nhỏ hơn 4 kí tự."),
-    // position: yup.string(),
-    // department_id: yup.string().required('Trường phòng ban là bắt buộc.'),
-    number_salary: yup.number(),
-    income: yup.number(),
     time_per_year: yup.number(),
   })
 
@@ -79,7 +75,8 @@ function FormCreate() {
       name: '',
       email: '',
       password: '',
-      // position: '',
+      code:'',
+      number_salary:'',
     }
   })
 
