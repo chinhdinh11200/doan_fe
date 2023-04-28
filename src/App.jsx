@@ -115,6 +115,7 @@ function App() {
         <Route path="/edit-scientific" element={<AddInstruction />} />
         <Route path="/edit-compilation" element={<AddMaterialCompilation />} />
         <Route path="/edit-program" element={<AddBuildProgram />} />
+        <Route path="/edit-thesis" element={<AddThesis />} />
       </Routes>
     </>
   );

@@ -55,13 +55,6 @@ function Dashboard() {
       sorter: () => { },
     },
     {
-      title: <div className="text-center uppercase">NGÀY QUYẾT ĐỊNH</div>,
-      dataIndex: "date_decision",
-      key: "date_decision",
-      sortDirections: ["descend", "ascend", "descend"],
-      sorter: () => { },
-    },
-    {
       title: <div className="text-center uppercase">KẾT QUẢ BẢO VỆ CẤP HỌC VIỆN</div>,
       dataIndex: "result_level_2",
       key: "result_level_2",

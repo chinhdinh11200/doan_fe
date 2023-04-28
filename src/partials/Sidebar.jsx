@@ -398,7 +398,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 }}
               </SidebarLinkGroup>
 
-              {/* <SidebarLinkGroup activecondition={pathname.includes('tasks')}>
+               <SidebarLinkGroup activecondition={pathname.includes('tasks')}>
                 {(handleClick, open) => {
                   return (
                     <React.Fragment>
@@ -471,7 +471,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                     </React.Fragment>
                   );
                 }}
-              </SidebarLinkGroup> */}
+              </SidebarLinkGroup>
               {/* Tasks */}
               <SidebarLinkGroup activecondition={pathname.includes('tasks')}>
                 {(handleClick, open) => {
@@ -975,13 +975,8 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 {(handleClick, open) => {
                   return (
                     <React.Fragment>
-                      <Link
-                        href="#0"
+                       <NavLink end to="/personal-infor"
                         className={`block text-slate-200 truncate transition duration-150 ${open ? 'hover:text-slate-200' : 'hover:text-white'}`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          sidebarExpanded ? handleClick() : setSidebarExpanded(true);
-                        }}
                       >
                         <div className="flex items-center justify-between">
                           <div className="flex items-center">
@@ -990,7 +985,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                               <path className="fill-current text-slate-400" d="M15 12L8 6v5H0v2h8v5z" />
                             </svg>
                             <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                              Tài khoản
+                              Tài khoản cá nhân
                             </span>
                           </div>
                           {/* Icon */}
@@ -1000,26 +995,8 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                             </svg>
                           </div>
                         </div>
-                      </Link>
-                      <div className="lg:hidden lg:sidebar-expanded:block 2xl:block">
-                        <ul className={`pl-9 mt-1 ${!open && 'hidden'}`}>
-                          <li className="mb-1 last:mb-0">
-                            <NavLink end to="/personal-infor" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
-                              <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                Thông tin cá nhân
-                              </span>
-                            </NavLink>
-                          </li>
-                          <li className="mb-1 last:mb-0">
-                            <NavLink end to="/changePass" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
-                              <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                Đổi mật khẩu
-                              </span>
-                            </NavLink>
-                          </li>
-
-                        </ul>
-                      </div>
+                      </NavLink>
+                     
                     </React.Fragment>
                   );
                 }}

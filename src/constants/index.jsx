@@ -191,3 +191,34 @@ export const TYPE_ARTICLESCIENTIFIC = [
     value: 8
   }
 ]
+
+export const TYPE_THESIS = [
+  {
+    label: "Hướng dẫn 01 luận án tiến sĩ",
+    value: 0
+  },
+  {
+    label: "Hướng dẫn 01 luận văn cao học",
+    value: 1
+  },
+  {
+    label: "Hướng dẫn 01 đồ án tốt nghiệp/01 sinh viên",
+    value: 2
+  },
+  {
+    label: "Hướng dẫn 01 đồ án tốt nghiệp/nhóm/02 sinh viên",
+    value: 3
+  },
+  {
+    label: "Hướng dẫn 01 đồ án tốt nghiệp/nhóm/03 sinh viên",
+    value: 4
+  },
+  {
+    label:  "Hướng dẫn 01 đồ án tốt nghiệp/nhóm/04 sinh viên",
+    value: 5
+  },
+  {
+    label:  "Hướng dẫn 01 đồ án tốt nghiệp/nhóm/05 sinh viên",
+    value: 6
+  },
+]

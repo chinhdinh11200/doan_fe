@@ -74,6 +74,13 @@ function Dashboard() {
       render: (_, record) => {
         return (
           <Space size="middle" className="flex justify-center">
+             <NavLink
+              end
+              to={`/edit-thesis?id=${record.id}`}
+              className={({ isActive }) =>
+                'block transition duration-150 truncate ' + (isActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200')
+              }
+            >
             <Tooltip placement="top" title='Sửa'>
               <a href="#" className="text-indigo-600 hover:text-indigo-900" title='edit'>
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24"
@@ -82,7 +89,7 @@ function Dashboard() {
                     d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                 </svg>
               </a>
-            </Tooltip>
+            </Tooltip></NavLink>
             <Tooltip placement="top" title='Chi tiết' onClick={() => setShowModal(true)}>
               <a href="#" className="text-gray-600 hover:text-gray-900" title='view'>
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24"
@@ -285,7 +292,7 @@ function Dashboard() {
                       <p class="w-1/2">12345</p>
                     </div>
                     <div class="flex justify-between py-2 pl-2 border-b">
-                      <p class="w-1/2">Họ tên NCS/Học viên/ Sinh viên:</p>
+                      <p class="w-1/2">Họ tên nghiên cứu sinh:</p>
                       <p class="w-1/2">12345</p>
                     </div>
                     <div class="flex justify-between py-2 pl-2 border-b">

@@ -54,7 +54,7 @@ function Dashboard() {
       sorter: () => { },
     },
     {
-      title: <div className="text-center uppercase">số phát hành</div>,
+      title: <div className="text-center uppercase">số xuất bản</div>,
       dataIndex: "num_publish",
       key: "num_publish",
       sortDirections: ["descend", "ascend", "descend"],

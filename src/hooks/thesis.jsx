@@ -68,3 +68,16 @@ export const useCreateThesis = () => {
         }
     );
 };
+export const useUpdateThesis = (thesisId) => {
+    const queryClient = useQueryClient();
+    return useMutation(
+        async (data) => {
+            return await axios.put(`${API.API_ROOT}${API.THESIS.UPDATE}`.replace(':id', thesisId), data);
+        },
+        {
+            onSuccess: () => {
+                queryClient.invalidateQueries(THESIS_LIST);
+            },
+        }
+    );
+};
