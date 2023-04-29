@@ -228,7 +228,34 @@ function FormCreate() {
               {errors.type_articlescientific && <p className="text-red-500">{errors.type_articlescientific.message}</p>}
             </div>
           </div>
-
+          <div className="col-span-full mb-2.5">
+              <div className="mt-4 flex items-center gap-2 text-sm">
+              <input
+                type="radio"
+                name="open_access"
+                id="open_access"
+                autoComplete="open_access"
+                className="block border-gray-300"
+                {...register('open_access', { required: true })}
+              />
+              <label htmlFor="open_access">Open Access</label>
+              {errors.open_access && <p className="text-red-500">{errors.open_access.message}</p>}
+            </div>
+          </div>
+          <div className="col-span-full mb-2.5">
+              <div className="mt-4 flex items-center gap-2 text-sm">
+              <input
+                type="radio"
+                name="open_access_scopus"
+                id="open_access_scopus"
+                autoComplete="open_access_scopus"
+                className="block border-gray-300"
+                {...register('open_access_scopus', { required: true })}
+              />
+              <label htmlFor="open_access_scopus">Open Access Scopus</label>
+              {errors.open_access_scopus && <p className="text-red-500">{errors.open_access_scopus.message}</p>}
+            </div>
+          </div>
           <div className="mt-6 flex items-center justify-end gap-x-6">
             <button type="button" className="text-sm font-semibold leading-6 text-gray-900 hover:underline">Hủy</button>
             <button type="submit" className="rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 
@@ -438,7 +465,7 @@ function FormEdit({articleId}) {
           <div className="col-span-full mb-2.5">
               <div className="mt-4 flex items-center gap-2 text-sm">
               <input
-                type="checkbox"
+                type="radio"
                 name="open_access"
                 id="open_access"
                 autoComplete="open_access"
@@ -447,6 +474,20 @@ function FormEdit({articleId}) {
               />
               <label htmlFor="open_access">Open Access</label>
               {errors.open_access && <p className="text-red-500">{errors.open_access.message}</p>}
+            </div>
+          </div>
+          <div className="col-span-full mb-2.5">
+              <div className="mt-4 flex items-center gap-2 text-sm">
+              <input
+                type="radio"
+                name="open_access_scopus"
+                id="open_access_scopus"
+                autoComplete="open_access_scopus"
+                className="block border-gray-300"
+                {...register('open_access_scopus', { required: true })}
+              />
+              <label htmlFor="open_access_scopus">Open Access Scopus</label>
+              {errors.open_access_scopus && <p className="text-red-500">{errors.open_access_scopus.message}</p>}
             </div>
           </div>
           <div className="mt-6 flex items-center justify-end gap-x-6">
