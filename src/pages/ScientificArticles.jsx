@@ -3,11 +3,11 @@ import Sidebar from '../partials/Sidebar';
 import Header from '../partials/Header';
 import { NavLink } from 'react-router-dom';
 import FilterButton from '../partials/actions/FilterButton';
-import { useArticleDelete, useArticleList } from '../hooks/articles';
+import { useArticleDelete, useArticleDetail, useArticleList } from '../hooks/articles';
 import Loading from '../components/Loading';
 import { Button, Modal, Space, Table, Tooltip } from 'antd';
 import { BiEdit, BiTrash } from 'react-icons/bi';
-import { PAGE_SIZE } from '../constants';
+import { PAGE_SIZE, type_article } from '../constants';
 import Search from '../components/Search';
 import { debounce } from 'lodash';
 
@@ -75,18 +75,22 @@ function Dashboard() {
                 'block transition duration-150 truncate ' + (isActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200')
               }
             >
-            <Tooltip placement="top" title='Sửa'>
-              <a href="#" className="text-indigo-600 hover:text-indigo-900" title='edit'>
-                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24"
-                  stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokewith="2"
-                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                </svg>
-              </a>
-            </Tooltip>
+              <Tooltip placement="top" title='Sửa'>
+                <span className="text-indigo-600 hover:text-indigo-900" title='edit'>
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokewith="2"
+                      d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                  </svg>
+                </span>
+              </Tooltip>
             </NavLink>
-            <Tooltip placement="top" title='Chi tiết' onClick={() => setShowModal(true)}>
-              <a href="#" className="text-gray-600 hover:text-gray-900" title='view'>
+            <Tooltip placement="top" title='Chi tiết'
+              onClick={() => {
+                setDetailArticleId(record.id);
+                setShowModal(true);
+              }}>
+              <span className="text-gray-600 hover:text-gray-900" title='view'>
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24"
                   stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokewith="2"
@@ -94,7 +98,7 @@ function Dashboard() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokewith="2"
                     d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                 </svg>
-              </a>
+              </span>
             </Tooltip>
             <Tooltip placement='top' title='Xoá'>
               <span title='delete'><svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-red-600 hover:text-red-800"
@@ -108,8 +112,9 @@ function Dashboard() {
       },
     },
   ];
-  
+
   const [showModal, setShowModal] = React.useState(false);
+  const [detailArticleId, setDetailArticleId] = React.useState(0);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [articleIdDelete, setArticleIdDelete] = useState(null);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
@@ -260,70 +265,88 @@ function Dashboard() {
           </Button>,
         ]}
       />
-       <>
+      <>
         {showModal ? (
-          <>
-            <div className="justify-center items-center flex overflow-x-hidden 
-            overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
-            >
-            <div className="relative w-auto mx-5 my-6 md:mx-auto max-w-3xl md:w-[500px]">
-                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full p-6 bg-white outline-none focus:outline-none">
-                  <button
-                    className="flex items-center justify-end"
-                    type="button"
-                    onClick={() => setShowModal(false)}
-                  >
-                    <svg viewPort="0 0 12 12" version="1.1" height="30" width="13"
-                      xmlns="http://www.w3.org/2000/svg">
-                      <line x1="1" y1="11"
-                        x2="11" y2="1"
-                        stroke="black"
-                        stroke-width="2" />
-                      <line x1="1" y1="1"
-                        x2="11" y2="11"
-                        stroke="black"
-                        stroke-width="2" />
-                    </svg>
-                  </button>
-
-                  <div className="relative border">
-                    <div class="flex justify-between py-2 pl-2 border-b">
-                      <p class="w-1/2">Mã Bài Báo:</p>
-                      <p class="w-1/2">12345</p>
-                    </div>
-                    <div class="flex justify-between py-2 pl-2 border-b">
-                      <p class="w-1/2">Tên Bài Báo:</p>
-                      <p class="w-1/2">12345</p>
-                    </div>
-                    <div class="flex justify-between py-2 pl-2 border-b">
-                      <p class="w-1/2">Chỉ số tạp chí/ hội nghị:</p>
-                      <p class="w-1/2">12345</p>
-                    </div>
-                    <div class="flex justify-between py-2 pl-2 border-b">
-                      <p class="w-1/2">Số người tham gia:</p>
-                      <p class="w-1/2">Tailwind CSS is a utility-based low-level CSS framework intended to ea 12345</p>
-                    </div>
-                    <div class="flex justify-between py-2 pl-2 border-b">
-                      <p class="w-1/2">Tác giả:</p>
-                      <p class="w-1/2">12345</p>
-                    </div>
-                    <div class="flex justify-between py-2 pl-2 border-b">
-                      <p class="w-1/2">Thể loại:</p>
-                      <p class="w-1/2">12345</p>
-                    </div>
-                    <div class="flex justify-between py-2 pl-2">
-                      <p class="w-1/2">Tổng thời gian:</p>
-                      <p class="w-1/2">12345</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
-          </>
+          <ModalDetail articleId={detailArticleId} setShowModal={setShowModal} />
         ) : null}
       </>
     </div>
   );
+}
+
+const ModalDetail = ({ articleId, setShowModal }) => {
+  console.log(articleId);
+  const { data: dataArticle } = useArticleDetail(articleId);
+  console.log(dataArticle);
+  return (<>
+    <div className="justify-center items-center flex overflow-x-hidden 
+    overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+    >
+      <div className="relative w-auto mx-5 my-6 md:mx-auto max-w-3xl md:w-[500px]">
+        <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full p-6 bg-white outline-none focus:outline-none">
+          <button
+            className="flex items-center justify-end"
+            type="button"
+            onClick={() => setShowModal(false)}
+          >
+            <svg viewPort="0 0 12 12" version="1.1" height="30" width="13"
+              xmlns="http://www.w3.org/2000/svg">
+              <line x1="1" y1="11"
+                x2="11" y2="1"
+                stroke="black"
+                stroke-width="2" />
+              <line x1="1" y1="1"
+                x2="11" y2="11"
+                stroke="black"
+                stroke-width="2" />
+            </svg>
+          </button>
+
+          <div className="relative border">
+            <div class="flex justify-between py-2 pl-2 border-b">
+              <p class="w-1/2">Mã Bài Báo:</p>
+              <p class="w-1/2">{dataArticle?.code}</p>
+            </div>
+            <div class="flex justify-between py-2 pl-2 border-b">
+              <p class="w-1/2">Tên Bài Báo:</p>
+              <p class="w-1/2">{dataArticle?.name}</p>
+            </div>
+            <div class="flex justify-between py-2 pl-2 border-b">
+              <p class="w-1/2">Chỉ số tạp chí/ hội nghị:</p>
+              <p class="w-1/2">{dataArticle?.index_article}</p>
+            </div>
+            <div class="flex justify-between py-2 pl-2 border-b">
+              <p class="w-1/2">Số người tham gia:</p>
+              <p class="w-1/2">
+                {
+                  dataArticle?.users.map(user => {
+                    return (
+                      <div className='flex'>
+                        <p class="w-1/2">{user.name}</p>
+                        <p class="w-1/2 text-right">{user.role_user.time}</p>
+                      </div>
+                    )
+                  })
+                }
+              </p>
+            </div>
+            <div class="flex justify-between py-2 pl-2 border-b">
+              <p class="w-1/2">Tác giả:</p>
+              <p class="w-1/2">12345</p>
+            </div>
+            <div class="flex justify-between py-2 pl-2 border-b">
+              <p class="w-1/2">Thể loại:</p>
+              <p class="w-1/2">{type_article.find(type => type.value === dataArticle?.type)?.label}</p>
+            </div>
+            <div class="flex justify-between py-2 pl-2">
+              <p class="w-1/2">Tổng thời gian:</p>
+              <p class="w-1/2">{dataArticle?.total_time}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+  </>)
 }
 export default Dashboard;

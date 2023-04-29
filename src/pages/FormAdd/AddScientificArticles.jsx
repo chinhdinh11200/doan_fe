@@ -75,7 +75,7 @@ function FormCreate() {
     name: yup.string().trim().required('Vui lòng nhập tên bài báo'),
     code: yup.string().required('Vui lòng nhập mã bài báo').min(4, "Mã bài báo không được nhỏ hơn 4 kí tự."),
     index_article: yup.string(),
-    total_time: yup.number(),
+    // total_time: yup.number(),
   })
 
   const {
@@ -235,8 +235,13 @@ function FormCreate() {
                 name="open_access"
                 id="open_access"
                 autoComplete="open_access"
+                value={0}
                 className="block border-gray-300"
-                {...register('open_access', { required: true })}
+                onChange={(e) => {
+                  console.log(e.target.checked)
+                  setValue('open_access', 1)
+                }}
+                // {...register('open_access', { required: true })}
               />
               <label htmlFor="open_access">Open Access</label>
               {errors.open_access && <p className="text-red-500">{errors.open_access.message}</p>}
@@ -246,11 +251,15 @@ function FormCreate() {
               <div className="mt-4 flex items-center gap-2 text-sm">
               <input
                 type="radio"
-                name="open_access_scopus"
+                name="open_access"
                 id="open_access_scopus"
+                value={1}
                 autoComplete="open_access_scopus"
                 className="block border-gray-300"
-                {...register('open_access_scopus', { required: true })}
+                onChange={(e) => {
+                  setValue('open_access_scopus', 1)
+                }}
+                // {...register('open_access_scopus', { required: true })}
               />
               <label htmlFor="open_access_scopus">Open Access Scopus</label>
               {errors.open_access_scopus && <p className="text-red-500">{errors.open_access_scopus.message}</p>}
@@ -470,7 +479,11 @@ function FormEdit({articleId}) {
                 id="open_access"
                 autoComplete="open_access"
                 className="block border-gray-300"
-                {...register('open_access', { required: true })}
+                // {...register('open_access', { required: true })}
+                onChange={(e) => {
+                  console.log(e.target.checked)
+                  setValue('open_access', 1)
+                }}
               />
               <label htmlFor="open_access">Open Access</label>
               {errors.open_access && <p className="text-red-500">{errors.open_access.message}</p>}
@@ -480,11 +493,15 @@ function FormEdit({articleId}) {
               <div className="mt-4 flex items-center gap-2 text-sm">
               <input
                 type="radio"
-                name="open_access_scopus"
+                name="open_access"
                 id="open_access_scopus"
                 autoComplete="open_access_scopus"
                 className="block border-gray-300"
-                {...register('open_access_scopus', { required: true })}
+                // {...register('open_access_scopus', { required: true })}
+                onChange={(e) => {
+                  console.log(e.target.checked)
+                  setValue('open_access_scopus', 1)
+                }}
               />
               <label htmlFor="open_access_scopus">Open Access Scopus</label>
               {errors.open_access_scopus && <p className="text-red-500">{errors.open_access_scopus.message}</p>}
