@@ -222,3 +222,14 @@ export const TYPE_THESIS = [
     value: 6
   },
 ]
+
+export const type_article = [
+  {
+    label: "Tạp chí",
+    value: 0
+  },
+  {
+    label: "Hội nghị",
+    value: 1
+  },
+]
