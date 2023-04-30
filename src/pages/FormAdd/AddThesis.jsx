@@ -7,7 +7,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { useCreateThesis, useThesisDetail, useUpdateThesis } from '../../hooks/thesis';
 import { useDepartmentList } from '../../hooks/departments';
 import Select from 'react-select';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useStaffList } from '../../hooks/staffs';
 import { POSITION_STAFF, TYPE_THESIS } from '../../constants';
 
@@ -62,10 +62,10 @@ function FormCreate() {
   })
 
   const schema = yup.object().shape({
-    name: yup.string().trim().required('Vui lòng nhập tên đề tài'),
-    code: yup.string().required('Vui lòng nhập mã đề tài').min(4, "Mã đề tài không được nhỏ hơn 4 kí tự."),
+    name_student: yup.string().trim().required('Vui lòng nhập tên sinh viên'),
+    // code: yup.string().required('Vui lòng nhập mã đề tài').min(4, "Mã đề tài không được nhỏ hơn 4 kí tự."),
     course: yup.string(),
-    number_recognition: yup.string(),
+    // number_recognition: yup.string(),
   })
 
   const {
@@ -78,9 +78,9 @@ function FormCreate() {
     resolver: yupResolver(schema),
     mode: "onChange",
     defaultValues: {
-      name: '',
+      name_student: '',
       num_person: '',
-      number_recognition: '',
+      // number_recognition: '',
       type_thesis: '',
     }
   })
@@ -88,21 +88,21 @@ function FormCreate() {
   useEffect(() => {
     console.log(dataCreate);
     if (dataCreate) {
-      navigate('/thesis-list');
+      navigate('/list-thesis');
     }
   }, [isSuccess]);
 
   return (
-          <div className="w-full">
-            <div className="border-b border-gray-900/10 pb-12">
-              <form
-                name='add-thesis'
-                onSubmit={handleSubmit((values) => {
-                  console.log(values);
-                  mutate(values)
-                })}
-              >
-                <div className="col-span-full mb-2">
+    <div className="w-full">
+      <div className="border-b border-gray-900/10 pb-12">
+        <form
+          name='add-thesis'
+          onSubmit={handleSubmit((values) => {
+            console.log(values);
+            mutate(values)
+          })}
+        >
+          {/* <div className="col-span-full mb-2">
                   <label htmlFor="code" className="block text-sm font-medium leading-6 text-gray-900">Mã luận án / luận văn</label>
                   <div className="mt-2">
                     <input
@@ -115,107 +115,120 @@ function FormCreate() {
                     />
                     {errors.code && <p className="text-red-500">{errors.code.message}</p>}
                   </div>
-                </div>
-                <div className="col-span-full mb-2">
-                  <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">Họ tên nghiên cứu sinh </label>
-                  <div className="mt-2">
-                    <input
-                      type="text"
-                      name="name"
-                      id="name"
-                      autoComplete="name"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      {...register('name', { required: true })}
-                    />
-                    {errors.name && <p className="text-red-500">{errors.name.message}</p>}
-                  </div>
-                </div>
-                <div className="col-span-full mb-2">
-                  <label htmlFor="num_decision" className="block text-sm font-medium leading-6 text-gray-900">Số QĐ giao nhiệm vụ</label>
-                  <div className="mt-2">
-                    <input
-                      type="text"
-                      name="num_decision"
-                      id="num_decision"
-                      autoComplete="num_decision"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      {...register('num_decision', { required: true })}
-                    />
-                    {errors.num_decision && <p className="text-red-500">{errors.num_decision.message}</p>}
-                  </div>
-                </div>
-
-                <div className="col-span-full mb-2">
-                  <label htmlFor="course" className="block text-sm font-medium leading-6 text-gray-900">Khóa đào tạo</label>
-                  <div className="mt-2">
-                    <input
-                      type="text"
-                      name="course"
-                      id="course"
-                      autoComplete="course"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      {...register('course', { required: true })}
-                    />
-                    {errors.course && <p className="text-red-500">{errors.course.message}</p>}
-                  </div>
-                </div>
-                <div className="col-span-full mb-2">
-                  <label htmlFor="type_thesis" className="block text-sm font-medium leading-6 text-gray-900">Thể loại </label>
-                  <div className="mt-2">
-                    <Controller
-                      control={control}
-                      name="type_thesis"
-                      render={({ field: { value, onChange, ref } }) => (
-                        <Select
-                          options={TYPE_THESIS}
-                          name="type_thesis"
-                          id="type_thesis"
-                          isMulti
-                          placeholder="Lựa chọn"
-                          {...register('type_thesis')}
-                          onChange={(val) => {
-                            let rol = val.map(item => item.value).join(',')
-                            setValue('type_thesis', rol)
-                          }}
-                        />
-                      )}
-                    />
-                    {errors.type_thesis && <p className="text-red-500">{errors.type_thesis.message}</p>}
-                  </div>
-                </div>
-                <div className="col-span-full mb-2">
-                  <label htmlFor="role" className="block text-sm font-medium leading-6 text-gray-900">Tác giả</label>
-                  <div className="mt-2">
-                    <Controller
-                      control={control}
-                      name="role"
-                      render={({ field: { value, onChange, ref } }) => (
-                        <Select
-                          options={staffs}
-                          name="role"
-                          id="role"
-                          isMulti
-                          placeholder="Lựa chọn"
-                          {...register('role')}
-                          onChange={(val) => {
-                            let rol = val.map(item => item.value).join(',')
-                            setValue('role', rol)
-                          }}
-                        />
-                      )}
-                    />
-                    {errors.role && <p className="text-red-500">{errors.role.message}</p>}
-                  </div>
-                </div>
-                <div className="mt-6 flex items-center justify-end gap-x-6">
-                  <button type="button" className="text-sm font-semibold leading-6 text-gray-900 hover:underline">Hủy</button>
-                  <button type="submit" className="rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 
-                  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Lưu</button>
-                </div>
-              </form>
+                </div> */}
+          <div className="col-span-full mb-2">
+            <label htmlFor="name_student" className="block text-sm font-medium leading-6 text-gray-900">Họ tên nghiên cứu sinh </label>
+            <div className="mt-2">
+              <input
+                type="text"
+                name="name_student"
+                id="name_student"
+                autoComplete="name_student"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                {...register('name_student', { required: true })}
+              />
+              {errors.name_student && <p className="text-red-500">{errors.name_student.message}</p>}
             </div>
-
           </div>
+          <div className="col-span-full mb-2">
+            <label htmlFor="num_decision" className="block text-sm font-medium leading-6 text-gray-900">Số QĐ giao nhiệm vụ</label>
+            <div className="mt-2">
+              <input
+                type="text"
+                name="num_decision"
+                id="num_decision"
+                autoComplete="num_decision"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                {...register('num_decision', { required: true })}
+              />
+              {errors.num_decision && <p className="text-red-500">{errors.num_decision.message}</p>}
+            </div>
+          </div>
+          <div className="col-span-full mb-2">
+            <label htmlFor="course" className="block text-sm font-medium leading-6 text-gray-900">Khóa đào tạo</label>
+            <div className="mt-2">
+              <input
+                type="text"
+                name="course"
+                id="course"
+                autoComplete="course"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                {...register('course', { required: true })}
+              />
+              {errors.course && <p className="text-red-500">{errors.course.message}</p>}
+            </div>
+          </div>
+          <div className="col-span-full mb-2">
+            <label htmlFor="num_year" className="block text-sm font-medium leading-6 text-gray-900">Số năm làm luận án tiến sĩ</label>
+            <div className="mt-2">
+              <input
+                type="text"
+                name="num_year"
+                id="num_year"
+                autoComplete="num_year"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                {...register('num_year', { required: true })}
+              />
+              {errors.num_year && <p className="text-red-500">{errors.num_year.message}</p>}
+            </div>
+          </div>
+          <div className="col-span-full mb-2">
+            <label htmlFor="type_thesis" className="block text-sm font-medium leading-6 text-gray-900">Thể loại </label>
+            <div className="mt-2">
+              <Controller
+                control={control}
+                name="type_thesis"
+                render={({ field: { value, onChange, ref } }) => (
+                  <Select
+                    options={TYPE_THESIS}
+                    name="type_thesis"
+                    id="type_thesis"
+                    // isMulti
+                    placeholder="Lựa chọn"
+                    {...register('type_thesis')}
+                    onChange={(val) => {
+                      // let rol = val.map(item => item.value).join(',')
+                      setValue('type', val.value)
+                    }}
+                  />
+                )}
+              />
+              {errors.type_thesis && <p className="text-red-500">{errors.type_thesis.message}</p>}
+            </div>
+          </div>
+          <div className="col-span-full mb-2">
+            <label htmlFor="role" className="block text-sm font-medium leading-6 text-gray-900">Tác giả</label>
+            <div className="mt-2">
+              <Controller
+                control={control}
+                name="role"
+                render={({ field: { value, onChange, ref } }) => (
+                  <Select
+                    options={staffs}
+                    name="role"
+                    id="role"
+                    isMulti
+                    placeholder="Lựa chọn"
+                    {...register('role')}
+                    onChange={(val) => {
+                      let rol = val.map(item => item.value).join(',')
+                      setValue('role', rol)
+                    }}
+                  />
+                )}
+              />
+              {errors.role && <p className="text-red-500">{errors.role.message}</p>}
+            </div>
+          </div>
+          <div className="mt-6 flex items-center justify-end gap-x-6">
+            <button type="button" className="text-sm font-semibold leading-6 text-gray-900 hover:underline">Hủy</button>
+            <button type="submit" className="rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 
+                  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Lưu</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
   );
 }
 function FormEdit({ thesisId }) {
@@ -254,10 +267,10 @@ function FormEdit({ thesisId }) {
     return user;
   });
   const schema = yup.object().shape({
-    name: yup.string().trim().required('Vui lòng nhập tên đề tài'),
-    code: yup.string().required('Vui lòng nhập mã đề tài').min(4, "Mã đề tài không được nhỏ hơn 4 kí tự."),
+    // name: yup.string().trim().required('Vui lòng nhập tên đề tài'),
+    // code: yup.string().required('Vui lòng nhập mã đề tài').min(4, "Mã đề tài không được nhỏ hơn 4 kí tự."),
     course: yup.string(),
-    number_recognition: yup.string(),
+    // number_recognition: yup.string(),
   })
   const {
     register,
@@ -286,134 +299,137 @@ function FormEdit({ thesisId }) {
         positionSelected: POSITION_STAFF.find(position => position.value == dataThesis.position),
         roleSelected: dataThesis?.users,
         role: dataThesis?.users?.map(user => user.id).join(','),
+        typeSelected: TYPE_THESIS.find(type => type.value === dataThesis.type)
       })
     }
   }, [dataThesis]);
 
   return (
     <div className="w-full">
-            <div className="border-b border-gray-900/10 pb-12">
-              <form
-                name='add-thesis'
-                onSubmit={handleSubmit((values) => {
-                  console.log(values);
-                  mutate(values)
-                })}
-              >
-                <div className="col-span-full mb-2">
-                  <label htmlFor="code" className="block text-sm font-medium leading-6 text-gray-900">Mã luận án / luận văn</label>
-                  <div className="mt-2">
-                    <input
-                      type="text"
-                      name="code"
-                      id="code"
-                      autoComplete="code"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      {...register('code', { required: true })}
-                    />
-                    {errors.code && <p className="text-red-500">{errors.code.message}</p>}
-                  </div>
-                </div>
-                <div className="col-span-full mb-2">
-                  <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">Họ tên nghiên cứu sinh </label>
-                  <div className="mt-2">
-                    <input
-                      type="text"
-                      name="name"
-                      id="name"
-                      autoComplete="name"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      {...register('name', { required: true })}
-                    />
-                    {errors.name && <p className="text-red-500">{errors.name.message}</p>}
-                  </div>
-                </div>
-                <div className="col-span-full mb-2">
-                  <label htmlFor="num_decision" className="block text-sm font-medium leading-6 text-gray-900">Số QĐ giao nhiệm vụ</label>
-                  <div className="mt-2">
-                    <input
-                      type="text"
-                      name="num_decision"
-                      id="num_decision"
-                      autoComplete="num_decision"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      {...register('num_decision', { required: true })}
-                    />
-                    {errors.num_decision && <p className="text-red-500">{errors.num_decision.message}</p>}
-                  </div>
-                </div>
-
-                <div className="col-span-full mb-2">
-                  <label htmlFor="course" className="block text-sm font-medium leading-6 text-gray-900">Khóa đào tạo</label>
-                  <div className="mt-2">
-                    <input
-                      type="text"
-                      name="course"
-                      id="course"
-                      autoComplete="course"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      {...register('course', { required: true })}
-                    />
-                    {errors.course && <p className="text-red-500">{errors.course.message}</p>}
-                  </div>
-                </div>
-                <div className="col-span-full mb-2">
-                  <label htmlFor="type_thesis" className="block text-sm font-medium leading-6 text-gray-900">Thể loại </label>
-                  <div className="mt-2">
-                    <Controller
-                      control={control}
-                      name="type_thesis"
-                      render={({ field: { value, onChange, ref } }) => (
-                        <Select
-                          options={TYPE_THESIS}
-                          name="type_thesis"
-                          id="type_thesis"
-                          isMulti
-                          placeholder="Lựa chọn"
-                          {...register('type_thesis')}
-                          onChange={(val) => {
-                            let rol = val.map(item => item.value).join(',')
-                            setValue('type_thesis', rol)
-                          }}
-                        />
-                      )}
-                    />
-                    {errors.type_thesis && <p className="text-red-500">{errors.type_thesis.message}</p>}
-                  </div>
-                </div>
-                <div className="col-span-full mb-2">
-                  <label htmlFor="role" className="block text-sm font-medium leading-6 text-gray-900">Tác giả</label>
-                  <div className="mt-2">
-                    <Controller
-                      control={control}
-                      name="role"
-                      render={({ field: { value, onChange, ref } }) => (
-                        <Select
-                          options={staffs}
-                          name="role"
-                          id="role"
-                          isMulti
-                          placeholder="Lựa chọn"
-                          {...register('role')}
-                          onChange={(val) => {
-                            let rol = val.map(item => item.value).join(',')
-                            setValue('role', rol)
-                          }}
-                        />
-                      )}
-                    />
-                    {errors.role && <p className="text-red-500">{errors.role.message}</p>}
-                  </div>
-                </div>
-                <div className="mt-6 flex items-center justify-end gap-x-6">
-                  <button type="button" className="text-sm font-semibold leading-6 text-gray-900 hover:underline">Hủy</button>
-                  <button type="submit" className="rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 
-                  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Lưu</button>
-                </div>
-              </form>
+      <div className="border-b border-gray-900/10 pb-12">
+        <form
+          name='add-thesis'
+          onSubmit={handleSubmit((values) => {
+            console.log(values);
+            mutate(values)
+          })}
+        >
+          {/* <div className="col-span-full mb-2">
+            <label htmlFor="code" className="block text-sm font-medium leading-6 text-gray-900">Mã luận án / luận văn</label>
+            <div className="mt-2">
+              <input
+                type="text"
+                name="code"
+                id="code"
+                autoComplete="code"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                {...register('code', { required: true })}
+              />
+              {errors.code && <p className="text-red-500">{errors.code.message}</p>}
             </div>
-
+          </div> */}
+          <div className="col-span-full mb-2">
+            <label htmlFor="name_student" className="block text-sm font-medium leading-6 text-gray-900">Họ tên nghiên cứu sinh </label>
+            <div className="mt-2">
+              <input
+                type="text"
+                name="name_student"
+                id="name_student"
+                autoComplete="name_student"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                {...register('name_student', { required: true })}
+              />
+              {errors.name_student && <p className="text-red-500">{errors.name_student.message}</p>}
+            </div>
           </div>
+          <div className="col-span-full mb-2">
+            <label htmlFor="num_decision" className="block text-sm font-medium leading-6 text-gray-900">Số QĐ giao nhiệm vụ</label>
+            <div className="mt-2">
+              <input
+                type="text"
+                name="num_decision"
+                id="num_decision"
+                autoComplete="num_decision"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                {...register('num_decision', { required: true })}
+              />
+              {errors.num_decision && <p className="text-red-500">{errors.num_decision.message}</p>}
+            </div>
+          </div>
+
+          <div className="col-span-full mb-2">
+            <label htmlFor="course" className="block text-sm font-medium leading-6 text-gray-900">Khóa đào tạo</label>
+            <div className="mt-2">
+              <input
+                type="text"
+                name="course"
+                id="course"
+                autoComplete="course"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                {...register('course', { required: true })}
+              />
+              {errors.course && <p className="text-red-500">{errors.course.message}</p>}
+            </div>
+          </div>
+          <div className="col-span-full mb-2">
+            <label htmlFor="type_thesis" className="block text-sm font-medium leading-6 text-gray-900">Thể loại </label>
+            <div className="mt-2">
+              <Controller
+                control={control}
+                name="typeSelected"
+                render={({ field: { value, onChange, ref } }) => (
+                  <Select
+                    options={TYPE_THESIS}
+                    name="type_thesis"
+                    id="type_thesis"
+                    value={value}
+                    placeholder="Lựa chọn"
+                    {...register('type_thesis')}
+                    onChange={(val) => {
+                      onChange(val)
+                      setValue('type', val.value)
+                    }}
+                  />
+                )}
+              />
+              {errors.type_thesis && <p className="text-red-500">{errors.type_thesis.message}</p>}
+            </div>
+          </div>
+          <div className="col-span-full mb-2">
+            <label htmlFor="role" className="block text-sm font-medium leading-6 text-gray-900">Tác giả</label>
+            <div className="mt-2">
+              <Controller
+                control={control}
+                name="roleSelected"
+                render={({ field: { value, onChange, ref } }) => (
+                  <Select
+                    options={staffs}
+                    name="role"
+                    id="role"
+                    isMulti
+                    value={value}
+                    placeholder="Lựa chọn"
+                    {...register('role')}
+                    onChange={(val) => {
+                      onChange();
+                      let rol = val.map(item => item.value).join(',')
+                      setValue('role', rol)
+                    }}
+                  />
+                )}
+              />
+              {errors.role && <p className="text-red-500">{errors.role.message}</p>}
+            </div>
+          </div>
+          <div className="mt-6 flex items-center justify-end gap-x-6">
+            <button type="button" className="text-sm font-semibold leading-6 text-gray-900 hover:underline">Hủy</button>
+            <button type="submit" className="rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 
+                  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Lưu</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
   );
 }
 export default AddThesis;

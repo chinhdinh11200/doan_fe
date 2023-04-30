@@ -3,14 +3,14 @@ import Sidebar from '../partials/Sidebar';
 import Header from '../partials/Header';
 import { NavLink } from 'react-router-dom';
 import FilterButton from '../partials/actions/FilterButton';
-import { useThesisDelete, useThesisList } from '../hooks/thesis';
+import { useThesisDelete, useThesisDetail, useThesisList } from '../hooks/thesis';
 import Loading from '../components/Loading';
 import { Button, Modal, Space, Table, Tooltip } from 'antd';
 import { BiEdit, BiTrash } from 'react-icons/bi';
 import { PAGE_SIZE } from '../constants';
 import Search from '../components/Search';
 import { debounce } from 'lodash';
-function Dashboard() {
+function ThesisList() {
   const [tableParams, setTableParams] = useState({
     pagination: {
       current: 1,
@@ -38,18 +38,18 @@ function Dashboard() {
         </p>
       ),
     },
-    {
-      title: <div className="text-center uppercase">Mã luận án/luận văn</div>,
-      dataIndex: "code",
-      key: "code",
-      render: (_, record) => <> {record.code}</>,
-      sortDirections: ["descend", "ascend", "descend"],
-      sorter: () => { },
-    },
+    // {
+    //   title: <div className="text-center uppercase">Mã luận án/luận văn</div>,
+    //   dataIndex: "code",
+    //   key: "code",
+    //   render: (_, record) => <> {record.code}</>,
+    //   sortDirections: ["descend", "ascend", "descend"],
+    //   sorter: () => { },
+    // },
     {
       title: <div className="text-center uppercase">Tên NCS/SV/HV</div>,
-      dataIndex: "name",
-      key: "name",
+      dataIndex: "name_student",
+      key: "name_student",
       sortDirections: ["descend", "ascend", "descend"],
       sorter: () => { },
     },
@@ -74,24 +74,28 @@ function Dashboard() {
       render: (_, record) => {
         return (
           <Space size="middle" className="flex justify-center">
-             <NavLink
+            <NavLink
               end
               to={`/edit-thesis?id=${record.id}`}
               className={({ isActive }) =>
                 'block transition duration-150 truncate ' + (isActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200')
               }
             >
-            <Tooltip placement="top" title='Sửa'>
-              <a href="#" className="text-indigo-600 hover:text-indigo-900" title='edit'>
-                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24"
-                  stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokewith="2"
-                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                </svg>
-              </a>
-            </Tooltip></NavLink>
-            <Tooltip placement="top" title='Chi tiết' onClick={() => setShowModal(true)}>
-              <a href="#" className="text-gray-600 hover:text-gray-900" title='view'>
+              <Tooltip placement="top" title='Sửa'>
+                <span className="text-indigo-600 hover:text-indigo-900" title='edit'>
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokewith="2"
+                      d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                  </svg>
+                </span>
+              </Tooltip></NavLink>
+            <Tooltip placement="top" title='Chi tiết'
+              onClick={() => {
+                setShowModal(true);
+                setThesisDetailId(record.id)
+              }}>
+              <span className="text-gray-600 hover:text-gray-900" title='view'>
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24"
                   stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokewith="2"
@@ -99,7 +103,7 @@ function Dashboard() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokewith="2"
                     d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                 </svg>
-              </a>
+              </span>
             </Tooltip>
             <Tooltip placement='top' title='Xoá'>
               <span title='delete'><svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-red-600 hover:text-red-800"
@@ -114,6 +118,7 @@ function Dashboard() {
     },
   ];
   const [showModal, setShowModal] = React.useState(false);
+  const [thesisDetailId, setThesisDetailId] = React.useState(0);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [thesisIdDelete, setThesisIdDelete] = useState(null);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
@@ -174,7 +179,7 @@ function Dashboard() {
       search: search
     })
   }, 1000);
-  
+
   const onChangeSearch = (search) => {
     changeDebounce(search);
   }
@@ -199,7 +204,7 @@ function Dashboard() {
                   <div className='flex gap-2'>
                     <Search onChangeSearch={onChangeSearch} />
                     <FilterButton />
-                </div>
+                  </div>
                   <NavLink end to="/add-thesis" className="btn bg-indigo-500 hover:bg-indigo-600 text-white">
                     <svg className="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
                       <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
@@ -261,66 +266,90 @@ function Dashboard() {
           </Button>,
         ]}
       />
-         <>
+      <>
         {showModal ? (
-          <>
-            <div className="justify-center items-center flex overflow-x-hidden 
-            overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
-            >
-            <div className="relative w-auto mx-5 my-6 md:mx-auto max-w-3xl md:w-[500px]">
-                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full p-6 bg-white outline-none focus:outline-none">
-                  <button
-                    className="flex items-center justify-end"
-                    type="button"
-                    onClick={() => setShowModal(false)}
-                  >
-                    <svg viewPort="0 0 12 12" version="1.1" height="30" width="13"
-                      xmlns="http://www.w3.org/2000/svg">
-                      <line x1="1" y1="11"
-                        x2="11" y2="1"
-                        stroke="black"
-                        stroke-width="2" />
-                      <line x1="1" y1="1"
-                        x2="11" y2="11"
-                        stroke="black"
-                        stroke-width="2" />
-                    </svg>
-                  </button>
-                  <div className="relative border">
-                    <div class="flex justify-between py-2 pl-2 border-b">
-                      <p class="w-1/2">Mã luận án/luận văn:</p>
-                      <p class="w-1/2">12345</p>
-                    </div>
-                    <div class="flex justify-between py-2 pl-2 border-b">
-                      <p class="w-1/2">Họ tên nghiên cứu sinh:</p>
-                      <p class="w-1/2">12345</p>
-                    </div>
-                    <div class="flex justify-between py-2 pl-2 border-b">
-                      <p class="w-1/2">Khóa đào tạo:</p>
-                      <p class="w-1/2">12345</p>
-                    </div>
-                    <div class="flex justify-between py-2 pl-2 border-b">
-                      <p class="w-1/2">Số người hướng dẫn:</p>
-                      <p class="w-1/2">Tailwind CSS is a utility-based low-level CSS framework intended to ea 12345</p>
-                    </div>
-                    <div class="flex justify-between py-2 pl-2 border-b">
-                      <p class="w-1/2">Tác giả:</p>
-                      <p class="w-1/2">12345</p>
-                    </div>
-                    <div class="flex justify-between py-2 pl-2 border-b">
-                      <p class="w-1/2">Số QĐ:</p>
-                      <p class="w-1/2">12345</p>
-                    </div>
-                  
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
-          </>
+          <ModalDetail setShowModal={setShowModal} thesisId={thesisDetailId} />
         ) : null}
       </>
     </div>
   );
 }
-export default Dashboard;
+
+const ModalDetail = ({ thesisId, setShowModal }) => {
+  console.log(thesisId);
+  const { data: dataThesis } = useThesisDetail(thesisId);
+  console.log(dataThesis);
+  return (
+    <>
+      <div className="justify-center items-center flex overflow-x-hidden 
+            overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+      >
+        <div className="relative w-auto mx-5 my-6 md:mx-auto max-w-3xl md:w-[700px]">
+          <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full p-6 bg-white outline-none focus:outline-none">
+            <button
+              className="flex items-center justify-end"
+              type="button"
+              onClick={() => setShowModal(false)}
+            >
+              <svg viewPort="0 0 12 12" version="1.1" height="30" width="13"
+                xmlns="http://www.w3.org/2000/svg">
+                <line x1="1" y1="11"
+                  x2="11" y2="1"
+                  stroke="black"
+                  stroke-width="2" />
+                <line x1="1" y1="1"
+                  x2="11" y2="11"
+                  stroke="black"
+                  stroke-width="2" />
+              </svg>
+            </button>
+            <div className="relative border">
+              {/* <div class="flex justify-between py-2 pl-2 border-b">
+                <p class="w-1/2">Mã luận án/luận văn:</p>
+                <p class="w-1/2">12345</p>
+              </div> */}
+              <div class="flex justify-between py-2 pl-2 border-b">
+                <p class="w-1/2">Họ tên nghiên cứu sinh:</p>
+                <p class="w-1/2">{dataThesis?.name_student}</p>
+              </div>
+              <div class="flex justify-between py-2 pl-2 border-b">
+                <p class="w-1/2">Khóa đào tạo:</p>
+                <p class="w-1/2">{dataThesis?.course}</p>
+              </div>
+              <div class="flex justify-between py-2 pl-2 border-b">
+                <p class="w-1/2">Số người hướng dẫn:</p>
+                <p class="w-1/2">{dataThesis?.num_person}</p>
+              </div>
+              <div class="flex justify-between py-2 pl-2 border-b">
+                <p class="w-1/2">Tác giả:</p>
+                <div class="w-1/2">
+                  {
+                    dataThesis?.users.map(user => {
+                      return (
+                        <div className='flex'>
+                          <p class="w-1/2">
+                            {user.thesis_user.type == 0 ? 'Tác giả chính' : 'Thành viên'}
+                            {user.name}
+                          </p>
+                          <p class="w-1/2 text-right">{user.thesis_user.time}</p>
+                        </div>
+                      )
+                    })
+                  }
+                </div>
+              </div>
+              <div class="flex justify-between py-2 pl-2 border-b">
+                <p class="w-1/2">Số QĐ:</p>
+                <p class="w-1/2">{dataThesis?.num_decision}</p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+    </>
+  )
+}
+
+export default ThesisList;
