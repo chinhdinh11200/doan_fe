@@ -229,7 +229,7 @@ function FormCreate() {
             </div>
           </div>
           <div className="col-span-full mb-2.5">
-              <div className="mt-4 flex items-center gap-2 text-sm">
+            <div className="mt-4 flex items-center gap-2 text-sm">
               <input
                 type="radio"
                 name="open_access"
@@ -241,14 +241,14 @@ function FormCreate() {
                   console.log(e.target.checked)
                   setValue('open_access', 1)
                 }}
-                // {...register('open_access', { required: true })}
+              // {...register('open_access', { required: true })}
               />
               <label htmlFor="open_access">Open Access</label>
               {errors.open_access && <p className="text-red-500">{errors.open_access.message}</p>}
             </div>
           </div>
           <div className="col-span-full mb-2.5">
-              <div className="mt-4 flex items-center gap-2 text-sm">
+            <div className="mt-4 flex items-center gap-2 text-sm">
               <input
                 type="radio"
                 name="open_access"
@@ -259,7 +259,7 @@ function FormCreate() {
                 onChange={(e) => {
                   setValue('open_access_scopus', 1)
                 }}
-                // {...register('open_access_scopus', { required: true })}
+              // {...register('open_access_scopus', { required: true })}
               />
               <label htmlFor="open_access_scopus">Open Access Scopus</label>
               {errors.open_access_scopus && <p className="text-red-500">{errors.open_access_scopus.message}</p>}
@@ -276,7 +276,7 @@ function FormCreate() {
   );
 }
 
-function FormEdit({articleId}) {
+function FormEdit({ articleId }) {
   const navigate = useNavigate();
   const { mutate,
     isSuccess,
@@ -338,11 +338,12 @@ function FormEdit({articleId}) {
         ...dataArticle,
         password: '',
         departmentSelected: departments?.find(department => department.id === dataArticle.department_id),
-         positionSelected: POSITION_STAFF.find(position => position.value == dataArticle.position),
-          roleSelected: dataArticle?.users,
-          role: dataArticle?.users?.map(user => user.id).join(','),
-          type: 2,
-          type_article: dataArticle.type
+        positionSelected: POSITION_STAFF.find(position => position.value == dataArticle.position),
+        roleSelected: dataArticle?.users,
+        type_articlescientificSelected: TYPE_ARTICLESCIENTIFIC.find(article => article.value == dataArticle.type),
+        role: dataArticle?.users?.map(user => user.id).join(','),
+        type: 2,
+        type_article: dataArticle.type
       })
     }
   }, [dataArticle]);
@@ -411,7 +412,7 @@ function FormEdit({articleId}) {
           <div className="col-span-full mb-2.5">
             <label htmlFor="role" className="block text-sm font-medium leading-6 text-gray-900">Tác giả</label>
             <div className="mt-2">
-            <Controller
+              <Controller
                 control={control}
                 name="roleSelected"
                 render={({ field: { value, onChange, ref } }) => (
@@ -449,15 +450,16 @@ function FormEdit({articleId}) {
             </div>
           </div>
           <div className="col-span-full mb-2.5">
-            <label htmlFor="type_articlescientific" className="block text-sm font-medium leading-6 text-gray-900">Loại tạp chí</label>
+            <label htmlFor="type_articlescientificSelected" className="block text-sm font-medium leading-6 text-gray-900">Thể loại</label>
             <div className="mt-2">
               <Controller
                 control={control}
-                name="TYPE_ARTICLESCIENTIFIC"
+                name="type_articlescientificSelected"
                 render={({ field: { value, onChange, ref } }) => (
                   <Select
                     options={TYPE_ARTICLESCIENTIFIC}
-                    name="type_articlescientific"
+                    value={value}
+                    name="type_articlescientificSelected"
                     id="type_articlescientific"
                     placeholder="Lựa chọn"
                     {...register('type_articlescientific')}
@@ -472,14 +474,13 @@ function FormEdit({articleId}) {
             </div>
           </div>
           <div className="col-span-full mb-2.5">
-              <div className="mt-4 flex items-center gap-2 text-sm">
+            <div className="mt-4 flex items-center gap-2 text-sm">
               <input
                 type="radio"
                 name="open_access"
                 id="open_access"
                 autoComplete="open_access"
                 className="block border-gray-300"
-                // {...register('open_access', { required: true })}
                 onChange={(e) => {
                   console.log(e.target.checked)
                   setValue('open_access', 1)
@@ -490,7 +491,7 @@ function FormEdit({articleId}) {
             </div>
           </div>
           <div className="col-span-full mb-2.5">
-              <div className="mt-4 flex items-center gap-2 text-sm">
+            <div className="mt-4 flex items-center gap-2 text-sm">
               <input
                 type="radio"
                 name="open_access"
@@ -508,7 +509,7 @@ function FormEdit({articleId}) {
             </div>
           </div>
           <div className="mt-6 flex items-center justify-end gap-x-6">
-          <button onClick={() => navigate(-1)} type="button" className="text-sm font-semibold leading-6 text-gray-900 hover:underline">Hủy</button>
+            <button onClick={() => navigate(-1)} type="button" className="text-sm font-semibold leading-6 text-gray-900 hover:underline">Hủy</button>
             <button type="submit" className="rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 
                   focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Lưu</button>
           </div>

@@ -67,7 +67,6 @@ function FormCreate() {
   departments?.data?.map(department => {
     department.label = department.name
     department.value = department.id
-
     return department;
   })
 
@@ -93,7 +92,7 @@ function FormCreate() {
       num_person: '',
       number_recognition: '',
       level: '',
-      type_inventions:'',
+      type_inventions: '',
       type: 3
     }
   })
@@ -207,15 +206,14 @@ function FormCreate() {
                 render={({ field: { value, onChange, ref } }) => (
                   <Select
                     options={TYPE_INVENTIONS}
+                    value={value}
                     name="type_inventions"
-                    // isMulti
                     id="type_inventions"
-                    // value={value}
                     placeholder="Lựa chọn"
                     {...register('type_inventions')}
                     onChange={(val) => {
-                      onChange();
-                      setValue('type_inventions', val.value)
+                      onChange(val);
+                      setValue("type_inventions", val.value);
                     }}
                   />
                 )}
@@ -303,6 +301,7 @@ function FormEdit({ inventionId }) {
         positionSelected: POSITION_STAFF.find(position => position.value == dataInvention.position),
         roleSelected: dataInvention?.users,
         role: dataInvention?.users?.map(user => user.id).join(','),
+        type_inventionsSelected: TYPE_INVENTIONS.find(invention => invention.value == dataInvention.level),
         type: 3
       })
     }
@@ -352,16 +351,18 @@ function FormEdit({ inventionId }) {
             <div className="mt-2">
               <Controller
                 control={control}
-                name="role"
+                name="roleSelected"
                 render={({ field: { value, onChange, ref } }) => (
                   <Select
                     options={staffs}
                     name="role"
+                    isMulti
                     id="role"
+                    value={value}
                     placeholder="Lựa chọn"
                     {...register('role')}
-                    isMulti
                     onChange={(val) => {
+                      onChange();
                       let rol = val.map(item => item.value).join(',')
                       setValue('role', rol);
                     }}
@@ -400,24 +401,22 @@ function FormEdit({ inventionId }) {
             </div>
           </div>
           <div className="col-span-full mb-2.5">
-            <label htmlFor="type_inventions" className="block text-sm font-medium leading-6 text-gray-900">Giải thưởng</label>
+            <label htmlFor="type_inventionsSelected" className="block text-sm font-medium leading-6 text-gray-900">Giải thưởng</label>
             <div className="mt-2">
               <Controller
                 control={control}
-                name="type_inventions"
+                name="type_inventionsSelected"
                 render={({ field: { value, onChange, ref } }) => (
                   <Select
                     options={TYPE_INVENTIONS}
-                    name="type_inventions"
-                    isMulti
-                    id="type_inventions"
                     value={value}
+                    name="type_inventions"
+                    id="type_inventions"
                     placeholder="Lựa chọn"
                     {...register('type_inventions')}
                     onChange={(val) => {
-                      onChange();
-                      let rol = val.map(item => item.value).join(',')
-                      setValue('type_inventions', rol)
+                      onChange(val);
+                      setValue("type_inventions", val.value);
                     }}
                   />
                 )}

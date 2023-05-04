@@ -4,12 +4,12 @@ import Sidebar from '../partials/Sidebar';
 import Header from '../partials/Header';
 import FilterButton from '../partials/actions/FilterButton';
 import { FORM_EXAM, PAGE_SIZE } from '../constants';
-import { useExamDelete, useExamList } from '../hooks/exam';
+import { useExamDelete, useExamDetail, useExamList } from '../hooks/exam';
 import { Button, Modal, Space, Table, Tooltip } from 'antd';
 import Loading from '../components/Loading';
 import Search from '../components/Search';
 import { debounce } from 'lodash';
-
+import { POSITION_STAFF } from '../constants';
 function ExamList() {
   const [tableParams, setTableParams] = useState({
     pagination: {
@@ -101,7 +101,10 @@ function ExamList() {
                 </svg>
               </NavLink>
             </Tooltip>
-            <Tooltip placement="top" title='Chi tiết'>
+            <Tooltip placement="top" title='Chi tiết' onClick={() => {
+              setShowModal(true);
+              setExamDetailId(record.id)
+            }}>
               <a href="#" className="text-gray-600 hover:text-gray-900" title='view'>
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24"
                   stroke="currentColor">
@@ -124,6 +127,8 @@ function ExamList() {
       },
     },
   ];
+  const [showModal, setShowModal] = React.useState(false);
+  const [examDetailId, setExamDetailId] = React.useState(0);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [classIdDelete, setExamIdDelete] = useState(null);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
@@ -261,8 +266,71 @@ function ExamList() {
           </Button>,
         ]}
       />
+      <>
+        {showModal ? (
+          <ModalDetail setShowModal={setShowModal} examId={examDetailId} />
+        ) : null}
+      </>
     </div>
   );
+}
+
+const ModalDetail = ({ examId, setShowModal }) => {
+  const { data: dataExam } = useExamDetail(examId);
+  return (
+    <>
+      <div className="justify-center items-center flex overflow-x-hidden 
+            overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+      >
+        <div className="relative w-auto mx-5 my-6 md:mx-auto max-w-3xl md:w-[500px]">
+          <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full p-6 bg-white outline-none focus:outline-none">
+            <button
+              className="flex items-center justify-end"
+              type="button"
+              onClick={() => setShowModal(false)}
+            >
+              <svg viewPort="0 0 12 12" version="1.1" height="30" width="13"
+                xmlns="http://www.w3.org/2000/svg">
+                <line x1="1" y1="11"
+                  x2="11" y2="1"
+                  stroke="black"
+                  stroke-width="2" />
+                <line x1="1" y1="1"
+                  x2="11" y2="11"
+                  stroke="black"
+                  stroke-width="2" />
+              </svg>
+            </button>
+
+            <div className="relative border">
+              <div className="flex justify-between py-2 pl-2 border-b">
+                <p className="w-1/2 break-all">Mã đề thi:</p>
+                <p className="w-1/2 break-all">{dataExam?.code}</p>
+              </div>
+              <div className="flex justify-between py-2 pl-2 border-b">
+                <p className="w-1/2 break-all">Môn thi:</p>
+                <p className="w-1/2 break-all">{dataExam?.subject_id}</p>
+              </div>
+              <div className="flex justify-between py-2 pl-2 border-b">
+                <p className="w-1/2 break-all">Người ra đề:</p>
+                <p className="w-1/2 break-all">{dataExam?.user_id}</p>
+              </div>
+              <div className="flex justify-between py-2 pl-2 border-b">
+                <p className="w-1/2 break-all">Hình thức thi:</p>
+                <p className="w-1/2 break-all">{dataExam?.type}</p>
+              </div>
+              <div className="flex justify-between py-2 pl-2 border-b">
+                <p className="w-1/2 break-all">Số câu hỏi/ số đề (tự luận):</p>
+                <p className="w-1/2 break-all">{dataExam?.num_question}</p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+    </>
+  )
 }
 
 export default ExamList;

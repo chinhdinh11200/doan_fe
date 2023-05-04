@@ -96,7 +96,7 @@ const FormCreate = () => {
             console.log(values)
           })}
         >
-          
+
           <div className="col-span-full mb-2">
             <label htmlFor="subject_id" className="block text-sm font-medium leading-6 text-gray-900">Môn thi</label>
             <div className="mt-2">
@@ -248,7 +248,7 @@ const FormEdit = ({ markId }) => {
 
   useEffect(() => {
     if (mark) {
-      console.log( staffs?.find((user) => user.id === mark.user_id));
+      console.log(staffs?.find((user) => user.id === mark.user_id));
       reset({
         ...mark,
         subjectSelected: subjects?.find((subject) => subject.id === mark.subject_id),
@@ -268,26 +268,26 @@ const FormEdit = ({ markId }) => {
           })}
         >
           <div className="col-span-full mb-2">
-            <label htmlFor="subject_id" className="block text-sm font-medium leading-6 text-gray-900">Môn thi</label>
+            <label htmlFor="subjectSelected" className="block text-sm font-medium leading-6 text-gray-900">Môn thi</label>
             <div className="mt-2">
               <Controller
                 control={control}
                 name="subjectSelected"
                 render={({ field: { value, onChange, ref } }) => (
                   <Select
-                    options={subjects}
-                    id="subject_id"
+                    options={subjectSelected}
                     value={value}
+                    name="subject_id"
+                    id="subject_id"
                     placeholder="Lựa chọn"
                     {...register('subject_id')}
                     onChange={(val) => {
                       onChange(val);
-                      setValue("subject_id", val.id);
+                      setValue("subject_id", val.value);
                     }}
                   />
                 )}
               />
-
               {errors.subject_id && <p className="text-red-500">{errors.subject_id.message}</p>}
             </div>
           </div>

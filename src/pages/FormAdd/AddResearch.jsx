@@ -242,7 +242,7 @@ function FormCreate() {
             </div>
           </div>
           <div className="col-span-full mb-2.5">
-            <label htmlFor="role" className="block text-sm font-medium leading-6 text-gray-900">Tác giả</label>
+            <label htmlFor="role" className="block text-sm font-medium leading-6 text-gray-900">Thành viên</label>
             <div className="mt-2">
               <Controller
                 control={control}
@@ -363,6 +363,8 @@ function FormEdit({ topicId }) {
         password: '',
         departmentSelected: departments?.find(department => department.id === dataTopic.department_id),
         positionSelected: POSITION_STAFF.find(position => position.value == dataTopic.position),
+        level_selected: level.find(topic => topic.value == dataTopic.level),
+        resultSelected: result.find(research => research.value == dataTopic.result),
         roleSelected: dataTopic?.users,
         role: dataTopic?.users?.map(user => user.id).join(','),
         type: 1
@@ -409,14 +411,15 @@ function FormEdit({ topicId }) {
             </div>
           </div>
           <div className="col-span-full mb-2.5">
-            <label htmlFor="level" className="block text-sm font-medium leading-6 text-gray-900">Cấp đê tài</label>
+            <label htmlFor="level_selected" className="block text-sm font-medium leading-6 text-gray-900">Cấp đề tài</label>
             <div className="mt-2">
               <Controller
                 control={control}
-                name="levelSelect"
+                name="level_selected"
                 render={({ field: { value, onChange, ref } }) => (
                   <Select
                     options={level}
+                    value={value}
                     name="level"
                     id="level"
                     placeholder="Lựa chọn"
@@ -474,7 +477,7 @@ function FormEdit({ topicId }) {
             </div>
           </div>
           <div className="col-span-full mb-2.5">
-            <label htmlFor="role" className="block text-sm font-medium leading-6 text-gray-900">Tác giả</label>
+            <label htmlFor="role" className="block text-sm font-medium leading-6 text-gray-900">Thành viên</label>
             <div className="mt-2">
               <Controller
                 control={control}
@@ -500,14 +503,15 @@ function FormEdit({ topicId }) {
             </div>
           </div>
           <div className="col-span-full mb-2.5">
-            <label htmlFor="result" className="block text-sm font-medium leading-6 text-gray-900">Kết quả</label>
+            <label htmlFor="resultSelected" className="block text-sm font-medium leading-6 text-gray-900">Kết quả</label>
             <div className="mt-2">
               <Controller
                 control={control}
-                name="resultSelect"
+                name="resultSelected"
                 render={({ field: { value, onChange, ref } }) => (
                   <Select
                     options={result}
+                    value={value}
                     name="result"
                     id="result"
                     placeholder="Lựa chọn"

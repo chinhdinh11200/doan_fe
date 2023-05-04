@@ -318,21 +318,23 @@ const ModalDetail = ({ articleId, setShowModal }) => {
             <div class="flex justify-between py-2 pl-2 border-b">
               <p class="w-1/2">Số người tham gia:</p>
               <p class="w-1/2">
+                {dataArticle?.num_person}
+              </p>
+            </div>
+            <div class="flex justify-between py-2 pl-2 border-b">
+              <p class="w-1/2 break-all">Tác giả:</p>
+              <div class="w-1/2 break-all">
                 {
                   dataArticle?.users.map(user => {
                     return (
-                      <div className='flex'>
-                        <p class="w-1/2">{user.name}</p>
-                        <p class="w-1/2 text-right">{user.role_user.time}</p>
+                      <div className='flex gap-2'>
+                        <p class="w-3/4">{user.name}</p>
+                        <p class="w-1/4">{user.role_user.time}</p>
                       </div>
                     )
                   })
                 }
-              </p>
-            </div>
-            <div class="flex justify-between py-2 pl-2 border-b">
-              <p class="w-1/2">Tác giả:</p>
-              <p class="w-1/2">12345</p>
+              </div>
             </div>
             <div class="flex justify-between py-2 pl-2 border-b">
               <p class="w-1/2">Thể loại:</p>

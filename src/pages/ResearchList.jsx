@@ -11,7 +11,7 @@ import { PAGE_SIZE } from '../constants';
 import Search from '../components/Search';
 import { debounce } from 'lodash';
 
-function Dashboard() {
+function researchList() {
   const [tableParams, setTableParams] = useState({
     pagination: {
       current: 1,
@@ -22,7 +22,7 @@ function Dashboard() {
       // sortColumn: null,
       // sort: null,
     },
-    search:'',
+    search: '',
   });
   const [page, setPage] = useState(1);
   const pageSizeRef = useRef(PAGE_SIZE); //luu kick co trang hiren tai
@@ -85,7 +85,10 @@ function Dashboard() {
                 </a>
               </Tooltip>
             </NavLink>
-            <Tooltip placement="top" title='Chi tiết' onClick={() => setShowModal(true)}>
+            <Tooltip placement="top" title='Chi tiết' onClick={() => {
+              setShowModal(true);
+              setTopicDetailId(record.id)
+            }}>
               <a href="#" className="text-gray-600 hover:text-gray-900" title='view'>
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24"
                   stroke="currentColor">
@@ -109,6 +112,7 @@ function Dashboard() {
     },
   ];
   const [showModal, setShowModal] = React.useState(false);
+  const [topicDetailId, setTopicDetailId] = React.useState(0);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [topicIdDelete, setTopicIdDelete] = useState(null);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
@@ -262,77 +266,96 @@ function Dashboard() {
       />
       <>
         {showModal ? (
-          <>
-            <div className="justify-center items-center flex overflow-x-hidden 
-            overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
-            >
-            <div className="relative w-auto mx-5 my-6 md:mx-auto max-w-3xl md:w-[500px]">
-                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full p-6 bg-white outline-none focus:outline-none">
-                  <button
-                    className="flex items-center justify-end"
-                    type="button"
-                    onClick={() => setShowModal(false)}
-                  >
-                    <svg viewPort="0 0 12 12" version="1.1" height="30" width="13"
-                      xmlns="http://www.w3.org/2000/svg">
-                      <line x1="1" y1="11"
-                        x2="11" y2="1"
-                        stroke="black"
-                        stroke-width="2" />
-                      <line x1="1" y1="1"
-                        x2="11" y2="11"
-                        stroke="black"
-                        stroke-width="2" />
-                    </svg>
-                  </button>
-
-                  <div className="relative border">
-                    <div class="flex justify-between py-2 pl-2 border-b">
-                      <p class="w-1/2">Mã dự án:</p>
-                      <p class="w-1/2">12345</p>
-                    </div>
-                    <div class="flex justify-between py-2 pl-2 border-b">
-                      <p class="w-1/2">Tên dự án:</p>
-                      <p class="w-1/2">12345</p>
-                    </div> 
-                    <div class="flex justify-between py-2 pl-2 border-b">
-                      <p class="w-1/2">Cấp đề tài:</p>
-                      <p class="w-1/2">12345</p>
-                    </div>
-                    <div class="flex justify-between py-2 pl-2 border-b">
-                      <p class="w-1/2">Số người tham gia:</p>
-                      <p class="w-1/2">Tailwind CSS is a utility-based low-level CSS framework intended to ea 12345</p>
-                    </div>
-                    <div class="flex justify-between py-2 pl-2 border-b">
-                      <p class="w-1/2">Tác giả:</p>
-                      <p class="w-1/2">12345</p>
-                    </div>
-                    <div class="flex justify-between py-2 pl-2 border-b">
-                      <p class="w-1/2">Ngày bắt đầu:</p>
-                      <p class="w-1/2">12345</p>
-                    </div>
-                    <div class="flex justify-between py-2 pl-2 border-b">
-                      <p class="w-1/2">Ngày kết thúc:</p>
-                      <p class="w-1/2">12345</p>
-                    </div>
-                    <div class="flex justify-between py-2 pl-2 border-b">
-                      <p class="w-1/2">Ngày nghiệm thu:</p>
-                      <p class="w-1/2">12345</p>
-                    </div>
-                    <div class="flex justify-between py-2 pl-2 border-b">
-                      <p class="w-1/2">Kết quả xếp loại:</p>
-                      <p class="w-1/2">12345</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
-          </>
+          <ModalDetail setShowModal={setShowModal} topicId={topicDetailId} />
         ) : null}
       </>
     </div>
   );
 }
 
-export default Dashboard;
+const ModalDetail = ({ topicId, setShowModal }) => {
+  const { data: dataTopic } = useTopicDetail(topicId);
+  return (
+    <>
+      <div className="justify-center items-center flex overflow-x-hidden 
+            overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+      >
+        <div className="relative w-auto mx-5 my-6 md:mx-auto max-w-3xl md:w-[500px]">
+          <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full p-6 bg-white outline-none focus:outline-none">
+            <button
+              className="flex items-center justify-end"
+              type="button"
+              onClick={() => setShowModal(false)}
+            >
+              <svg viewPort="0 0 12 12" version="1.1" height="30" width="13"
+                xmlns="http://www.w3.org/2000/svg">
+                <line x1="1" y1="11"
+                  x2="11" y2="1"
+                  stroke="black"
+                  stroke-width="2" />
+                <line x1="1" y1="1"
+                  x2="11" y2="11"
+                  stroke="black"
+                  stroke-width="2" />
+              </svg>
+            </button>
+
+            <div className="relative border">
+              <div className="flex justify-between py-2 pl-2 border-b">
+                <p className="w-1/2 break-all">Mã đề tài/dự án:</p>
+                <p className="w-1/2 break-all">{dataTopic?.code}</p>
+              </div>
+              <div className="flex justify-between py-2 pl-2 border-b">
+                <p className="w-1/2 break-all">
+                  Tên đề tài/dự án:</p>
+                <p className="w-1/2 break-all">{dataTopic?.name}</p>
+              </div>
+              <div className="flex justify-between py-2 pl-2 border-b">
+                <p className="w-1/2 break-all">Cấp đê tài:</p>
+                <p className="w-1/2 break-all">{dataTopic?.level}</p>
+              </div>
+              <div className="flex justify-between py-2 pl-2 border-b">
+                <p className="w-1/2 break-all">Ngày bắt đầu:</p>
+                <p className="w-1/2 break-all">{dataTopic?.startDate}</p>
+              </div>
+              <div className="flex justify-between py-2 pl-2 border-b">
+                <p className="w-1/2 break-all">Ngày kết thúc:</p>
+                <p className="w-1/2 break-all">{dataTopic?.endDate}</p>
+              </div>
+              <div className="flex justify-between py-2 pl-2 border-b">
+                <p className="w-1/2 break-all">Ngày nghiệm thu:</p>
+                <p className="w-1/2 break-all">{dataTopic?.acceptDate}</p>
+              </div>
+              <div className="flex justify-between py-2 pl-2 border-b">
+                <p className="w-1/2 break-all">Kết quả:</p>
+                <p className="w-1/2 break-all">{dataTopic?.result}</p>
+              </div>
+              <div className="flex justify-between py-2 pl-2 border-b">
+                <p className="w-1/2 break-all">Số thành viên:</p>
+                <p className="w-1/2 break-all">{dataTopic?.num_person}</p>
+              </div>
+              <div className="flex justify-between py-2 pl-2 border-b">
+                <p className="w-1/2 break-all">Thành viên:</p>
+                <div class="w-1/2 break-all">
+                  {
+                    dataTopic?.users.map(user => {
+                      return (
+                        <div className='flex gap-2'>
+                          <p class="w-3/4">{user.name}</p>
+                          <p class="w-1/4">{user.role_user.time}</p>
+                        </div>
+                      )
+                    })
+                  }
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+    </>
+  )
+}
+export default researchList;

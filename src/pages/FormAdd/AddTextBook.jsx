@@ -10,6 +10,7 @@ import Select from 'react-select';
 import { NavLink, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useStaffList } from '../../hooks/staffs';
 import { POSITION_STAFF, TYPE_BOOK } from '../../constants';
+import { data } from 'autoprefixer';
 
 const role = [
   {
@@ -93,7 +94,7 @@ function FormCreate() {
       num_page: '',
       num_publish: '',
       num_person: '',
-      type_book:'',
+      type_book: '',
       role: '',
       type: 4,
     }
@@ -266,7 +267,7 @@ function FormEdit({ bookId }) {
     num_publish: yup.string(),
     num_page: yup.number(),
   })
-  
+
   const {
     register,
     handleSubmit,
@@ -292,6 +293,7 @@ function FormEdit({ bookId }) {
         password: '',
         departmentSelected: departments?.find(department => department.id === dataBook.department_id),
         positionSelected: POSITION_STAFF.find(position => position.value == dataBook.position),
+        type_bookSelected: TYPE_BOOK.find(book => book.value == dataBook.type),
         roleSelected: dataBook?.users,
         role: dataBook?.users?.map(user => user.id).join(','),
         type: 4,
@@ -353,22 +355,22 @@ function FormEdit({ bookId }) {
             </div>
           </div>
           <div className="col-span-full mb-2.5">
-            <label htmlFor="type_book" className="block text-sm font-medium leading-6 text-gray-900">Thể loại</label>
+            <label htmlFor="type_bookSelected" className="block text-sm font-medium leading-6 text-gray-900">Thể loại</label>
             <div className="mt-2">
               <Controller
                 control={control}
-                name="type_book"
+                name="type_bookSelected"
                 render={({ field: { value, onChange, ref } }) => (
                   <Select
                     options={TYPE_BOOK}
-                    isMulti
+                    value={value}
                     name="type_book"
                     id="type_book"
                     placeholder="Lựa chọn"
                     {...register('type_book')}
                     onChange={(val) => {
-                      let rol = val.map(item => item.value).join(',')
-                      setValue('type_book', rol)
+                      onChange(val);
+                      setValue("type_book", val.value);
                     }}
                   />
                 )}

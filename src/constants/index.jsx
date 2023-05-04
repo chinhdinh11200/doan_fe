@@ -29,7 +29,7 @@ export const POSITION_STAFF = [
     label: 'Phó Khoa'
   },
   {
-    value: 2,
+    value: 3,
     label: 'Giảng viên'
   },
 ]

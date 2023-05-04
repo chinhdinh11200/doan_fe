@@ -75,8 +75,8 @@ function FormCreate() {
       name: '',
       email: '',
       password: '',
-      code:'',
-      number_salary:'',
+      code: '',
+      number_salary: '',
     }
   })
 
@@ -285,7 +285,7 @@ function FormEdit({ staffId }) {
         ...dataStaff,
         password: '',
         departmentSelected: departments?.find(department => department.id === dataStaff.department_id),
-        positionSelected: POSITION_STAFF.find(position => position.value == dataStaff.position) 
+        positionSelected: POSITION_STAFF.find(position => position.value == dataStaff.position)
       })
     }
   }, [dataStaff]);
@@ -367,20 +367,6 @@ function FormEdit({ staffId }) {
               {errors.email && <p className="text-red-500">{errors.email.message}</p>}
             </div>
           </div>
-          {/* <div className="col-span-full mb-2">
-            <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">Mật khẩu</label>
-            <div className="mt-2">
-              <input
-                type="text"
-                name="password"
-                id="password"
-                autoComplete="password"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                {...register('password', { required: true })}
-              />
-              {errors.password && <p className="text-red-500">{errors.password.message}</p>}
-            </div>
-          </div> */}
           <div className="col-span-full mb-2">
             <label htmlFor="position" className="block text-sm font-medium leading-6 text-gray-900">Vị trí</label>
             <div className="mt-2">

@@ -130,7 +130,7 @@ function FormCreate() {
             </div>
           </div>
           <div className="col-span-full mb-2.5">
-            <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">Tên đề tài </label>
+            <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">Tên giáo trình/ bài giảng </label>
             <div className="mt-2">
               <input
                 type="text"
@@ -204,7 +204,7 @@ function FormCreate() {
                     onChange={(val) => {
                       onChange();
                       let rol = val.map(item => item.value).join(',')
-                      setValue('role', rol)
+                      setValue('role', rol);
                     }}
                   />
                 )}
@@ -348,7 +348,7 @@ function FormEdit({ compilationId }) {
             </div>
           </div>
           <div className="col-span-full mb-2.5">
-            <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">Tên đề tài </label>
+            <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">Tên giáo trình/ bài giảng </label>
             <div className="mt-2">
               <input
                 type="text"

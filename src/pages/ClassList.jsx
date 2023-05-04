@@ -4,12 +4,12 @@ import Sidebar from '../partials/Sidebar';
 import Header from '../partials/Header';
 import FilterButton from '../partials/actions/FilterButton';
 import { PAGE_SIZE } from '../constants';
-import { useClassDelete, useClassList } from '../hooks/class';
+import { useClassDelete, useClassDetail, useClassList } from '../hooks/class';
 import { Button, Modal, Space, Table, Tooltip } from 'antd';
 import Loading from '../components/Loading';
 import Search from '../components/Search';
 import { debounce } from 'lodash';
-
+import { POSITION_STAFF } from '../constants';
 function ClassList() {
   const [tableParams, setTableParams] = useState({
     pagination: {
@@ -101,7 +101,10 @@ function ClassList() {
                 </svg>
               </NavLink>
             </Tooltip>
-            <Tooltip placement="top" title='Chi tiết'>
+            <Tooltip placement="top" title='Chi tiết' onClick={() => {
+              setShowModal(true);
+              setClassDetailId(record.id)
+            }}>
               <a href="#" className="text-gray-600 hover:text-gray-900" title='view'>
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24"
                   stroke="currentColor">
@@ -124,6 +127,8 @@ function ClassList() {
       },
     },
   ];
+  const [showModal, setShowModal] = React.useState(false);
+  const [classDetailId, setClassDetailId] = React.useState(0);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [classIdDelete, setClassIdDelete] = useState(null);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
@@ -201,7 +206,7 @@ function ClassList() {
                   <div className='flex gap-2'>
                     <Search onChangeSearch={onChangeSearch} />
                     <FilterButton />
-                    </div>
+                  </div>
                   <NavLink end to="/add-class" className="btn bg-indigo-500 hover:bg-indigo-600 text-white">
                     <svg className="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
                       <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
@@ -261,8 +266,98 @@ function ClassList() {
           </Button>,
         ]}
       />
+      <>
+        {showModal ? (
+          <ModalDetail setShowModal={setShowModal} classId={classDetailId} />
+        ) : null}
+      </>
     </div>
   );
+}
+
+const ModalDetail = ({ classId, setShowModal }) => {
+  const { data: dataClass } = useClassDetail(classId);
+  return (
+    <>
+      <div className="justify-center items-center flex overflow-x-hidden 
+            overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+      >
+        <div className="relative w-auto mx-5 my-6 md:mx-auto max-w-3xl md:w-[500px]">
+          <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full p-6 bg-white outline-none focus:outline-none">
+            <button
+              className="flex items-center justify-end"
+              type="button"
+              onClick={() => setShowModal(false)}
+            >
+              <svg viewPort="0 0 12 12" version="1.1" height="30" width="13"
+                xmlns="http://www.w3.org/2000/svg">
+                <line x1="1" y1="11"
+                  x2="11" y2="1"
+                  stroke="black"
+                  stroke-width="2" />
+                <line x1="1" y1="1"
+                  x2="11" y2="11"
+                  stroke="black"
+                  stroke-width="2" />
+              </svg>
+            </button>
+
+            <div className="relative border">
+              <div className="flex justify-between py-2 pl-2 border-b">
+                <p className="w-1/2 break-all">Mã lớp học:</p>
+                <p className="w-1/2 break-all">{dataClass?.code}</p>
+              </div>
+              <div className="flex justify-between py-2 pl-2 border-b">
+                <p className="w-1/2 break-all">Tên lớp học:</p>
+                <p className="w-1/2 break-all">{dataClass?.name}</p>
+              </div>
+              <div className="flex justify-between py-2 pl-2 border-b">
+                <p className="w-1/2 break-all">Môn học:</p>
+                <p className="w-1/2 break-all">{dataClass?.subject_id}</p>
+              </div>
+              <div className="flex justify-between py-2 pl-2 border-b">
+                <p className="w-1/2 break-all">Giảng viên:</p>
+                <p className="w-1/2 break-all">{dataClass?.email}</p>
+              </div>
+              <div className="flex justify-between py-2 pl-2 border-b">
+                <p className="w-1/2 break-all">Hình thức giảng dạy:</p>
+                <p className="w-1/2 break-all">{dataClass?.form_teach}</p>
+              </div>
+              <div className="flex justify-between py-2 pl-2">
+                <p className="w-1/2 break-all">Số sinh viên:</p>
+                <p className="w-1/2 break-all">{dataClass?.num_student}</p>
+              </div>
+              <div className="flex justify-between py-2 pl-2">
+                <p className="w-1/2 break-all">Số tiết học:</p>
+                <p className="w-1/2 break-all">{dataClass?.num_lesson}</p>
+              </div>
+              <div className="flex justify-between py-2 pl-2">
+                <p className="w-1/2 break-all">Số tín chỉ:</p>
+                <p className="w-1/2 break-all">{dataClass?.num_credit}</p>
+              </div>
+              <div className="flex justify-between py-2 pl-2">
+                <p className="w-1/2 break-all">Phòng học:</p>
+                <p className="w-1/2 break-all">{dataClass?.classroom}</p>
+              </div>
+              <div className="flex justify-between py-2 pl-2">
+                <p className="w-1/2 break-all">Ngày bắt đầu:</p>
+                <p className="w-1/2 break-all">{dataClass?.startDate}</p>
+              </div>
+              <div className="flex justify-between py-2 pl-2">
+                <p className="w-1/2 break-all">Ngày kết thúc:</p>
+                <p className="w-1/2 break-all">{dataClass?.endDate}</p>
+              </div>
+              <div className="flex justify-between py-2 pl-2">
+                <p className="w-1/2 break-all">Kì học:</p>
+                <p className="w-1/2 break-all">{dataClass?.semester}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+    </>
+  )
 }
 
 export default ClassList;

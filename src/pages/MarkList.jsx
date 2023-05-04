@@ -10,7 +10,7 @@ import { useRoomDelete, useRoomList } from '../hooks/room';
 import Search from '../components/Search';
 import { debounce } from 'lodash';
 import { useExamList } from '../hooks/exam';
-import { useMarkDelete, useMarkList } from '../hooks/mark';
+import { useMarkDelete, useMarkDetail, useMarkList } from '../hooks/mark';
 
 function MarkList() {
   const [tableParams, setTableParams] = useState({
@@ -49,21 +49,7 @@ function MarkList() {
         </p>
       ),
     },
-    // {
-    //   title: <div className="text-center">Tên chấm thi</div>,
-    //   dataIndex: "name",
-    //   key: "name",
-    //   render: (_, record) => <> {record.name}</>,
-    //   sortDirections: ["descend", "ascend", "descend"],
-    //   sorter: () => { },
-    // },
-    // {
-    //   title: <div className="text-center">Mã chấm thi</div>,
-    //   dataIndex: "code",
-    //   key: "code",
-    //   sortDirections: ["descend", "ascend", "descend"],
-    //   sorter: () => { },
-    // },
+
     {
       title: <div className="text-center">Môn thi</div>,
       dataIndex: "subject_id",
@@ -124,7 +110,10 @@ function MarkList() {
                 </svg>
               </NavLink>
             </Tooltip>
-            <Tooltip placement="top" title='Chi tiết'>
+            <Tooltip placement="top" title='Chi tiết' onClick={() => {
+              setShowModal(true);
+              setMarkDetailId(record.id)
+            }}>
               <a href="#" className="text-gray-600 hover:text-gray-900" title='view'>
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24"
                   stroke="currentColor">
@@ -147,6 +136,8 @@ function MarkList() {
       },
     },
   ];
+  const [showModal, setShowModal] = React.useState(false);
+  const [markDetailId, setMarkDetailId] = React.useState(0);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [roomIdDelete, setRoomIdDelete] = useState(null);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
@@ -220,7 +211,7 @@ function MarkList() {
               <div className="mb-4">
                 <h1 className="w-fit text-2xl pb-1 mb-8 mx-auto text-center font-bold uppercase border-b border-gray-300">Danh sách chấm thi</h1>
                 <div className="flex justify-between flex-row-reverse gap-4">
-                <div className='flex gap-2'>
+                  <div className='flex gap-2'>
                     <Search onChangeSearch={onChangeSearch} />
                     <FilterButton />
                   </div>
@@ -283,8 +274,74 @@ function MarkList() {
           </Button>,
         ]}
       />
+      <>
+        {showModal ? (
+          <ModalDetail setShowModal={setShowModal} markId={markDetailId} />
+        ) : null}
+      </>
     </div>
   );
+}
+
+const ModalDetail = ({ markId, setShowModal }) => {
+  const { data: dataMark } = useMarkDetail(markId);
+  return (
+    <>
+      <div className="justify-center items-center flex overflow-x-hidden 
+            overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+      >
+        <div className="relative w-auto mx-5 my-6 md:mx-auto max-w-3xl md:w-[500px]">
+          <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full p-6 bg-white outline-none focus:outline-none">
+            <button
+              className="flex items-center justify-end"
+              type="button"
+              onClick={() => setShowModal(false)}
+            >
+              <svg viewPort="0 0 12 12" version="1.1" height="30" width="13"
+                xmlns="http://www.w3.org/2000/svg">
+                <line x1="1" y1="11"
+                  x2="11" y2="1"
+                  stroke="black"
+                  stroke-width="2" />
+                <line x1="1" y1="1"
+                  x2="11" y2="11"
+                  stroke="black"
+                  stroke-width="2" />
+              </svg>
+            </button>
+
+            <div className="relative border">
+              <div className="flex justify-between py-2 pl-2 border-b">
+                <p className="w-1/2 break-all">Tên lớp học:</p>
+                <p className="w-1/2 break-all">{dataMark?.name}</p>
+              </div>
+              <div className="flex justify-between py-2 pl-2 border-b">
+                <p className="w-1/2 break-all">Môn thi:</p>
+                <p className="w-1/2 break-all">{dataMark?.subject_id}</p>
+              </div>
+              <div className="flex justify-between py-2 pl-2 border-b">
+                <p className="w-1/2 break-all">Người chấm thi:</p>
+                <p className="w-1/2 break-all">{dataMark?.user_id}</p>
+              </div>
+              <div className="flex justify-between py-2 pl-2 border-b">
+                <p className="w-1/2 break-all">Hình thức chấm thi:</p>
+                <p className="w-1/2 break-all">{dataMark?.form_mark}</p>
+              </div>
+              <div className="flex justify-between py-2 pl-2">
+                <p className="w-1/2 break-all">Số bài chấm thi:</p>
+                <p className="w-1/2 break-all">{dataMark?.num_exam}</p>
+              </div>
+              <div className="flex justify-between py-2 pl-2">
+                <p className="w-1/2 break-all">Ngày chấm thi:</p>
+                <p className="w-1/2 break-all">{dataMark?.date_exam}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+    </>
+  )
 }
 
 export default MarkList;

@@ -10,7 +10,7 @@ import { BiEdit, BiTrash } from 'react-icons/bi';
 import { PAGE_SIZE } from '../constants';
 import Search from '../components/Search';
 import { debounce } from 'lodash';
-function Dashboard() {
+function educationList() {
   const [tableParams, setTableParams] = useState({
     pagination: {
       current: 1,
@@ -91,7 +91,11 @@ function Dashboard() {
                 </a>
               </Tooltip>
             </NavLink>
-            <Tooltip placement="top" title='Chi tiết' onClick={() => setShowModal(true)}>
+
+            <Tooltip placement="top" title='Chi tiết' onClick={() => {
+              setShowModal(true);
+              setEducationDetailId(record.id)
+            }}>
               <a href="#" className="text-gray-600 hover:text-gray-900" title='view'>
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24"
                   stroke="currentColor">
@@ -115,6 +119,7 @@ function Dashboard() {
     },
   ];
   const [showModal, setShowModal] = React.useState(false);
+  const [educationDetailId, setEducationDetailId] = React.useState(0);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [educationIdDelete, setEducationIdDelete] = useState(null);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
@@ -267,68 +272,90 @@ function Dashboard() {
       />
       <>
         {showModal ? (
-          <>
-            <div className="justify-center items-center flex overflow-x-hidden 
-            overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
-            >
-              <div className="relative w-auto mx-5 my-6 md:mx-auto max-w-3xl md:w-[500px]">
-                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full p-6 bg-white outline-none focus:outline-none">
-                  <button
-                    className="flex items-center justify-end"
-                    type="button"
-                    onClick={() => setShowModal(false)}
-                  >
-                    <svg viewPort="0 0 12 12" version="1.1" height="30" width="13"
-                      xmlns="http://www.w3.org/2000/svg">
-                      <line x1="1" y1="11"
-                        x2="11" y2="1"
-                        stroke="black"
-                        stroke-width="2" />
-                      <line x1="1" y1="1"
-                        x2="11" y2="11"
-                        stroke="black"
-                        stroke-width="2" />
-                    </svg>
-                  </button>
-
-                  <div className="relative border">
-                    <div class="flex justify-between py-2 pl-2 border-b">
-                      <p class="w-1/2">Mã chương trình:</p>
-                      <p class="w-1/2">12345</p>
-                    </div>
-                    <div class="flex justify-between py-2 pl-2 border-b">
-                      <p class="w-1/2">Tên chương trình:</p>
-                      <p class="w-1/2">12345</p>
-                    </div>
-                    <div class="flex justify-between py-2 pl-2 border-b">
-                      <p class="w-1/2">Số QĐ công nhận:</p>
-                      <p class="w-1/2">12345</p>
-                    </div>
-                    <div class="flex justify-between py-2 pl-2 border-b">
-                      <p class="w-1/2">Ngày ký QĐ:</p>
-                      <p class="w-1/2">12345</p>
-                    </div>
-                    <div class="flex justify-between py-2 pl-2 border-b">
-                      <p class="w-1/2">Số tín chỉ:</p>
-                      <p class="w-1/2">12345</p>
-                    </div>
-                    <div class="flex justify-between py-2 pl-2 border-b">
-                      <p class="w-1/2">Số thành viên:</p>
-                      <p class="w-1/2">Tailwind CSS is a utility-based low-level CSS framework intended to ea 12345</p>
-                    </div>
-                    <div class="flex justify-between py-2 pl-2">
-                      <p class="w-1/2">Hình thức xây dựng:</p>
-                      <p class="w-1/2">12345</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
-          </>
+          <ModalDetail setShowModal={setShowModal} educationId={educationDetailId} />
         ) : null}
       </>
     </div>
   );
 }
-export default Dashboard;
+
+const ModalDetail = ({ educationId, setShowModal }) => {
+  const { data: dataEducation } = useEducationDetail(educationId);
+  return (
+    <>
+      <div className="justify-center items-center flex overflow-x-hidden 
+            overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+      >
+        <div className="relative w-auto mx-5 my-6 md:mx-auto max-w-3xl md:w-[700px]">
+          <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full p-6 bg-white outline-none focus:outline-none">
+            <button
+              className="flex items-center justify-end"
+              type="button"
+              onClick={() => setShowModal(false)}
+            >
+              <svg viewPort="0 0 12 12" version="1.1" height="30" width="13"
+                xmlns="http://www.w3.org/2000/svg">
+                <line x1="1" y1="11"
+                  x2="11" y2="1"
+                  stroke="black"
+                  stroke-width="2" />
+                <line x1="1" y1="1"
+                  x2="11" y2="11"
+                  stroke="black"
+                  stroke-width="2" />
+              </svg>
+            </button>
+            <div className="relative border">
+
+              <div class="flex justify-between py-2 pl-2 border-b">
+                <p class="w-1/2 break-all">Mã chương trình đào tạo:</p>
+                <p class="w-1/2 break-all">{dataEducation?.code}</p>
+              </div>
+              <div class="flex justify-between py-2 pl-2 border-b">
+                <p class="w-1/2 break-all">Tên chương trình đào tạo:</p>
+                <p class="w-1/2 break-all">{dataEducation?.name}</p>
+              </div>
+              <div class="flex justify-between py-2 pl-2 border-b">
+                <p class="w-1/2 break-all">Số QĐ giao nhiệm vụ:</p>
+                <p class="w-1/2 break-all">{dataEducation?.num_decision}</p>
+              </div>
+              <div class="flex justify-between py-2 pl-2 border-b">
+                <p class="w-1/2 break-all">Ngày Số QĐ giao nhiệm vụ:</p>
+                <p class="w-1/2 break-all">{dataEducation?.date_decision}</p>
+              </div>
+              <div class="flex justify-between py-2 pl-2 border-b">
+                <p class="w-1/2 break-all">Số tác giả tham gia:</p>
+                <p class="w-1/2 break-all">{dataEducation?.num_person}</p>
+              </div>
+              <div class="flex justify-between py-2 pl-2 border-b">
+                <p class="w-1/2 break-all">Tác giả:</p>
+                <div class="w-1/2 break-all">
+                  {
+                    dataEducation?.users.map(user => {
+                      return (
+                        <div className='flex gap-2'>
+                          <p class="w-3/4">{user.name}</p>
+                          <p class="w-1/4">{user.role_user.time}</p>
+                        </div>
+                      )
+                    })
+                  }
+                </div>
+              </div>
+              <div class="flex justify-between py-2 pl-2 border-b">
+                <p class="w-1/2 break-all">Số tín chỉ:</p>
+                <p class="w-1/2 break-all">{dataEducation?.num_credit}</p>
+              </div>
+              <div class="flex justify-between py-2 pl-2 border-b">
+                <p class="w-1/2 break-all">Hình thức xây dựng:</p>
+                <p class="w-1/2 break-all">{dataEducation?.form_construction}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+    </>
+  )
+}
+export default educationList;

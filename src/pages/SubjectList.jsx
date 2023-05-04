@@ -4,7 +4,7 @@ import Sidebar from '../partials/Sidebar';
 import Header from '../partials/Header';
 import FilterButton from '../partials/actions/FilterButton';
 import { PAGE_SIZE } from '../constants';
-import { useSubjectDelete, useSubjectList } from '../hooks/subject';
+import { useSubjectDelete, useSubjectDetail, useSubjectList } from '../hooks/subject';
 import { Button, Modal, Space, Table, Tooltip } from 'antd';
 import Loading from '../components/Loading';
 import Search from '../components/Search';
@@ -105,7 +105,11 @@ function SubjectList() {
                 </svg>
               </NavLink>
             </Tooltip>
-            <Tooltip placement="top" title='Chi tiết'>
+            <Tooltip placement="top" title='Chi tiết'
+              onClick={() => {
+                setShowModal(true);
+                setSubjectDetailId(record.id)
+              }}>
               <a href="#" className="text-gray-600 hover:text-gray-900" title='view'>
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24"
                   stroke="currentColor">
@@ -128,6 +132,8 @@ function SubjectList() {
       },
     },
   ];
+  const [showModal, setShowModal] = React.useState(false);
+  const [subjectDetailId, setSubjectDetailId] = React.useState(0);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [subjectIdDelete, setSubjectIdDelete] = useState(null);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
@@ -201,29 +207,29 @@ function SubjectList() {
               <div className="mb-4">
                 <h1 className="font-serif w-fit text-2xl pb-1 mb-8 mx-auto text-center font-bold uppercase border-b border-gray-300">Danh sách môn học</h1>
                 <div className="flex justify-between flex-row-reverse gap-4">
-                   {/* Filter button */}
-                   <div className='flex gap-2'>
+                  {/* Filter button */}
+                  <div className='flex gap-2'>
                     <Search onChangeSearch={onChangeSearch} />
                     <FilterButton />
                   </div>
                   <div class="flex bg-grey-lighter gap-2">
-                  <NavLink end to="/add-subject" className="btn bg-indigo-500 hover:bg-indigo-600 text-white">
-                    <svg className="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
-                      <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
-                    </svg>
-                    <span className="ml-2">
-                      Thêm môn học
-                    </span>
-                  </NavLink>
-                  
+                    <NavLink end to="/add-subject" className="btn bg-indigo-500 hover:bg-indigo-600 text-white">
+                      <svg className="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
+                        <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
+                      </svg>
+                      <span className="ml-2">
+                        Thêm môn học
+                      </span>
+                    </NavLink>
+
                     <label class="flex  items-center gap-4 px-4 bg-white text-blue rounded-md shadow-lg border border-blue cursor-pointer hover:bg-indigo-500 hover:text-white">
-                        <svg width="15" height="20" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                            <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
-                        </svg>
-                        <span class="leading-normal">Import file</span>
-                        <input type='file' class="hidden" />
+                      <svg width="15" height="20" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+                      </svg>
+                      <span class="leading-normal">Import file</span>
+                      <input type='file' class="hidden" />
                     </label>
-                </div>
+                  </div>
                 </div>
               </div>
               <div className="flex flex-col">
@@ -275,8 +281,63 @@ function SubjectList() {
           </Button>,
         ]}
       />
+      <>
+        {showModal ? (
+          <ModalDetail setShowModal={setShowModal} subjectId={subjectDetailId} />
+        ) : null}
+      </>
     </div>
   );
+}
+
+const ModalDetail = ({ subjectId, setShowModal }) => {
+  const { data: dataSubject } = useSubjectDetail(subjectId);
+  return (
+    <>
+      <div className="justify-center items-center flex overflow-x-hidden 
+            overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+      >
+        <div className="relative w-auto mx-5 my-6 md:mx-auto max-w-3xl md:w-[500px]">
+          <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full p-6 bg-white outline-none focus:outline-none">
+            <button
+              className="flex items-center justify-end"
+              type="button"
+              onClick={() => setShowModal(false)}
+            >
+              <svg viewPort="0 0 12 12" version="1.1" height="30" width="13"
+                xmlns="http://www.w3.org/2000/svg">
+                <line x1="1" y1="11"
+                  x2="11" y2="1"
+                  stroke="black"
+                  stroke-width="2" />
+                <line x1="1" y1="1"
+                  x2="11" y2="11"
+                  stroke="black"
+                  stroke-width="2" />
+              </svg>
+            </button>
+
+            <div className="relative border">
+              <div className="flex justify-between py-2 pl-2 border-b gap-2">
+                <p className="w-1/2 break-all">Mã lớp:</p>
+                <p className="w-1/2 break-all">{dataSubject?.code}</p>
+              </div>
+              <div className="flex justify-between py-2 pl-2 border-b gap-2">
+                <p className="w-1/2 break-all">Tên lớp:</p>
+                <p className="w-1/2 break-all">{dataSubject?.name}</p>
+              </div>
+
+              <div className="flex justify-between py-2 pl-2 gap-2 ">
+                <p className="w-1/2 break-all">Hình thức thi:</p>
+                <p className="w-1/2 break-all">{dataSubject?.form_exam}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+    </>
+  )
 }
 
 export default SubjectList;
