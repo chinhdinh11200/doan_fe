@@ -303,46 +303,46 @@ const ModalDetail = ({ articleId, setShowModal }) => {
           </button>
 
           <div className="relative border">
-            <div class="flex justify-between py-2 pl-2 border-b">
-              <p class="w-1/2">Mã Bài Báo:</p>
-              <p class="w-1/2">{dataArticle?.code}</p>
+            <div className="flex justify-between py-2 pl-2 border-b">
+              <p className="w-1/2">Mã Bài Báo:</p>
+              <p className="w-1/2">{dataArticle?.code}</p>
             </div>
-            <div class="flex justify-between py-2 pl-2 border-b">
-              <p class="w-1/2">Tên Bài Báo:</p>
-              <p class="w-1/2">{dataArticle?.name}</p>
+            <div className="flex justify-between py-2 pl-2 border-b">
+              <p className="w-1/2">Tên Bài Báo:</p>
+              <p className="w-1/2">{dataArticle?.name}</p>
             </div>
-            <div class="flex justify-between py-2 pl-2 border-b">
-              <p class="w-1/2">Chỉ số tạp chí/ hội nghị:</p>
-              <p class="w-1/2">{dataArticle?.index_article}</p>
+            <div className="flex justify-between py-2 pl-2 border-b">
+              <p className="w-1/2">Chỉ số tạp chí/ hội nghị:</p>
+              <p className="w-1/2">{dataArticle?.index_article}</p>
             </div>
-            <div class="flex justify-between py-2 pl-2 border-b">
-              <p class="w-1/2">Số người tham gia:</p>
-              <p class="w-1/2">
+            <div className="flex justify-between py-2 pl-2 border-b">
+              <p className="w-1/2">Số người tham gia:</p>
+              <p className="w-1/2">
                 {dataArticle?.num_person}
               </p>
             </div>
-            <div class="flex justify-between py-2 pl-2 border-b">
-              <p class="w-1/2 break-all">Tác giả:</p>
-              <div class="w-1/2 break-all">
+            <div className="flex justify-between py-2 pl-2 border-b">
+              <p className="w-1/2 break-all">Tác giả:</p>
+              <div className="w-1/2 break-all">
                 {
                   dataArticle?.users.map(user => {
                     return (
                       <div className='flex gap-2'>
-                        <p class="w-3/4">{user.name}</p>
-                        <p class="w-1/4">{user.role_user.time}</p>
+                        <p className="w-3/4">{user.name}</p>
+                        <p className="w-1/4">{user.role_user.time}</p>
                       </div>
                     )
                   })
                 }
               </div>
             </div>
-            <div class="flex justify-between py-2 pl-2 border-b">
-              <p class="w-1/2">Thể loại:</p>
-              <p class="w-1/2">{type_article.find(type => type.value === dataArticle?.type)?.label}</p>
+            <div className="flex justify-between py-2 pl-2 border-b">
+              <p className="w-1/2">Thể loại:</p>
+              <p className="w-1/2">{type_article.find(type => type.value === dataArticle?.type)?.label}</p>
             </div>
-            <div class="flex justify-between py-2 pl-2">
-              <p class="w-1/2">Tổng thời gian:</p>
-              <p class="w-1/2">{dataArticle?.total_time}</p>
+            <div className="flex justify-between py-2 pl-2">
+              <p className="w-1/2">Tổng thời gian:</p>
+              <p className="w-1/2">{dataArticle?.total_time}</p>
             </div>
           </div>
         </div>

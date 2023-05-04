@@ -299,44 +299,44 @@ const ModalDetail = ({ inventionId, setShowModal }) => {
             </button>
             <div className="relative border">
 
-              <div class="flex justify-between py-2 pl-2 border-b">
-                <p class="w-1/2 break-all">Mã bằng sáng chế/giải thưởng:</p>
-                <p class="w-1/2 break-all">{dataInvention?.code}</p>
+              <div className="flex justify-between py-2 pl-2 border-b">
+                <p className="w-1/2 break-all">Mã bằng sáng chế/giải thưởng:</p>
+                <p className="w-1/2 break-all">{dataInvention?.code}</p>
               </div>
-              <div class="flex justify-between py-2 pl-2 border-b">
-                <p class="w-1/2 break-all">Tên bằng sáng chế/giải thưởng:</p>
-                <p class="w-1/2 break-all">{dataInvention?.name}</p>
+              <div className="flex justify-between py-2 pl-2 border-b">
+                <p className="w-1/2 break-all">Tên bằng sáng chế/giải thưởng:</p>
+                <p className="w-1/2 break-all">{dataInvention?.name}</p>
               </div>
-              <div class="flex justify-between py-2 pl-2 border-b">
-                <p class="w-1/2 break-all">Số QĐ công nhận:</p>
-                <p class="w-1/2 break-all">{dataInvention?.number_recognition}</p>
+              <div className="flex justify-between py-2 pl-2 border-b">
+                <p className="w-1/2 break-all">Số QĐ công nhận:</p>
+                <p className="w-1/2 break-all">{dataInvention?.number_recognition}</p>
               </div>
-              <div class="flex justify-between py-2 pl-2 border-b">
-                <p class="w-1/2 break-all">Ngày QĐ công nhận:</p>
-                <p class="w-1/2 break-all">{dataInvention?.date_recognition}</p>
+              <div className="flex justify-between py-2 pl-2 border-b">
+                <p className="w-1/2 break-all">Ngày QĐ công nhận:</p>
+                <p className="w-1/2 break-all">{dataInvention?.date_recognition}</p>
               </div>
-              <div class="flex justify-between py-2 pl-2 border-b">
-                <p class="w-1/2 break-all">Số tác giả tham gia:</p>
-                <p class="w-1/2 break-all">{dataInvention?.num_person}</p>
+              <div className="flex justify-between py-2 pl-2 border-b">
+                <p className="w-1/2 break-all">Số tác giả tham gia:</p>
+                <p className="w-1/2 break-all">{dataInvention?.num_person}</p>
               </div>
-              <div class="flex justify-between py-2 pl-2 border-b">
-                <p class="w-1/2 break-all">Tác giả:</p>
-                <div class="w-1/2 break-all">
+              <div className="flex justify-between py-2 pl-2 border-b">
+                <p className="w-1/2 break-all">Tác giả:</p>
+                <div className="w-1/2 break-all">
                   {
                     dataInvention?.users.map(user => {
                       return (
                         <div className='flex gap-2'>
-                          <p class="w-1/2">{user.name}</p>
-                          <p class="w-1/2">{user.role_user.time}</p>
+                          <p className="w-1/2">{user.name}</p>
+                          <p className="w-1/2">{user.role_user.time}</p>
                         </div>
                       )
                     })
                   }
                 </div>
               </div>
-              <div class="flex justify-between py-2 pl-2 border-b">
-                <p class="w-1/2 break-all">Giải thưởng:</p>
-                <p class="w-1/2 break-all">{dataInvention?.level}</p>
+              <div className="flex justify-between py-2 pl-2 border-b">
+                <p className="w-1/2 break-all">Giải thưởng:</p>
+                <p className="w-1/2 break-all">{dataInvention?.level}</p>
               </div>
 
             </div>

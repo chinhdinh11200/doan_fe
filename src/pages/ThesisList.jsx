@@ -304,43 +304,43 @@ const ModalDetail = ({ thesisId, setShowModal }) => {
               </svg>
             </button>
             <div className="relative border">
-              {/* <div class="flex justify-between py-2 pl-2 border-b">
-                <p class="w-1/2">Mã luận án/luận văn:</p>
-                <p class="w-1/2">12345</p>
+              {/* <div className="flex justify-between py-2 pl-2 border-b">
+                <p className="w-1/2">Mã luận án/luận văn:</p>
+                <p className="w-1/2">12345</p>
               </div> */}
-              <div class="flex justify-between py-2 pl-2 border-b">
-                <p class="w-1/2">Họ tên nghiên cứu sinh:</p>
-                <p class="w-1/2">{dataThesis?.name_student}</p>
+              <div className="flex justify-between py-2 pl-2 border-b">
+                <p className="w-1/2">Họ tên nghiên cứu sinh:</p>
+                <p className="w-1/2">{dataThesis?.name_student}</p>
               </div>
-              <div class="flex justify-between py-2 pl-2 border-b">
-                <p class="w-1/2">Khóa đào tạo:</p>
-                <p class="w-1/2">{dataThesis?.course}</p>
+              <div className="flex justify-between py-2 pl-2 border-b">
+                <p className="w-1/2">Khóa đào tạo:</p>
+                <p className="w-1/2">{dataThesis?.course}</p>
               </div>
-              <div class="flex justify-between py-2 pl-2 border-b">
-                <p class="w-1/2">Số người hướng dẫn:</p>
-                <p class="w-1/2">{dataThesis?.num_person}</p>
+              <div className="flex justify-between py-2 pl-2 border-b">
+                <p className="w-1/2">Số người hướng dẫn:</p>
+                <p className="w-1/2">{dataThesis?.num_person}</p>
               </div>
-              <div class="flex justify-between py-2 pl-2 border-b">
-                <p class="w-1/2">Tác giả:</p>
-                <div class="w-1/2">
+              <div className="flex justify-between py-2 pl-2 border-b">
+                <p className="w-1/2">Tác giả:</p>
+                <div className="w-1/2">
                   {
                     dataThesis?.users.map(user => {
                       return (
                         <div className='flex'>
-                          <p class="w-1/2">
+                          <p className="w-1/2">
                             {user.thesis_user.type == 0 ? 'Tác giả chính' : 'Thành viên'}
                             {user.name}
                           </p>
-                          <p class="w-1/2 text-right">{user.thesis_user.time}</p>
+                          <p className="w-1/2 text-right">{user.thesis_user.time}</p>
                         </div>
                       )
                     })
                   }
                 </div>
               </div>
-              <div class="flex justify-between py-2 pl-2 border-b">
-                <p class="w-1/2">Số QĐ:</p>
-                <p class="w-1/2">{dataThesis?.num_decision}</p>
+              <div className="flex justify-between py-2 pl-2 border-b">
+                <p className="w-1/2">Số QĐ:</p>
+                <p className="w-1/2">{dataThesis?.num_decision}</p>
               </div>
 
             </div>

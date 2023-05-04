@@ -299,48 +299,48 @@ const ModalDetail = ({ compilationId, setShowModal }) => {
             </button>
             <div className="relative border">
 
-              <div class="flex justify-between py-2 pl-2 border-b">
-                <p class="w-1/2 break-all">Mã giáo trình / bài giảng:</p>
-                <p class="w-1/2 break-all">{dataCompialtion?.code}</p>
+              <div className="flex justify-between py-2 pl-2 border-b">
+                <p className="w-1/2 break-all">Mã giáo trình / bài giảng:</p>
+                <p className="w-1/2 break-all">{dataCompialtion?.code}</p>
               </div>
-              <div class="flex justify-between py-2 pl-2 border-b">
-                <p class="w-1/2 break-all">Tên giáo trình / bài giảng:</p>
-                <p class="w-1/2 break-all">{dataCompialtion?.name}</p>
+              <div className="flex justify-between py-2 pl-2 border-b">
+                <p className="w-1/2 break-all">Tên giáo trình / bài giảng:</p>
+                <p className="w-1/2 break-all">{dataCompialtion?.name}</p>
               </div>
-              <div class="flex justify-between py-2 pl-2 border-b">
-                <p class="w-1/2 break-all">Số QĐ giao nhiệm vụ:</p>
-                <p class="w-1/2 break-all">{dataCompialtion?.num_decision}</p>
+              <div className="flex justify-between py-2 pl-2 border-b">
+                <p className="w-1/2 break-all">Số QĐ giao nhiệm vụ:</p>
+                <p className="w-1/2 break-all">{dataCompialtion?.num_decision}</p>
               </div>
-              <div class="flex justify-between py-2 pl-2 border-b">
-                <p class="w-1/2 break-all">Ngày ký QĐ giao nhiệm vụ:</p>
-                <p class="w-1/2 break-all">{dataCompialtion?.date_decision}</p>
+              <div className="flex justify-between py-2 pl-2 border-b">
+                <p className="w-1/2 break-all">Ngày ký QĐ giao nhiệm vụ:</p>
+                <p className="w-1/2 break-all">{dataCompialtion?.date_decision}</p>
               </div>
-              <div class="flex justify-between py-2 pl-2 border-b">
-                <p class="w-1/2 break-all">Số tác giả tham gia:</p>
-                <p class="w-1/2 break-all">{dataCompialtion?.num_person}</p>
+              <div className="flex justify-between py-2 pl-2 border-b">
+                <p className="w-1/2 break-all">Số tác giả tham gia:</p>
+                <p className="w-1/2 break-all">{dataCompialtion?.num_person}</p>
               </div>
-              <div class="flex justify-between py-2 pl-2 border-b">
-                <p class="w-1/2 break-all">Tác giả:</p>
-                <div class="w-1/2 break-all">
+              <div className="flex justify-between py-2 pl-2 border-b">
+                <p className="w-1/2 break-all">Tác giả:</p>
+                <div className="w-1/2 break-all">
                   {
                     dataCompialtion?.users.map(user => {
                       return (
                         <div className='flex gap-2'>
-                          <p class="w-3/4">{user.name}</p>
-                          <p class="w-1/4">{user.role_user.time}</p>
+                          <p className="w-3/4">{user.name}</p>
+                          <p className="w-1/4">{user.role_user.time}</p>
                         </div>
                       )
                     })
                   }
                 </div>
               </div>
-              <div class="flex justify-between py-2 pl-2 border-b">
-                <p class="w-1/2 break-all">Số tín chỉ:</p>
-                <p class="w-1/2 break-all">{dataCompialtion?.number_credit}</p>
+              <div className="flex justify-between py-2 pl-2 border-b">
+                <p className="w-1/2 break-all">Số tín chỉ:</p>
+                <p className="w-1/2 break-all">{dataCompialtion?.number_credit}</p>
               </div>
-              <div class="flex justify-between py-2 pl-2 border-b">
-                <p class="w-1/2 break-all">Hình thức xây dựng:</p>
-                <p class="w-1/2 break-all">{dataCompialtion?.form_construction}</p>
+              <div className="flex justify-between py-2 pl-2 border-b">
+                <p className="w-1/2 break-all">Hình thức xây dựng:</p>
+                <p className="w-1/2 break-all">{dataCompialtion?.form_construction}</p>
               </div>
             </div>
           </div>

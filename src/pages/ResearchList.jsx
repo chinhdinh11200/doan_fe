@@ -336,13 +336,13 @@ const ModalDetail = ({ topicId, setShowModal }) => {
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
                 <p className="w-1/2 break-all">Thành viên:</p>
-                <div class="w-1/2 break-all">
+                <div className="w-1/2 break-all">
                   {
                     dataTopic?.users.map(user => {
                       return (
                         <div className='flex gap-2'>
-                          <p class="w-3/4">{user.name}</p>
-                          <p class="w-1/4">{user.role_user.time}</p>
+                          <p className="w-3/4">{user.name}</p>
+                          <p className="w-1/4">{user.role_user.time}</p>
                         </div>
                       )
                     })
