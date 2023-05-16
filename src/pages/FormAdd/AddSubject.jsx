@@ -119,40 +119,8 @@ function FormCreate() {
               {errors.code && <p className="text-red-500">{errors.code.message}</p>}
             </div>
           </div>
-          {/* <div className="col-span-full mb-2">
-            <label htmlFor="form_exam" className="block text-sm font-medium leading-6 text-gray-900">Hình thức thi</label>
-            <div className="mt-2">
-              <Controller
-                      control={control}
-                      name="category_id"
-                      render={({ field: { value, onChange, ref } }) => (
-                        <Select
-                          options={departments?.data}
-                          name="form_exam"
-                          id="form_exam"
-                          placeholder="Lựa chọn"
-                          {...register('form_exam')}
-                          onChange={(val) => {
-                            onChange(val);
-                            setValue("form_exam", val.id);
-                          }}
-                        />
-                      )}
-                    /> 
-              <input
-                type="text"
-                name="form_exam"
-                id="form_exam"
-                autoComplete="form_exam"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                {...register('form_exam', { required: true })}
-              />
-              {errors.form_exam && <p className="text-red-500">{errors.form_exam.message}</p>}
-            </div>
-          </div> */}
-
           <div className="mt-6 flex items-center justify-end gap-x-6">
-            <button type="button" className="text-sm font-semibold leading-6 text-gray-900 hover:underline">Hủy</button>
+            <button onClick={() => navigate(-1)} type="button" className="text-sm font-semibold leading-6 text-gray-900 hover:underline">Hủy</button>
             <button type="submit" className="rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Lưu</button>
           </div>
         </form>
@@ -255,23 +223,6 @@ function FormEdit({subjectId}) {
           <div className="col-span-full mb-2">
             <label htmlFor="form_exam" className="block text-sm font-medium leading-6 text-gray-900">Hình thức thi</label>
             <div className="mt-2">
-              {/* <Controller
-                      control={control}
-                      name="category_id"
-                      render={({ field: { value, onChange, ref } }) => (
-                        <Select
-                          options={departments?.data}
-                          name="form_exam"
-                          id="form_exam"
-                          placeholder="Lựa chọn"
-                          {...register('form_exam')}
-                          onChange={(val) => {
-                            onChange(val);
-                            setValue("form_exam", val.id);
-                          }}
-                        />
-                      )}
-                    /> */}
               <input
                 type="text"
                 name="form_exam"
@@ -285,7 +236,7 @@ function FormEdit({subjectId}) {
           </div>
 
           <div className="mt-6 flex items-center justify-end gap-x-6">
-            <button type="button" className="text-sm font-semibold leading-6 text-gray-900 hover:underline">Hủy</button>
+            <button onClick={() => navigate(-1)} type="button" className="text-sm font-semibold leading-6 text-gray-900 hover:underline">Hủy</button>
             <button type="submit" className="rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Lưu</button>
           </div>
         </form>

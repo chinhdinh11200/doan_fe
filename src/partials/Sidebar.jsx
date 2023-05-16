@@ -56,7 +56,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
       <div
         id="sidebar"
         ref={sidebar}
-        className={`flex flex-col absolute z-40 left-0 top-0 lg:static lg:left-auto lg:top-auto lg:translate-x-0 h-screen overflow-y-scroll lg:overflow-y-auto no-scrollbar w-64 lg:w-20 lg:sidebar-expanded:!w-64 2xl:!w-64 shrink-0 bg-slate-800 p-4 transition-all duration-200 ease-in-out ${sidebarOpen ? 'translate-x-0' : '-translate-x-64'
+        className={`flex flex-col absolute z-40 left-0 top-0 lg:static lg:left-auto lg:top-auto lg:translate-x-0 h-screen overflow-y-scroll lg:overflow-y-auto no-scrollbar w-60 lg:w-20 lg:sidebar-expanded:!w-60 2xl:!w-64 shrink-0 bg-slate-800 p-2 transition-all duration-200 ease-in-out ${sidebarOpen ? 'translate-x-0' : '-translate-x-64'
           }`}
       >
         {/* Sidebar header */}
@@ -210,19 +210,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                       </NavLink>
                       <div className="lg:hidden lg:sidebar-expanded:block 2xl:block">
                         <ul className={`pl-9 mt-1 ${!open && 'hidden'}`}>
-                          {/* <li className="mb-1 last:mb-0">
-                            <NavLink
-                              end
-                              to="/list-teach"
-                              className={({ isActive }) =>
-                                'block transition duration-150 truncate ' + (isActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200')
-                              }
-                            >
-                              <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                Danh sách giảng dạy
-                              </span>
-                            </NavLink>
-                          </li> */}
+
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
@@ -249,59 +237,6 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                               </span>
                             </NavLink>
                           </li>
-                          <li className="mb-1 last:mb-0">
-                            <NavLink
-                              end
-                              to="/list-exam"
-                              className={({ isActive }) =>
-                                'block transition duration-150 truncate ' + (isActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200')
-                              }
-                            >
-                              <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                Quản lí đề thi
-                              </span>
-                            </NavLink>
-                          </li>
-                          <li className="mb-1 last:mb-0">
-                            <NavLink
-                              end
-                              to="/list-room"
-                              className={({ isActive }) =>
-                                'block transition duration-150 truncate ' + (isActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200')
-                              }
-                            >
-                              <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                Quản lí coi thi
-                              </span>
-                            </NavLink>
-                          </li>
-                          <li className="mb-1 last:mb-0">
-                            <NavLink
-                              end
-                              to="/list-mark"
-                              className={({ isActive }) =>
-                                'block transition duration-150 truncate ' + (isActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200')
-                              }
-                            >
-                              <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                Quản lí chấm thi
-                              </span>
-                            </NavLink>
-                          </li>
-                          {/* <li className="mb-1 last:mb-0">
-                            <NavLink
-                              end
-                              to="/add-teaching"
-                              className={({ isActive }) =>
-                                'block transition duration-150 truncate ' + (isActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200')
-                              }
-                            >
-                              <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                Thêm học phần giảng dạy
-                              </span>
-                            </NavLink>
-                          </li> */}
-
                         </ul>
                       </div>
                     </React.Fragment>
@@ -355,42 +290,42 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
-                              to="/list-course"
+                              to="/list-exam"
                               className={({ isActive }) =>
                                 'block transition duration-150 truncate ' + (isActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200')
                               }
                             >
                               <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                Danh sách giữa kì
+                                Quản lí đề thi
                               </span>
                             </NavLink>
                           </li>
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
-                              to="/list-course"
+                              to="/list-room"
                               className={({ isActive }) =>
                                 'block transition duration-150 truncate ' + (isActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200')
                               }
                             >
                               <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                Danh sách cuối kì
+                                Quản lí coi thi
                               </span>
                             </NavLink>
                           </li>
-                          {/* <li className="mb-1 last:mb-0">
+                          <li className="mb-1 last:mb-0">
                             <NavLink
                               end
-                              to="/add-term-exam"
+                              to="/list-mark"
                               className={({ isActive }) =>
                                 'block transition duration-150 truncate ' + (isActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200')
                               }
                             >
                               <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                Thêm đánh giá học phần
+                                Quản lí chấm thi
                               </span>
                             </NavLink>
-                          </li> */}
+                          </li>
                         </ul>
                       </div>
                     </React.Fragment>
@@ -398,18 +333,12 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 }}
               </SidebarLinkGroup>
 
-               <SidebarLinkGroup activecondition={pathname.includes('tasks')}>
+              <SidebarLinkGroup activecondition={pathname.includes('tasks')}>
                 {(handleClick, open) => {
                   return (
                     <React.Fragment>
-                      <Link
-                        href="/list-thesis"
-                        className={`block text-slate-200 truncate transition duration-150 ${pathname.includes('tasks') ? 'hover:text-slate-200' : 'hover:text-white'
-                          }`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          sidebarExpanded ? handleClick() : setSidebarExpanded(true);
-                        }}
+                      <NavLink end to="/list-thesis"
+                        className={`block text-slate-200 truncate transition duration-150 ${open ? 'hover:text-slate-200' : 'hover:text-white'}`}
                       >
                         <div className="flex items-center justify-between">
                           <div className="flex items-center">
@@ -428,75 +357,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                               />
                             </svg>
                             <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                              Luận án/luận văn
-                            </span>
-                          </div>
-                          <div className="flex shrink-0 ml-2">
-                            <svg className={`w-3 h-3 shrink-0 ml-1 fill-current text-slate-400 ${open && 'rotate-180'}`} viewBox="0 0 12 12">
-                              <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
-                            </svg>
-                          </div>
-                        </div>
-                      </Link>
-                      <div className="lg:hidden lg:sidebar-expanded:block 2xl:block">
-                        <ul className={`pl-9 mt-1 ${!open && 'hidden'}`}>
-                          <li className="mb-1 last:mb-0">
-                            <NavLink
-                              end
-                              to="/list-thesis"
-                              className={({ isActive }) =>
-                                'block transition duration-150 truncate ' + (isActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200')
-                              }
-                            >
-                              <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                Danh sách luận án/luận văn
-                              </span>
-                            </NavLink>
-                          </li>
-                          <li className="mb-1 last:mb-0">
-                            <NavLink
-                              end
-                              to="/add-thesis"
-                              className={({ isActive }) =>
-                                'block transition duration-150 truncate ' + (isActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200')
-                              }
-                            >
-                              <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                Thêm luận án/luận văn
-                              </span>
-                            </NavLink>
-                          </li>
-                        </ul>
-                      </div>
-                    </React.Fragment>
-                  );
-                }}
-              </SidebarLinkGroup>
-              {/* Tasks */}
-              <SidebarLinkGroup activecondition={pathname.includes('tasks')}>
-                {(handleClick, open) => {
-                  return (
-                    <React.Fragment>
-                      <Link
-                        href="#0"
-                        className={`block text-slate-200 truncate transition duration-150 ${pathname.includes('tasks') ? 'hover:text-slate-200' : 'hover:text-white'
-                          }`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          sidebarExpanded ? handleClick() : setSidebarExpanded(true);
-                        }}
-                      >
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center">
-                            <svg className="shrink-0 h-6 w-6" viewBox="0 0 24 24">
-                              <path className={`fill-current ${pathname.includes('calendar') ? 'text-indigo-500' : 'text-slate-600'}`} d="M1 3h22v20H1z" />
-                              <path
-                                className={`fill-current ${pathname.includes('calendar') ? 'text-indigo-300' : 'text-slate-400'}`}
-                                d="M21 3h2v4H1V3h2V1h4v2h10V1h4v2Z"
-                              />
-                            </svg>
-                            <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                              Nghiên cứu khoa học
+                              Quản lý luận án luận <br /> văn
                             </span>
                           </div>
                           {/* Icon */}
@@ -506,37 +367,38 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                             </svg>
                           </div>
                         </div>
-                      </Link>
-                      <div className="lg:hidden lg:sidebar-expanded:block 2xl:block">
-                        <ul className={`pl-9 mt-1 ${!open && 'hidden'}`}>
-                          <li className="mb-1 last:mb-0">
-                            <NavLink
-                              end
-                              to="/list-research"
-                              className={({ isActive }) =>
-                                'block transition duration-150 truncate ' + (isActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200')
-                              }
-                            >
-                              <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                Danh sách nghiên cứu
-                              </span>
-                            </NavLink>
-                          </li>
-                          <li className="mb-1 last:mb-0">
-                            <NavLink
-                              end
-                              to="/add-research"
-                              className={({ isActive }) =>
-                                'block transition duration-150 truncate ' + (isActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200')
-                              }
-                            >
-                              <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                Thêm đề tài nghiên cứu
-                              </span>
-                            </NavLink>
-                          </li>
-                        </ul>
-                      </div>
+                      </NavLink>
+                    </React.Fragment>
+                  );
+                }}
+              </SidebarLinkGroup>
+              {/* Tasks */}
+              <SidebarLinkGroup activecondition={pathname.includes('tasks')}>
+                {(handleClick, open) => {
+                  return (
+                    <React.Fragment>
+                      <NavLink end to="/list-research"
+                        className={`block text-slate-200 truncate transition duration-150 ${open ? 'hover:text-slate-200' : 'hover:text-white'}`}
+                      >
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center">
+                            <svg className="shrink-0 h-6 w-6" viewBox="0 0 24 24">
+                              <path className={`fill-current ${pathname.includes('calendar') ? 'text-indigo-500' : 'text-slate-600'}`} d="M1 3h22v20H1z" />
+                              <path className={`fill-current ${pathname.includes('calendar') ? 'text-indigo-300' : 'text-slate-400'}`}
+                                d="M21 3h2v4H1V3h2V1h4v2h10V1h4v2Z" />
+                            </svg>
+                            <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
+                              Quản lý nghiên cứu <br /> khoa học
+                            </span>
+                          </div>
+                          {/* Icon */}
+                          <div className="flex shrink-0 ml-2">
+                            <svg className={`w-3 h-3 shrink-0 ml-1 fill-current text-slate-400 ${open && 'rotate-180'}`} viewBox="0 0 12 12">
+                              <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
+                            </svg>
+                          </div>
+                        </div>
+                      </NavLink>
                     </React.Fragment>
                   );
                 }}
@@ -546,14 +408,8 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 {(handleClick, open) => {
                   return (
                     <React.Fragment>
-                      <Link
-                        href="#0"
-                        className={`block text-slate-200 truncate transition duration-150 ${pathname.includes('settings') ? 'hover:text-slate-200' : 'hover:text-white'
-                          }`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          sidebarExpanded ? handleClick() : setSidebarExpanded(true);
-                        }}
+                      <NavLink end to="/scientific-article-list"
+                        className={`block text-slate-200 truncate transition duration-150 ${open ? 'hover:text-slate-200' : 'hover:text-white'}`}
                       >
                         <div className="flex items-center justify-between">
                           <div className="flex items-center">
@@ -576,7 +432,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                               />
                             </svg>
                             <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                              Bài báo khoa học
+                              Quản lý bài báo <br /> khoa học
                             </span>
                           </div>
                           {/* Icon */}
@@ -586,37 +442,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                             </svg>
                           </div>
                         </div>
-                      </Link>
-                      <div className="lg:hidden lg:sidebar-expanded:block 2xl:block">
-                        <ul className={`pl-9 mt-1 ${!open && 'hidden'}`}>
-                          <li className="mb-1 last:mb-0">
-                            <NavLink
-                              end
-                              to="/scientific-article-list"
-                              className={({ isActive }) =>
-                                'block transition duration-150 truncate ' + (isActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200')
-                              }
-                            >
-                              <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                Danh sách bài báo
-                              </span>
-                            </NavLink>
-                          </li>
-                          <li className="mb-1 last:mb-0">
-                            <NavLink
-                              end
-                              to="/add-article"
-                              className={({ isActive }) =>
-                                'block transition duration-150 truncate ' + (isActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200')
-                              }
-                            >
-                              <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                Thêm bài báo
-                              </span>
-                            </NavLink>
-                          </li>
-                        </ul>
-                      </div>
+                      </NavLink>
                     </React.Fragment>
                   );
                 }}
@@ -625,14 +451,8 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 {(handleClick, open) => {
                   return (
                     <React.Fragment>
-                      <Link
-                        href="#0"
-                        className={`block text-slate-200 truncate transition duration-150 ${pathname.includes('utility') ? 'hover:text-slate-200' : 'hover:text-white'
-                          }`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          sidebarExpanded ? handleClick() : setSidebarExpanded(true);
-                        }}
+                      <NavLink end to="/book-list"
+                        className={`block text-slate-200 truncate transition duration-150 ${open ? 'hover:text-slate-200' : 'hover:text-white'}`}
                       >
                         <div className="flex items-center justify-between">
                           <div className="flex items-center">
@@ -647,7 +467,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                               />
                             </svg>
                             <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                              Sách/giáo trình <br /> xuất bản
+                              Quản lý sách giáo <br /> trình xuất bản
                             </span>
                           </div>
                           {/* Icon */}
@@ -657,37 +477,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                             </svg>
                           </div>
                         </div>
-                      </Link>
-                      <div className="lg:hidden lg:sidebar-expanded:block 2xl:block">
-                        <ul className={`pl-9 mt-1 ${!open && 'hidden'}`}>
-                          <li className="mb-1 last:mb-0">
-                            <NavLink
-                              end
-                              to="/book-list"
-                              className={({ isActive }) =>
-                                'block transition duration-150 truncate ' + (isActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200')
-                              }
-                            >
-                              <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                Danh sách sách/giáo trình
-                              </span>
-                            </NavLink>
-                          </li>
-                          <li className="mb-1 last:mb-0">
-                            <NavLink
-                              end
-                              to="/add-book"
-                              className={({ isActive }) =>
-                                'block transition duration-150 truncate ' + (isActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200')
-                              }
-                            >
-                              <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                Thêm sách/giáo trình
-                              </span>
-                            </NavLink>
-                          </li>
-                        </ul>
-                      </div>
+                      </NavLink>
                     </React.Fragment>
                   );
                 }}
@@ -696,14 +486,8 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 {(handleClick, open) => {
                   return (
                     <React.Fragment>
-                      <Link
-                        href="#0"
-                        className={`block text-slate-200 truncate transition duration-150 ${pathname.includes('utility') ? 'hover:text-slate-200' : 'hover:text-white'
-                          }`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          sidebarExpanded ? handleClick() : setSidebarExpanded(true);
-                        }}
+                      <NavLink end to="/invention-list"
+                        className={`block text-slate-200 truncate transition duration-150 ${open ? 'hover:text-slate-200' : 'hover:text-white'}`}
                       >
                         <div className="flex items-center justify-between">
                           <div className="flex items-center">
@@ -734,7 +518,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                               />
                             </svg>
                             <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                              Bằng sáng chế <br /> giải thưởng KH
+                              Quản lý bằng sáng<br /> chế, giải thưởng
                             </span>
                           </div>
                           {/* Icon */}
@@ -744,37 +528,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                             </svg>
                           </div>
                         </div>
-                      </Link>
-                      <div className="lg:hidden lg:sidebar-expanded:block 2xl:block">
-                        <ul className={`pl-9 mt-1 ${!open && 'hidden'}`}>
-                          <li className="mb-1 last:mb-0">
-                            <NavLink
-                              end
-                              to="/invention-list"
-                              className={({ isActive }) =>
-                                'block transition duration-150 truncate ' + (isActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200')
-                              }
-                            >
-                              <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                Danh sách bằng sáng chế
-                              </span>
-                            </NavLink>
-                          </li>
-                          <li className="mb-1 last:mb-0">
-                            <NavLink
-                              end
-                              to="/add-invention"
-                              className={({ isActive }) =>
-                                'block transition duration-150 truncate ' + (isActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200')
-                              }
-                            >
-                              <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                Thêm bằng sáng chế
-                              </span>
-                            </NavLink>
-                          </li>
-                        </ul>
-                      </div>
+                      </NavLink>
                     </React.Fragment>
                   );
                 }}
@@ -809,7 +563,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                               />
                             </svg>
                             <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                              Hướng dẫn NCKH
+                              Quản lý hướng dẫn <br /> nghiên cứu khoa học
                             </span>
                           </div>
                           {/* Icon */}
@@ -825,7 +579,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           <li className="mb-1 last:mb-0">
                             <NavLink end to="/intruction-list" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
                               <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                Danh sách hướng dẫn
+                                Danh sách hướng dẫn nghiên cứu
                               </span>
                             </NavLink>
                           </li>
@@ -853,13 +607,8 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 {(handleClick, open) => {
                   return (
                     <React.Fragment>
-                      <Link
-                        href="#0"
+                      <NavLink end to="/build-program-list"
                         className={`block text-slate-200 truncate transition duration-150 ${open ? 'hover:text-slate-200' : 'hover:text-white'}`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          sidebarExpanded ? handleClick() : setSidebarExpanded(true);
-                        }}
                       >
                         <div className="flex items-center justify-between">
                           <div className="flex items-center">
@@ -868,7 +617,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                               <path className="fill-current text-slate-400" d="M15 12L8 6v5H0v2h8v5z" />
                             </svg>
                             <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                              Xây dựng chương <br /> trình đào tạo
+                              Quản lý xây dựng <br /> chương trình đào tạo
                             </span>
                           </div>
                           {/* Icon */}
@@ -878,25 +627,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                             </svg>
                           </div>
                         </div>
-                      </Link>
-                      <div className="lg:hidden lg:sidebar-expanded:block 2xl:block">
-                        <ul className={`pl-9 mt-1 ${!open && 'hidden'}`}>
-                          <li className="mb-1 last:mb-0">
-                            <NavLink end to="/build-program-list" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
-                              <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                Danh sách CT đào tạo
-                              </span>
-                            </NavLink>
-                          </li>
-                          <li className="mb-1 last:mb-0">
-                            <NavLink end to="/add-build-program" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
-                              <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                Thêm CT đào tạo
-                              </span>
-                            </NavLink>
-                          </li>
-                        </ul>
-                      </div>
+                      </NavLink>
                     </React.Fragment>
                   );
                 }}
@@ -905,13 +636,8 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 {(handleClick, open) => {
                   return (
                     <React.Fragment>
-                      <Link
-                        href="#0"
+                      <NavLink end to="/material-compilation-list"
                         className={`block text-slate-200 truncate transition duration-150 ${open ? 'hover:text-slate-200' : 'hover:text-white'}`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          sidebarExpanded ? handleClick() : setSidebarExpanded(true);
-                        }}
                       >
                         <div className="flex items-center justify-between">
                           <div className="flex items-center">
@@ -926,7 +652,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                               />
                             </svg>
                             <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                              Biên soạn giáo trình,<br />bài giảng
+                              Quản lý biên soạn<br /> giáo trình, bài giảng
                             </span>
                           </div>
                           {/* Icon */}
@@ -936,25 +662,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                             </svg>
                           </div>
                         </div>
-                      </Link>
-                      <div className="lg:hidden lg:sidebar-expanded:block 2xl:block">
-                        <ul className={`pl-9 mt-1 ${!open && 'hidden'}`}>
-                          <li className="mb-1 last:mb-0">
-                            <NavLink end to="/material-compilation-list" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
-                              <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                Danh sách giáo trình, bài giảng
-                              </span>
-                            </NavLink>
-                          </li>
-                          <li className="mb-1 last:mb-0">
-                            <NavLink end to="/add-material-compilation" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
-                              <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                Thêm biên soạn
-                              </span>
-                            </NavLink>
-                          </li>
-                        </ul>
-                      </div>
+                      </NavLink>
                     </React.Fragment>
                   );
                 }}
@@ -970,12 +678,12 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
               <span className="lg:hidden lg:sidebar-expanded:block 2xl:block">More</span>
             </h3>
             <ul className="mt-3">
-          
+
               <SidebarLinkGroup>
                 {(handleClick, open) => {
                   return (
                     <React.Fragment>
-                       <NavLink end to="/personal-infor"
+                      <NavLink end to="/personal-infor"
                         className={`block text-slate-200 truncate transition duration-150 ${open ? 'hover:text-slate-200' : 'hover:text-white'}`}
                       >
                         <div className="flex items-center justify-between">
@@ -996,7 +704,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           </div>
                         </div>
                       </NavLink>
-                     
+
                     </React.Fragment>
                   );
                 }}
