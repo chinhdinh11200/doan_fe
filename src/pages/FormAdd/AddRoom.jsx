@@ -219,7 +219,7 @@ const FormCreate = () => {
             </div>
           </div>
           <div className="mt-6 flex items-center justify-end gap-x-6">
-            <button type="button" className="text-sm font-semibold leading-6 text-gray-900 hover:underline">Hủy</button>
+            <button onClick={() => navigate(-1)} type="button" className="text-sm font-semibold leading-6 text-gray-900 hover:underline">Hủy</button>
             <button type="submit" className="rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Lưu</button>
           </div>
         </form>
@@ -279,8 +279,6 @@ const FormEdit = ({ roomId }) => {
         ...room,
         subjectSelected: subjects?.find((subject) => subject.id === room.subject_id),
         userSelected: staffs?.find((user) => user.id === room.user_id),
-        // typeSelected: TYPE_EXAM?.find((type) => type.value === room.type),
-        // semesterSelected: SEMESTER?.find((semester) => semester.value == room.semester_id),
       })
     }
   }, [room]);
@@ -423,7 +421,7 @@ const FormEdit = ({ roomId }) => {
             </div>
           </div>
           <div className="mt-6 flex items-center justify-end gap-x-6">
-            <button type="button" className="text-sm font-semibold leading-6 text-gray-900 hover:underline">Hủy</button>
+            <button onClick={() => navigate(-1)} type="button" className="text-sm font-semibold leading-6 text-gray-900 hover:underline">Hủy</button>
             <button type="submit" className="rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Lưu</button>
           </div>
         </form>

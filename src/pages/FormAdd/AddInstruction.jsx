@@ -64,9 +64,6 @@ function FormCreate() {
   const schema = yup.object().shape({
     name: yup.string().trim().required('Vui lòng nhập tên đề tài'),
     code: yup.string().required('Vui lòng nhập mã đề tài').min(4, "Mã đề tài không được nhỏ hơn 4 kí tự."),
-    // date_decision: yup.date().required(),
-    // num_decision: yup.string().required(),
-    // num_credit: yup.number().required(),
   })
 
   const {

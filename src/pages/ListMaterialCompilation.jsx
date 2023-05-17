@@ -55,7 +55,7 @@ function compilationList() {
       sorter: () => { },
     },
     {
-      title: <div className="text-center">SỐ TÍN CHỈ</div>,
+      title: <div className="text-center">Số tín chỉ</div>,
       dataIndex: "number_credit",
       key: "number_credit",
       sortDirections: ["descend", "ascend", "descend"],
@@ -206,7 +206,7 @@ function compilationList() {
                       <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
                     </svg>
                     <span className="ml-2">
-                      Thêm nhân viên
+                      Thêm giáo trình, bài giảng
                     </span>
                   </NavLink>
                 </div>
