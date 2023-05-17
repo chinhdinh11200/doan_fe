@@ -44,7 +44,20 @@ export const TYPE_EXAM = [
     label: 'Cuối kì'
   },
 ]
-
+export const FORM_EXAM_SEMESTER = [
+  {
+    value: 0,
+    label: 'Tự luận'
+  },
+  {
+    value: 1,
+    label: 'Trắc nghiệm'
+  },
+  {
+    value: 2,
+    label: 'Vấn đáp'
+  },
+]
 export const SEMESTER = [
   {
     value: 1,

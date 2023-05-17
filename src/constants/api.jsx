@@ -65,4 +65,8 @@ export default {
         LIST: '/mark',
         UPDATE: '/mark/:id',
     },
+    YEAR: {
+        LIST: '/year',
+        UPDATE: '/year/:id',
+    },
 };

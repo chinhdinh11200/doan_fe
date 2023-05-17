@@ -192,7 +192,42 @@ const FormCreate = () => {
               {errors.num_question && <p className="text-red-500">{errors.num_question.message}</p>}
             </div>
           </div>
-
+          <div className="col-span-full mb-2">
+            <label htmlFor="num_exam" className="block text-sm font-medium leading-6 text-gray-900">Số đề thi</label>
+            <div className="mt-2">
+              <input
+                type="number"
+                name="num_exam"
+                id="num_exam"
+                autoComplete="num_exam"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                {...register('num_exam', { required: true })}
+              />
+              {errors.num_exam && <p className="text-red-500">{errors.num_exam.message}</p>}
+            </div>
+          </div>
+          <div className="col-span-full mb-2">
+            <label htmlFor="semester" className="block text-sm font-medium leading-6 text-gray-900">Kỳ học</label>
+            <div className="mt-2">
+              <Controller
+                control={control}
+                name="semester"
+                render={({ field: { value, onChange, ref } }) => (
+                  <Select
+                    options={SEMESTER}
+                    id="semester"
+                    placeholder="Lựa chọn"
+                    {...register('semester')}
+                    onChange={(val) => {
+                      onChange(val);
+                      setValue("semester", val.value);
+                    }}
+                  />
+                )}
+              />
+              {errors.semester && <p className="text-red-500">{errors.semester.message}</p>}
+            </div>
+          </div>
           <div className="mt-6 flex items-center justify-end gap-x-6">
             <button type="button" className="text-sm font-semibold leading-6 text-gray-900 hover:underline">Hủy</button>
             <button type="submit" className="rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Lưu</button>
@@ -368,7 +403,43 @@ const FormEdit = ({ examId }) => {
               {errors.num_question && <p className="text-red-500">{errors.num_question.message}</p>}
             </div>
           </div>
-          
+          <div className="col-span-full mb-2">
+            <label htmlFor="num_exam" className="block text-sm font-medium leading-6 text-gray-900">Số đề thi</label>
+            <div className="mt-2">
+              <input
+                type="number"
+                name="num_exam"
+                id="num_exam"
+                autoComplete="num_exam"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                {...register('num_exam', { required: true })}
+              />
+              {errors.num_exam && <p className="text-red-500">{errors.num_exam.message}</p>}
+            </div>
+          </div>
+          <div className="col-span-full mb-2">
+            <label htmlFor="semester" className="block text-sm font-medium leading-6 text-gray-900">Kỳ học</label>
+            <div className="mt-2">
+              <Controller
+                control={control}
+                name="semesterSelected"
+                render={({ field: { value, onChange, ref } }) => (
+                  <Select
+                    options={SEMESTER}
+                    id="semester"
+                    placeholder="Lựa chọn"
+                    value={value}
+                    {...register('semester')}
+                    onChange={(val) => {
+                      onChange(val);
+                      setValue("semester", val.value);
+                    }}
+                  />
+                )}
+              />
+              {errors.semester && <p className="text-red-500">{errors.semester.message}</p>}
+            </div>
+          </div>
           <div className="mt-6 flex items-center justify-end gap-x-6">
             <button type="button" className="text-sm font-semibold leading-6 text-gray-900 hover:underline">Hủy</button>
             <button type="submit" className="rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Lưu</button>

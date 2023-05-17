@@ -196,6 +196,28 @@ const FormCreate = () => {
               {errors.startDate && <p className="text-red-500">{errors.startDate.message}</p>}
             </div>
           </div>
+          <div className="col-span-full mb-2">
+            <label htmlFor="semester" className="block text-sm font-medium leading-6 text-gray-900">Kỳ học</label>
+            <div className="mt-2">
+              <Controller
+                control={control}
+                name="semester"
+                render={({ field: { value, onChange, ref } }) => (
+                  <Select
+                    options={SEMESTER}
+                    id="semester"
+                    placeholder="Lựa chọn"
+                    {...register('semester')}
+                    onChange={(val) => {
+                      onChange(val);
+                      setValue("semester", val.value);
+                    }}
+                  />
+                )}
+              />
+              {errors.semester && <p className="text-red-500">{errors.semester.message}</p>}
+            </div>
+          </div>
           <div className="mt-6 flex items-center justify-end gap-x-6">
             <button type="button" className="text-sm font-semibold leading-6 text-gray-900 hover:underline">Hủy</button>
             <button type="submit" className="rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Lưu</button>
@@ -272,7 +294,7 @@ const FormEdit = ({ roomId }) => {
             console.log(values)
           })}
         >
-          
+
           <div className="col-span-full mb-2">
             <label htmlFor="code" className="block text-sm font-medium leading-6 text-gray-900">Mã coi thi</label>
             <div className="mt-2">
@@ -375,6 +397,29 @@ const FormEdit = ({ roomId }) => {
                 {...register('startDate', { required: true })}
               />
               {errors.startDate && <p className="text-red-500">{errors.startDate.message}</p>}
+            </div>
+          </div>
+          <div className="col-span-full mb-2">
+            <label htmlFor="semester" className="block text-sm font-medium leading-6 text-gray-900">Kỳ học</label>
+            <div className="mt-2">
+              <Controller
+                control={control}
+                name="semesterSelected"
+                render={({ field: { value, onChange, ref } }) => (
+                  <Select
+                    options={SEMESTER}
+                    id="semester"
+                    value={value}
+                    placeholder="Lựa chọn"
+                    {...register('semester')}
+                    onChange={(val) => {
+                      onChange(val);
+                      setValue("semester", val.value);
+                    }}
+                  />
+                )}
+              />
+              {errors.semester && <p className="text-red-500">{errors.semester.message}</p>}
             </div>
           </div>
           <div className="mt-6 flex items-center justify-end gap-x-6">

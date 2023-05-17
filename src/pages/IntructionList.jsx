@@ -70,7 +70,7 @@ function scientificList() {
           <Space size="middle" className="flex justify-center">
             <NavLink
               end
-              to={`/edit-scientific?id=${record.id}`}
+              to={record.type == 0 ? `/edit-scientific?id=${record.id}` : `/edit-coach?id=${record.id}`}
               className={({ isActive }) =>
                 'block transition duration-150 truncate ' + (isActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200')
               }

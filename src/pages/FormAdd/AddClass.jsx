@@ -10,6 +10,8 @@ import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useSubjectAll, useSubjectList } from '../../hooks/subject';
 import { useStaffList } from '../../hooks/staffs';
 import { Checkbox } from 'antd';
+import { FORM_EXAM_SEMESTER } from '../../constants';
+import { useYearList } from '../../hooks/year';
 
 function AddClass() {
   const currentLocation = useLocation();
@@ -53,11 +55,19 @@ const FormCreate = () => {
     return subject;
   })
   const { data: { data: staffs = [] } = {}, isLoading: isLoadingStaff } = useStaffList();
+  const { data: { data: years = [] } = {}, isLoading: isLoadingYear } = useYearList();
   staffs?.map(staff => {
     staff.label = staff.name
     staff.value = staff.id
 
     return staff;
+  })
+
+  years?.map(year => {
+    year.label = year.name
+    year.value = year.id
+
+    return year;
   })
 
   const schema = yup.object().shape({
@@ -130,7 +140,6 @@ const FormCreate = () => {
                 render={({ field: { value, onChange, ref } }) => (
                   <Select
                     options={subjects}
-                    value={value}
                     id="subject_id"
                     placeholder="Lựa chọn"
                     {...register('subject_id')}
@@ -253,7 +262,7 @@ const FormCreate = () => {
             </div>
           </div>
           <div className="col-span-full mb-2">
-            <label htmlFor="endDate" className="block text-sm font-medium leading-6 text-gray-900">Ngày két thúc</label>
+            <label htmlFor="endDate" className="block text-sm font-medium leading-6 text-gray-900">Ngày kết thúc</label>
             <div className="mt-2">
               <input
                 type="date"
@@ -267,15 +276,47 @@ const FormCreate = () => {
             </div>
           </div>
           <div className="col-span-full mb-2">
+            <label htmlFor="form_exam" className="block text-sm font-medium leading-6 text-gray-900">Hình thức thi giữa kì</label>
+            <div className="mt-2">
+              <Controller
+                control={control}
+                name="form_examSelected"
+                render={({ field: { value, onChange, ref } }) => (
+                  <Select
+                    options={FORM_EXAM_SEMESTER}
+                    id="form_exam"
+                    placeholder="Lựa chọn"
+                    {...register('form_exam')}
+                    onChange={(val) => {
+                      onChange(val);
+                      setValue("form_exam", val.value);
+                    }}
+                  />
+                )}
+              />
+
+              {errors.form_exam && <p className="text-red-500">{errors.form_exam.message}</p>}
+            </div>
+          </div>
+          <div className="col-span-full mb-2">
             <label htmlFor="semester" className="block text-sm font-medium leading-6 text-gray-900">Kì học</label>
             <div className="mt-2">
-              <input
-                type="text"
+              <Controller
+                control={control}
                 name="semester"
-                id="semester"
-                autoComplete="semester"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                {...register('semester', { required: true })}
+                render={({ field: { value, onChange, ref } }) => (
+                  <Select
+                    options={years}
+                    name="semester"
+                    id="semester"
+                    placeholder="Lựa chọn"
+                    {...register('semester')}
+                    onChange={(val) => {
+                      onChange(val);
+                      setValue("semester", val.id);
+                    }}
+                  />
+                )}
               />
               {errors.semester && <p className="text-red-500">{errors.semester.message}</p>}
             </div>
@@ -305,12 +346,19 @@ const FormEdit = ({ classId }) => {
     return subject;
   })
   const { data: { data: staffs = [] } = {}, isLoading: isLoadingStaff } = useStaffList();
+  const { data: { data: years = [] } = {}, isLoading: isLoadingYear } = useYearList();
   const { data: classs = {} } = useClassDetail(classId);
   staffs?.map(staff => {
     staff.label = staff.name
     staff.value = staff.id
 
     return staff;
+  })
+  years?.map(year => {
+    year.label = year.name
+    year.value = year.id
+
+    return year;
   })
 
   const [marking, setMarking] = useState(false);
@@ -352,9 +400,12 @@ const FormEdit = ({ classId }) => {
         ...classs,
         subjectSelected: subjects?.find((subject) => subject.id === classs.subject_id),
         userSelected: staffs?.find((staff) => staff.id === classs.user_id),
+        form_examSelected: FORM_EXAM_SEMESTER?.find((exam) => exam.value === classs.form_exam),
+        semesterSelected: years?.find((year) => year.id == classs.semester),
       })
     }
   }, [classs]);
+
   return (
     <div className="w-full">
       <div className="border-b border-gray-900/10 pb-12">
@@ -497,15 +548,77 @@ const FormEdit = ({ classId }) => {
             </div>
           </div>
           <div className="col-span-full mb-2">
-            <label htmlFor="semester" className="block text-sm font-medium leading-6 text-gray-900">Kì học</label>
+            <label htmlFor="startDate" className="block text-sm font-medium leading-6 text-gray-900">Ngày bắt đầu</label>
             <div className="mt-2">
               <input
-                type="text"
-                name="semester"
-                id="semester"
-                autoComplete="semester"
+                type="date"
+                name="startDate"
+                id="startDate"
+                autoComplete="startDate"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                {...register('semester', { required: true })}
+                {...register('startDate', { required: true })}
+              />
+              {errors.startDate && <p className="text-red-500">{errors.startDate.message}</p>}
+            </div>
+          </div>
+          <div className="col-span-full mb-2">
+            <label htmlFor="endDate" className="block text-sm font-medium leading-6 text-gray-900">Ngày kết thúc</label>
+            <div className="mt-2">
+              <input
+                type="date"
+                name="endDate"
+                id="endDate"
+                autoComplete="endDate"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                {...register('endDate', { required: true })}
+              />
+              {errors.endDate && <p className="text-red-500">{errors.endDate.message}</p>}
+            </div>
+          </div>
+          <div className="col-span-full mb-2">
+            <label htmlFor="form_exam" className="block text-sm font-medium leading-6 text-gray-900">Hình thức thi giữa kì</label>
+            <div className="mt-2">
+              <Controller
+                control={control}
+                name="form_examSelected"
+                render={({ field: { value, onChange, ref } }) => (
+                  <Select
+                    options={FORM_EXAM_SEMESTER}
+                    value={value}
+                    id="form_exam"
+                    placeholder="Lựa chọn"
+                    {...register('form_exam')}
+                    onChange={(val) => {
+                      onChange(val);
+                      setValue("form_exam", val.value);
+                    }}
+                  />
+                )}
+              />
+
+              {errors.form_exam && <p className="text-red-500">{errors.form_exam.message}</p>}
+            </div>
+          </div>
+          <div className="col-span-full mb-2">
+            <label htmlFor="semester" className="block text-sm font-medium leading-6 text-gray-900">Kì học</label>
+            <div className="mt-2">
+              <Controller
+                control={control}
+                name="semesterSelected"
+                render={({ field: { value, onChange, ref } }) => (
+                  <Select
+                    options={years}
+                    name="semester"
+                    id="semester"
+                    value={value}
+                    placeholder="Lựa chọn"
+                    {...register('semester')}
+                    onChange={(val) => {
+                      onChange(val);
+                      setValue("semester", val.id);
+                    }}
+                  />
+                )}
               />
               {errors.semester && <p className="text-red-500">{errors.semester.message}</p>}
             </div>

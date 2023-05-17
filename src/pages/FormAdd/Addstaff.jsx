@@ -94,7 +94,7 @@ function FormCreate() {
           name='add-staff'
           onSubmit={handleSubmit((values) => {
             console.log(values);
-            // mutate(values)
+            mutate(values)
           })}
         >
           <div className="col-span-full mb-2">

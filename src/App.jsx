@@ -80,7 +80,7 @@ function App() {
         <Route path="/scientific-article-list" element={<ScientificArticles />} />
         <Route path="/book-list" element={<TextBook />} />
         <Route path="/invention-list" element={<LicenseInvention />} />
-        <Route path="/intruction-list" element={<IntructionList />} />
+        <Route path="/instruction-list" element={<IntructionList />} />
         <Route path="/add-material-compilation" element={<AddMaterialCompilation />} />
         <Route path="/build-program-list" element={<BuildProgramList />} />
         <Route path="/personal-infor" element={<EditAccount />} />
@@ -116,6 +116,7 @@ function App() {
         <Route path="/edit-compilation" element={<AddMaterialCompilation />} />
         <Route path="/edit-program" element={<AddBuildProgram />} />
         <Route path="/edit-thesis" element={<AddThesis />} />
+        <Route path="/edit-coach" element={<AddCoach />} />
       </Routes>
     </>
   );

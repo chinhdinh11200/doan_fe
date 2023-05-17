@@ -9,7 +9,7 @@ import { useDepartmentList } from '../../hooks/departments';
 import Select from 'react-select';
 import { NavLink, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useStaffList } from '../../hooks/staffs';
-import { POSITION_STAFF, TYPE_COACH} from '../../constants';
+import { POSITION_STAFF, TYPE_COACH } from '../../constants';
 
 function AddScientific() {
   const currentLocation = useLocation();
@@ -30,8 +30,8 @@ function AddScientific() {
 
         <main className='bg-white w-9/12 mx-auto p-8 shadow-md my-4'>
           <div className='py-5 mb-4 w-auto text-center'><span className='p-3 rounded-lg bg-slate-800 border
-             text-white hover:text-slate-800 hover:bg-white hover:border-slate-800'>{currentLocation.pathname == '/edit-scientific' ? 'Cập Nhật huấn luyện' : 'Thêm huấn luyện'}</span></div>
-          {currentLocation.pathname == '/edit-scientific' ? <FormEdit scientificId={scientificId} /> : <FormCreate />}
+             text-white hover:text-slate-800 hover:bg-white hover:border-slate-800'>{currentLocation.pathname == '/edit-coach' ? 'Cập Nhật huấn luyện' : 'Thêm huấn luyện'}</span></div>
+          {currentLocation.pathname == '/edit-coach' ? <FormEdit scientificId={scientificId} /> : <FormCreate />}
         </main>
       </div>
     </div>
@@ -53,13 +53,19 @@ function FormCreate() {
 
     return department;
   })
+  const { data: { data: staffs = [] } = {}, isLoading: isLoadingStaff } = useStaffList();
+  staffs?.map(staff => {
+    staff.label = staff.name
+    staff.value = staff.id
+
+    return staff;
+  });
 
   const schema = yup.object().shape({
     name: yup.string().trim().required('Vui lòng nhập tên cuộc thi'),
     code: yup.string().required('Vui lòng nhập mã cuộc thi').min(4, "Mã cuộc thi không được nhỏ hơn 4 kí tự."),
     date_decision: yup.date().required(),
     num_decision: yup.string().required(),
-    num_credit: yup.number().required(),
   })
 
   const {
@@ -77,16 +83,16 @@ function FormCreate() {
       date_decision: '',
       num_decision: '',
       num_credit: '',
-      type_coach:'',
       form_construction: '',
       type: 5,
+      typeScientific: 1,
     }
   })
 
   useEffect(() => {
     console.log("dataCreate");
     if (dataCreate) {
-      navigate('/intruction-list');
+      navigate('/instruction-list');
     }
   }, [isSuccess]);
 
@@ -157,26 +163,52 @@ function FormCreate() {
             </div>
           </div>
           <div className="col-span-full mb-2.5">
-            <label htmlFor="type_coach" className="block text-sm font-medium leading-6 text-gray-900">Loại cuộc thi</label>
+            <label htmlFor="result_level" className="block text-sm font-medium leading-6 text-gray-900">Loại cuộc thi</label>
             <div className="mt-2">
               <Controller
                 control={control}
-                name="type_coach"
+                name="result_level"
                 render={({ field: { value, onChange, ref } }) => (
                   <Select
                     options={TYPE_COACH}
-                    name="type_coach"
-                    id="type_coach"
+                    name="result_level"
+                    id="result_level"
                     placeholder="Lựa chọn"
-                    {...register('type_coach')}
+                    {...register('result_level')}
                     onChange={(val) => {
                       onChange(val);
-                      setValue("type_coach", val.id);
+                      setValue("result_level", val.value);
                     }}
                   />
                 )}
               />
-              {errors.type_coach && <p className="text-red-500">{errors.type_coach.message}</p>}
+              {errors.result_level && <p className="text-red-500">{errors.result_level.message}</p>}
+            </div>
+          </div>
+          <div className="col-span-full mb-2.5">
+            <label htmlFor="num_person" className="block text-sm font-medium leading-6 text-gray-900">Vai trò</label>
+            <div className="mt-2">
+              <Controller
+                control={control}
+                name="roleSelected"
+                render={({ field: { value, onChange, ref } }) => (
+                  <Select
+                    options={staffs}
+                    name="role"
+                    isMulti
+                    value={value}
+                    id="role"
+                    placeholder="Lựa chọn"
+                    {...register('role')}
+                    onChange={(val) => {
+                      onChange()
+                      let rol = val.map(item => item.value).join(',')
+                      setValue('role', rol)
+                    }}
+                  />
+                )}
+              />
+              {errors.role && <p className="text-red-500">{errors.role.message}</p>}
             </div>
           </div>
           <div className="mt-6 flex items-center justify-end gap-x-6">
@@ -201,6 +233,12 @@ function FormEdit({ scientificId }) {
     data: dataCreate } = useUpdateScientific(scientificId);
 
   const { data: dataScientific } = useScientificDetail(scientificId);
+  dataScientific?.users?.map(user => {
+    user.label = user.name
+    user.value = user.id
+
+    return user;
+  });
   const { data: { data: staffs = [] } = {}, isLoading: isLoadingStaff } = useStaffList();
   staffs?.map(staff => {
     staff.label = staff.name
@@ -247,7 +285,12 @@ function FormEdit({ scientificId }) {
         ...dataScientific,
         password: '',
         departmentSelected: departments?.find(department => department.id === dataScientific.department_id),
-        positionSelected: POSITION_STAFF.find(position => position.value == dataScientific.position)
+        positionSelected: POSITION_STAFF.find(position => position.value == dataScientific.position),
+        coachSelected: TYPE_COACH.find(coach => coach.value == dataScientific.result_level),
+        roleSelected: dataScientific?.users,
+        role: dataScientific?.users?.map(user => user.id).join(','),
+        type: 5,
+        typeScientific: 1,
       })
     }
   }, [dataScientific]);
@@ -319,21 +362,22 @@ function FormEdit({ scientificId }) {
             </div>
           </div>
           <div className="col-span-full mb-2.5">
-            <label htmlFor="result_level" className="block text-sm font-medium leading-6 text-gray-900">Kết quả bảo vệ cấp Khoa</label>
+            <label htmlFor="result_level" className="block text-sm font-medium leading-6 text-gray-900">Loại cuộc thi</label>
             <div className="mt-2">
               <Controller
                 control={control}
-                name="result_level"
+                name="coachSelected"
                 render={({ field: { value, onChange, ref } }) => (
                   <Select
-                    options={result_level}
+                    options={TYPE_COACH}
                     name="result_level"
                     id="result_level"
+                    value={value}
                     placeholder="Lựa chọn"
                     {...register('result_level')}
                     onChange={(val) => {
                       onChange(val);
-                      setValue("result_level", val.id);
+                      setValue("result_level", val.value);
                     }}
                   />
                 )}
@@ -342,29 +386,31 @@ function FormEdit({ scientificId }) {
             </div>
           </div>
           <div className="col-span-full mb-2.5">
-            <label htmlFor="result_level_2" className="block text-sm font-medium leading-6 text-gray-900">Kết quả bảo vệ cấp Học viện</label>
+            <label htmlFor="num_person" className="block text-sm font-medium leading-6 text-gray-900">Vai trò</label>
             <div className="mt-2">
               <Controller
                 control={control}
-                name="result_level_2"
+                name="roleSelected"
                 render={({ field: { value, onChange, ref } }) => (
                   <Select
-                    options={result_level_2}
-                    name="result_level_2"
-                    id="result_level_2"
+                    options={staffs}
+                    name="role"
+                    isMulti
+                    value={value}
+                    id="role"
                     placeholder="Lựa chọn"
-                    {...register('result_level_2')}
+                    {...register('role')}
                     onChange={(val) => {
-                      onChange(val);
-                      setValue("result_level_2", val.id);
+                      onChange()
+                      let rol = val.map(item => item.value).join(',')
+                      setValue('role', rol)
                     }}
                   />
                 )}
               />
-              {errors.result_level_2 && <p className="text-red-500">{errors.result_level_2.message}</p>}
+              {errors.role && <p className="text-red-500">{errors.role.message}</p>}
             </div>
           </div>
-
           <div className="mt-6 flex items-center justify-end gap-x-6">
             <button onClick={() => navigate(-1)} className="text-sm font-semibold leading-6 text-gray-900 hover:underline">Hủy</button>
             <button type="submit" className="rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 

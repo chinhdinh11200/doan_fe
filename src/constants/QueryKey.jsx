@@ -28,3 +28,5 @@ export const ROOM_LIST = 'room-list';
 export const ROOM_DETAIL = 'room-detail';
 export const MARK_LIST = 'mark-list';
 export const MARK_DETAIL = 'mark-detail';
+export const YEAR_LIST = 'year-list';
+export const YEAR_DETAIL = 'year-detail';

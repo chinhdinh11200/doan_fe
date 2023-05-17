@@ -64,8 +64,8 @@ const FormCreate = () => {
   })
 
   const schema = yup.object().shape({
-    subject_id: yup.string().trim().required('Tên môn thi là bắt buộc').max(191, 'Tên không dài quá 191 kí tự'),
-    code: yup.string().required('Mã môn thi là bắt buộc.').min(4, "Mã môn thi không được nhỏ hơn 4 kí tự."),
+    // subject_id: yup.string().trim().required('Tên môn thi là bắt buộc').max(191, 'Tên không dài quá 191 kí tự'),
+    // code: yup.string().required('Mã môn thi là bắt buộc.').min(4, "Mã môn thi không được nhỏ hơn 4 kí tự."),
   })
 
   const {
@@ -93,7 +93,6 @@ const FormCreate = () => {
           name='add-class'
           onSubmit={handleSubmit((values) => {
             mutate(values)
-            console.log(values)
           })}
         >
 
@@ -189,6 +188,28 @@ const FormCreate = () => {
                 {...register('date_exam', { required: true })}
               />
               {errors.date_exam && <p className="text-red-500">{errors.date_exam.message}</p>}
+            </div>
+          </div>
+          <div className="col-span-full mb-2">
+            <label htmlFor="semester" className="block text-sm font-medium leading-6 text-gray-900">Kỳ học</label>
+            <div className="mt-2">
+              <Controller
+                control={control}
+                name="semester"
+                render={({ field: { value, onChange, ref } }) => (
+                  <Select
+                    options={SEMESTER}
+                    id="semester"
+                    placeholder="Lựa chọn"
+                    {...register('semester')}
+                    onChange={(val) => {
+                      onChange(val);
+                      setValue("semester", val.value);
+                    }}
+                  />
+                )}
+              />
+              {errors.semester && <p className="text-red-500">{errors.semester.message}</p>}
             </div>
           </div>
           <div className="mt-6 flex items-center justify-end gap-x-6">
@@ -365,6 +386,29 @@ const FormEdit = ({ markId }) => {
                 {...register('date_exam', { required: true })}
               />
               {errors.date_exam && <p className="text-red-500">{errors.date_exam.message}</p>}
+            </div>
+          </div>
+          <div className="col-span-full mb-2">
+            <label htmlFor="semester" className="block text-sm font-medium leading-6 text-gray-900">Kỳ học</label>
+            <div className="mt-2">
+              <Controller
+                control={control}
+                name="semesterSelected"
+                render={({ field: { value, onChange, ref } }) => (
+                  <Select
+                    options={SEMESTER}
+                    id="semester"
+                    placeholder="Lựa chọn"
+                    value={value}
+                    {...register('semester')}
+                    onChange={(val) => {
+                      onChange(val);
+                      setValue("semester", val.value);
+                    }}
+                  />
+                )}
+              />
+              {errors.semester && <p className="text-red-500">{errors.semester.message}</p>}
             </div>
           </div>
           <div className="mt-6 flex items-center justify-end gap-x-6">
