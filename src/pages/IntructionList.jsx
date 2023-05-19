@@ -55,9 +55,9 @@ function scientificList() {
       sorter: () => { },
     },
     {
-      title: <div className="text-center uppercase">KẾT QUẢ BẢO VỆ CẤP HỌC VIỆN</div>,
-      dataIndex: "result_level_2",
-      key: "result_level_2",
+      title: <div className="text-center uppercase">Số quyết định giao nhiệm vụ</div>,
+      dataIndex: "num_decision",
+      key: "num_decision",
       sortDirections: ["descend", "ascend", "descend"],
       sorter: () => { },
     },
@@ -340,6 +340,14 @@ const ModalDetail = ({ scientificId, setShowModal }) => {
               <div className="flex justify-between py-2 pl-2 border-b">
                 <p className="w-1/2 break-all">Số trang:</p>
                 <p className="w-1/2 break-all">{dataScientific?.num_page}</p>
+              </div>
+              <div className="flex justify-between py-2 pl-2">
+                <p className="w-1/2 break-all">Kì học:</p>
+                <p className="w-1/2 break-all">{dataScientific?.years.name}</p>
+              </div>
+              <div className="flex justify-between py-2 pl-2">
+                <p className="w-1/2 break-all">Năm học:</p>
+                <p className="w-1/2 break-all">{dataScientific?.year_id}</p>
               </div>
             </div>
           </div>

@@ -61,14 +61,23 @@ export const FORM_EXAM_SEMESTER = [
 export const SEMESTER = [
   {
     value: 1,
-    label: 'Kì 1 năm 2022-2023'
+    label: 'Học kì I'
   },
   {
     value: 2,
-    label: 'Kì 2 năm 2022-2023'
+    label: 'Học kì II'
   },
 ]
-
+export const YEAR_ID = [
+  {
+    value: 0,
+    label: '2021'
+  },
+  {
+    value: 1,
+    label: '2022'
+  },
+]
 export const TYPE_INVENTIONS = [
   {
     label: "Bằng độc quyền sáng chế",

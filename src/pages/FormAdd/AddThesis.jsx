@@ -9,7 +9,7 @@ import { useDepartmentList } from '../../hooks/departments';
 import Select from 'react-select';
 import { NavLink, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useStaffList } from '../../hooks/staffs';
-import { POSITION_STAFF, TYPE_THESIS } from '../../constants';
+import { POSITION_STAFF, TYPE_THESIS, YEAR_ID, SEMESTER } from '../../constants';
 
 function AddThesis() {
   const currentLocation = useLocation();
@@ -102,20 +102,6 @@ function FormCreate() {
             mutate(values)
           })}
         >
-          {/* <div className="col-span-full mb-2">
-                  <label htmlFor="code" className="block text-sm font-medium leading-6 text-gray-900">Mã luận án / luận văn</label>
-                  <div className="mt-2">
-                    <input
-                      type="text"
-                      name="code"
-                      id="code"
-                      autoComplete="code"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      {...register('code', { required: true })}
-                    />
-                    {errors.code && <p className="text-red-500">{errors.code.message}</p>}
-                  </div>
-                </div> */}
           <div className="col-span-full mb-2">
             <label htmlFor="name_student" className="block text-sm font-medium leading-6 text-gray-900">Họ tên nghiên cứu sinh </label>
             <div className="mt-2">
@@ -218,6 +204,51 @@ function FormCreate() {
                 )}
               />
               {errors.role && <p className="text-red-500">{errors.role.message}</p>}
+            </div>
+          </div>
+          <div className="col-span-full mb-2">
+            <label htmlFor="semester" className="block text-sm font-medium leading-6 text-gray-900">Kỳ học</label>
+            <div className="mt-2">
+              <Controller
+                control={control}
+                name="semester"
+                render={({ field: { value, onChange, ref } }) => (
+                  <Select
+                    options={SEMESTER}
+                    id="semester"
+                    placeholder="Lựa chọn"
+                    {...register('semester')}
+                    onChange={(val) => {
+                      onChange(val);
+                      setValue("semester", val.value);
+                    }}
+                  />
+                )}
+              />
+              {errors.semester && <p className="text-red-500">{errors.semester.message}</p>}
+            </div>
+          </div>
+          <div className="col-span-full mb-2">
+            <label htmlFor="year_id" className="block text-sm font-medium leading-6 text-gray-900">Năm học</label>
+            <div className="mt-2">
+              <Controller
+                control={control}
+                name="year_id"
+                render={({ field: { value, onChange, ref } }) => (
+                  <Select
+                    options={YEAR_ID}
+                    value={value}
+                    id="year_id"
+                    placeholder="Lựa chọn"
+                    {...register('year_id')}
+                    onChange={(val) => {
+                      onChange(val);
+                      setValue("year_id", val.value);
+                    }}
+                  />
+                )}
+              />
+              {errors.year_id && <p className="text-red-500">{errors.year_id.message}</p>}
             </div>
           </div>
           <div className="mt-6 flex items-center justify-end gap-x-6">
@@ -405,6 +436,52 @@ function FormEdit({ thesisId }) {
                 )}
               />
               {errors.role && <p className="text-red-500">{errors.role.message}</p>}
+            </div>
+          </div>
+          <div className="col-span-full mb-2">
+            <label htmlFor="semester" className="block text-sm font-medium leading-6 text-gray-900">Kỳ học</label>
+            <div className="mt-2">
+              <Controller
+                control={control}
+                name="semesterSelected"
+                render={({ field: { value, onChange, ref } }) => (
+                  <Select
+                    options={SEMESTER}
+                    id="semester"
+                    placeholder="Lựa chọn"
+                    value={value}
+                    {...register('semester')}
+                    onChange={(val) => {
+                      onChange(val);
+                      setValue("semester", val.value);
+                    }}
+                  />
+                )}
+              />
+              {errors.semester && <p className="text-red-500">{errors.semester.message}</p>}
+            </div>
+          </div>
+          <div className="col-span-full mb-2">
+            <label htmlFor="year_id" className="block text-sm font-medium leading-6 text-gray-900">Năm học</label>
+            <div className="mt-2">
+              <Controller
+                control={control}
+                name="year_id"
+                render={({ field: { value, onChange, ref } }) => (
+                  <Select
+                    options={YEAR_ID}
+                    value={value}
+                    id="year_id"
+                    placeholder="Lựa chọn"
+                    {...register('year_id')}
+                    onChange={(val) => {
+                      onChange(val);
+                      setValue("year_id", val.value);
+                    }}
+                  />
+                )}
+              />
+              {errors.year_id && <p className="text-red-500">{errors.year_id.message}</p>}
             </div>
           </div>
           <div className="mt-6 flex items-center justify-end gap-x-6">

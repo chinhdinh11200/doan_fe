@@ -342,6 +342,14 @@ const ModalDetail = ({ compilationId, setShowModal }) => {
                 <p className="w-1/2 break-all">Hình thức xây dựng:</p>
                 <p className="w-1/2 break-all">{dataCompialtion?.form_construction}</p>
               </div>
+              <div className="flex justify-between py-2 pl-2">
+                <p className="w-1/2 break-all">Kì học:</p>
+                <p className="w-1/2 break-all">{dataCompialtion?.years.name}</p>
+              </div>
+              <div className="flex justify-between py-2 pl-2">
+                <p className="w-1/2 break-all">Năm học:</p>
+                <p className="w-1/2 break-all">{dataCompialtion?.year_id}</p>
+              </div>
             </div>
           </div>
         </div>

@@ -9,7 +9,7 @@ import Select from 'react-select';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useSubjectAll, useSubjectList } from '../../hooks/subject';
 import { useStaffList } from '../../hooks/staffs';
-import { FORM_EXAM, SEMESTER, TYPE_EXAM } from '../../constants';
+import { FORM_EXAM, SEMESTER, TYPE_EXAM, YEAR_ID } from '../../constants';
 import { useCreateExam, useExamDetail, useExamList, useUpdateExam } from '../../hooks/exam';
 import { useCreateRoom, useRoomDetail, useUpdateRoom } from '../../hooks/room';
 
@@ -218,6 +218,29 @@ const FormCreate = () => {
               {errors.semester && <p className="text-red-500">{errors.semester.message}</p>}
             </div>
           </div>
+          <div className="col-span-full mb-2">
+            <label htmlFor="year_id" className="block text-sm font-medium leading-6 text-gray-900">Năm học</label>
+            <div className="mt-2">
+              <Controller
+                control={control}
+                name="year_id"
+                render={({ field: { value, onChange, ref } }) => (
+                  <Select
+                    options={YEAR_ID}
+                    value={value}
+                    id="year_id"
+                    placeholder="Lựa chọn"
+                    {...register('year_id')}
+                    onChange={(val) => {
+                      onChange(val);
+                      setValue("year_id", val.value);
+                    }}
+                  />
+                )}
+              />
+              {errors.year_id && <p className="text-red-500">{errors.year_id.message}</p>}
+            </div>
+          </div>
           <div className="mt-6 flex items-center justify-end gap-x-6">
             <button onClick={() => navigate(-1)} type="button" className="text-sm font-semibold leading-6 text-gray-900 hover:underline">Hủy</button>
             <button type="submit" className="rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Lưu</button>
@@ -418,6 +441,28 @@ const FormEdit = ({ roomId }) => {
                 )}
               />
               {errors.semester && <p className="text-red-500">{errors.semester.message}</p>}
+            </div>
+          </div>
+          <div className="col-span-full mb-2">
+            <label htmlFor="year_id" className="block text-sm font-medium leading-6 text-gray-900">Năm học</label>
+            <div className="mt-2">
+              <Controller
+                control={control}
+                name="year_id"
+                render={({ field: { value, onChange, ref } }) => (
+                  <Select
+                    options={YEAR_ID}
+                    id="year_id"
+                    placeholder="Lựa chọn"
+                    {...register('year_id')}
+                    onChange={(val) => {
+                      onChange(val);
+                      setValue("year_id", val.value);
+                    }}
+                  />
+                )}
+              />
+              {errors.year_id && <p className="text-red-500">{errors.year_id.message}</p>}
             </div>
           </div>
           <div className="mt-6 flex items-center justify-end gap-x-6">

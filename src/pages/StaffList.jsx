@@ -300,36 +300,36 @@ const ModalDetail = ({ staffId, setShowModal }) => {
 
             <div className="relative border">
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2">Mã nhân viên:</p>
-                <p className="w-1/2">{dataStaff?.code}</p>
+                <p className="w-1/2 break-all">Mã nhân viên:</p>
+                <p className="w-1/2 break-all">{dataStaff?.code}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2">Tên nhân viên:</p>
-                <p className="w-1/2">{dataStaff?.name}</p>
+                <p className="w-1/2 break-all">Tên nhân viên:</p>
+                <p className="w-1/2 break-all">{dataStaff?.name}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2">Phòng ban:</p>
-                <p className="w-1/2">{dataStaff?.department_id}</p>
+                <p className="w-1/2 break-all">Phòng ban:</p>
+                <p className="w-1/2 break-all">{dataStaff?.department_id}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2">Email:</p>
-                <p className="w-1/2">{dataStaff?.email}</p>
+                <p className="w-1/2 break-all">Email:</p>
+                <p className="w-1/2 break-all">{dataStaff?.email}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2">Mật khẩu:</p>
-                <p className="w-1/2">{dataStaff?.password}</p>
+                <p className="w-1/2 break-all">Mật khẩu:</p>
+                <p className="w-1/2 break-all">{dataStaff?.password}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 ">
-                <p className="w-1/2">Vị trí:</p>
-                <p className="w-1/2">{dataStaff?.position}</p>
+                <p className="w-1/2 break-all">Vị trí:</p>
+                <p className="w-1/2 break-all">{dataStaff?.position}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 ">
-                <p className="w-1/2">Hệ số lương:</p>
-                <p className="w-1/2">{dataStaff?.number_salary}</p>
+                <p className="w-1/2 break-all">Hệ số lương:</p>
+                <p className="w-1/2 break-all">{dataStaff?.number_salary}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 ">
-                <p className="w-1/2">Thu nhập:</p>
-                <p className="w-1/2">{dataStaff?.income}</p>
+                <p className="w-1/2 break-all">Thu nhập:</p>
+                <p className="w-1/2 break-all">{dataStaff?.income}</p>
               </div>
             </div>
           </div>

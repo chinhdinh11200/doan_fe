@@ -351,6 +351,10 @@ const ModalDetail = ({ classId, setShowModal }) => {
                 <p className="w-1/2 break-all">Kì học:</p>
                 <p className="w-1/2 break-all">{dataClass?.years.name}</p>
               </div>
+              <div className="flex justify-between py-2 pl-2">
+                <p className="w-1/2 break-all">Năm học:</p>
+                <p className="w-1/2 break-all">{dataClass?.year_id}</p>
+              </div>
             </div>
           </div>
         </div>

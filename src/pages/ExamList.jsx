@@ -323,7 +323,14 @@ const ModalDetail = ({ examId, setShowModal }) => {
                 <p className="w-1/2 break-all">Số câu hỏi/ số đề (tự luận):</p>
                 <p className="w-1/2 break-all">{dataExam?.num_question}</p>
               </div>
-
+              <div className="flex justify-between py-2 pl-2">
+                <p className="w-1/2 break-all">Kì học:</p>
+                <p className="w-1/2 break-all">{dataExam?.years.name}</p>
+              </div>
+              <div className="flex justify-between py-2 pl-2">
+                <p className="w-1/2 break-all">Năm học:</p>
+                <p className="w-1/2 break-all">{dataExam?.year_id}</p>
+              </div>
             </div>
           </div>
         </div>

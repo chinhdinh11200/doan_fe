@@ -310,7 +310,7 @@ const ModalDetail = ({ bookId, setShowModal }) => {
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
                 <p className="w-1/2 break-all">Số xuất bản:</p>
-                <p className="w-1/2 break-all">{dataBook?.num_decision}</p>
+                <p className="w-1/2 break-all">{dataBook?.num_publish}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
                 <p className="w-1/2 break-all">Số tác giả tham gia:</p>
@@ -323,8 +323,8 @@ const ModalDetail = ({ bookId, setShowModal }) => {
                     dataBook?.users.map(user => {
                       return (
                         <div className='flex gap-2'>
-                          <p className="w-3/4">{user.name}</p>
-                          <p className="w-1/4">{user.role_user.time}</p>
+                          <p className="w-1/2 break-all">{user.name}</p>
+                          <p className="w-1/2 break-all">{user.role_user.time}</p>
                         </div>
                       )
                     })
@@ -338,6 +338,14 @@ const ModalDetail = ({ bookId, setShowModal }) => {
               <div className="flex justify-between py-2 pl-2 border-b">
                 <p className="w-1/2 break-all">Số trang:</p>
                 <p className="w-1/2 break-all">{dataBook?.num_page}</p>
+              </div>
+              <div className="flex justify-between py-2 pl-2">
+                <p className="w-1/2 break-all">Kì học:</p>
+                <p className="w-1/2 break-all">{dataBook?.years.name}</p>
+              </div>
+              <div className="flex justify-between py-2 pl-2">
+                <p className="w-1/2 break-all">Năm học:</p>
+                <p className="w-1/2 break-all">{dataBook?.year_id}</p>
               </div>
             </div>
           </div>

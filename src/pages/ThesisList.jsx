@@ -304,34 +304,29 @@ const ModalDetail = ({ thesisId, setShowModal }) => {
               </svg>
             </button>
             <div className="relative border">
-              {/* <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2">Mã luận án/luận văn:</p>
-                <p className="w-1/2">12345</p>
-              </div> */}
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2">Họ tên nghiên cứu sinh:</p>
-                <p className="w-1/2">{dataThesis?.name_student}</p>
+                <p className="w-1/2 break-all">Họ tên nghiên cứu sinh:</p>
+                <p className="w-1/2 break-all">{dataThesis?.name_student}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2">Khóa đào tạo:</p>
-                <p className="w-1/2">{dataThesis?.course}</p>
+                <p className="w-1/2 break-all">Khóa đào tạo:</p>
+                <p className="w-1/2 break-all">{dataThesis?.course}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2">Số người hướng dẫn:</p>
-                <p className="w-1/2">{dataThesis?.num_person}</p>
+                <p className="w-1/2 break-all">Số người hướng dẫn:</p>
+                <p className="w-1/2 break-all">{dataThesis?.num_person}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2">Tác giả:</p>
-                <div className="w-1/2">
+                <p className="w-1/2 break-all">Tác giả:</p>
+                <div className="w-1/2 break-all">
                   {
                     dataThesis?.users.map(user => {
                       return (
                         <div className='flex'>
-                          <p className="w-1/2">
-                            {user.thesis_user.type == 0 ? 'Tác giả chính' : 'Thành viên'}
+                          <p className="w-1/2 break-all">
                             {user.name}
                           </p>
-                          <p className="w-1/2 text-right">{user.thesis_user.time}</p>
+                          <p className="w-1/2 break-all">{user.thesis_user.time}</p>
                         </div>
                       )
                     })
@@ -339,10 +334,17 @@ const ModalDetail = ({ thesisId, setShowModal }) => {
                 </div>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2">Số QĐ:</p>
-                <p className="w-1/2">{dataThesis?.num_decision}</p>
+                <p className="w-1/2 break-all">Số QĐ:</p>
+                <p className="w-1/2 break-all">{dataThesis?.num_decision}</p>
               </div>
-
+              <div className="flex justify-between py-2 pl-2">
+                <p className="w-1/2 break-all">Kì học:</p>
+                <p className="w-1/2 break-all">{dataThesis?.years.name}</p>
+              </div>
+              <div className="flex justify-between py-2 pl-2">
+                <p className="w-1/2 break-all">Năm học:</p>
+                <p className="w-1/2 break-all">{dataThesis?.year_id}</p>
+              </div>
             </div>
           </div>
         </div>
