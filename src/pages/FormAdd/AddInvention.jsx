@@ -10,7 +10,7 @@ import Select from 'react-select';
 import { NavLink, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useStaffList } from '../../hooks/staffs';
 import { POSITION_STAFF, TYPE_INVENTIONS, YEAR_ID, SEMESTER } from '../../constants';
-
+import { useYearList } from '../../hooks/year';
 const role = [
   {
     label: "Tác giả chính",
@@ -63,6 +63,13 @@ function FormCreate() {
 
     return staff;
   })
+  const { data: { data: years = [] } = {}, isLoading: isLoadingYear } = useYearList();
+  years?.map(year => {
+    year.label = year.name
+    year.value = year.id
+
+    return year;
+  })  
   const { data: departments } = useDepartmentList();
   departments?.data?.map(department => {
     department.label = department.name
@@ -243,28 +250,6 @@ function FormCreate() {
               {errors.year_id && <p className="text-red-500">{errors.year_id.message}</p>}
             </div>
           </div>
-          <div className="col-span-full mb-2">
-            <label htmlFor="semester" className="block text-sm font-medium leading-6 text-gray-900">Kỳ học</label>
-            <div className="mt-2">
-              <Controller
-                control={control}
-                name="semester"
-                render={({ field: { value, onChange, ref } }) => (
-                  <Select
-                    options={SEMESTER}
-                    id="semester"
-                    placeholder="Lựa chọn"
-                    {...register('semester')}
-                    onChange={(val) => {
-                      onChange(val);
-                      setValue("semester", val.value);
-                    }}
-                  />
-                )}
-              />
-              {errors.semester && <p className="text-red-500">{errors.semester.message}</p>}
-            </div>
-          </div>
           <div className="mt-6 flex items-center justify-end gap-x-6">
             <button onClick={() => navigate(-1)} type="button" className="text-sm font-semibold leading-6 text-gray-900 hover:underline">Hủy</button>
             <button type="submit" className="rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 
@@ -293,6 +278,13 @@ function FormEdit({ inventionId }) {
 
     return staff;
   });
+  const { data: { data: years = [] } = {}, isLoading: isLoadingYear } = useYearList();
+  years?.map(year => {
+    year.label = year.name
+    year.value = year.id
+
+    return year;
+  })
   dataInvention?.users?.map(user => {
     user.label = user.name
     user.value = user.id
@@ -343,6 +335,7 @@ function FormEdit({ inventionId }) {
         password: '',
         departmentSelected: departments?.find(department => department.id === dataInvention.department_id),
         positionSelected: POSITION_STAFF.find(position => position.value == dataInvention.position),
+        yearSelected: years?.find((year) => year.id == dataInvention.year_id),
         roleSelected: dataInvention?.users,
         role: dataInvention?.users?.map(user => user.id).join(','),
         type_inventionsSelected: TYPE_INVENTIONS.find(invention => invention.value == dataInvention.level),
@@ -489,29 +482,6 @@ function FormEdit({ inventionId }) {
                 )}
               />
               {errors.year_id && <p className="text-red-500">{errors.year_id.message}</p>}
-            </div>
-          </div>
-          <div className="col-span-full mb-2">
-            <label htmlFor="semester" className="block text-sm font-medium leading-6 text-gray-900">Kỳ học</label>
-            <div className="mt-2">
-              <Controller
-                control={control}
-                name="semesterSelected"
-                render={({ field: { value, onChange, ref } }) => (
-                  <Select
-                    options={SEMESTER}
-                    id="semester"
-                    placeholder="Lựa chọn"
-                    value={value}
-                    {...register('semester')}
-                    onChange={(val) => {
-                      onChange(val);
-                      setValue("semester", val.value);
-                    }}
-                  />
-                )}
-              />
-              {errors.semester && <p className="text-red-500">{errors.semester.message}</p>}
             </div>
           </div>
           <div className="mt-6 flex items-center justify-end gap-x-6">

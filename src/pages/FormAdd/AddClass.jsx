@@ -10,7 +10,7 @@ import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useSubjectAll, useSubjectList } from '../../hooks/subject';
 import { useStaffList } from '../../hooks/staffs';
 import { Checkbox } from 'antd';
-import { FORM_EXAM_SEMESTER, SEMESTER, YEAR_ID } from '../../constants';
+import { FORM_EXAM_SEMESTER} from '../../constants';
 import { useYearList } from '../../hooks/year';
 
 function AddClass() {

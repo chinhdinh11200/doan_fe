@@ -9,8 +9,8 @@ import { useDepartmentList } from '../../hooks/departments';
 import Select from 'react-select';
 import { NavLink, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useStaffList } from '../../hooks/staffs';
-import { POSITION_STAFF, SEMESTER, YEAR_ID } from '../../constants';
-
+import { POSITION_STAFF} from '../../constants';
+import { useYearList } from '../../hooks/year';
 
 const form_construction = [
   {
@@ -71,7 +71,13 @@ function FormCreate() {
 
     return department;
   })
+  const { data: { data: years = [] } = {}, isLoading: isLoadingYear } = useYearList();
+  years?.map(year => {
+    year.label = year.name
+    year.value = year.id
 
+    return year;
+  })  
   const schema = yup.object().shape({
     name: yup.string().trim().required('Vui lòng nhập tên giáo trình/bài giảng'),
     code: yup.string().required('Vui lòng nhập mã giáo trình/bài giảng').min(4, "Mã giáo trình/bài giảng không được nhỏ hơn 4 kí tự."),
@@ -258,28 +264,6 @@ function FormCreate() {
               {errors.year_id && <p className="text-red-500">{errors.year_id.message}</p>}
             </div>
           </div>
-          <div className="col-span-full mb-2">
-            <label htmlFor="semester" className="block text-sm font-medium leading-6 text-gray-900">Kỳ học</label>
-            <div className="mt-2">
-              <Controller
-                control={control}
-                name="semester"
-                render={({ field: { value, onChange, ref } }) => (
-                  <Select
-                    options={SEMESTER}
-                    id="semester"
-                    placeholder="Lựa chọn"
-                    {...register('semester')}
-                    onChange={(val) => {
-                      onChange(val);
-                      setValue("semester", val.value);
-                    }}
-                  />
-                )}
-              />
-              {errors.semester && <p className="text-red-500">{errors.semester.message}</p>}
-            </div>
-          </div>
           <div className="mt-6 flex items-center justify-end gap-x-6">
             <button onClick={() => navigate(-1)} type="button" className="text-sm font-semibold leading-6 text-gray-900 hover:underline">Hủy</button>
             <button type="submit" className="rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 
@@ -307,7 +291,13 @@ function FormEdit({ compilationId }) {
 
     return staff;
   });
+  const { data: { data: years = [] } = {}, isLoading: isLoadingYear } = useYearList();
+  years?.map(year => {
+    year.label = year.name
+    year.value = year.id
 
+    return year;
+  })
   dataCompilation?.users?.map(user => {
     user.label = user.name
     user.value = user.id
@@ -360,6 +350,7 @@ function FormEdit({ compilationId }) {
         positionSelected: POSITION_STAFF.find(position => position.value == dataCompilation.position),
         form_constructionSelected: form_construction.find(construction => construction.value == dataCompilation.form_construction),
         roleSelected: dataCompilation?.users,
+        yearSelected: years?.find((year) => year.id == dataCompilation.year_id),
         num_credit: dataCompilation?.number_credit,
         role: dataCompilation?.users?.map(user => user.id).join(','),
         type: 7
@@ -519,29 +510,6 @@ function FormEdit({ compilationId }) {
                 )}
               />
               {errors.year_id && <p className="text-red-500">{errors.year_id.message}</p>}
-            </div>
-          </div>
-          <div className="col-span-full mb-2">
-            <label htmlFor="semester" className="block text-sm font-medium leading-6 text-gray-900">Kỳ học</label>
-            <div className="mt-2">
-              <Controller
-                control={control}
-                name="semesterSelected"
-                render={({ field: { value, onChange, ref } }) => (
-                  <Select
-                    options={SEMESTER}
-                    id="semester"
-                    placeholder="Lựa chọn"
-                    value={value}
-                    {...register('semester')}
-                    onChange={(val) => {
-                      onChange(val);
-                      setValue("semester", val.value);
-                    }}
-                  />
-                )}
-              />
-              {errors.semester && <p className="text-red-500">{errors.semester.message}</p>}
             </div>
           </div>
           <div className="mt-6 flex items-center justify-end gap-x-6">

@@ -12,7 +12,7 @@ import { useStaffList } from '../../hooks/staffs';
 import { FORM_EXAM, SEMESTER, TYPE_EXAM, YEAR_ID } from '../../constants';
 import { useCreateExam, useExamDetail, useExamList, useUpdateExam } from '../../hooks/exam';
 import { useCreateRoom, useRoomDetail, useUpdateRoom } from '../../hooks/room';
-
+import { useYearList } from '../../hooks/year';
 function AddRoom() {
   const currentLocation = useLocation();
   const [searchParams] = useSearchParams();
@@ -61,7 +61,13 @@ const FormCreate = () => {
 
     return staff;
   })
+  const { data: { data: years = [] } = {}, isLoading: isLoadingYear } = useYearList();
+  years?.map(year => {
+    year.label = year.name
+    year.value = year.id
 
+    return year;
+  })  
   const schema = yup.object().shape({
     subject_id: yup.string().trim().required('Môn học là bắt buộc'),
     code: yup.string().required('Mã môn học là bắt buộc.').min(4, "Mã môn học không được nhỏ hơn 4 kí tự."),
@@ -272,7 +278,13 @@ const FormEdit = ({ roomId }) => {
 
     return staff;
   })
+  const { data: { data: years = [] } = {}, isLoading: isLoadingYear } = useYearList();
+  years?.map(year => {
+    year.label = year.name
+    year.value = year.id
 
+    return year;
+  })
   const schema = yup.object().shape({})
 
   const {
@@ -301,6 +313,8 @@ const FormEdit = ({ roomId }) => {
         ...room,
         subjectSelected: subjects?.find((subject) => subject.id === room.subject_id),
         userSelected: staffs?.find((user) => user.id === room.user_id),
+        semesterSelected: SEMESTER?.find((semester) => semester.value == room.semester),
+        yearSelected: years?.find((year) => year.id == room.year_id),
       })
     }
   }, [room]);

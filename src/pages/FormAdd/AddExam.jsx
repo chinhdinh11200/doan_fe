@@ -11,7 +11,7 @@ import { useSubjectAll, useSubjectList } from '../../hooks/subject';
 import { useStaffList } from '../../hooks/staffs';
 import { FORM_EXAM, SEMESTER, YEAR_ID, TYPE_EXAM } from '../../constants';
 import { useCreateExam, useExamDetail, useUpdateExam } from '../../hooks/exam';
-
+import { useYearList } from '../../hooks/year';
 function AddExam() {
   const currentLocation = useLocation();
   const [searchParams] = useSearchParams();
@@ -47,6 +47,7 @@ const FormCreate = () => {
     error,
     data: dataCreate } = useCreateExam();
   const { data: { data: subjects = [], total } = {}, isLoading: isLoadingSubject } = useSubjectAll();
+  const { data: { data: years = [] } = {}, isLoading: isLoadingYear } = useYearList();
   subjects?.map(subject => {
     subject.label = subject.name
     subject.value = subject.id
@@ -60,7 +61,12 @@ const FormCreate = () => {
 
     return staff;
   })
+  years?.map(year => {
+    year.label = year.name
+    year.value = year.id
 
+    return year;
+  })
   const schema = yup.object().shape({
     subject_id: yup.string().trim().required('Môn thi là bắt buộc'),
     code: yup.string().required('Mã đề thi là bắt buộc.').min(4, "Mã đề thi không được nhỏ hơn 4 kí tự."),
@@ -275,6 +281,7 @@ const FormEdit = ({ examId }) => {
     return subject;
   })
   const { data: { data: staffs = [] } = {}, isLoading: isLoadingStaff } = useStaffList();
+  const { data: { data: years = [] } = {}, isLoading: isLoadingYear } = useYearList();
   const { data: exam = {} } = useExamDetail(examId);
   staffs?.map(staff => {
     staff.label = staff.name
@@ -282,7 +289,12 @@ const FormEdit = ({ examId }) => {
 
     return staff;
   })
+  years?.map(year => {
+    year.label = year.name
+    year.value = year.id
 
+    return year;
+  })
   const schema = yup.object().shape({})
 
   const {
@@ -313,7 +325,8 @@ const FormEdit = ({ examId }) => {
         userSelected: staffs?.find((staff) => staff.id === exam.user_id),
         formSelected: FORM_EXAM?.find((form) => form.value === exam.type),
         typeSelected: TYPE_EXAM?.find((type) => type.value === exam.type),
-        semesterSelected: SEMESTER?.find((semester) => semester.value === exam.semester_id),
+        semesterSelected: SEMESTER?.find((semester) => semester.value == exam.semester),
+        yearSelected: years?.find((year) => year.id == exam.year_id),
       })
     }
   }, [exam]);

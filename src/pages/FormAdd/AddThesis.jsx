@@ -10,7 +10,7 @@ import Select from 'react-select';
 import { NavLink, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useStaffList } from '../../hooks/staffs';
 import { POSITION_STAFF, TYPE_THESIS, YEAR_ID, SEMESTER } from '../../constants';
-
+import { useYearList } from '../../hooks/year';
 function AddThesis() {
   const currentLocation = useLocation();
   const [searchParams] = useSearchParams();
@@ -60,7 +60,13 @@ function FormCreate() {
 
     return department;
   })
+  const { data: { data: years = [] } = {}, isLoading: isLoadingYear } = useYearList();
+  years?.map(year => {
+    year.label = year.name
+    year.value = year.id
 
+    return year;
+  })  
   const schema = yup.object().shape({
     name_student: yup.string().trim().required('Vui lòng nhập tên sinh viên'),
     // code: yup.string().required('Vui lòng nhập mã đề tài').min(4, "Mã đề tài không được nhỏ hơn 4 kí tự."),
@@ -228,28 +234,6 @@ function FormCreate() {
               {errors.year_id && <p className="text-red-500">{errors.year_id.message}</p>}
             </div>
           </div>
-          <div className="col-span-full mb-2">
-            <label htmlFor="semester" className="block text-sm font-medium leading-6 text-gray-900">Kỳ học</label>
-            <div className="mt-2">
-              <Controller
-                control={control}
-                name="semester"
-                render={({ field: { value, onChange, ref } }) => (
-                  <Select
-                    options={SEMESTER}
-                    id="semester"
-                    placeholder="Lựa chọn"
-                    {...register('semester')}
-                    onChange={(val) => {
-                      onChange(val);
-                      setValue("semester", val.value);
-                    }}
-                  />
-                )}
-              />
-              {errors.semester && <p className="text-red-500">{errors.semester.message}</p>}
-            </div>
-          </div>
           <div className="mt-6 flex items-center justify-end gap-x-6">
             <button onClick={() => navigate(-1)} type="button" className="text-sm font-semibold leading-6 text-gray-900 hover:underline">Hủy</button>
             <button type="submit" className="rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 
@@ -277,6 +261,13 @@ function FormEdit({ thesisId }) {
 
     return staff;
   });
+  const { data: { data: years = [] } = {}, isLoading: isLoadingYear } = useYearList();
+  years?.map(year => {
+    year.label = year.name
+    year.value = year.id
+
+    return year;
+  })
   dataThesis?.users?.map(user => {
     user.label = user.name
     user.value = user.id
@@ -327,6 +318,7 @@ function FormEdit({ thesisId }) {
         password: '',
         departmentSelected: departments?.find(department => department.id === dataThesis.department_id),
         positionSelected: POSITION_STAFF.find(position => position.value == dataThesis.position),
+        yearSelected: years?.find((year) => year.id == dataThesis.year_id),
         roleSelected: dataThesis?.users,
         role: dataThesis?.users?.map(user => user.id).join(','),
         typeSelected: TYPE_THESIS.find(type => type.value === dataThesis.type)
@@ -458,29 +450,6 @@ function FormEdit({ thesisId }) {
                 )}
               />
               {errors.year_id && <p className="text-red-500">{errors.year_id.message}</p>}
-            </div>
-          </div>
-          <div className="col-span-full mb-2">
-            <label htmlFor="semester" className="block text-sm font-medium leading-6 text-gray-900">Kỳ học</label>
-            <div className="mt-2">
-              <Controller
-                control={control}
-                name="semesterSelected"
-                render={({ field: { value, onChange, ref } }) => (
-                  <Select
-                    options={SEMESTER}
-                    id="semester"
-                    placeholder="Lựa chọn"
-                    value={value}
-                    {...register('semester')}
-                    onChange={(val) => {
-                      onChange(val);
-                      setValue("semester", val.value);
-                    }}
-                  />
-                )}
-              />
-              {errors.semester && <p className="text-red-500">{errors.semester.message}</p>}
             </div>
           </div>
           <div className="mt-6 flex items-center justify-end gap-x-6">

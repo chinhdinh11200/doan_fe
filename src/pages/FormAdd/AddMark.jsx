@@ -10,10 +10,10 @@ import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useSubjectAll, useSubjectList } from '../../hooks/subject';
 import { useStaffList } from '../../hooks/staffs';
 import { useCreateRoom, useRoomDetail, useUpdateRoom } from '../../hooks/room';
-import { FORM_EXAM, FORM_MARK, SEMESTER, YEAR_ID } from '../../constants';
+import { FORM_EXAM, FORM_MARK} from '../../constants';
 import { useCreateMark, useMarkDetail, useUpdateMark } from '../../hooks/mark';
 import { useExamDetail } from '../../hooks/exam';
-
+import { useYearList } from '../../hooks/year';
 function AddMark() {
   const currentLocation = useLocation();
   const [searchParams] = useSearchParams();
@@ -62,7 +62,13 @@ const FormCreate = () => {
 
     return staff;
   })
+  const { data: { data: years = [] } = {}, isLoading: isLoadingYear } = useYearList();
+  years?.map(year => {
+    year.label = year.name
+    year.value = year.id
 
+    return year;
+  })  
   const schema = yup.object().shape({
     // subject_id: yup.string().trim().required('Tên môn thi là bắt buộc').max(191, 'Tên không dài quá 191 kí tự'),
     // code: yup.string().required('Mã môn thi là bắt buộc.').min(4, "Mã môn thi không được nhỏ hơn 4 kí tự."),
@@ -266,7 +272,13 @@ const FormEdit = ({ markId }) => {
 
     return staff;
   })
+  const { data: { data: years = [] } = {}, isLoading: isLoadingYear } = useYearList();
+  years?.map(year => {
+    year.label = year.name
+    year.value = year.id
 
+    return year;
+  })
   const schema = yup.object().shape({})
 
   const {
@@ -297,6 +309,8 @@ const FormEdit = ({ markId }) => {
         subjectSelected: subjects?.find((subject) => subject.id === mark.subject_id),
         userSelected: staffs?.find((user) => user.id === mark.user_id),
         formMarkSelected: FORM_MARK?.find((formMark) => formMark.value == mark.type),
+        semesterSelected: SEMESTER?.find((semester) => semester.value == mark.semester),
+        yearSelected: years?.find((year) => year.id == mark.year_id),
       })
     }
   }, [mark]);
