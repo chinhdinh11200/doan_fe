@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 
 import Sidebar from '../partials/Sidebar';
 import Header from '../partials/Header';
@@ -9,11 +9,26 @@ import DashboardCard07 from '../partials/dashboard/DashboardCard07';
 import DashboardCard10 from '../partials/dashboard/DashboardCard10';
 import DashboardCard12 from '../partials/dashboard/DashboardCard12';
 import EditMenu from '../partials/EditMenu';
+import { UserContext } from '../context/userInfo';
+import axios from '../config/axios';
+import API from '../constants/api'
+import { useYearList } from '../hooks/year';
+import { Select } from 'antd';
 
 
 function Dashboard() {
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [year, setYear] = useState(null);
+  const { user } = useContext(UserContext);
+  const { data: { data: years = [] } = {} } = useYearList();
+  console.log(years);
+  years?.map(year => {
+    year.label = year.name
+    year.value = year.id
+
+    return year;
+  })
 
   return (
     <div className="flex h-screen overflow-hidden">
@@ -35,29 +50,65 @@ function Dashboard() {
 
             {/* Dashboard actions */}
             <div className="flex justify-between items-center mb-4">
-               
-                {/* Datepicker built with flatpickr */}
-              <Datepicker />
-              <div className=''>
-                <button className='rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 
-                  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'>
+
+              {/* Datepicker built with flatpickr */}
+              {/* <Datepicker /> */}
+              <div className='flex'>
+                <div className=''>
+                  <Select
+                    className='w-[200px]'
+                    options={years}
+                    onChange={(val) => {
+                      setYear(val)
+                      console.log(val)
+                    }}
+                  />
+                </div>
+                <div className=''>
+                  <button className='rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 
+                  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
+                    onClick={() => {
+                      if (year != null) {
+                        axios.get(
+                          `${API.API_ROOT}${API.FILE.EXPORT}`.replace(':id', user?.id),
+                          {
+                            responseType: 'blob',
+                            params: {
+                              year: year,
+                            }
+                          },
+                        ).then((response) => {
+                          console.log(response);
+                          const url = window.URL.createObjectURL(new Blob([response.data]));
+                          const link = document.createElement('a');
+                          link.href = url;
+                          link.setAttribute('download', 'report.xlsx'); //or any other extension
+                          document.body.appendChild(link);
+                          link.click();
+                        })
+                      } else {
+
+                      }
+                    }}
+                  >
                     Xuất File
                   </button>
+                </div>
               </div>
             </div>
 
             {/* Cards */}
             <div className="grid grid-cols-12 gap-6">
-             {/* Card (Recent Activity) */}
-             <DashboardCard12 />
+              {/* Card (Recent Activity) */}
+              <DashboardCard12 />
               {/* Card (Customers) */}
               <DashboardCard10 />
-               {/* Table (Top Channels) */}
-               <DashboardCard10 />
-               {/* Table (Top Channels) */}
-               <DashboardCard07 />
-              
-              
+              {/* Table (Top Channels) */}
+              <DashboardCard10 />
+              {/* Table (Top Channels) */}
+              <DashboardCard07 />
+
+
             </div>
 
           </div>

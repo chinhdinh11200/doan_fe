@@ -1,13 +1,21 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useRef, useEffect, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import Transition from '../../utils/Transition';
 
 import UserAvatar from '../../images/user-avatar-32.png';
+import { UserContext } from '../../context/userInfo';
+import { useLogout } from '../../hooks/useAuth';
 
 function UserMenu() {
 
+  const navigate = useNavigate();
+  const { user, setUser } = useContext(UserContext);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-
+  const { mutate,
+    isSuccess,
+    isLoading,
+    error,
+    data: dataLogout } = useLogout();
   const trigger = useRef(null);
   const dropdown = useRef(null);
 
@@ -19,7 +27,15 @@ function UserMenu() {
     };
     document.addEventListener('click', clickHandler);
     return () => document.removeEventListener('click', clickHandler);
-  });
+  }, []);
+  useEffect(() => {
+    if (dataLogout?.success === true) {
+      localStorage.setItem('username', '');
+      localStorage.setItem('accessToken', '');
+      localStorage.setItem('refreshToken', '');
+      navigate('/');
+    }
+  }, [dataLogout])
 
   // close if the esc key is pressed
   useEffect(() => {
@@ -29,7 +45,7 @@ function UserMenu() {
     };
     document.addEventListener('keydown', keyHandler);
     return () => document.removeEventListener('keydown', keyHandler);
-  });
+  }, []);
 
   return (
     <div className="relative inline-flex">
@@ -40,9 +56,9 @@ function UserMenu() {
         onClick={() => setDropdownOpen(!dropdownOpen)}
         aria-expanded={dropdownOpen}
       >
-        <img className="w-8 h-8 rounded-full" src={UserAvatar} width="32" height="32" alt="User" />
+        <img className="w-8 h-8 rounded-full" src={user?.avatar} width="32" height="32" alt="User" />
         <div className="flex items-center truncate">
-          <span className="truncate ml-2 text-sm font-medium group-hover:text-slate-800">Hà Lê</span>
+          <span className="truncate ml-2 text-sm font-medium group-hover:text-slate-800">{user?.name}</span>
           <svg className="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400" viewBox="0 0 12 12">
             <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
           </svg>
@@ -65,8 +81,8 @@ function UserMenu() {
           onBlur={() => setDropdownOpen(false)}
         >
           <div className="pt-0.5 pb-2 px-3 mb-1 border-b border-slate-200">
-            <div className="font-medium text-slate-800">Hà Lê</div>
-            <div className="text-xs text-slate-500 italic">Quản trị viên</div>
+            <div className="font-medium text-slate-800">{user?.name}</div>
+            {/* <div className="text-xs text-slate-500 italic">Quản trị viên</div> */}
           </div>
           <ul>
             {/* <li>
@@ -79,13 +95,16 @@ function UserMenu() {
               </Link>
             </li> */}
             <li>
-              <Link
+              <span
                 className="font-medium text-sm text-indigo-500 hover:text-indigo-600 flex items-center py-1 px-3"
-                to="/"
-                onClick={() => setDropdownOpen(!dropdownOpen)}
+                // to="/"
+                onClick={() => {
+                  mutate();
+                  setDropdownOpen(!dropdownOpen)
+                }}
               >
                 Đăng xuất
-              </Link>
+              </span>
             </li>
           </ul>
         </div>

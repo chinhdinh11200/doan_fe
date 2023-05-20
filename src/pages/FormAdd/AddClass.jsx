@@ -299,6 +299,28 @@ const FormCreate = () => {
             </div>
           </div>
           <div className="col-span-full mb-2">
+            <label htmlFor="year_id" className="block text-sm font-medium leading-6 text-gray-900">Năm học</label>
+            <div className="mt-2">
+              <Controller
+                control={control}
+                name="year_id"
+                render={({ field: { value, onChange, ref } }) => (
+                  <Select
+                    options={years}
+                    id="year_id"
+                    placeholder="Lựa chọn"
+                    {...register('year_id')}
+                    onChange={(val) => {
+                      onChange(val);
+                      setValue("year_id", val.value);
+                    }}
+                  />
+                )}
+              />
+              {errors.year_id && <p className="text-red-500">{errors.year_id.message}</p>}
+            </div>
+          </div>
+          <div className="col-span-full mb-2">
             <label htmlFor="semester" className="block text-sm font-medium leading-6 text-gray-900">Kỳ học</label>
             <div className="mt-2">
               <Controller
@@ -318,28 +340,6 @@ const FormCreate = () => {
                 )}
               />
               {errors.semester && <p className="text-red-500">{errors.semester.message}</p>}
-            </div>
-          </div>
-          <div className="col-span-full mb-2">
-            <label htmlFor="year_id" className="block text-sm font-medium leading-6 text-gray-900">Năm học</label>
-            <div className="mt-2">
-              <Controller
-                control={control}
-                name="year_id"
-                render={({ field: { value, onChange, ref } }) => (
-                  <Select
-                    options={YEAR_ID}
-                    id="year_id"
-                    placeholder="Lựa chọn"
-                    {...register('year_id')}
-                    onChange={(val) => {
-                      onChange(val);
-                      setValue("year_id", val.value);
-                    }}
-                  />
-                )}
-              />
-              {errors.year_id && <p className="text-red-500">{errors.year_id.message}</p>}
             </div>
           </div>
           <div className="mt-6 flex items-center justify-end gap-x-6">
@@ -422,7 +422,8 @@ const FormEdit = ({ classId }) => {
         subjectSelected: subjects?.find((subject) => subject.id === classs.subject_id),
         userSelected: staffs?.find((staff) => staff.id === classs.user_id),
         form_examSelected: FORM_EXAM_SEMESTER?.find((exam) => exam.value === classs.form_exam),
-        semesterSelected: years?.find((year) => year.id == classs.semester),
+        semesterSelected: SEMESTER?.find((semester) => semester.value == classs.semester),
+        yearSelected: years?.find((year) => year.id == classs.year_id),
       })
     }
   }, [classs]);
@@ -621,6 +622,29 @@ const FormEdit = ({ classId }) => {
             </div>
           </div>
           <div className="col-span-full mb-2">
+            <label htmlFor="year_id" className="block text-sm font-medium leading-6 text-gray-900">Năm học</label>
+            <div className="mt-2">
+              <Controller
+                control={control}
+                name="yearSelected"
+                render={({ field: { value, onChange, ref } }) => (
+                  <Select
+                    options={years}
+                    value={value}
+                    id="year_id"
+                    placeholder="Lựa chọn"
+                    {...register('year_id')}
+                    onChange={(val) => {
+                      onChange(val);
+                      setValue("year_id", val.value);
+                    }}
+                  />
+                )}
+              />
+              {errors.year_id && <p className="text-red-500">{errors.year_id.message}</p>}
+            </div>
+          </div>
+          <div className="col-span-full mb-2">
             <label htmlFor="semester" className="block text-sm font-medium leading-6 text-gray-900">Kỳ học</label>
             <div className="mt-2">
               <Controller
@@ -641,29 +665,6 @@ const FormEdit = ({ classId }) => {
                 )}
               />
               {errors.semester && <p className="text-red-500">{errors.semester.message}</p>}
-            </div>
-          </div>
-          <div className="col-span-full mb-2">
-            <label htmlFor="year_id" className="block text-sm font-medium leading-6 text-gray-900">Năm học</label>
-            <div className="mt-2">
-              <Controller
-                control={control}
-                name="year_id"
-                render={({ field: { value, onChange, ref } }) => (
-                  <Select
-                    options={YEAR_ID}
-                    value={value}
-                    id="year_id"
-                    placeholder="Lựa chọn"
-                    {...register('year_id')}
-                    onChange={(val) => {
-                      onChange(val);
-                      setValue("year_id", val.value);
-                    }}
-                  />
-                )}
-              />
-              {errors.year_id && <p className="text-red-500">{errors.year_id.message}</p>}
             </div>
           </div>
           <div className="col-span-full mb-2 flex items-center justify-between">

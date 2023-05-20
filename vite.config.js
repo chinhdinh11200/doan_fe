@@ -21,6 +21,15 @@ export default defineConfig({
       },
     ],
   },
+  server: {
+    proxy: {
+      '/public': {
+        target: 'http://127.0.0.1:8001',
+        changeOrigin: true,
+        secure: false,
+      }
+    }
+  },
   build: {
     commonjsOptions: {
       transformMixedEsModules: true,

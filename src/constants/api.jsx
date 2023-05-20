@@ -8,6 +8,14 @@ export default {
         LIST: '/user',
         UPDATE: '/user/:id',
     },
+    AUTH: {
+        LOGIN: '/auth/login',
+        REFRESH: '/auth/refresh',
+        LOGOUT: '/auth/logout',
+        CHANGE_PASSWORD: '/auth/change-password',
+        RESET_PASSWORD: '/auth/reset-password',
+        SEND_MAIL: '/auth/send-mail-reset-password',
+    },
     DEPARTMENT: {
         LIST: '/department',
         UPDATE: '/department/:id',
@@ -69,4 +77,8 @@ export default {
         LIST: '/year',
         UPDATE: '/year/:id',
     },
+    FILE: {
+        EXPORT: '/export/user/:id',
+        IMPORT: '/import/user',
+    }
 };
