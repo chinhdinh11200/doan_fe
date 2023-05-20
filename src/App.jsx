@@ -47,6 +47,7 @@ import AddExam from './pages/FormAdd/AddExam';
 import AddRoom from './pages/FormAdd/AddRoom';
 import MarkList from './pages/MarkList';
 import AddMark from './pages/FormAdd/AddMark';
+import ResetPassword from './partials/actions/ResetPassword';
 const Test = () => {
   return <div>test</div>;
 }
@@ -117,6 +118,7 @@ function App() {
         <Route path="/edit-program" element={<AddBuildProgram />} />
         <Route path="/edit-thesis" element={<AddThesis />} />
         <Route path="/edit-coach" element={<AddCoach />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
       </Routes>
     </>
   );
