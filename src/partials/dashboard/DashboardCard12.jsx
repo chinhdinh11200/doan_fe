@@ -1,107 +1,117 @@
-import React from 'react';
-
+import React, { useContext } from 'react';
+import { useClassDashboard } from '../../hooks/class';
+import { Table } from 'antd';
+import { UserContext } from '../../context/userInfo';
+const columns = [
+  {
+    title: <div className="text-center">STT</div>,
+    dataIndex: "index",
+    key: "index",
+    width: "1%",
+    render: (text, t, index) => (
+      <p className="text-center">
+        {index + 1}
+      </p>
+    ),
+  },
+  {
+    title: <div className="text-center">Tên lớp</div>,
+    dataIndex: "name",
+    key: "name",
+    render: (_, record) => <> {record.name}</>,
+    sortDirections: ["descend", "ascend", "descend"],
+    sorter: () => { },
+  },
+  {
+    title: <div className="text-center">Mã lớp</div>,
+    dataIndex: "code",
+    key: "code",
+    sortDirections: ["descend", "ascend", "descend"],
+    sorter: () => { },
+  },
+  {
+    title: <div className="text-center">Số sinh viên</div>,
+    dataIndex: "num_student",
+    key: "num_student",
+    sortDirections: ["descend", "ascend", "descend"],
+    sorter: () => { },
+    render: (_, record) => <p className='text-start'>{record.num_student}</p>
+  },
+  // {
+  //   title: <div className="text-center">Ngày bắt đầu</div>,
+  //   dataIndex: "startDate",
+  //   key: "startDate",
+  //   sortDirections: ["descend", "ascend", "descend"],
+  //   sorter: () => { },
+  // },
+  // {
+  //   title: <div className="text-center">Hành động</div>,
+  //   key: "action",
+  //   width: "150px",
+  //   render: (_, record) => {
+  //     return (
+  //       <Space size="middle" className="flex justify-center">
+  //         <Tooltip placement="top" title='Sửa'>
+  //           <NavLink
+  //             end
+  //             to={`/edit-class?id=${record.id}`}
+  //             className={({ isActive }) =>
+  //               'block transition duration-150 truncate ' + (isActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200')
+  //             }
+  //           >
+  //             <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24"
+  //               stroke="currentColor">
+  //               <path strokeLinecap="round" strokeLinejoin="round" strokewith="2"
+  //                 d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+  //             </svg>
+  //           </NavLink>
+  //         </Tooltip>
+  //         <Tooltip placement="top" title='Chi tiết' onClick={() => {
+  //           setShowModal(true);
+  //           setClassDetailId(record.id)
+  //         }}>
+  //           <a href="#" className="text-gray-600 hover:text-gray-900" title='view'>
+  //             <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24"
+  //               stroke="currentColor">
+  //               <path strokeLinecap="round" strokeLinejoin="round" strokewith="2"
+  //                 d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+  //               <path strokeLinecap="round" strokeLinejoin="round" strokewith="2"
+  //                 d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+  //             </svg>
+  //           </a>
+  //         </Tooltip>
+  //         <Tooltip placement='top' title='Xoá'>
+  //           <span title='delete'><svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-red-600 hover:text-red-800"
+  //             fill="none" viewBox="0 0 24 24" stroke="currentColor" onClick={() => showDeleteModal(record.id)}>
+  //             <path strokeLinecap="round" strokeLinejoin="round" strokewith="2"
+  //               d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+  //           </svg></span>
+  //         </Tooltip>
+  //       </Space>
+  //     );
+  //   },
+  // },
+];
 function DashboardCard12() {
+  const { data: { data: dataClass = [] } = {} } = useClassDashboard({ yearId: 2, userId: 3 })
+  console.log(dataClass);
   return (
-    <div className="col-span-full xl:col-span-6 bg-white shadow-lg rounded-sm border border-slate-200">
+    <div className="col-span-full xl:col-span-12 bg-white shadow-lg rounded-sm border border-slate-200">
       <header className="px-5 py-4 border-b border-slate-100">
-        <h2 className="font-semibold text-slate-800">Hoạt động gần đây</h2>
+        <h2 className="font-semibold text-slate-800">Lớp học đang dạy</h2>
       </header>
       <div className="p-3">
 
         {/* Card content */}
         {/* "Today" group */}
         <div>
-          <header className="text-xs uppercase text-slate-400 bg-slate-50 rounded-sm font-semibold p-2">Hôm nay</header>
-          <ul className="my-1">
-            {/* Item */}
-            <li className="flex px-2">
-              <div className="w-9 h-9 rounded-full shrink-0 bg-indigo-500 my-2 mr-3">
-                <svg className="w-9 h-9 fill-current text-indigo-50" viewBox="0 0 36 36">
-                  <path d="M18 10c-4.4 0-8 3.1-8 7s3.6 7 8 7h.6l5.4 2v-4.4c1.2-1.2 2-2.8 2-4.6 0-3.9-3.6-7-8-7zm4 10.8v2.3L18.9 22H18c-3.3 0-6-2.2-6-5s2.7-5 6-5 6 2.2 6 5c0 2.2-2 3.8-2 3.8z" />
-                </svg>
-              </div>
-              <div className="grow flex items-center border-b border-slate-100 text-sm py-2">
-                <div className="grow flex justify-between">
-                  <div className="self-center"><a className="font-medium text-slate-800 hover:text-slate-900" href="#0">Bạn</a> đã sửa học phần <a className="font-medium text-slate-800" href="#0">An toàn bảo mật ứng dụng</a></div>
-                  <div className="shrink-0 self-end ml-2">
-                    <a className="font-medium text-indigo-500 hover:text-indigo-600" href="#0">View<span className="hidden sm:inline"> -&gt;</span></a>
-                  </div>
-                </div>
-              </div>
-            </li>
-            {/* Item */}
-            <li className="flex px-2">
-              <div className="w-9 h-9 rounded-full shrink-0 bg-rose-500 my-2 mr-3">
-                <svg className="w-9 h-9 fill-current text-rose-50" viewBox="0 0 36 36">
-                  <path d="M25 24H11a1 1 0 01-1-1v-5h2v4h12v-4h2v5a1 1 0 01-1 1zM14 13h8v2h-8z" />
-                </svg>
-              </div>
-              <div className="grow flex items-center border-b border-slate-100 text-sm py-2">
-                <div className="grow flex justify-between">
-                  <div className="self-center">Đề Tài NCKH <a className="font-medium text-slate-800" href="#0">Ứng dụng mô hình ABC</a>đã bị xóa bởi <a className="font-medium text-slate-800 hover:text-slate-900" href="#0">bạn.</a></div>
-                  <div className="shrink-0 self-end ml-2">
-                    <a className="font-medium text-indigo-500 hover:text-indigo-600" href="#0">View<span className="hidden sm:inline"> -&gt;</span></a>
-                  </div>
-                </div>
-              </div>
-            </li>
-            {/* Item */}
-            <li className="flex px-2">
-              <div className="w-9 h-9 rounded-full shrink-0 bg-green-500 my-2 mr-3">
-                <svg className="w-9 h-9 fill-current text-green-50" viewBox="0 0 36 36">
-                  <path d="M15 13v-3l-5 4 5 4v-3h8a1 1 0 000-2h-8zM21 21h-8a1 1 0 000 2h8v3l5-4-5-4v3z" />
-                </svg>
-              </div>
-              <div className="grow flex items-center text-sm py-2">
-                <div className="grow flex justify-between">
-                  <div className="self-center"><a className="font-medium text-slate-800 hover:text-slate-900" href="#0">Bạn</a> đã thêm một bài báo khoa học mới.</div>
-                  <div className="shrink-0 self-end ml-2">
-                    <a className="font-medium text-indigo-500 hover:text-indigo-600" href="#0">View<span className="hidden sm:inline"> -&gt;</span></a>
-                  </div>
-                </div>
-              </div>
-            </li>
-          </ul>
+          <Table
+            columns={columns}
+            dataSource={dataClass}
+            pagination={false}
+            rowKey={(record) => record.id}
+          />
         </div>
-        {/* "Yesterday" group */}
-        <div>
-          <header className="text-xs uppercase text-slate-400 bg-slate-50 rounded-sm font-semibold p-2">Hôm qua</header>
-          <ul className="my-1">
-            {/* Item */}
-            <li className="flex px-2">
-              <div className="w-9 h-9 rounded-full shrink-0 bg-sky-500 my-2 mr-3">
-                <svg className="w-9 h-9 fill-current text-sky-50" viewBox="0 0 36 36">
-                  <path d="M23 11v2.085c-2.841.401-4.41 2.462-5.8 4.315-1.449 1.932-2.7 3.6-5.2 3.6h-1v2h1c3.5 0 5.253-2.338 6.8-4.4 1.449-1.932 2.7-3.6 5.2-3.6h3l-4-4zM15.406 16.455c.066-.087.125-.162.194-.254.314-.419.656-.872 1.033-1.33C15.475 13.802 14.038 13 12 13h-1v2h1c1.471 0 2.505.586 3.406 1.455zM24 21c-1.471 0-2.505-.586-3.406-1.455-.066.087-.125.162-.194.254-.316.422-.656.873-1.028 1.328.959.878 2.108 1.573 3.628 1.788V25l4-4h-3z" />
-                </svg>
-              </div>
-              <div className="grow flex items-center border-b border-slate-100 text-sm py-2">
-                <div className="grow flex justify-between">
-                  <div className="self-center"><a className="font-medium text-slate-800 hover:text-slate-900" href="#0">Đã cập nhật thông tin cá nhân của bạn.</a></div>
-                  <div className="shrink-0 self-end ml-2">
-                    <a className="font-medium text-indigo-500 hover:text-indigo-600" href="#0">View<span className="hidden sm:inline"> -&gt;</span></a>
-                  </div>
-                </div>
-              </div>
-            </li>
-            {/* Item */}
-            <li className="flex px-2">
-              <div className="w-9 h-9 rounded-full shrink-0 bg-indigo-500 my-2 mr-3">
-                <svg className="w-9 h-9 fill-current text-indigo-50" viewBox="0 0 36 36">
-                  <path d="M18 10c-4.4 0-8 3.1-8 7s3.6 7 8 7h.6l5.4 2v-4.4c1.2-1.2 2-2.8 2-4.6 0-3.9-3.6-7-8-7zm4 10.8v2.3L18.9 22H18c-3.3 0-6-2.2-6-5s2.7-5 6-5 6 2.2 6 5c0 2.2-2 3.8-2 3.8z" />
-                </svg>
-              </div>
-              <div className="grow flex items-center text-sm py-2">
-                <div className="grow flex justify-between">
-                  <div className="self-center">Bạn đã thêm một đánh giá học phần <a className="font-medium text-slate-800" href="#0">Kĩ Thuật Máy Tính</a></div>
-                  <div className="shrink-0 self-end ml-2">
-                    <a className="font-medium text-indigo-500 hover:text-indigo-600" href="#0">View<span className="hidden sm:inline"> -&gt;</span></a>
-                  </div>
-                </div>
-              </div>
-            </li>
-          </ul>
-        </div>
-
       </div>
     </div>
   );

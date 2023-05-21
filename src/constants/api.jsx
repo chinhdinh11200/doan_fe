@@ -55,6 +55,7 @@ export default {
     },
     CLASS: {
         LIST: '/class',
+        DASHBOARD: '/class/dashboard',
         UPDATE: '/class/:id',
     },
     SUBJECT: {

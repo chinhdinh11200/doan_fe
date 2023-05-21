@@ -17,7 +17,6 @@ import { Select } from 'antd';
 
 
 function Dashboard() {
-
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [year, setYear] = useState(null);
   const { user } = useContext(UserContext);
@@ -99,13 +98,16 @@ function Dashboard() {
 
             {/* Cards */}
             <div className="grid grid-cols-12 gap-6">
-              {/* Card (Recent Activity) */}
-              <DashboardCard12 />
-              {/* Card (Customers) */}
+              {
+                user?.department_id != 1 ? <DashboardCard12 /> : null
+              }
+
               <DashboardCard10 />
-              {/* Table (Top Channels) */}
-              <DashboardCard10 />
-              {/* Table (Top Channels) */}
+
+
+              {/* <DashboardCard10 /> */}
+
+
               <DashboardCard07 />
 
 
@@ -114,7 +116,7 @@ function Dashboard() {
           </div>
         </main>
 
-        <EditMenu />
+        {/* <EditMenu /> */}
 
       </div>
     </div>

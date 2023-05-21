@@ -1,117 +1,133 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { LEVEL_TOPIC, RESULT_TOPIC } from '../../constants';
+import { Table } from 'antd';
+import { useTopicList } from '../../hooks/topic';
+import { UserContext } from '../../context/userInfo';
 
-import Image01 from '../../images/user-36-05.jpg';
-import Image02 from '../../images/user-36-06.jpg';
-import Image03 from '../../images/user-36-07.jpg';
-import Image04 from '../../images/user-36-08.jpg';
-import Image05 from '../../images/user-36-09.jpg';
-
+const columns = [
+  {
+    title: <div className="text-center">STT</div>,
+    dataIndex: "index",
+    key: "index",
+    width: "1%",
+    render: (text, t, index) => (
+      <p className="text-center">
+        {index + 1}
+      </p>
+    ),
+  },
+  {
+    title: <div className="text-center">Mã dự án</div>,
+    dataIndex: "code",
+    key: "code",
+    render: (_, record) => <> {record.code}</>,
+    sortDirections: ["descend", "ascend", "descend"],
+    sorter: () => { },
+  },
+  {
+    title: <div className="text-center">Tên đề tài/dự án</div>,
+    dataIndex: "name",
+    key: "name",
+    sortDirections: ["descend", "ascend", "descend"],
+    sorter: () => { },
+  },
+  {
+    title: <div className="text-center">Số người tham gia</div>,
+    dataIndex: "num_person",
+    key: "num_person",
+    sortDirections: ["descend", "ascend", "descend"],
+    sorter: () => { },
+  },
+  {
+    title: <div className="text-center">Cấp</div>,
+    dataIndex: "level",
+    key: "level",
+    sortDirections: ["descend", "ascend", "descend"],
+    sorter: () => { },
+    render: (_, record) => <p> {
+      LEVEL_TOPIC.find(level => level.value == record.level).label
+    }</p>,
+  },
+  {
+    title: <div className="text-center">Kết quả đạt được</div>,
+    dataIndex: "result",
+    key: "result",
+    sortDirections: ["descend", "ascend", "descend"],
+    sorter: () => { },
+    render: (_, record) => <p> {
+      RESULT_TOPIC.find(result => result.value == record.result).label
+    }</p>,
+  },
+  // {
+  //   title: <div className="text-center">Hành động</div>,
+  //   key: "action",
+  //   width: "150px",
+  //   render: (_, record) => {
+  //     return (
+  //       <Space size="middle" className="flex justify-center">
+  //         <NavLink
+  //           end
+  //           to={`/edit-topic?id=${record.id}`}
+  //           className={({ isActive }) =>
+  //             'block transition duration-150 truncate ' + (isActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200')
+  //           }
+  //         >
+  //           <Tooltip placement="top" title='Sửa'>
+  //             <a href="#" className="text-indigo-600 hover:text-indigo-900" title='edit'>
+  //               <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24"
+  //                 stroke="currentColor">
+  //                 <path strokeLinecap="round" strokeLinejoin="round" strokewith="2"
+  //                   d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+  //               </svg>
+  //             </a>
+  //           </Tooltip>
+  //         </NavLink>
+  //         <Tooltip placement="top" title='Chi tiết' onClick={() => {
+  //           setShowModal(true);
+  //           setTopicDetailId(record.id)
+  //         }}>
+  //           <a href="#" className="text-gray-600 hover:text-gray-900" title='view'>
+  //             <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24"
+  //               stroke="currentColor">
+  //               <path strokeLinecap="round" strokeLinejoin="round" strokewith="2"
+  //                 d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+  //               <path strokeLinecap="round" strokeLinejoin="round" strokewith="2"
+  //                 d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+  //             </svg>
+  //           </a>
+  //         </Tooltip>
+  //         <Tooltip placement='top' title='Xoá'>
+  //           <span title='delete'><svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-red-600 hover:text-red-800"
+  //             fill="none" viewBox="0 0 24 24" stroke="currentColor" onClick={() => showDeleteModal(record.id)}>
+  //             <path strokeLinecap="round" strokeLinejoin="round" strokewith="2"
+  //               d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+  //           </svg></span>
+  //         </Tooltip>
+  //       </Space>
+  //     );
+  //   },
+  // },
+];
 function DashboardCard10() {
-
-  const customers = [
-    {
-      id: '0',
-      image: Image01,
-      name: 'Alex Shatov',
-      email: 'alexshatov@gmail.com',
-      location: '🇺🇸',
-      spent: '$2,890.66',
+  const { user } = useContext(UserContext);
+  const { data: { data: dataTopics = [], total } = {}, isLoading } = useTopicList({
+    pagination: {
+      pageSize: 1,
     },
-    {
-      id: '1',
-      image: Image02,
-      name: 'Philip Harbach',
-      email: 'philip.h@gmail.com',
-      location: '🇩🇪',
-      spent: '$2,767.04',
-    },
-    {
-      id: '2',
-      image: Image03,
-      name: 'Mirko Fisuk',
-      email: 'mirkofisuk@gmail.com',
-      location: '🇫🇷',
-      spent: '$2,996.00',
-    },
-    {
-      id: '3',
-      image: Image04,
-      name: 'Olga Semklo',
-      email: 'olga.s@cool.design',
-      location: '🇮🇹',
-      spent: '$1,220.66',
-    },
-    {
-      id: '4',
-      image: Image05,
-      name: 'Burak Long',
-      email: 'longburak@gmail.com',
-      location: '🇬🇧',
-      spent: '$1,890.66',
-    },
-  ];
-
+    userId: user?.id,
+  });
   return (
-    <div className="col-span-full xl:col-span-6 bg-white shadow-lg rounded-sm border border-slate-200">
+    <div className="col-span-full xl:col-span-12 bg-white shadow-lg rounded-sm border border-slate-200">
       <header className="px-5 py-4 border-b border-slate-100">
-        <h2 className="font-semibold text-slate-800">Danh sách nhân viên gần đây</h2>
+        <h2 className="font-semibold text-slate-800">Danh sách nghiên cứu khoa học gần đây</h2>
       </header>
       <div className="p-3">
-
-        {/* Table */}
-        <div className="overflow-x-auto">
-          <table className="table-auto w-full">
-            {/* Table header */}
-            <thead className="text-xs font-semibold uppercase text-slate-400 bg-slate-50">
-              <tr>
-              <th className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-center">ID</div>
-                </th>
-                <th className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-left">Họ Tên</div>
-                </th>
-                <th className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-left">Email</div>
-                </th>
-                <th className="p-2 whitespace-nowrap">
-                  <div className="font-semibold text-left">Số Điện Thoại</div>
-                </th>
-                
-              </tr>
-            </thead>
-            {/* Table body */}
-            <tbody className="text-sm divide-y divide-slate-100">
-              {
-                customers.map(customer => {
-                  return (
-                    <tr key={customer.id}>
-                      <td className="p-2 whitespace-nowrap">
-                      <div className="text-center">{customer.id}</div>
-                      </td>
-                      <td className="p-2 whitespace-nowrap">
-                        <div className="flex items-center">
-                          <div className="w-10 h-10 shrink-0 mr-2 sm:mr-3">
-                            <img className="rounded-full" src={customer.image} width="40" height="40" alt={customer.name} />
-                          </div>
-                          <div className="font-medium text-slate-800">{customer.name}</div>
-                        </div>
-                      </td>
-                      <td className="p-2 whitespace-nowrap">
-                        <div className="text-left">{customer.email}</div>
-                      </td>
-                      <td className="p-2 whitespace-nowrap">
-                        <div className="text-left font-medium text-green-500">{customer.phone}</div>
-                      </td>
-                      
-                    </tr>
-                  )
-                })
-              }
-            </tbody>
-          </table>
-
-        </div>
-
+        <Table
+          columns={columns}
+          dataSource={dataTopics}
+          rowKey={(record) => record.id}
+          pagination={false}
+        />
       </div>
     </div>
   );

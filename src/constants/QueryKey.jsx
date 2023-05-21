@@ -19,6 +19,7 @@ export const THESIS_LIST = 'thesis-list';
 export const THESIS_DETAIL = 'thesis-detail';
 export const CLASS_LIST = 'class-list';
 export const CLASS_DETAIL = 'class-detail';
+export const CLASS_DASHBOARD = 'class-dashboard';
 export const EXAM_LIST = 'exam-list';
 export const EXAM_DETAIL = 'exam-detail';
 export const SUBJECT_LIST = 'subject-list';

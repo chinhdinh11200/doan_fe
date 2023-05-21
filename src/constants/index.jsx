@@ -1,5 +1,33 @@
 export const PAGE_SIZE = 10;
 
+export const RESULT_TOPIC = [
+  {
+    label: "Đạt",
+    value: 0
+  },
+  {
+    label: "Giỏi",
+    value: 1
+  },
+  {
+    label: "Xuất sắc",
+    value: 2
+  },
+];
+export const LEVEL_TOPIC =  [
+  {
+    label: "Cơ sở",
+    value: 0
+  },
+  {
+    label: "Ban",
+    value: 1
+  },
+  {
+    label: "Nhà nước",
+    value: 2
+  },
+];
 export const FORM_EXAM = [
   {
     value: 0,
@@ -236,11 +264,11 @@ export const TYPE_THESIS = [
     value: 4
   },
   {
-    label:  "Hướng dẫn 01 đồ án tốt nghiệp/nhóm/04 sinh viên",
+    label: "Hướng dẫn 01 đồ án tốt nghiệp/nhóm/04 sinh viên",
     value: 5
   },
   {
-    label:  "Hướng dẫn 01 đồ án tốt nghiệp/nhóm/05 sinh viên",
+    label: "Hướng dẫn 01 đồ án tốt nghiệp/nhóm/05 sinh viên",
     value: 6
   },
 ]

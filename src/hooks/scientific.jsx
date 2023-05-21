@@ -5,21 +5,23 @@ import API from '../constants/api';
 import { PAGE_SIZE } from '../constants';
 
 export const useScientificList = (tableParams) => {
-    var sort, sortColumn, limit, page, search;
+    var sort, sortColumn, limit, page, search, userId;
     if (tableParams !== undefined) {
         sort = tableParams.sorter?.sort || 'desc'
         sortColumn = tableParams.sorter?.sortColumn || 'id'
-        limit = tableParams.sorter?.pageSize || PAGE_SIZE
-        page = tableParams.sorter?.current || 1
+        limit = tableParams.pagination?.pageSize || PAGE_SIZE
+        page = tableParams.pagination?.current || 1
         search = tableParams.search
+        userId = tableParams.userId
     }
 
-    return useQuery([SCIENTIFIC_LIST, sort, sortColumn, limit, page, search], async () => {
+    return useQuery([SCIENTIFIC_LIST, sort, sortColumn, limit, page, search, userId], async () => {
         const { data, headers } = await axios.get(
             `${API.API_ROOT}${API.SCIENTIFIC.LIST}`,
             {
                 params: {
                     sort: sort,
+                    user_id: userId,
                     sortColumn: sortColumn,
                     limit: limit,
                     search,

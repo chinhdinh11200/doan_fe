@@ -333,10 +333,10 @@ const ModalDetail = ({ scientificId, setShowModal }) => {
                       return (
                         <div className='flex'>
                           <p className="w-1/2 break-all">
-                            {user.book_user.type == 0 ? 'Tác giả chính' : 'Thành viên'}
+                            {user.book_user?.type == 0 ? 'Tác giả chính' : 'Thành viên'}
                             {user.name}
                           </p>
-                          <p className="w-1/2 break-all text-right">{user.book_user.time}</p>
+                          <p className="w-1/2 break-all text-right">{user.book_user?.time}</p>
                         </div>
                       )
                     })

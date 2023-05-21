@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { CLASS_DETAIL, CLASS_LIST } from '../constants/QueryKey';
+import { CLASS_DASHBOARD, CLASS_DETAIL, CLASS_LIST } from '../constants/QueryKey';
 import axios from '../config/axios';
 import API from '../constants/api';
 import { PAGE_SIZE } from '../constants';
@@ -24,6 +24,21 @@ export const useClassList = (tableParams) => {
                     limit: limit,
                     search,
                     offset: page == 1 ? page - 1 : page
+                },
+            })
+
+        return { data, total: headers["x-total-count"] };
+    })
+}
+
+export const useClassDashboard = ({ userId, yearId }) => {
+    return useQuery([CLASS_DASHBOARD, userId, yearId], async () => {
+        const { data, headers } = await axios.get(
+            `${API.API_ROOT}${API.CLASS.DASHBOARD}`,
+            {
+                params: {
+                    year_id: yearId,
+                    user_id: userId,
                 },
             })
 
