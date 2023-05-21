@@ -377,7 +377,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 {(handleClick, open) => {
                   return (
                     <React.Fragment>
-                      <NavLink end to="/list-research"
+                      <NavLink end to="/list-topic"
                         className={`block text-slate-200 truncate transition duration-150 ${open ? 'hover:text-slate-200' : 'hover:text-white'}`}
                       >
                         <div className="flex items-center justify-between">
@@ -408,7 +408,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 {(handleClick, open) => {
                   return (
                     <React.Fragment>
-                      <NavLink end to="/scientific-article-list"
+                      <NavLink end to="/list-article"
                         className={`block text-slate-200 truncate transition duration-150 ${open ? 'hover:text-slate-200' : 'hover:text-white'}`}
                       >
                         <div className="flex items-center justify-between">
@@ -538,17 +538,12 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 {(handleClick, open) => {
                   return (
                     <React.Fragment>
-                      <Link
-                        href="#0"
+                      <NavLink end to="/instruction-list"
                         className={`block text-slate-200 truncate transition duration-150 ${open ? 'hover:text-slate-200' : 'hover:text-white'}`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          sidebarExpanded ? handleClick() : setSidebarExpanded(true);
-                        }}
                       >
                         <div className="flex items-center justify-between">
                           <div className="flex items-center">
-                            <svg className="shrink-0 h-6 w-6" viewBox="0 0 24 24">
+                          <svg className="shrink-0 h-6 w-6" viewBox="0 0 24 24">
                               <circle
                                 className={`fill-current ${pathname.includes('component') ? 'text-indigo-500' : 'text-slate-600'}`}
                                 cx="16"
@@ -563,7 +558,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                               />
                             </svg>
                             <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                              Quản lý hướng dẫn <br /> nghiên cứu khoa học
+                            Quản lý hướng dẫn <br /> nghiên cứu khoa học
                             </span>
                           </div>
                           {/* Icon */}
@@ -573,32 +568,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                             </svg>
                           </div>
                         </div>
-                      </Link>
-                      <div className="lg:hidden lg:sidebar-expanded:block 2xl:block">
-                        <ul className={`pl-9 mt-1 ${!open && 'hidden'}`}>
-                          <li className="mb-1 last:mb-0">
-                            <NavLink end to="/instruction-list" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
-                              <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                Danh sách hướng dẫn nghiên cứu
-                              </span>
-                            </NavLink>
-                          </li>
-                          <li className="mb-1 last:mb-0">
-                            <NavLink end to="/add-instructions" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
-                              <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                Thêm hướng dẫn NCKH
-                              </span>
-                            </NavLink>
-                          </li>
-                          <li className="mb-1 last:mb-0">
-                            <NavLink end to="/add-coach" className="block text-slate-400 hover:text-slate-200 transition duration-150 truncate">
-                              <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                Thêm huấn luyện đội tuyển
-                              </span>
-                            </NavLink>
-                          </li>
-                        </ul>
-                      </div>
+                      </NavLink>
                     </React.Fragment>
                   );
                 }}
@@ -636,7 +606,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 {(handleClick, open) => {
                   return (
                     <React.Fragment>
-                      <NavLink end to="/material-compilation-list"
+                      <NavLink end to="/list-compilation"
                         className={`block text-slate-200 truncate transition duration-150 ${open ? 'hover:text-slate-200' : 'hover:text-white'}`}
                       >
                         <div className="flex items-center justify-between">

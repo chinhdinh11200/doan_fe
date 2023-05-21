@@ -309,11 +309,11 @@ const ModalDetail = ({ subjectId, setShowModal }) => {
                 <line x1="1" y1="11"
                   x2="11" y2="1"
                   stroke="black"
-                  stroke-width="2" />
+                  strokeWidth="2" />
                 <line x1="1" y1="1"
                   x2="11" y2="11"
                   stroke="black"
-                  stroke-width="2" />
+                  strokeWidth="2" />
               </svg>
             </button>
 

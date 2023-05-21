@@ -201,6 +201,7 @@ function scientificList() {
                     <Search onChangeSearch={onChangeSearch} />
                     <FilterButton />
                   </div>
+                  <div className='flex gap-2'>
                   <NavLink end to="/add-instructions" className="btn bg-indigo-500 hover:bg-indigo-600 text-white">
                     <svg className="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
                       <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
@@ -209,6 +210,15 @@ function scientificList() {
                       Thêm hướng dẫn
                     </span>
                   </NavLink>
+                  <NavLink end to="/add-coach" className="btn bg-indigo-500 hover:bg-indigo-600 text-white">
+                    <svg className="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
+                      <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
+                    </svg>
+                    <span className="ml-2">
+                      Thêm huấn luyện đội tuyển
+                    </span>
+                  </NavLink>
+                  </div>
                 </div>
               </div>
               <div className="flex flex-col">
@@ -290,11 +300,11 @@ const ModalDetail = ({ scientificId, setShowModal }) => {
                 <line x1="1" y1="11"
                   x2="11" y2="1"
                   stroke="black"
-                  stroke-width="2" />
+                  strokeWidth="2" />
                 <line x1="1" y1="1"
                   x2="11" y2="11"
                   stroke="black"
-                  stroke-width="2" />
+                  strokeWidth="2" />
               </svg>
             </button>
             <div className="relative border">
@@ -340,10 +350,6 @@ const ModalDetail = ({ scientificId, setShowModal }) => {
               <div className="flex justify-between py-2 pl-2 border-b">
                 <p className="w-1/2 break-all">Số trang:</p>
                 <p className="w-1/2 break-all">{dataScientific?.num_page}</p>
-              </div>
-              <div className="flex justify-between py-2 pl-2">
-                <p className="w-1/2 break-all">Kì học:</p>
-                <p className="w-1/2 break-all">{dataScientific?.years.name}</p>
               </div>
               <div className="flex justify-between py-2 pl-2">
                 <p className="w-1/2 break-all">Năm học:</p>

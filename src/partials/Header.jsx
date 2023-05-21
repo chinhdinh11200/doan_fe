@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import SearchModal from './header/SearchModal';
-import Notifications from './header/Notifications';
 import Help from './header/Help';
 import UserMenu from './header/UserMenu';
 
@@ -51,14 +50,11 @@ function Header({
               </svg>
             </button>
             <SearchModal id="search-modal" searchId="search" modalOpen={searchModalOpen} setModalOpen={setSearchModalOpen} />
-            <Notifications />
             <Help />
             {/*  Divider */}
             <hr className="w-px h-6 bg-slate-200 mx-3" />
             <UserMenu />
-
           </div>
-
         </div>
       </div>
     </header>

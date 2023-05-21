@@ -77,16 +77,16 @@ function App() {
         <Route path="/list-teach" element={<AllTeaching />} />
         <Route path="/list-course" element={<CourseList />} />
         <Route path="/list-thesis" element={<ThesisList />} />
-        <Route path="/list-research" element={<ResearchList />} />
-        <Route path="/scientific-article-list" element={<ScientificArticles />} />
+        <Route path="/list-topic" element={<ResearchList />} />
+        <Route path="/list-article" element={<ScientificArticles />} />
         <Route path="/book-list" element={<TextBook />} />
         <Route path="/invention-list" element={<LicenseInvention />} />
         <Route path="/instruction-list" element={<IntructionList />} />
-        <Route path="/add-material-compilation" element={<AddMaterialCompilation />} />
+        <Route path="/add-compilation" element={<AddMaterialCompilation />} />
         <Route path="/build-program-list" element={<BuildProgramList />} />
         <Route path="/personal-infor" element={<EditAccount />} />
         <Route path="/ecommerce/customers" element={<Test />} />
-        <Route path="/material-compilation-list" element={<FormAddMaterialCompilation />} />
+        <Route path="/list-compilation" element={<FormAddMaterialCompilation />} />
         <Route path="/add-staff" element={<AddStaff />} />
         <Route path="/add-class" element={<AddClass />} />
         <Route path="/add-subject" element={<AddSubject />} />
@@ -95,7 +95,7 @@ function App() {
         <Route path="/add-mark" element={<AddMark />} />
         <Route path="/add-teaching" element={<AddTeaching />} />
         <Route path="/add-term-exam" element={<AddTermExam />} />
-        <Route path="/add-research" element={<AddResearch />} />
+        <Route path="/add-topic" element={<AddResearch />} />
         <Route path="/add-article" element={<AddScientificArticles />} />
         <Route path="/add-thesis" element={<AddThesis />} />
         <Route path="/add-book" element={<AddTextBook />} />

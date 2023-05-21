@@ -201,7 +201,7 @@ function compilationList() {
                     <Search onChangeSearch={onChangeSearch} />
                     <FilterButton />
                   </div>
-                  <NavLink end to="/add-material-compilation" className="btn bg-indigo-500 hover:bg-indigo-600 text-white">
+                  <NavLink end to="/add-compilation" className="btn bg-indigo-500 hover:bg-indigo-600 text-white">
                     <svg className="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
                       <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
                     </svg>
@@ -290,11 +290,11 @@ const ModalDetail = ({ compilationId, setShowModal }) => {
                 <line x1="1" y1="11"
                   x2="11" y2="1"
                   stroke="black"
-                  stroke-width="2" />
+                  strokeWidth="2" />
                 <line x1="1" y1="1"
                   x2="11" y2="11"
                   stroke="black"
-                  stroke-width="2" />
+                  strokeWidth="2" />
               </svg>
             </button>
             <div className="relative border">
@@ -341,10 +341,6 @@ const ModalDetail = ({ compilationId, setShowModal }) => {
               <div className="flex justify-between py-2 pl-2 border-b">
                 <p className="w-1/2 break-all">Hình thức xây dựng:</p>
                 <p className="w-1/2 break-all">{dataCompialtion?.form_construction}</p>
-              </div>
-              <div className="flex justify-between py-2 pl-2">
-                <p className="w-1/2 break-all">Kì học:</p>
-                <p className="w-1/2 break-all">{dataCompialtion?.years.name}</p>
               </div>
               <div className="flex justify-between py-2 pl-2">
                 <p className="w-1/2 break-all">Năm học:</p>

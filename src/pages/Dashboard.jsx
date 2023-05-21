@@ -53,10 +53,10 @@ function Dashboard() {
 
               {/* Datepicker built with flatpickr */}
               {/* <Datepicker /> */}
-              <div className='flex'>
+              <div className='flex gap-3'>
                 <div className=''>
                   <Select
-                    className='w-[200px]'
+                    className='w-[200px] h-[38px]'
                     options={years}
                     onChange={(val) => {
                       setYear(val)

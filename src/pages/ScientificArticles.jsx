@@ -294,11 +294,11 @@ const ModalDetail = ({ articleId, setShowModal }) => {
               <line x1="1" y1="11"
                 x2="11" y2="1"
                 stroke="black"
-                stroke-width="2" />
+                strokeWidth="2" />
               <line x1="1" y1="1"
                 x2="11" y2="11"
                 stroke="black"
-                stroke-width="2" />
+                strokeWidth="2" />
             </svg>
           </button>
 
@@ -344,10 +344,6 @@ const ModalDetail = ({ articleId, setShowModal }) => {
               <p className="w-1/2">Tổng thời gian:</p>
               <p className="w-1/2">{dataArticle?.total_time}</p>
             </div>
-            <div className="flex justify-between py-2 pl-2">
-                <p className="w-1/2 break-all">Kì học:</p>
-                <p className="w-1/2 break-all">{dataArticle?.years.name}</p>
-              </div>
               <div className="flex justify-between py-2 pl-2">
                 <p className="w-1/2 break-all">Năm học:</p>
                 <p className="w-1/2 break-all">{dataArticle?.year_id}</p>

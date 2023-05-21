@@ -142,7 +142,7 @@ function FormCreate() {
 
   useEffect(() => {
     if (dataCreate) {
-      navigate('/list-research');
+      navigate('/list-topic');
     }
   }, [isSuccess]);
 
@@ -388,7 +388,7 @@ function FormEdit({ topicId }) {
 
   useEffect(() => {
     if (dataCreate?.data.success) {
-      navigate('/list-research');
+      navigate('/list-topic');
     }
   }, [isSuccess]);
 

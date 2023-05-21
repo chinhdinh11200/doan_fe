@@ -296,11 +296,11 @@ const ModalDetail = ({ roomId, setShowModal }) => {
                 <line x1="1" y1="11"
                   x2="11" y2="1"
                   stroke="black"
-                  stroke-width="2" />
+                  strokeWidth="2" />
                 <line x1="1" y1="1"
                   x2="11" y2="11"
                   stroke="black"
-                  stroke-width="2" />
+                  strokeWidth="2" />
               </svg>
             </button>
 
@@ -331,7 +331,7 @@ const ModalDetail = ({ roomId, setShowModal }) => {
               </div>
               <div className="flex justify-between py-2 pl-2">
                 <p className="w-1/2 break-all">Kì học:</p>
-                <p className="w-1/2 break-all">{dataRoom?.years.name}</p>
+                <p className="w-1/2 break-all">{dataRoom?.semester}</p>
               </div>
               <div className="flex justify-between py-2 pl-2">
                 <p className="w-1/2 break-all">Năm học:</p>

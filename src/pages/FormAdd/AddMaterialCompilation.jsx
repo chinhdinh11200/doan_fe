@@ -106,7 +106,7 @@ function FormCreate() {
   useEffect(() => {
     console.log("dataCreate");
     if (dataCreate) {
-      navigate('/material-compilation-list');
+      navigate('/list-compilation');
     }
   }, [isSuccess]);
 
@@ -337,7 +337,7 @@ function FormEdit({ compilationId }) {
 
   useEffect(() => {
     if (dataCreate?.data.success) {
-      navigate('/material-compilation-list');
+      navigate('/list-compilation');
     }
   }, [isSuccess]);
 

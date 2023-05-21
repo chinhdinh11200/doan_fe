@@ -108,7 +108,7 @@ function FormCreate() {
 
   useEffect(() => {
     if (dataCreate?.data.success) {
-      navigate('/scientific-article-list');
+      navigate('/list-article');
     }
   }, [isSuccess]);
 
@@ -363,7 +363,7 @@ function FormEdit({ articleId }) {
 
   useEffect(() => {
     if (dataCreate?.data.success) {
-      navigate('/scientific-article-list');
+      navigate('/list-article');
     }
   }, [isSuccess]);
 
