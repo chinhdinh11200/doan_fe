@@ -7,7 +7,7 @@ import { useArticleDelete, useArticleDetail, useArticleList } from '../hooks/art
 import Loading from '../components/Loading';
 import { Button, Modal, Space, Table, Tooltip } from 'antd';
 import { BiEdit, BiTrash } from 'react-icons/bi';
-import { PAGE_SIZE, type_article } from '../constants';
+import { PAGE_SIZE, TYPE_ARTICLE, TYPE_ARTICLESCIENTIFIC} from '../constants';
 import Search from '../components/Search';
 import { debounce } from 'lodash';
 
@@ -55,11 +55,14 @@ function Dashboard() {
       sorter: () => { },
     },
     {
-      title: <div className="text-center uppercase">Thể loại</div>,
+      title: <div className="text-center uppercase">Loại tạp chí</div>,
       dataIndex: "type",
       key: "type",
       sortDirections: ["descend", "ascend", "descend"],
       sorter: () => { },
+      render: (_, record) => {
+        return (TYPE_ARTICLESCIENTIFIC.find(formExam => formExam.value == record.type)?.label)
+      }
     },
     {
       title: <div className="text-center uppercase">Hành động</div>,
@@ -322,8 +325,8 @@ const ModalDetail = ({ articleId, setShowModal }) => {
               </p>
             </div>
             <div className="flex justify-between py-2 pl-2 border-b">
-              <p className="w-1/2 break-all">Tác giả:</p>
-              <div className="w-1/2 break-all">
+              <p className="w-1/2 break-words">Tác giả:</p>
+              <div className="w-1/2 break-words">
                 {
                   dataArticle?.users.map(user => {
                     return (
@@ -338,15 +341,11 @@ const ModalDetail = ({ articleId, setShowModal }) => {
             </div>
             <div className="flex justify-between py-2 pl-2 border-b">
               <p className="w-1/2">Thể loại:</p>
-              <p className="w-1/2">{type_article.find(type => type.value === dataArticle?.type)?.label}</p>
-            </div>
-            <div className="flex justify-between py-2 pl-2">
-              <p className="w-1/2">Tổng thời gian:</p>
-              <p className="w-1/2">{dataArticle?.total_time}</p>
+              <p className="w-1/2">{TYPE_ARTICLE.find(type => type.value === dataArticle?.type_article)?.label}</p>
             </div>
               <div className="flex justify-between py-2 pl-2">
-                <p className="w-1/2 break-all">Năm học:</p>
-                <p className="w-1/2 break-all">{dataArticle?.year_id}</p>
+                <p className="w-1/2 break-words">Năm học:</p>
+                <p className="w-1/2 break-words">{dataArticle?.year.name}</p>
               </div>
           </div>
         </div>

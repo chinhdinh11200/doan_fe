@@ -40,7 +40,7 @@ function AddArticle() {
 
         <main className='bg-white w-9/12 mx-auto p-8 shadow-md my-4'>
           <div className='py-5 mb-4 w-auto text-center'><span className='p-3 rounded-lg bg-slate-800 border
-           text-white hover:text-slate-800 hover:bg-white hover:border-slate-800'>{currentLocation.pathname == '/edit-article' ? 'Cập Nhật Bài Báo' : 'Thêm Bài Báo'}</span></div>
+           text-white '>{currentLocation.pathname == '/edit-article' ? 'Cập Nhật Bài Báo' : 'Thêm Bài Báo'}</span></div>
           {currentLocation.pathname == '/edit-article' ? <FormEdit articleId={articleId} /> : <FormCreate />}
         </main>
       </div>
@@ -155,7 +155,7 @@ function FormCreate() {
             <div className="mt-2">
               <Controller
                 control={control}
-                name="typeArticle"
+                name="type_article"
                 render={({ field: { value, onChange, ref } }) => (
                   <Select
                     options={type_article}
@@ -375,14 +375,14 @@ function FormEdit({ articleId }) {
         departmentSelected: departments?.find(department => department.id === dataArticle.department_id),
         positionSelected: POSITION_STAFF.find(position => position.value == dataArticle.position),
         roleSelected: dataArticle?.users,
-        yearSelected: years?.find((year) => year.id == dataArticle.year_id),
+        yearSelected: years?.find((year) => year.id == dataArticle.year.id),
         // articleSelected: type_article.find(article => article.value == dataArticle.type_article),
         type_articlescientificSelected: TYPE_ARTICLESCIENTIFIC.find(article => article.value == dataArticle.type),
         role: dataArticle?.users?.map(user => user.id).join(','),
         type: 2,
       })
     }
-  }, [dataArticle]);
+  }, [dataArticle, years]);
 
   return (
     <div className="w-full">
@@ -515,19 +515,21 @@ function FormEdit({ articleId }) {
               <Controller
                 control={control}
                 name="yearSelected"
-                render={({ field: { value, onChange, ref } }) => (
-                  <Select
-                    options={years}
-                    value={value}
-                    id="year_id"
-                    placeholder="Lựa chọn"
-                    {...register('year_id')}
-                    onChange={(val) => {
-                      onChange(val);
-                      setValue("year_id", val.value);
-                    }}
-                  />
-                )}
+                render={({ field: { value, onChange, ref } }) => {
+                  return (
+                    <Select
+                      options={years}
+                      value={value}
+                      id="year_id"
+                      placeholder="Lựa chọn"
+                      {...register('year_id')}
+                      onChange={(val) => {
+                        onChange(val);
+                        setValue("year_id", val.value);
+                      }}
+                    />
+                  )
+                }}
               />
               {errors.year_id && <p className="text-red-500">{errors.year_id.message}</p>}
             </div>

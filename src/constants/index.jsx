@@ -273,7 +273,7 @@ export const TYPE_THESIS = [
   },
 ]
 
-export const type_article = [
+export const TYPE_ARTICLE = [
   {
     label: "Tạp chí",
     value: 0
@@ -283,3 +283,60 @@ export const type_article = [
     value: 1
   },
 ]
+export const LEVEL_RESEARCH = [
+  {
+    label: "Cơ sở",
+    value: 0
+  },
+  {
+    label: "Ban",
+    value: 1
+  },
+  {
+    label: "Nhà nước",
+    value: 2
+  },
+];
+
+export const FORM_CONSTRUCTION = [
+  {
+    label: "Xây mới chương trình khung",
+    value: 0
+  },
+  {
+    label: "Xây mới chương trình chi tiết",
+    value: 1
+  },
+  {
+    label: "Tu sửa chương trình khung",
+    value: 2
+  },
+  {
+    label: "Tu sửa chương trình chi tiết",
+    value: 3
+  },
+];
+export const FORM_COMPILATION = [
+  {
+    label: "Viết mới",
+    value: 0
+  },
+  {
+    label: "Tu chỉnh",
+    value: 1
+  },
+];
+export const RESULT_RESEARCH = [
+  {
+    label: "Đạt",
+    value: 0
+  },
+  {
+    label: "Giỏi",
+    value: 1
+  },
+  {
+    label: "Xuất sắc",
+    value: 2
+  },
+];

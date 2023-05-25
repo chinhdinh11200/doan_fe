@@ -30,7 +30,7 @@ function AddThesis() {
 
         <main className='bg-white w-9/12 mx-auto p-8 shadow-md my-4'>
           <div className='py-5 mb-4 w-auto text-center'><span className='p-3 rounded-lg bg-slate-800 border
-           text-white hover:text-slate-800 hover:bg-white hover:border-slate-800'>{currentLocation.pathname == '/edit-thesis' ? 'Cập Nhật luận án/luận văn' : 'Thêm luận án/luận văn'}</span></div>
+           text-white '>{currentLocation.pathname == '/edit-thesis' ? 'Cập Nhật luận án/luận văn' : 'Thêm luận án/luận văn'}</span></div>
           {currentLocation.pathname == '/edit-thesis' ? <FormEdit thesisId={thesisId} /> : <FormCreate />}
         </main>
       </div>
@@ -241,7 +241,6 @@ function FormCreate() {
           </div>
         </form>
       </div>
-
     </div>
   );
 }
@@ -291,7 +290,6 @@ function FormEdit({ thesisId }) {
     // name: yup.string().trim().required('Vui lòng nhập tên đề tài'),
     // code: yup.string().required('Vui lòng nhập mã đề tài').min(4, "Mã đề tài không được nhỏ hơn 4 kí tự."),
     course: yup.string(),
-    // number_recognition: yup.string(),
   })
   const {
     register,

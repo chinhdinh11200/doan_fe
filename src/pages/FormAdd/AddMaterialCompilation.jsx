@@ -9,19 +9,9 @@ import { useDepartmentList } from '../../hooks/departments';
 import Select from 'react-select';
 import { NavLink, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useStaffList } from '../../hooks/staffs';
-import { POSITION_STAFF} from '../../constants';
+import { POSITION_STAFF, FORM_COMPILATION} from '../../constants';
 import { useYearList } from '../../hooks/year';
 
-const form_construction = [
-  {
-    label: "Xây mới",
-    value: 0
-  },
-  {
-    label: "Tu sửa",
-    value: 1
-  },
-];
 function AddCompilation() {
   const currentLocation = useLocation();
   const [searchParams] = useSearchParams();
@@ -41,7 +31,7 @@ function AddCompilation() {
 
         <main className='bg-white w-9/12 mx-auto p-8 shadow-md my-4'>
           <div className='py-5 mb-4 w-auto text-center'><span className='p-3 rounded-lg bg-slate-800 border
-             text-white hover:text-slate-800 hover:bg-white hover:border-slate-800'>{currentLocation.pathname == '/edit-compilation' ? 'Cập Nhật Giáo Trình/Bài Giảng' : 'Thêm Giáo Trình/Bài Giảng'}</span></div>
+             text-white '>{currentLocation.pathname == '/edit-compilation' ? 'Cập Nhật Giáo Trình/Bài Giảng' : 'Thêm Giáo Trình/Bài Giảng'}</span></div>
           {currentLocation.pathname == '/edit-compilation' ? <FormEdit compilationId={compilationId} /> : <FormCreate />}
         </main>
       </div>
@@ -223,10 +213,10 @@ function FormCreate() {
             <div className="mt-2">
               <Controller
                 control={control}
-                name="form_constructionSelected"
+                name="form_construction"
                 render={({ field: { value, onChange, ref } }) => (
                   <Select
-                    options={form_construction}
+                    options={FORM_COMPILATION}
                     value={value}
                     name="form_construction"
                     id="form_construction"
@@ -348,7 +338,7 @@ function FormEdit({ compilationId }) {
         password: '',
         departmentSelected: departments?.find(department => department.id === dataCompilation.department_id),
         positionSelected: POSITION_STAFF.find(position => position.value == dataCompilation.position),
-        form_constructionSelected: form_construction.find(construction => construction.value == dataCompilation.form_construction),
+        form_constructionSelected: FORM_COMPILATION.find(construction => construction.value == dataCompilation.form_construction),
         roleSelected: dataCompilation?.users,
         yearSelected: years?.find((year) => year.id == dataCompilation.year_id),
         num_credit: dataCompilation?.number_credit,
@@ -473,7 +463,7 @@ function FormEdit({ compilationId }) {
                 name="form_constructionSelected"
                 render={({ field: { value, onChange, ref } }) => (
                   <Select
-                    options={form_construction}
+                    options={FORM_COMPILATION}
                     value={value}
                     name="form_construction"
                     id="form_construction"

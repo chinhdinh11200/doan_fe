@@ -332,17 +332,17 @@ const ModalDetail = ({ subjectId, setShowModal }) => {
 
             <div className="relative border">
               <div className="flex justify-between py-2 pl-2 border-b gap-2">
-                <p className="w-1/2 break-all">Mã lớp:</p>
-                <p className="w-1/2 break-all">{dataSubject?.code}</p>
+                <p className="w-1/2 break-words">Mã lớp:</p>
+                <p className="w-1/2 break-words">{dataSubject?.code}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b gap-2">
-                <p className="w-1/2 break-all">Tên lớp:</p>
-                <p className="w-1/2 break-all">{dataSubject?.name}</p>
+                <p className="w-1/2 break-words">Tên lớp:</p>
+                <p className="w-1/2 break-word">{dataSubject?.name}</p>
               </div>
 
               <div className="flex justify-between py-2 pl-2 gap-2 ">
-                <p className="w-1/2 break-all">Hình thức thi:</p>
-                <p className="w-1/2 break-all">{dataSubject?.form_exam}</p>
+                <p className="w-1/2 break-words">Hình thức thi:</p>
+                <p className="w-1/2 break-words">{dataSubject?.form_exam}</p>
               </div>
             </div>
           </div>

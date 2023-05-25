@@ -394,14 +394,13 @@ function FormEdit({ topicId }) {
 
   useEffect(() => {
     if (dataTopic) {
-      console.log(years?.find((year) => year.id == dataTopic.year.id), 1111);
       reset({
         ...dataTopic,
         password: '',
         departmentSelected: departments?.find(department => department.id === dataTopic.department_id),
         positionSelected: POSITION_STAFF.find(position => position.value == dataTopic.position),
         level_selected: level.find(topic => topic.value == dataTopic.level),
-        yearSelected: years?.find((year) => year.id == dataTopic.year.id),
+        yearSelected: years?.find((year) => year.id == dataTopic.year?.id),
         resultSelected: result.find(research => research.value == dataTopic.result),
         roleSelected: dataTopic?.users,
         role: dataTopic?.users?.map(user => user.id).join(','),
@@ -463,6 +462,7 @@ function FormEdit({ topicId }) {
                     placeholder="Lựa chọn"
                     {...register('level')}
                     onChange={(val) => {
+                      console.log(val, val.value)
                       onChange(val);
                       setValue("level", val.value);
                     }}

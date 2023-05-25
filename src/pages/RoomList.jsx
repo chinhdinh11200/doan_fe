@@ -306,36 +306,36 @@ const ModalDetail = ({ roomId, setShowModal }) => {
 
             <div className="relative border">
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2 break-all">Mã coi thi:</p>
-                <p className="w-1/2 break-all">{dataRoom?.code}</p>
+                <p className="w-1/2 break-words">Mã coi thi:</p>
+                <p className="w-1/2 break-words">{dataRoom?.code}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2 break-all">Môn thi:</p>
-                <p className="w-1/2 break-all">{dataRoom?.subject_id}</p>
+                <p className="w-1/2 break-words">Môn thi:</p>
+                <p className="w-1/2 break-words">{dataRoom?.subject_id}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2 break-all">Người coi thi:</p>
-                <p className="w-1/2 break-all">{dataRoom?.user_id}</p>
+                <p className="w-1/2 break-words">Người coi thi:</p>
+                <p className="w-1/2 break-words">{dataRoom?.user_id}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2 break-all">Số ca coi thi:</p>
-                <p className="w-1/2 break-all">{dataRoom?.num_exam_session}</p>
+                <p className="w-1/2 break-words">Số ca coi thi:</p>
+                <p className="w-1/2 break-words">{dataRoom?.num_exam_session}</p>
               </div>
               <div className="flex justify-between py-2 pl-2">
-                <p className="w-1/2 break-all">Thời gian làm bài:</p>
-                <p className="w-1/2 break-all">{dataRoom?.time}</p>
+                <p className="w-1/2 break-words">Thời gian làm bài:</p>
+                <p className="w-1/2 break-words">{dataRoom?.time}</p>
               </div>
               <div className="flex justify-between py-2 pl-2">
-                <p className="w-1/2 break-all">Ngày coi thi:</p>
-                <p className="w-1/2 break-all">{dataRoom?.startDate}</p>
+                <p className="w-1/2 break-words">Ngày coi thi:</p>
+                <p className="w-1/2 break-words">{dataRoom?.startDate}</p>
               </div>
               <div className="flex justify-between py-2 pl-2">
-                <p className="w-1/2 break-all">Kì học:</p>
-                <p className="w-1/2 break-all">{dataRoom?.semester}</p>
+                <p className="w-1/2 break-words">Kì học:</p>
+                <p className="w-1/2 break-words">{dataRoom?.semester}</p>
               </div>
               <div className="flex justify-between py-2 pl-2">
-                <p className="w-1/2 break-all">Năm học:</p>
-                <p className="w-1/2 break-all">{dataRoom?.year_id}</p>
+                <p className="w-1/2 break-words">Năm học:</p>
+                <p className="w-1/2 break-words">{dataRoom?.year_id}</p>
               </div>
             </div>
           </div>

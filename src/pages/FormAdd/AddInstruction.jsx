@@ -30,7 +30,7 @@ function AddScientific() {
 
         <main className='bg-white w-9/12 mx-auto p-8 shadow-md my-4'>
           <div className='py-5 mb-4 w-auto text-center'><span className='p-3 rounded-lg bg-slate-800 border
-             text-white hover:text-slate-800 hover:bg-white hover:border-slate-800'>{currentLocation.pathname == '/edit-scientific' ? 'Cập Nhật Đề Tài' : 'Thêm Đề Tài'}</span></div>
+             text-white '>{currentLocation.pathname == '/edit-scientific' ? 'Cập Nhật Đề Tài' : 'Thêm Đề Tài'}</span></div>
           {currentLocation.pathname == '/edit-scientific' ? <FormEdit scientificId={scientificId} /> : <FormCreate />}
         </main>
       </div>
@@ -249,6 +249,7 @@ function FormCreate() {
                 render={({ field: { value, onChange, ref } }) => (
                   <Select
                     options={years}
+                    value={value}
                     id="year_id"
                     placeholder="Lựa chọn"
                     {...register('year_id')}
@@ -315,8 +316,8 @@ function FormEdit({ scientificId }) {
   const schema = yup.object().shape({
     name: yup.string().trim().required('Vui lòng nhập tên đề tài'),
     code: yup.string().required('Vui lòng nhập mã đề tài').min(4, "Mã đề tài không được nhỏ hơn 4 kí tự."),
-    date_decision: yup.date().required(),
-    num_decision: yup.string().required(),
+    // date_decision: yup.date().required(),
+    // num_decision: yup.string().required(),
   })
   const {
     register,
@@ -495,7 +496,7 @@ function FormEdit({ scientificId }) {
             </div>
           </div>
           <div className="col-span-full mb-2">
-            <label htmlFor="year_id" className="block text-sm font-medium leading-6 text-gray-900">Năm học</label>
+            <label htmlFor="yearSelected" className="block text-sm font-medium leading-6 text-gray-900">Năm học</label>
             <div className="mt-2">
               <Controller
                 control={control}

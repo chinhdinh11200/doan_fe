@@ -19,7 +19,7 @@ function Dashboard() {
 
         <main className='bg-white w-9/12 mx-auto p-8 shadow-md my-4'>
           <div className='py-5 mb-4 w-auto text-center'><span className='p-3 rounded-lg bg-slate-800 border
-           text-white hover:text-slate-800 hover:bg-white hover:border-slate-800'>Thêm đánh giá học phần</span></div>
+           text-white '>Thêm đánh giá học phần</span></div>
           <div className="w-full">
             <div className="border-b border-gray-900/10 pb-12">
             <div className="col-span-full mb-2 my-3">

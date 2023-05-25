@@ -53,7 +53,7 @@ function Dashboard() {
               {/* Datepicker built with flatpickr */}
               {/* <Datepicker /> */}
               <div className='flex gap-3'>
-                {/* <div className=''>
+                <div className=''>
                   <Select
                     className='w-[200px] h-[38px]'
                     options={years}
@@ -62,7 +62,7 @@ function Dashboard() {
                       console.log(val)
                     }}
                   />
-                </div> */}
+                </div>
                 {
                   user?.department_id != 1 ?
                     <div className=''>

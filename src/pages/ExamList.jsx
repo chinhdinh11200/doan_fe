@@ -304,32 +304,32 @@ const ModalDetail = ({ examId, setShowModal }) => {
 
             <div className="relative border">
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2 break-all">Mã đề thi:</p>
-                <p className="w-1/2 break-all">{dataExam?.code}</p>
+                <p className="w-1/2 break-words">Mã đề thi:</p>
+                <p className="w-1/2 break-words">{dataExam?.code}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2 break-all">Môn thi:</p>
-                <p className="w-1/2 break-all">{dataExam?.subject_id}</p>
+                <p className="w-1/2 break-words">Môn thi:</p>
+                <p className="w-1/2 break-words">{dataExam?.subject_id}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2 break-all">Người ra đề:</p>
-                <p className="w-1/2 break-all">{dataExam?.user_id}</p>
+                <p className="w-1/2 break-words">Người ra đề:</p>
+                <p className="w-1/2 break-words">{dataExam?.user_id}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2 break-all">Hình thức thi:</p>
-                <p className="w-1/2 break-all">{dataExam?.type}</p>
+                <p className="w-1/2 break-words">Hình thức thi:</p>
+                <p className="w-1/2 break-words">{dataExam?.type}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2 break-all">Số câu hỏi/ số đề (tự luận):</p>
-                <p className="w-1/2 break-all">{dataExam?.num_question}</p>
+                <p className="w-1/2 break-words">Số câu hỏi/ số đề (tự luận):</p>
+                <p className="w-1/2 break-words">{dataExam?.num_question}</p>
               </div>
               <div className="flex justify-between py-2 pl-2">
-                <p className="w-1/2 break-all">Kì học:</p>
-                <p className="w-1/2 break-all">{dataExam?.semester}</p>
+                <p className="w-1/2 break-words">Kì học:</p>
+                <p className="w-1/2 break-words">{dataExam?.semester}</p>
               </div>
               <div className="flex justify-between py-2 pl-2">
-                <p className="w-1/2 break-all">Năm học:</p>
-                <p className="w-1/2 break-all">{dataExam?.year_id}</p>
+                <p className="w-1/2 break-words">Năm học:</p>
+                <p className="w-1/2 break-words">{dataExam?.year_id}</p>
               </div>
             </div>
           </div>
