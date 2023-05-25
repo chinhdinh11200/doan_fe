@@ -80,6 +80,6 @@ export default {
     },
     FILE: {
         EXPORT: '/export/user/:id',
-        IMPORT: '/import/user',
+        IMPORT: '/import/import',
     }
 };

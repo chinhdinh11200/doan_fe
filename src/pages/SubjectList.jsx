@@ -9,6 +9,8 @@ import { Button, Modal, Space, Table, Tooltip } from 'antd';
 import Loading from '../components/Loading';
 import Search from '../components/Search';
 import { debounce } from 'lodash';
+import { useCreateClass } from '../hooks/class';
+import { useImportFile } from '../hooks/export_import';
 
 function SubjectList() {
   const [tableParams, setTableParams] = useState({
@@ -23,6 +25,11 @@ function SubjectList() {
     },
     search: '',
   });
+  const { mutate: mutateImport,
+    isSuccess: isSuccessImport,
+    isLoading: isActiveImport,
+    error: errorImport,
+    data: dataImport } = useImportFile();
   const [page, setPage] = useState(1);
   const pageSizeRef = useRef(PAGE_SIZE);
 
@@ -132,6 +139,7 @@ function SubjectList() {
       },
     },
   ];
+  const fileInputRef = useRef(null);
   const [showModal, setShowModal] = React.useState(false);
   const [subjectDetailId, setSubjectDetailId] = React.useState(0);
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -139,7 +147,6 @@ function SubjectList() {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [isLoadingg, setIsLoading] = useState(false);
   const { data: { data: dataSubject = [], total } = {}, isLoading } = useSubjectList(tableParams);
-  console.log(dataSubject);
   const { mutate, isLoading: isLoadingDelete, isSuccess } = useSubjectDelete();
   const onChangeTableParams = (pagination, filters, sorter, extra) => {
     setPage(pagination.current);
@@ -227,7 +234,13 @@ function SubjectList() {
                         <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
                       </svg>
                       <span className="leading-normal">Import file</span>
-                      <input type='file' className="hidden" />
+                      <input type='file' ref={fileInputRef} name='import' className="hidden" onChange={(e) => {
+                        const formData = new FormData();
+                        formData.append('import', e.target.files[0]);
+                        console.log(e.target.files[0], e);
+                        mutateImport(formData);
+                        fileInputRef.current.value = null;
+                      }} />
                     </label>
                   </div>
                 </div>

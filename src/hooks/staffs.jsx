@@ -59,7 +59,9 @@ export const useCreateStaff = () => {
     const queryClient = useQueryClient();
     return useMutation(
         async (data) => {
-            return await axios.post(`${API.API_ROOT}${API.STAFF.LIST}`, data);
+            const res = await axios.post(`${API.API_ROOT}${API.STAFF.LIST}`, data);
+
+            return {data: res?.data}
         },
         {
             onSuccess: () => {

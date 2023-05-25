@@ -42,7 +42,7 @@ function FormCreate() {
   const { mutate,
     isSuccess,
     isLoading,
-    error,
+    error: errorStaff,
     data: dataCreate } = useCreateStaff();
   const { data: { data: departments = [], total } = {}, isLoading: isLoadingDepartment } = useDepartmentList();
   departments?.map(department => {
@@ -81,9 +81,11 @@ function FormCreate() {
   })
 
   useEffect(() => {
-    console.log(dataCreate);
     if (dataCreate?.data.success) {
       navigate('/list-staff');
+    } else {
+      console.log("lỗi : ", dataCreate);
+      console.log("lỗi staff: ", errorStaff);
     }
   }, [isSuccess]);
 
@@ -93,7 +95,6 @@ function FormCreate() {
         <form
           name='add-staff'
           onSubmit={handleSubmit((values) => {
-            console.log(values);
             mutate(values)
           })}
         >
@@ -243,7 +244,7 @@ function FormEdit({ staffId }) {
   const { mutate,
     isSuccess,
     isLoading,
-    error,
+    error: errorStaff,
     data: dataCreate } = useUpdateStaff(staffId);
   const { data: dataStaff } = useStaffDetail(staffId);
   const { data: { data: departments = [], total } = {}, isLoading: isLoadingDepartment } = useDepartmentList();
@@ -296,7 +297,6 @@ function FormEdit({ staffId }) {
         <form
           name='add-staff'
           onSubmit={handleSubmit((values) => {
-            console.log(values);
             mutate(values)
           })}
         >

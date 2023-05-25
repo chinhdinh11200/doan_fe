@@ -9,7 +9,7 @@ import { useDepartmentList } from '../../hooks/departments';
 import Select from 'react-select';
 import { NavLink, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useStaffList } from '../../hooks/staffs';
-import { POSITION_STAFF} from '../../constants';
+import { POSITION_STAFF } from '../../constants';
 import { useYearList } from '../../hooks/year';
 const role = [
   {
@@ -101,7 +101,7 @@ function FormCreate() {
     year.value = year.id
 
     return year;
-  })  
+  })
   const { data: departments } = useDepartmentList();
   departments?.data?.map(department => {
     department.label = department.name
@@ -394,20 +394,21 @@ function FormEdit({ topicId }) {
 
   useEffect(() => {
     if (dataTopic) {
+      console.log(years?.find((year) => year.id == dataTopic.year.id), 1111);
       reset({
         ...dataTopic,
         password: '',
         departmentSelected: departments?.find(department => department.id === dataTopic.department_id),
         positionSelected: POSITION_STAFF.find(position => position.value == dataTopic.position),
         level_selected: level.find(topic => topic.value == dataTopic.level),
-        yearSelected: years?.find((year) => year.id == dataTopic.year_id),
+        yearSelected: years?.find((year) => year.id == dataTopic.year.id),
         resultSelected: result.find(research => research.value == dataTopic.result),
         roleSelected: dataTopic?.users,
         role: dataTopic?.users?.map(user => user.id).join(','),
         type: 1
       })
     }
-  }, [dataTopic]);
+  }, [dataTopic, years]);
 
   return (
     <div className="w-full">
@@ -569,19 +570,21 @@ function FormEdit({ topicId }) {
               <Controller
                 control={control}
                 name="yearSelected"
-                render={({ field: { value, onChange, ref } }) => (
-                  <Select
-                    options={years}
-                    value={value}
-                    id="year_id"
-                    placeholder="Lựa chọn"
-                    {...register('year_id')}
-                    onChange={(val) => {
-                      onChange(val);
-                      setValue("year_id", val.value);
-                    }}
-                  />
-                )}
+                render={({ field: { value, onChange, ref } }) => {
+                  return (
+                    <Select
+                      options={years}
+                      value={value}
+                      id="year_id"
+                      placeholder="Lựa chọn"
+                      {...register('year_id')}
+                      onChange={(val) => {
+                        onChange(val);
+                        setValue("year_id", val.value);
+                      }}
+                    />
+                  )
+                }}
               />
               {errors.year_id && <p className="text-red-500">{errors.year_id.message}</p>}
             </div>

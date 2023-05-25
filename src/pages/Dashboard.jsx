@@ -53,7 +53,7 @@ function Dashboard() {
               {/* Datepicker built with flatpickr */}
               {/* <Datepicker /> */}
               <div className='flex gap-3'>
-                <div className=''>
+                {/* <div className=''>
                   <Select
                     className='w-[200px] h-[38px]'
                     options={years}
@@ -62,37 +62,40 @@ function Dashboard() {
                       console.log(val)
                     }}
                   />
-                </div>
-                <div className=''>
-                  <button className='rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 
+                </div> */}
+                {
+                  user?.department_id != 1 ?
+                    <div className=''>
+                      <button className='rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 
                   focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
-                    onClick={() => {
-                      if (year != null) {
-                        axios.get(
-                          `${API.API_ROOT}${API.FILE.EXPORT}`.replace(':id', user?.id),
-                          {
-                            responseType: 'blob',
-                            params: {
-                              year: year,
-                            }
-                          },
-                        ).then((response) => {
-                          console.log(response);
-                          const url = window.URL.createObjectURL(new Blob([response.data]));
-                          const link = document.createElement('a');
-                          link.href = url;
-                          link.setAttribute('download', 'report.xlsx'); //or any other extension
-                          document.body.appendChild(link);
-                          link.click();
-                        })
-                      } else {
+                        onClick={() => {
+                          if (year != null) {
+                            axios.get(
+                              `${API.API_ROOT}${API.FILE.EXPORT}`.replace(':id', user?.id),
+                              {
+                                responseType: 'blob',
+                                params: {
+                                  year: year,
+                                }
+                              },
+                            ).then((response) => {
+                              console.log(response);
+                              const url = window.URL.createObjectURL(new Blob([response.data]));
+                              const link = document.createElement('a');
+                              link.href = url;
+                              link.setAttribute('download', 'report.xlsx'); //or any other extension
+                              document.body.appendChild(link);
+                              link.click();
+                            })
+                          } else {
 
-                      }
-                    }}
-                  >
-                    Xuất File
-                  </button>
-                </div>
+                          }
+                        }}
+                      >
+                        Xuất File
+                      </button>
+                    </div> : null
+                }
               </div>
             </div>
 

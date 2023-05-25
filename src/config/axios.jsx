@@ -11,13 +11,11 @@ const instance = axios.create({
 instance.interceptors.response.use(
     (response) => response,
     (error) => {
-        console.log(error);
-        console.log('config', error?.config);
-        // if (error?.response?.status === 401) {
-        //     if (typeof window !== "undefined") {
-        //         console.log("error", error);
-        //     }
-        // }
+        if (error?.response?.status === 401) {
+            if (typeof window !== "undefined") {
+                console.log("error", error);
+            }
+        }
         if (error?.response?.status === 403) {
             console.log("test");
             // if (typeof window !== "undefined") {
