@@ -332,7 +332,7 @@ const ModalDetail = ({ thesisId, setShowModal }) => {
 
               <div className="flex justify-between py-2 pl-2">
                 <p className="w-1/2 break-words">Năm học:</p>
-                <p className="w-1/2 break-words">{dataThesis?.year_id}</p>
+                <p className="w-1/2 break-all">{dataThesis?.year?.name}</p>
               </div>
             </div>
           </div>

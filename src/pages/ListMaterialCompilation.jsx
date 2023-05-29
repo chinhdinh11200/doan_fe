@@ -347,7 +347,7 @@ const ModalDetail = ({ compilationId, setShowModal }) => {
               </div>
               <div className="flex justify-between py-2 pl-2">
                 <p className="w-1/2 break-words">Năm học:</p>
-                <p className="w-1/2 break-words">{dataCompialtion?.year_id}</p>
+                <p className="w-1/2 break-words">{dataCompialtion?.year.name}</p>
               </div>
             </div>
           </div>

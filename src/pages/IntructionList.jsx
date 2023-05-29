@@ -346,10 +346,10 @@ const ModalDetail = ({ scientificId, setShowModal }) => {
                 <p className="w-1/2 break-words">Thể loại:</p>
                 <p className="w-1/2 break-words">{dataScientific?.type}</p>
               </div>
-              <div className="flex justify-between py-2 pl-2">
+              {/* <div className="flex justify-between py-2 pl-2">
                 <p className="w-1/2 break-words">Năm học:</p>
                 <p className="w-1/2 break-words">{dataScientific?.year_id}</p>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

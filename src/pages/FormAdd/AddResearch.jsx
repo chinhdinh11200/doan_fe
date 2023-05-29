@@ -9,7 +9,7 @@ import { useDepartmentList } from '../../hooks/departments';
 import Select from 'react-select';
 import { NavLink, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useStaffList } from '../../hooks/staffs';
-import { POSITION_STAFF } from '../../constants';
+import { POSITION_STAFF, LEVEL_RESEARCH, RESULT_RESEARCH} from '../../constants';
 import { useYearList } from '../../hooks/year';
 const role = [
   {
@@ -25,34 +25,7 @@ const role = [
     value: 2
   },
 ];
-const result = [
-  {
-    label: "Đạt",
-    value: 0
-  },
-  {
-    label: "Giỏi",
-    value: 1
-  },
-  {
-    label: "Xuất sắc",
-    value: 2
-  },
-];
-const level = [
-  {
-    label: "Cơ sở",
-    value: 0
-  },
-  {
-    label: "Ban",
-    value: 1
-  },
-  {
-    label: "Nhà nước",
-    value: 2
-  },
-];
+
 function AddTopic() {
   const currentLocation = useLocation();
   const [searchParams] = useSearchParams();
@@ -72,7 +45,7 @@ function AddTopic() {
 
         <main className='bg-white w-9/12 mx-auto p-8 shadow-md my-4'>
           <div className='py-5 mb-4 w-auto text-center'><span className='p-3 rounded-lg bg-slate-800 border
-           text-white hover:text-slate-800 hover:bg-white hover:border-slate-800'>{currentLocation.pathname == '/edit-topic' ? 'Cập Nhật Đề Tài' : 'Thêm Đề Tài'}</span></div>
+           text-white '>{currentLocation.pathname == '/edit-topic' ? 'Cập Nhật Đề Tài' : 'Thêm Đề Tài'}</span></div>
           {currentLocation.pathname == '/edit-topic' ? <FormEdit topicId={topicId} /> : <FormCreate />}
         </main>
       </div>
@@ -185,26 +158,26 @@ function FormCreate() {
             </div>
           </div>
           <div className="col-span-full mb-2.5">
-            <label htmlFor="level" className="block text-sm font-medium leading-6 text-gray-900">Cấp đê tài</label>
+            <label htmlFor="level_research" className="block text-sm font-medium leading-6 text-gray-900">Cấp đê tài</label>
             <div className="mt-2">
               <Controller
                 control={control}
-                name="levelSelect"
+                name="level_research"
                 render={({ field: { value, onChange, ref } }) => (
                   <Select
-                    options={level}
-                    name="level"
-                    id="level"
+                    options={LEVEL_RESEARCH}
+                    name="level_research"
+                    id="level_research"
                     placeholder="Lựa chọn"
-                    {...register('level')}
+                    {...register('level_research')}
                     onChange={(val) => {
                       onChange(val);
-                      setValue("level", val.value);
+                      setValue("level_research", val.value);
                     }}
                   />
                 )}
               />
-              {errors.level && <p className="text-red-500">{errors.level.message}</p>}
+              {errors.level_research && <p className="text-red-500">{errors.level_research.message}</p>}
             </div>
           </div>
           <div className="col-span-full mb-2.5">
@@ -273,12 +246,12 @@ function FormCreate() {
               {errors.role && <p className="text-red-500">{errors.role.message}</p>}
             </div>
           </div>
-          <div className="col-span-full mb-2.5">
+          {/* <div className="col-span-full mb-2.5">
             <label htmlFor="result" className="block text-sm font-medium leading-6 text-gray-900">Kết quả</label>
             <div className="mt-2">
               <Controller
-                control={control}
-                name="resultSelect"
+                control={RESULT_RESEARCH}
+                name="result"
                 render={({ field: { value, onChange, ref } }) => (
                   <Select
                     options={result}
@@ -295,7 +268,7 @@ function FormCreate() {
               />
               {errors.result && <p className="text-red-500">{errors.result.message}</p>}
             </div>
-          </div>
+          </div> */}
           <div className="col-span-full mb-2">
             <label htmlFor="year_id" className="block text-sm font-medium leading-6 text-gray-900">Năm học</label>
             <div className="mt-2">
@@ -399,9 +372,9 @@ function FormEdit({ topicId }) {
         password: '',
         departmentSelected: departments?.find(department => department.id === dataTopic.department_id),
         positionSelected: POSITION_STAFF.find(position => position.value == dataTopic.position),
-        level_selected: level.find(topic => topic.value == dataTopic.level),
         yearSelected: years?.find((year) => year.id == dataTopic.year?.id),
-        resultSelected: result.find(research => research.value == dataTopic.result),
+        levelresearchSelected: LEVEL_RESEARCH.find(topic => topic.value == dataTopic.level),
+        resultresearchSelected: RESULT_RESEARCH.find(topic => topic.value == dataTopic.result),
         roleSelected: dataTopic?.users,
         role: dataTopic?.users?.map(user => user.id).join(','),
         type: 1
@@ -448,28 +421,28 @@ function FormEdit({ topicId }) {
             </div>
           </div>
           <div className="col-span-full mb-2.5">
-            <label htmlFor="level_selected" className="block text-sm font-medium leading-6 text-gray-900">Cấp đề tài</label>
+            <label htmlFor="levelresearchSelected" className="block text-sm font-medium leading-6 text-gray-900">Cấp đề tài</label>
             <div className="mt-2">
               <Controller
                 control={control}
-                name="level_selected"
+                name="levelresearchSelected"
                 render={({ field: { value, onChange, ref } }) => (
                   <Select
-                    options={level}
+                    options={LEVEL_RESEARCH}
                     value={value}
-                    name="level"
-                    id="level"
+                    name="level_research"
+                    id="level_research"
                     placeholder="Lựa chọn"
-                    {...register('level')}
+                    {...register('level_research')}
                     onChange={(val) => {
                       console.log(val, val.value)
                       onChange(val);
-                      setValue("level", val.value);
+                      setValue("level_research", val.value);
                     }}
                   />
                 )}
               />
-              {errors.level && <p className="text-red-500">{errors.level.message}</p>}
+              {errors.level_research && <p className="text-red-500">{errors.level_research.message}</p>}
             </div>
           </div>
           <div className="col-span-full mb-2.5">
@@ -540,15 +513,15 @@ function FormEdit({ topicId }) {
               {errors.role && <p className="text-red-500">{errors.role.message}</p>}
             </div>
           </div>
-          <div className="col-span-full mb-2.5">
-            <label htmlFor="resultSelected" className="block text-sm font-medium leading-6 text-gray-900">Kết quả</label>
+          {/* <div className="col-span-full mb-2.5">
+            <label htmlFor="resultresearchSelected" className="block text-sm font-medium leading-6 text-gray-900">Kết quả</label>
             <div className="mt-2">
               <Controller
                 control={control}
-                name="resultSelected"
+                name="resultresearchSelected"
                 render={({ field: { value, onChange, ref } }) => (
                   <Select
-                    options={result}
+                    options={RESULT_RESEARCH}
                     value={value}
                     name="result"
                     id="result"
@@ -563,9 +536,9 @@ function FormEdit({ topicId }) {
               />
               {errors.result && <p className="text-red-500">{errors.result.message}</p>}
             </div>
-          </div>
+          </div> */}
           <div className="col-span-full mb-2">
-            <label htmlFor="year_id" className="block text-sm font-medium leading-6 text-gray-900">Năm học</label>
+            <label htmlFor="yearSelected" className="block text-sm font-medium leading-6 text-gray-900">Năm học</label>
             <div className="mt-2">
               <Controller
                 control={control}

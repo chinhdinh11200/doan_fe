@@ -134,7 +134,6 @@ function ClassList() {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [isLoadingg, setIsLoading] = useState(false);
   const { data: { data: dataClass = [], total } = {}, isLoading } = useClassList(tableParams);
-  console.log(dataClass);
   const { mutate, isLoading: isLoadingDelete, isSuccess } = useClassDelete();
   const onChangeTableParams = (pagination, filters, sorter, extra) => {
     setPage(pagination.current);

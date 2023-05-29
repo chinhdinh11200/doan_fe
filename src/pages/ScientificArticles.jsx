@@ -55,14 +55,11 @@ function Dashboard() {
       sorter: () => { },
     },
     {
-      title: <div className="text-center uppercase">Loại tạp chí</div>,
-      dataIndex: "type",
-      key: "type",
+      title: <div className="text-center uppercase">Số người tham gia</div>,
+      dataIndex: "num_person",
+      key: "num_person",
       sortDirections: ["descend", "ascend", "descend"],
       sorter: () => { },
-      render: (_, record) => {
-        return (TYPE_ARTICLESCIENTIFIC.find(formExam => formExam.value == record.type)?.label)
-      }
     },
     {
       title: <div className="text-center uppercase">Hành động</div>,
@@ -341,7 +338,7 @@ const ModalDetail = ({ articleId, setShowModal }) => {
             </div>
             <div className="flex justify-between py-2 pl-2 border-b">
               <p className="w-1/2">Thể loại:</p>
-              <p className="w-1/2">{TYPE_ARTICLE.find(type => type.value === dataArticle?.type_article)?.label}</p>
+              <p className="w-1/2">{TYPE_ARTICLE.find(type => type.value === dataArticle?.type)?.label}</p>
             </div>
               <div className="flex justify-between py-2 pl-2">
                 <p className="w-1/2 break-words">Năm học:</p>

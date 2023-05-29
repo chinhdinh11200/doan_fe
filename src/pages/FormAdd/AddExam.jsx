@@ -70,7 +70,6 @@ const FormCreate = () => {
   const schema = yup.object().shape({
     subject_id: yup.string().trim().required('Môn thi là bắt buộc'),
     code: yup.string().required('Mã đề thi là bắt buộc.').min(4, "Mã đề thi không được nhỏ hơn 4 kí tự."),
-    position: yup.string(),
   })
 
   const {
