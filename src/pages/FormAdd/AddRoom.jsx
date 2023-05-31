@@ -71,7 +71,7 @@ const FormCreate = () => {
   const schema = yup.object().shape({
     subject_id: yup.string().trim().required('Môn học là bắt buộc'),
     code: yup.string().required('Mã môn học là bắt buộc.').min(4, "Mã môn học không được nhỏ hơn 4 kí tự."),
-    position: yup.string(),
+    // position: yup.string(),
   })
 
   const {

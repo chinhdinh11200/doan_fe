@@ -48,6 +48,8 @@ import AddRoom from './pages/FormAdd/AddRoom';
 import MarkList from './pages/MarkList';
 import AddMark from './pages/FormAdd/AddMark';
 import ResetPassword from './partials/actions/ResetPassword';
+import YearList from './pages/YearList';
+import AddYear from './pages/FormAdd/AddYear';
 const Test = () => {
   return <div>test</div>;
 }
@@ -69,6 +71,7 @@ function App() {
         <Route exact path="/" element={<LoginPage />} />
         <Route path="/forgotpassword" element={<ForgotPassPage />} />
         <Route path="/list-staff" element={<StaffList />} />
+        <Route path="/list-year" element={<YearList />} />
         <Route path="/list-class" element={<ClassList />} />
         <Route path="/list-subject" element={<SubjectList />} />
         <Route path="/list-exam" element={<ExamList />} />
@@ -88,6 +91,7 @@ function App() {
         <Route path="/ecommerce/customers" element={<Test />} />
         <Route path="/list-compilation" element={<FormAddMaterialCompilation />} />
         <Route path="/add-staff" element={<AddStaff />} />
+        <Route path="/add-year" element={<AddYear />} />
         <Route path="/add-class" element={<AddClass />} />
         <Route path="/add-subject" element={<AddSubject />} />
         <Route path="/add-exam" element={<AddExam />} />
@@ -118,6 +122,7 @@ function App() {
         <Route path="/edit-program" element={<AddBuildProgram />} />
         <Route path="/edit-thesis" element={<AddThesis />} />
         <Route path="/edit-coach" element={<AddCoach />} />
+        <Route path="/edit-year" element={<AddYear />} />
         <Route path="/reset-password" element={<ResetPassword />} />
       </Routes>
     </>

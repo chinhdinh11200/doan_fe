@@ -13,7 +13,7 @@ export const useSubjectList = (tableParams) => {
         page = tableParams.sorter?.current || 1
         search = tableParams.search
     }
-    return useQuery([SUBJECT_LIST, sort, sortColumn, limit, page], async () => {
+    return useQuery([SUBJECT_LIST, sort, sortColumn, limit, page, search], async () => {
         const { data, headers } = await axios.get(
             `${API.API_ROOT}${API.SUBJECT.LIST}`,
             {

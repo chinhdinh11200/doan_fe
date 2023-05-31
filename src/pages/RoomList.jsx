@@ -9,6 +9,7 @@ import Loading from '../components/Loading';
 import { useRoomDelete, useRoomDetail, useRoomList } from '../hooks/room';
 import Search from '../components/Search';
 import { debounce } from 'lodash';
+import moment from 'moment/moment';
 
 function RoomList() {
   const [tableParams, setTableParams] = useState({
@@ -59,14 +60,28 @@ function RoomList() {
       dataIndex: "subject_id",
       key: "subject_id",
       sortDirections: ["descend", "ascend", "descend"],
-      sorter: () => { },
+      // sorter: () => { },
+      render: (_, record) => {
+        return (
+          <div className="text-center">
+            {record?.subject?.name}
+          </div>
+        )
+      }
     },
     {
       title: <div className="text-center">Người coi thi</div>,
       dataIndex: "user_id",
       key: "user_id",
       sortDirections: ["descend", "ascend", "descend"],
-      sorter: () => { },
+      // sorter: () => { },
+      render: (_, record) => {
+        return (
+          <div className="text-center">
+            {record?.user?.name}
+          </div>
+        )
+      }
     },
     {
       title: <div className="text-center">Số ca coi thi</div>,
@@ -81,6 +96,11 @@ function RoomList() {
       key: "startDate",
       sortDirections: ["descend", "ascend", "descend"],
       sorter: () => { },
+      render: (_, record) => {
+        return (
+          <>{moment(new Date(record?.startDate)).format("DD-MM-YYYY")}</>
+        )
+      }
     },
     {
       title: <div className="text-center">Hành động</div>,

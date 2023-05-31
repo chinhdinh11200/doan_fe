@@ -10,8 +10,9 @@ import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useSubjectAll, useSubjectList } from '../../hooks/subject';
 import { useStaffList } from '../../hooks/staffs';
 import { Checkbox } from 'antd';
-import { FORM_EXAM_SEMESTER} from '../../constants';
+import { FORM_EXAM_SEMESTER, SEMESTER} from '../../constants';
 import { useYearList } from '../../hooks/year';
+import moment from 'moment/moment';
 
 function AddClass() {
   const currentLocation = useLocation();
@@ -419,6 +420,8 @@ const FormEdit = ({ classId }) => {
       setExamSupervision(classs.exam_supervision == 1 ? true : false);
       reset({
         ...classs,
+        startDate: moment(new Date(classs.startDate)).format('MM/DD/YYYY'),
+        endDate: moment(new Date(classs.endDate)).format('MM/DD/YYYY'),
         subjectSelected: subjects?.find((subject) => subject.id === classs.subject_id),
         userSelected: staffs?.find((staff) => staff.id === classs.user_id),
         form_examSelected: FORM_EXAM_SEMESTER?.find((exam) => exam.value === classs.form_exam),

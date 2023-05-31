@@ -5,16 +5,17 @@ import API from '../constants/api';
 import { PAGE_SIZE } from '../constants';
 
 export const useClassList = (tableParams) => {
-    var sort, sortColumn, limit, page, search;
+    var sort, sortColumn, limit, page, search, userId;
     if (tableParams !== undefined) {
         sort = tableParams.sorter?.sort || 'desc'
         sortColumn = tableParams.sorter?.sortColumn || 'id'
         limit = tableParams.sorter?.pageSize || PAGE_SIZE
         page = tableParams.sorter?.current || 1
         search = tableParams.search
+        userId = tableParams.userId
     }
 
-    return useQuery([CLASS_LIST, sort, sortColumn, limit, page, search], async () => {
+    return useQuery([CLASS_LIST, sort, sortColumn, limit, page, search, userId], async () => {
         const { data, headers } = await axios.get(
             `${API.API_ROOT}${API.CLASS.LIST}`,
             {
@@ -22,6 +23,7 @@ export const useClassList = (tableParams) => {
                     sort: sort,
                     sortColumn: sortColumn,
                     limit: limit,
+                    user_id: userId,
                     search,
                     offset: page == 1 ? page - 1 : page
                 },

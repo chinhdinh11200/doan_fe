@@ -11,6 +11,7 @@ import Search from '../components/Search';
 import { debounce } from 'lodash';
 import { useExamList } from '../hooks/exam';
 import { useMarkDelete, useMarkDetail, useMarkList } from '../hooks/mark';
+import moment from 'moment/moment';
 
 function MarkList() {
   const [tableParams, setTableParams] = useState({
@@ -58,7 +59,7 @@ function MarkList() {
       sorter: () => { },
       render: (_, record) => {
         return (
-          <>{record.subject.name}</>
+          <>{record?.subject?.name}</>
         )
       }
     },
@@ -70,7 +71,7 @@ function MarkList() {
       sorter: () => { },
       render: (_, record) => {
         return (
-          <>{record.user.name}</>
+          <>{record?.user?.name}</>
         )
       }
     },
@@ -87,6 +88,11 @@ function MarkList() {
       key: "date_exam",
       sortDirections: ["descend", "ascend", "descend"],
       sorter: () => { },
+      render: (_, record) => {
+        return (
+          <>{moment(new Date(record?.date_exam)).format("DD-MM-YYYY")}</>
+        )
+      }
     },
     {
       title: <div className="text-center">Hành động</div>,

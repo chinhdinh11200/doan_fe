@@ -71,18 +71,18 @@ function SubjectList() {
       sortDirections: ["descend", "ascend", "descend"],
       sorter: () => { },
     },
-    {
-      title: <div className="text-center">Hình thức thi</div>,
-      dataIndex: "form_exam",
-      key: "form_exam",
-      sortDirections: ["descend", "ascend", "descend"],
-      sorter: () => { },
-      render: (_, record) => {
-        return (<>{
-          record.form_exam || 'Chưa cập nhật'
-        }</>)
-      }
-    },
+    // {
+    //   title: <div className="text-center">Hình thức thi</div>,
+    //   dataIndex: "form_exam",
+    //   key: "form_exam",
+    //   sortDirections: ["descend", "ascend", "descend"],
+    //   sorter: () => { },
+    //   render: (_, record) => {
+    //     return (<>{
+    //       record.form_exam || 'Chưa cập nhật'
+    //     }</>)
+    //   }
+    // },
     {
       title: <div className="text-center">Hành động</div>,
       key: "action",
@@ -339,11 +339,11 @@ const ModalDetail = ({ subjectId, setShowModal }) => {
                 <p className="w-1/2 break-all">Tên lớp:</p>
                 <p className="w-1/2 break-all">{dataSubject?.name}</p>
               </div>
-
+{/* 
               <div className="flex justify-between py-2 pl-2 gap-2 ">
                 <p className="w-1/2 break-all">Hình thức thi:</p>
                 <p className="w-1/2 break-all">{dataSubject?.form_exam}</p>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

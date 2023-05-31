@@ -93,7 +93,9 @@ const columns = [
   // },
 ];
 function DashboardCard12() {
-  const { data: { data: dataClass = [] } = {} } = useClassDashboard({ yearId: 2, userId: 3 })
+  const {user} = useContext(UserContext);
+
+  const { data: { data: dataClass = [] } = {} } = useClassDashboard({ yearId: 4, userId: user?.id })
   console.log(dataClass);
   return (
     <div className="col-span-full xl:col-span-12 bg-white shadow-lg rounded-sm border border-slate-200">

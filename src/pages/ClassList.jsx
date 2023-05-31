@@ -5,11 +5,12 @@ import Header from '../partials/Header';
 import FilterButton from '../partials/actions/FilterButton';
 import { PAGE_SIZE } from '../constants';
 import { useClassDelete, useClassDetail, useClassList } from '../hooks/class';
-import { Button, Modal, Space, Table, Tooltip } from 'antd';
+import { Button, Modal, Select, Space, Table, Tooltip } from 'antd';
 import Loading from '../components/Loading';
 import Search from '../components/Search';
 import { debounce } from 'lodash';
 import { POSITION_STAFF } from '../constants';
+import { useStaffList } from '../hooks/staffs';
 function ClassList() {
   const [tableParams, setTableParams] = useState({
     pagination: {
@@ -22,6 +23,7 @@ function ClassList() {
       // sort: null,
     },
     search: '',
+    userId: null,
   });
   const [page, setPage] = useState(1);
   const pageSizeRef = useRef(PAGE_SIZE);
@@ -134,7 +136,6 @@ function ClassList() {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [isLoadingg, setIsLoading] = useState(false);
   const { data: { data: dataClass = [], total } = {}, isLoading } = useClassList(tableParams);
-  console.log(dataClass);
   const { mutate, isLoading: isLoadingDelete, isSuccess } = useClassDelete();
   const onChangeTableParams = (pagination, filters, sorter, extra) => {
     setPage(pagination.current);
@@ -150,6 +151,14 @@ function ClassList() {
       },
     });
   };
+
+  const { data: { data: staffs = [] } = {}, isLoading: isLoadingStaff } = useStaffList();
+  staffs?.map(staff => {
+    staff.label = staff.name
+    staff.value = staff.id
+
+    return staff;
+  })
 
   const showDeleteModal = (classId) => {
     setOpenDeleteModal(true);
@@ -205,7 +214,24 @@ function ClassList() {
                   {/* Filter button */}
                   <div className='flex gap-2'>
                     <Search onChangeSearch={onChangeSearch} />
-                    <FilterButton />
+                    {/* <Controller
+                      control={control}
+                      name="userSelected"
+                      render={({ field: { value, onChange, ref } }) => ( */}
+                    <Select
+                      className='w-[200px]'
+                      options={staffs}
+                      id="user_id"
+                      placeholder="Lựa chọn"
+                      onChange={(val) => {
+                        setTableParams({
+                          ...tableParams,
+                          userId: val
+                        })
+                      }}
+                    />
+                    {/* )}
+                    /> */}
                   </div>
                   <NavLink end to="/add-class" className="btn bg-indigo-500 hover:bg-indigo-600 text-white">
                     <svg className="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
@@ -317,7 +343,7 @@ const ModalDetail = ({ classId, setShowModal }) => {
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
                 <p className="w-1/2 break-all">Giảng viên:</p>
-                <p className="w-1/2 break-all">{dataClass?.users.name}</p>
+                <p className="w-1/2 break-all">{dataClass?.user?.name}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
                 <p className="w-1/2 break-all">Hình thức giảng dạy:</p>
@@ -353,7 +379,7 @@ const ModalDetail = ({ classId, setShowModal }) => {
               </div>
               <div className="flex justify-between py-2 pl-2">
                 <p className="w-1/2 break-all">Năm học:</p>
-                <p className="w-1/2 break-all">{dataClass?.year_id}</p>
+                <p className="w-1/2 break-all">{dataClass?.year?.name}</p>
               </div>
             </div>
           </div>

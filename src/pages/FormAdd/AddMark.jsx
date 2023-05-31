@@ -10,7 +10,7 @@ import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useSubjectAll, useSubjectList } from '../../hooks/subject';
 import { useStaffList } from '../../hooks/staffs';
 import { useCreateRoom, useRoomDetail, useUpdateRoom } from '../../hooks/room';
-import { FORM_EXAM, FORM_MARK} from '../../constants';
+import { FORM_EXAM, FORM_MARK, SEMESTER} from '../../constants';
 import { useCreateMark, useMarkDetail, useUpdateMark } from '../../hooks/mark';
 import { useExamDetail } from '../../hooks/exam';
 import { useYearList } from '../../hooks/year';

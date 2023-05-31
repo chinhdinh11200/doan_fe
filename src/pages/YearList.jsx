@@ -6,11 +6,12 @@ import FilterButton from '../partials/actions/FilterButton';
 import { useThesisDelete, useThesisDetail, useThesisList } from '../hooks/thesis';
 import Loading from '../components/Loading';
 import { Button, Modal, Space, Table, Tooltip } from 'antd';
-import { BiEdit, BiTrash } from 'react-icons/bi';
+import moment from 'moment/moment';
 import { PAGE_SIZE } from '../constants';
 import Search from '../components/Search';
 import { debounce } from 'lodash';
-function ThesisList() {
+import { useYearDelete, useYearList } from '../hooks/year';
+function YearList() {
   const [tableParams, setTableParams] = useState({
     pagination: {
       current: 1,
@@ -39,25 +40,31 @@ function ThesisList() {
       ),
     },
     {
-      title: <div className="text-center uppercase">Năm</div>,
+      title: <div className="text-center uppercase">Năm học</div>,
       dataIndex: "name",
       key: "name",
       sortDirections: ["descend", "ascend", "descend"],
       sorter: () => { },
     },
     {
-      title: <div className="text-center uppercase">KHÓA ĐÀO TẠO</div>,
-      dataIndex: "course",
-      key: "course",
+      title: <div className="text-center uppercase">Ngày bắt đầu</div>,
+      dataIndex: "startDate",
+      key: "startDate",
       sortDirections: ["descend", "ascend", "descend"],
       sorter: () => { },
+      render: (_, record) => {
+        return <>{record.startDate && moment(new Date(record.startDate)).format("DD-MM-YYYY")}</>
+      }
     },
     {
-      title: <div className="text-center uppercase">SỐ NGƯỜI HƯỚNG DẪN</div>,
-      dataIndex: "num_person",
-      key: "num_person",
+      title: <div className="text-center uppercase">Ngày kết thúc</div>,
+      dataIndex: "endDate",
+      key: "endDate",
       sortDirections: ["descend", "ascend", "descend"],
       sorter: () => { },
+      render: (_, record) => {
+        return <>{record.endDate && moment(new Date(record.endDate)).format("DD-MM-YYYY")}</>
+      }
     },
     {
       title: <div className="text-center uppercase">Hành động</div>,
@@ -68,7 +75,7 @@ function ThesisList() {
           <Space size="middle" className="flex justify-center">
             <NavLink
               end
-              to={`/edit-thesis?id=${record.id}`}
+              to={`/edit-year?id=${record.id}`}
               className={({ isActive }) =>
                 'block transition duration-150 truncate ' + (isActive ? 'text-indigo-500' : 'text-slate-400 hover:text-slate-200')
               }
@@ -81,22 +88,8 @@ function ThesisList() {
                       d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                   </svg>
                 </span>
-              </Tooltip></NavLink>
-            <Tooltip placement="top" title='Chi tiết'
-              onClick={() => {
-                setShowModal(true);
-                setThesisDetailId(record.id)
-              }}>
-              <span className="text-gray-600 hover:text-gray-900" title='view'>
-                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24"
-                  stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokewith="2"
-                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokewith="2"
-                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                </svg>
-              </span>
-            </Tooltip>
+              </Tooltip>
+            </NavLink>
             <Tooltip placement='top' title='Xoá'>
               <span title='delete'><svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-red-600 hover:text-red-800"
                 fill="none" viewBox="0 0 24 24" stroke="currentColor" onClick={() => showDeleteModal(record.id)}>
@@ -115,8 +108,8 @@ function ThesisList() {
   const [thesisIdDelete, setThesisIdDelete] = useState(null);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [isLoadingg, setIsLoading] = useState(false);
-  const { data: { data: dataUser = [], total } = {}, isLoading } = useThesisList(tableParams);
-  const { mutate, isLoading: isLoadingDelete, isSuccess } = useThesisDelete();
+  const { data: { data: dataYear = [], total } = {}, isLoading } = useYearList(tableParams);
+  const { mutate, isLoading: isLoadingDelete, isSuccess } = useYearDelete();
   const onChangeTableParams = (pagination, filters, sorter, extra) => {
     setPage(pagination.current);
     pageSizeRef.current = pagination.pageSize;
@@ -132,9 +125,9 @@ function ThesisList() {
     });
   };
 
-  const showDeleteModal = (thesisId) => {
+  const showDeleteModal = (yearId) => {
     setOpenDeleteModal(true);
-    setThesisIdDelete(thesisId);
+    setThesisIdDelete(yearId);
   };
   const handleDeleteOk = () => {
     handleDelete();
@@ -146,7 +139,7 @@ function ThesisList() {
   };
 
   const handleDelete = () => {
-    if (dataUser.length === 1) {
+    if (dataYear.length === 1) {
       setTableParams({
         ...tableParams,
         pagination: {
@@ -191,18 +184,18 @@ function ThesisList() {
           <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
             <div className="container max-w-7xl mx-auto mt-3">
               <div className="mb-4">
-                <h1 className="font-serif w-fit text-2xl pb-1 mb-4 mx-auto text-center font-bold uppercase border-b border-gray-300">Danh sách luận án luận văn</h1>                <div className="flex justify-between flex-row-reverse gap-4">
+                <h1 className="font-serif w-fit text-2xl pb-1 mb-4 mx-auto text-center font-bold uppercase border-b border-gray-300">Danh sách năm học</h1>                <div className="flex justify-between flex-row-reverse gap-4">
                   {/* Filter button */}
                   <div className='flex gap-2'>
                     <Search onChangeSearch={onChangeSearch} />
                     <FilterButton />
                   </div>
-                  <NavLink end to="/add-thesis" className="btn bg-indigo-500 hover:bg-indigo-600 text-white">
+                  <NavLink end to="/add-year" className="btn bg-indigo-500 hover:bg-indigo-600 text-white">
                     <svg className="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
                       <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
                     </svg>
                     <span className="ml-2">
-                      Thêm luận án/luận văn
+                      Thêm năm học
                     </span>
                   </NavLink>
                 </div>
@@ -216,7 +209,7 @@ function ThesisList() {
                       ) : (
                         <Table
                           columns={columns}
-                          dataSource={dataUser}
+                          dataSource={dataYear}
                           onChange={onChangeTableParams}
                           rowKey={(record) => record.id}
                           pagination={{
@@ -260,16 +253,16 @@ function ThesisList() {
       />
       <>
         {showModal ? (
-          <ModalDetail setShowModal={setShowModal} thesisId={thesisDetailId} />
+          <ModalDetail setShowModal={setShowModal} yearId={thesisDetailId} />
         ) : null}
       </>
     </div>
   );
 }
 
-const ModalDetail = ({ thesisId, setShowModal }) => {
-  console.log(thesisId);
-  const { data: dataThesis } = useThesisDetail(thesisId);
+const ModalDetail = ({ yearId, setShowModal }) => {
+  console.log(yearId);
+  const { data: dataThesis } = useThesisDetail(yearId);
   console.log(dataThesis);
   return (
     <>
@@ -343,4 +336,4 @@ const ModalDetail = ({ thesisId, setShowModal }) => {
   )
 }
 
-export default ThesisList;
+export default YearList;
