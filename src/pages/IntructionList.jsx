@@ -310,33 +310,32 @@ const ModalDetail = ({ scientificId, setShowModal }) => {
             <div className="relative border">
 
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2 break-all">Mã sách/giáo trình:</p>
-                <p className="w-1/2 break-all">{dataScientific?.code}</p>
+                <p className="w-1/2 break-words">Mã đề tài:</p>
+                <p className="w-1/2 break-words">{dataScientific?.code}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2 break-all">Tên sách/giáo trình:</p>
-                <p className="w-1/2 break-all">{dataScientific?.name}</p>
+                <p className="w-1/2 break-words">Tên đề tài:</p>
+                <p className="w-1/2 break-words">{dataScientific?.name}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2 break-all">Số xuất bản:</p>
-                <p className="w-1/2 break-all">{dataScientific?.num_decision}</p>
+                <p className="w-1/2 break-words">Số QĐ giao nhiệm vụ:</p>
+                <p className="w-1/2 break-words">{dataScientific?.num_decision}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2 break-all">Số tác giả tham gia:</p>
-                <p className="w-1/2 break-all">{dataScientific?.num_person}</p>
+                <p className="w-1/2 break-words">Ngày ký QĐ giao nhiệm vụ:</p>
+                <p className="w-1/2 break-words">{dataScientific?.date_decision}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2 break-all">Tác giả:</p>
-                <div className="w-1/2 break-all">
+                <p className="w-1/2 break-words">Cán bộ/giảng viên:</p>
+                <div className="w-1/2 break-words">
                   {
                     dataScientific?.users.map(user => {
                       return (
-                        <div className='flex'>
-                          <p className="w-1/2 break-all">
-                            {user.book_user?.type == 0 ? 'Tác giả chính' : 'Thành viên'}
-                            {user.name}
+                        <div className='flex' key={user.id}>
+                          <p className="w-1/2 break-words">
+                            <span>{user.name}</span>
                           </p>
-                          <p className="w-1/2 break-all text-right">{user.book_user?.time}</p>
+                          <p className="w-1/2 break-words">{user.role_user?.time}</p>
                         </div>
                       )
                     })
@@ -344,17 +343,13 @@ const ModalDetail = ({ scientificId, setShowModal }) => {
                 </div>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2 break-all">Thể loại:</p>
-                <p className="w-1/2 break-all">{dataScientific?.type}</p>
+                <p className="w-1/2 break-words">Thể loại:</p>
+                <p className="w-1/2 break-words">{dataScientific?.type}</p>
               </div>
-              <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2 break-all">Số trang:</p>
-                <p className="w-1/2 break-all">{dataScientific?.num_page}</p>
-              </div>
-              <div className="flex justify-between py-2 pl-2">
-                <p className="w-1/2 break-all">Năm học:</p>
-                <p className="w-1/2 break-all">{dataScientific?.year_id}</p>
-              </div>
+              {/* <div className="flex justify-between py-2 pl-2">
+                <p className="w-1/2 break-words">Năm học:</p>
+                <p className="w-1/2 break-words">{dataScientific?.year_id}</p>
+              </div> */}
             </div>
           </div>
         </div>

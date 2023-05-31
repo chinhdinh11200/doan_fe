@@ -41,7 +41,7 @@ function AddBook() {
 
         <main className='bg-white w-9/12 mx-auto p-8 shadow-md my-4'>
           <div className='py-5 mb-4 w-auto text-center'><span className='p-3 rounded-lg bg-slate-800 border
-           text-white hover:text-slate-800 hover:bg-white hover:border-slate-800'>{currentLocation.pathname == '/edit-book' ? 'Cập Nhật Sách/Giáo Trình' : 'Thêm Sách/Giáo Trình'}</span></div>
+           text-white '>{currentLocation.pathname == '/edit-book' ? 'Cập Nhật Sách/Giáo Trình' : 'Thêm Sách/Giáo Trình'}</span></div>
           {currentLocation.pathname == '/edit-book' ? <FormEdit bookId={bookId} /> : <FormCreate />}
         </main>
       </div>
@@ -426,6 +426,32 @@ function FormEdit({ bookId }) {
                 {...register('num_page', { required: true })}
               />
               {errors.num_page && <p className="text-red-500">{errors.num_page.message}</p>}
+            </div>
+          </div>
+          <div className="col-span-full mb-2.5">
+            <label htmlFor="role" className="block text-sm font-medium leading-6 text-gray-900">Tác giả</label>
+            <div className="mt-2">
+              <Controller
+                control={control}
+                name="roleSelected"
+                render={({ field: { value, onChange, ref } }) => (
+                  <Select
+                    options={staffs}
+                    name="role"
+                    isMulti
+                    id="role"
+                    value={value}
+                    placeholder="Lựa chọn"
+                    {...register('role')}
+                    onChange={(val) => {
+                      onChange();
+                      let rol = val.map(item => item.value).join(',')
+                      setValue('role', rol)
+                    }}
+                  />
+                )}
+              />
+              {errors.role && <p className="text-red-500">{errors.role.message}</p>}
             </div>
           </div>
           <div className="col-span-full mb-2">

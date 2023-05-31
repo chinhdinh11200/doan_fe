@@ -9,27 +9,9 @@ import { useDepartmentList } from '../../hooks/departments';
 import Select from 'react-select';
 import { NavLink, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useStaffList } from '../../hooks/staffs';
-import { POSITION_STAFF} from '../../constants';
+import { POSITION_STAFF, FORM_CONSTRUCTION} from '../../constants';
 import { useYearList } from '../../hooks/year';
 
-const form_construction = [
-  {
-    label: "Xây mới chương trình khung",
-    value: 0
-  },
-  {
-    label: "Xây mới chương trình chi tiết",
-    value: 1
-  },
-  {
-    label: "Tu sửa chương trình khung",
-    value: 2
-  },
-  {
-    label: "Tu sửa chương trình chi tiết",
-    value: 3
-  },
-];
 function AddProgram() {
   const currentLocation = useLocation();
   const [searchParams] = useSearchParams();
@@ -49,7 +31,7 @@ function AddProgram() {
 
         <main className='bg-white w-9/12 mx-auto p-8 shadow-md my-4'>
           <div className='py-5 mb-4 w-auto text-center'><span className='p-3 rounded-lg bg-slate-800 border
-             text-white hover:text-slate-800 hover:bg-white hover:border-slate-800'>{currentLocation.pathname == '/edit-program' ? 'Cập Nhật Chương Trình' : 'Thêm Chương Trình'}</span></div>
+             text-white '>{currentLocation.pathname == '/edit-program' ? 'Cập Nhật Chương Trình' : 'Thêm Chương Trình'}</span></div>
           {currentLocation.pathname == '/edit-program' ? <FormEdit programId={programId} /> : <FormCreate />}
         </main>
       </div>
@@ -235,7 +217,7 @@ function FormCreate() {
                 name="form_construction"
                 render={({ field: { value, onChange, ref } }) => (
                   <Select
-                    options={form_construction}
+                    options={FORM_CONSTRUCTION}
                     name="form_construction"
                     id="form_construction"
                     placeholder="Lựa chọn"
@@ -353,7 +335,7 @@ function FormEdit({ programId }) {
         password: '',
         departmentSelected: departments?.find(department => department.id === dataProgram.department_id),
         positionSelected: POSITION_STAFF.find(position => position.value == dataProgram.position),
-        form_constructionSelected: form_construction.find(construction => construction.value == dataProgram.form_construction),
+        form_constructionSelected: FORM_CONSTRUCTION.find(construction => construction.value == dataProgram.form_construction),
         yearSelected: years?.find((year) => year.id == dataProgram.year_id),
         roleSelected: dataProgram?.users,
         role: dataProgram?.users?.map(user => user.id).join(','),
@@ -470,14 +452,14 @@ function FormEdit({ programId }) {
             </div>
           </div>
           <div className="col-span-full mb-2.5">
-            <label htmlFor="form_construction" className="block text-sm font-medium leading-6 text-gray-900">Hình thức xây dựng</label>
+            <label htmlFor="form_constructionSelected" className="block text-sm font-medium leading-6 text-gray-900">Hình thức xây dựng</label>
             <div className="mt-2">
               <Controller
                 control={control}
                 name="form_constructionSelected"
                 render={({ field: { value, onChange, ref } }) => (
                   <Select
-                    options={form_construction}
+                    options={FORM_CONSTRUCTION}
                     value={value}
                     name="form_construction"
                     id="form_construction"

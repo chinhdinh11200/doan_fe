@@ -6,7 +6,7 @@ import FilterButton from '../partials/actions/FilterButton';
 import { useStaffDelete, useStaffDetail, useStaffList } from '../hooks/staffs';
 import Loading from '../components/Loading';
 import { Button, Modal, Space, Table, Tooltip } from 'antd';
-import { PAGE_SIZE } from '../constants';
+import { PAGE_SIZE, POSITION_STAFF } from '../constants';
 import Search from '../components/Search';
 import { debounce } from 'lodash';
 
@@ -300,36 +300,36 @@ const ModalDetail = ({ staffId, setShowModal }) => {
 
             <div className="relative border">
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2 break-all">Mã nhân viên:</p>
-                <p className="w-1/2 break-all">{dataStaff?.code}</p>
+                <p className="w-1/2 break-words">Mã nhân viên:</p>
+                <p className="w-1/2 break-words">{dataStaff?.code}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2 break-all">Tên nhân viên:</p>
-                <p className="w-1/2 break-all">{dataStaff?.name}</p>
+                <p className="w-1/2 break-words">Tên nhân viên:</p>
+                <p className="w-1/2 break-words">{dataStaff?.name}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2 break-all">Phòng ban:</p>
-                <p className="w-1/2 break-all">{dataStaff?.department_id}</p>
+                <p className="w-1/2 break-words">Phòng ban:</p>
+                <p className="w-1/2 break-words">{dataStaff?.department_id}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2 break-all">Email:</p>
-                <p className="w-1/2 break-all">{dataStaff?.email}</p>
+                <p className="w-1/2 break-words">Email:</p>
+                <p className="w-1/2 break-words">{dataStaff?.email}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2 break-all">Mật khẩu:</p>
-                <p className="w-1/2 break-all">{dataStaff?.password}</p>
+                <p className="w-1/2 break-words">Mật khẩu:</p>
+                <p className="w-1/2 break-words">{dataStaff?.password}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 ">
-                <p className="w-1/2 break-all">Vị trí:</p>
-                <p className="w-1/2 break-all">{dataStaff?.position}</p>
+                <p className="w-1/2 break-words">Vị trí:</p>
+                <p className="w-1/2 break-words">{POSITION_STAFF.find(formTopic => formTopic.value == dataStaff?.position)?.label}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 ">
-                <p className="w-1/2 break-all">Hệ số lương:</p>
-                <p className="w-1/2 break-all">{dataStaff?.number_salary}</p>
+                <p className="w-1/2 break-words">Hệ số lương:</p>
+                <p className="w-1/2 break-words">{dataStaff?.number_salary}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 ">
-                <p className="w-1/2 break-all">Thu nhập:</p>
-                <p className="w-1/2 break-all">{dataStaff?.income}</p>
+                <p className="w-1/2 break-words">Thu nhập:</p>
+                <p className="w-1/2 break-words">{dataStaff?.income}</p>
               </div>
             </div>
           </div>

@@ -33,7 +33,7 @@ function AddClass() {
 
         <main className='bg-white w-9/12 mx-auto p-8 shadow-md my-4'>
           <div className='py-5 mb-4 w-auto text-center'><span className='p-3 rounded-lg bg-slate-800 border
-           text-white hover:text-slate-800 hover:bg-white hover:border-slate-800'>{currentLocation.pathname == '/edit-class' ? 'Cập Nhật Lớp Học' : 'Thêm lớp học'}</span></div>
+           text-white '>{currentLocation.pathname == '/edit-class' ? 'Cập Nhật Lớp Học' : 'Thêm lớp học'}</span></div>
           {currentLocation.pathname == '/edit-class' ? <FormEdit classId={classId} /> : <FormCreate />}
         </main>
       </div>

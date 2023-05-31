@@ -7,7 +7,7 @@ import { useInventionsDelete, useInventionsDetail, useInventionList } from '../h
 import Loading from '../components/Loading';
 import { Button, Modal, Space, Table, Tooltip } from 'antd';
 import { BiEdit, BiTrash } from 'react-icons/bi';
-import { PAGE_SIZE } from '../constants';
+import { PAGE_SIZE, TYPE_INVENTIONS } from '../constants';
 import Search from '../components/Search';
 import { debounce } from 'lodash';
 
@@ -55,9 +55,9 @@ function inventionList() {
       sorter: () => { },
     },
     {
-      title: <div className="text-center uppercase">NGÀY QUYẾT ĐỊNH</div>,
-      dataIndex: "date_recognition",
-      key: "date_recognition",
+      title: <div className="text-center uppercase">SỐ QUYẾT ĐỊNH</div>,
+      dataIndex: "number_recognition",
+      key: "number_recognition",
       sortDirections: ["descend", "ascend", "descend"],
       sorter: () => { },
     },
@@ -273,6 +273,7 @@ function inventionList() {
 
 const ModalDetail = ({ inventionId, setShowModal }) => {
   const { data: dataInvention } = useInventionsDetail(inventionId);
+  console.log(dataInvention)
   return (
     <>
       <div className="justify-center items-center flex overflow-x-hidden 
@@ -299,32 +300,32 @@ const ModalDetail = ({ inventionId, setShowModal }) => {
             </button>
             <div className="relative border">
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2 break-all">Mã bằng sáng chế/giải thưởng:</p>
-                <p className="w-1/2 break-all">{dataInvention?.code}</p>
+                <p className="w-1/2 break-words">Mã bằng sáng chế/giải thưởng:</p>
+                <p className="w-1/2 break-words">{dataInvention?.code}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2 break-all">Tên bằng sáng chế/giải thưởng:</p>
-                <p className="w-1/2 break-all">{dataInvention?.name}</p>
+                <p className="w-1/2 break-words">Tên bằng sáng chế/giải thưởng:</p>
+                <p className="w-1/2 break-words">{dataInvention?.name}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2 break-all">Số QĐ công nhận:</p>
-                <p className="w-1/2 break-all">{dataInvention?.number_recognition}</p>
+                <p className="w-1/2 break-words">Số QĐ công nhận:</p>
+                <p className="w-1/2 break-words">{dataInvention?.number_recognition}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2 break-all">Ngày QĐ công nhận:</p>
-                <p className="w-1/2 break-all">{dataInvention?.date_recognition}</p>
+                <p className="w-1/2 break-words">Ngày QĐ công nhận:</p>
+                <p className="w-1/2 break-words">{dataInvention?.date_recognition}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2 break-all">Số tác giả tham gia:</p>
-                <p className="w-1/2 break-all">{dataInvention?.num_person}</p>
+                <p className="w-1/2 break-words">Số tác giả tham gia:</p>
+                <p className="w-1/2 break-words">{dataInvention?.num_person}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2 break-all">Tác giả:</p>
-                <div className="w-1/2 break-all">
+                <p className="w-1/2 break-words">Tác giả:</p>
+                <div className="w-1/2 break-words">
                   {
                     dataInvention?.users.map(user => {
                       return (
-                        <div className='flex gap-2'>
+                        <div className='flex gap-2' key={user.name}>
                           <p className="w-1/2">{user.name}</p>
                           <p className="w-1/2">{user.role_user.time}</p>
                         </div>
@@ -334,12 +335,12 @@ const ModalDetail = ({ inventionId, setShowModal }) => {
                 </div>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2 break-all">Giải thưởng:</p>
-                <p className="w-1/2 break-all">{dataInvention?.level}</p>
+                <p className="w-1/2 break-words">Giải thưởng:</p>
+                <p className="w-1/2 break-words">{TYPE_INVENTIONS.find(formTopic => formTopic.value == dataInvention?.level)?.label}</p>
               </div>
               <div className="flex justify-between py-2 pl-2">
-                <p className="w-1/2 break-all">Năm học:</p>
-                <p className="w-1/2 break-all">{dataInvention?.year_id}</p>
+                <p className="w-1/2 break-words">Năm học:</p>
+                <p className="w-1/2 break-words">{dataInvention?.year.name}</p>
               </div>
             </div>
           </div>

@@ -40,7 +40,7 @@ function AddInvention() {
 
         <main className='bg-white w-9/12 mx-auto p-8 shadow-md my-4'>
           <div className='py-5 mb-4 w-auto text-center'><span className='p-3 rounded-lg bg-slate-800 border
-           text-white hover:text-slate-800 hover:bg-white hover:border-slate-800'>{currentLocation.pathname == '/edit-invention' ? 'Cập Nhật bằng sáng chế/giải thưởng' : 'Thêm bằng sáng chế/giải thưởng'}</span></div>
+           text-white '>{currentLocation.pathname == '/edit-invention' ? 'Cập Nhật bằng sáng chế/giải thưởng' : 'Thêm bằng sáng chế/giải thưởng'}</span></div>
           {currentLocation.pathname == '/edit-invention' ? <FormEdit inventionId={inventionId} /> : <FormCreate />}
         </main>
       </div>

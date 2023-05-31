@@ -30,7 +30,7 @@ function AddThesis() {
 
         <main className='bg-white w-9/12 mx-auto p-8 shadow-md my-4'>
           <div className='py-5 mb-4 w-auto text-center'><span className='p-3 rounded-lg bg-slate-800 border
-           text-white hover:text-slate-800 hover:bg-white hover:border-slate-800'>{currentLocation.pathname == '/edit-thesis' ? 'Cập Nhật luận án/luận văn' : 'Thêm luận án/luận văn'}</span></div>
+           text-white '>{currentLocation.pathname == '/edit-thesis' ? 'Cập Nhật luận án/luận văn' : 'Thêm luận án/luận văn'}</span></div>
           {currentLocation.pathname == '/edit-thesis' ? <FormEdit thesisId={thesisId} /> : <FormCreate />}
         </main>
       </div>
@@ -241,7 +241,6 @@ function FormCreate() {
           </div>
         </form>
       </div>
-
     </div>
   );
 }
@@ -291,7 +290,6 @@ function FormEdit({ thesisId }) {
     // name: yup.string().trim().required('Vui lòng nhập tên đề tài'),
     // code: yup.string().required('Vui lòng nhập mã đề tài').min(4, "Mã đề tài không được nhỏ hơn 4 kí tự."),
     course: yup.string(),
-    // number_recognition: yup.string(),
   })
   const {
     register,
@@ -318,13 +316,13 @@ function FormEdit({ thesisId }) {
         password: '',
         departmentSelected: departments?.find(department => department.id === dataThesis.department_id),
         positionSelected: POSITION_STAFF.find(position => position.value == dataThesis.position),
-        yearSelected: years?.find((year) => year.id == dataThesis.year_id),
+        yearSelected: years?.find((year) => year.id == dataThesis.year.id),
         roleSelected: dataThesis?.users,
         role: dataThesis?.users?.map(user => user.id).join(','),
         typeSelected: TYPE_THESIS.find(type => type.value === dataThesis.type)
       })
     }
-  }, [dataThesis]);
+  }, [dataThesis], years);
 
   return (
     <div className="w-full">
@@ -435,19 +433,21 @@ function FormEdit({ thesisId }) {
               <Controller
                 control={control}
                 name="yearSelected"
-                render={({ field: { value, onChange, ref } }) => (
-                  <Select
-                    options={years}
-                    value={value}
-                    id="year_id"
-                    placeholder="Lựa chọn"
-                    {...register('year_id')}
-                    onChange={(val) => {
-                      onChange(val);
-                      setValue("year_id", val.value);
-                    }}
-                  />
-                )}
+                render={({ field: { value, onChange, ref } }) => {
+                  return (
+                    <Select
+                      options={years}
+                      value={value}
+                      id="year_id"
+                      placeholder="Lựa chọn"
+                      {...register('year_id')}
+                      onChange={(val) => {
+                        onChange(val);
+                        setValue("year_id", val.value);
+                      }}
+                    />
+                  )
+                }}
               />
               {errors.year_id && <p className="text-red-500">{errors.year_id.message}</p>}
             </div>

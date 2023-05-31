@@ -7,9 +7,10 @@ import { useTopicDelete, useTopicDetail, useTopicList } from '../hooks/topic';
 import Loading from '../components/Loading';
 import { Button, Modal, Space, Table, Tooltip } from 'antd';
 import { BiEdit, BiTrash } from 'react-icons/bi';
-import { PAGE_SIZE } from '../constants';
+import { LEVEL_RESEARCH, PAGE_SIZE, RESULT_RESEARCH } from '../constants';
 import Search from '../components/Search';
 import { debounce } from 'lodash';
+import moment from 'moment/moment';
 
 function researchList() {
   const [tableParams, setTableParams] = useState({
@@ -60,6 +61,9 @@ function researchList() {
       key: "level",
       sortDirections: ["descend", "ascend", "descend"],
       sorter: () => { },
+      render: (_, record) => {
+        return (LEVEL_RESEARCH.find(formTopic => formTopic.value == record.level)?.label)
+      }
     },
     {
       title: <div className="text-center">Hành động</div>,
@@ -302,41 +306,41 @@ const ModalDetail = ({ topicId, setShowModal }) => {
 
             <div className="relative border">
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2 break-all">Mã đề tài/dự án:</p>
-                <p className="w-1/2 break-all">{dataTopic?.code}</p>
+                <p className="w-1/2 break-words">Mã đề tài/dự án:</p>
+                <p className="w-1/2 break-words">{dataTopic?.code}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2 break-all">
+                <p className="w-1/2 break-words">
                   Tên đề tài/dự án:</p>
-                <p className="w-1/2 break-all">{dataTopic?.name}</p>
+                <p className="w-1/2 break-words">{dataTopic?.name}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2 break-all">Cấp đê tài:</p>
-                <p className="w-1/2 break-all">{dataTopic?.level}</p>
+                <p className="w-1/2 break-words">Cấp đê tài:</p>
+                <p className="w-1/2 break-words">{LEVEL_RESEARCH.find(formTopic => formTopic.value == dataTopic?.level)?.label}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2 break-all">Ngày bắt đầu:</p>
-                <p className="w-1/2 break-all">{dataTopic?.startDate}</p>
+                <p className="w-1/2 break-words">Ngày bắt đầu:</p>
+                <p className="w-1/2 break-words">{moment(new Date(dataTopic?.startDate)).format("DD-MM-YYYY")}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2 break-all">Ngày kết thúc:</p>
-                <p className="w-1/2 break-all">{dataTopic?.endDate}</p>
+                <p className="w-1/2 break-words">Ngày kết thúc:</p>
+                <p className="w-1/2 break-words">{moment(new Date(dataTopic?.endDate)).format("DD-MM-YYYY")}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2 break-all">Ngày nghiệm thu:</p>
-                <p className="w-1/2 break-all">{dataTopic?.acceptDate}</p>
+                <p className="w-1/2 break-words">Ngày nghiệm thu:</p>
+                <p className="w-1/2 break-words">{moment(new Date(dataTopic?.acceptDate)).format("DD-MM-YYYY")}</p>
+              </div>
+              {/* <div className="flex justify-between py-2 pl-2 border-b">
+                <p className="w-1/2 break-words">Kết quả:</p>
+                <p className="w-1/2 break-words">{RESULT_RESEARCH.find(formTopic => formTopic.value == dataTopic?.result)?.label}</p>
+              </div> */}
+              <div className="flex justify-between py-2 pl-2 border-b">
+                <p className="w-1/2 break-words">Số thành viên:</p>
+                <p className="w-1/2 break-words">{dataTopic?.num_person}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2 break-all">Kết quả:</p>
-                <p className="w-1/2 break-all">{dataTopic?.result}</p>
-              </div>
-              <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2 break-all">Số thành viên:</p>
-                <p className="w-1/2 break-all">{dataTopic?.num_person}</p>
-              </div>
-              <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2 break-all">Thành viên:</p>
-                <div className="w-1/2 break-all">
+                <p className="w-1/2 break-words">Thành viên:</p>
+                <div className="w-1/2 break-words">
                   {
                     dataTopic?.users.map(user => {
                       return (
@@ -351,7 +355,7 @@ const ModalDetail = ({ topicId, setShowModal }) => {
               </div>
               <div className="flex justify-between py-2 pl-2">
                 <p className="w-1/2 break-all">Năm học:</p>
-                <p className="w-1/2 break-all">{dataTopic?.year.name}</p>
+                <p className="w-1/2 break-all">{dataTopic?.year?.name}</p>
               </div>
             </div>
           </div>

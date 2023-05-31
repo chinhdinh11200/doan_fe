@@ -7,7 +7,7 @@ import { useEducationDelete, useEducationDetail, useEducationList } from '../hoo
 import Loading from '../components/Loading';
 import { Button, Modal, Space, Table, Tooltip } from 'antd';
 import { BiEdit, BiTrash } from 'react-icons/bi';
-import { PAGE_SIZE } from '../constants';
+import { PAGE_SIZE, FORM_CONSTRUCTION } from '../constants';
 import Search from '../components/Search';
 import { debounce } from 'lodash';
 function educationList() {
@@ -308,28 +308,28 @@ const ModalDetail = ({ educationId, setShowModal }) => {
             <div className="relative border">
 
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2 break-all">Mã chương trình đào tạo:</p>
-                <p className="w-1/2 break-all">{dataEducation?.code}</p>
+                <p className="w-1/2 break-words">Mã chương trình đào tạo:</p>
+                <p className="w-1/2 break-words">{dataEducation?.code}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2 break-all">Tên chương trình đào tạo:</p>
-                <p className="w-1/2 break-all">{dataEducation?.name}</p>
+                <p className="w-1/2 break-words">Tên chương trình đào tạo:</p>
+                <p className="w-1/2 break-words">{dataEducation?.name}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2 break-all">Số QĐ giao nhiệm vụ:</p>
-                <p className="w-1/2 break-all">{dataEducation?.num_decision}</p>
+                <p className="w-1/2 break-words">Số QĐ giao nhiệm vụ:</p>
+                <p className="w-1/2 break-words">{dataEducation?.num_decision}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2 break-all">Ngày Số QĐ giao nhiệm vụ:</p>
-                <p className="w-1/2 break-all">{dataEducation?.date_decision}</p>
+                <p className="w-1/2 break-words">Ngày QĐ giao nhiệm vụ:</p>
+                <p className="w-1/2 break-words">{dataEducation?.date_decision}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2 break-all">Số tác giả tham gia:</p>
-                <p className="w-1/2 break-all">{dataEducation?.num_person}</p>
+                <p className="w-1/2 break-words">Số tác giả tham gia:</p>
+                <p className="w-1/2 break-words">{dataEducation?.num_person}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2 break-all">Tác giả:</p>
-                <div className="w-1/2 break-all">
+                <p className="w-1/2 break-words">Tác giả:</p>
+                <div className="w-1/2 break-words">
                   {
                     dataEducation?.users.map(user => {
                       return (
@@ -343,12 +343,12 @@ const ModalDetail = ({ educationId, setShowModal }) => {
                 </div>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2 break-all">Số tín chỉ:</p>
-                <p className="w-1/2 break-all">{dataEducation?.num_credit}</p>
+                <p className="w-1/2 break-words">Số tín chỉ:</p>
+                <p className="w-1/2 break-words">{dataEducation?.num_credit}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2 break-all">Hình thức xây dựng:</p>
-                <p className="w-1/2 break-all">{dataEducation?.form_construction}</p>
+                <p className="w-1/2 break-words">Hình thức xây dựng:</p>
+                <p className="w-1/2 break-words">{FORM_CONSTRUCTION.find(formTopic => formTopic.value == dataEducation?.form_construction)?.label}</p>
               </div>
             </div>
           </div>

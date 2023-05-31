@@ -32,7 +32,7 @@ function AddScientific() {
 
         <main className='bg-white w-9/12 mx-auto p-8 shadow-md my-4'>
           <div className='py-5 mb-4 w-auto text-center'><span className='p-3 rounded-lg bg-slate-800 border
-             text-white hover:text-slate-800 hover:bg-white hover:border-slate-800'>{currentLocation.pathname == '/edit-coach' ? 'Cập Nhật huấn luyện' : 'Thêm huấn luyện'}</span></div>
+             text-white '>{currentLocation.pathname == '/edit-coach' ? 'Cập Nhật huấn luyện' : 'Thêm huấn luyện'}</span></div>
           {currentLocation.pathname == '/edit-coach' ? <FormEdit scientificId={scientificId} /> : <FormCreate />}
         </main>
       </div>
@@ -70,8 +70,8 @@ function FormCreate() {
     return year;
   })  
   const schema = yup.object().shape({
-    name: yup.string().trim().required('Vui lòng nhập tên cuộc thi'),
-    code: yup.string().required('Vui lòng nhập mã cuộc thi').min(4, "Mã cuộc thi không được nhỏ hơn 4 kí tự."),
+    name: yup.string().trim().required('Vui lòng nhập Tên đề tài'),
+    code: yup.string().required('Vui lòng nhập Mã đề tài').min(4, "Mã đề tài không được nhỏ hơn 4 kí tự."),
     date_decision: yup.date().required(),
     num_decision: yup.string().required(),
   })
@@ -115,7 +115,7 @@ function FormCreate() {
           })}
         >
           <div className="col-span-full mb-2.5">
-            <label htmlFor="code" className="block text-sm font-medium leading-6 text-gray-900">Mã cuộc thi</label>
+            <label htmlFor="code" className="block text-sm font-medium leading-6 text-gray-900">Mã đề tài</label>
             <div className="mt-2">
               <input
                 type="text"
@@ -129,7 +129,7 @@ function FormCreate() {
             </div>
           </div>
           <div className="col-span-full mb-2.5">
-            <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">Tên cuộc thi </label>
+            <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">Tên đề tài </label>
             <div className="mt-2">
               <input
                 type="text"
@@ -449,7 +449,7 @@ function FormEdit({ scientificId }) {
             </div>
           </div>
           <div className="col-span-full mb-2">
-            <label htmlFor="year_id" className="block text-sm font-medium leading-6 text-gray-900">Năm học</label>
+            <label htmlFor="yearSelected" className="block text-sm font-medium leading-6 text-gray-900">Năm học</label>
             <div className="mt-2">
               <Controller
                 control={control}
