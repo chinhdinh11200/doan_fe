@@ -339,11 +339,11 @@ const ModalDetail = ({ classId, setShowModal }) => {
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
                 <p className="w-1/2 break-words">Môn học:</p>
-                <p className="w-1/2 break-words">{dataClass?.subject_id}</p>
+                <p className="w-1/2 break-words">{dataClass?.subject?.name}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
                 <p className="w-1/2 break-words">Giảng viên:</p>
-                <p className="w-1/2 break-words">{dataClass?.users.name}</p>
+                <p className="w-1/2 break-words">{dataClass?.user?.name}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
                 <p className="w-1/2 break-words">Hình thức giảng dạy:</p>

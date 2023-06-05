@@ -96,7 +96,6 @@ function DashboardCard12() {
   const {user} = useContext(UserContext);
 
   const { data: { data: dataClass = [] } = {} } = useClassDashboard({ yearId: 4, userId: user?.id })
-  console.log(dataClass);
   return (
     <div className="col-span-full xl:col-span-12 bg-white shadow-lg rounded-sm border border-slate-200">
       <header className="px-5 py-4 border-b border-slate-100">

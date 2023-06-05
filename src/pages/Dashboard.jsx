@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import Sidebar from '../partials/Sidebar';
 import Header from '../partials/Header';
@@ -18,17 +18,26 @@ import { Select } from 'antd';
 
 function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [defaultValue, setDefaultValue] = useState({});
   const [year, setYear] = useState(null);
   const { user } = useContext(UserContext);
+  const [disabled, setDisabled] = useState(false)
   const { data: { data: years = [] } = {} } = useYearList();
-  console.log(years);
   years?.map(year => {
     year.label = year.name
     year.value = year.id
 
     return year;
   })
-
+  useEffect(() => {
+    if (years) {
+      setDefaultValue(years[0])
+      setYear(years[0]?.id)
+    }
+  }, [years])
+  if (defaultValue) {
+    // return
+  }
   return (
     <div className="flex h-screen overflow-hidden">
 
@@ -54,21 +63,22 @@ function Dashboard() {
               {/* <Datepicker /> */}
               <div className='flex gap-3'>
                 <div className=''>
-                  <Select
+                  { defaultValue && (<Select
                     className='w-[200px] h-[38px]'
                     options={years}
+                    defaultValue={defaultValue}
                     onChange={(val) => {
                       setYear(val)
-                      console.log(val)
                     }}
-                  />
+                  />)}
                 </div>
                 {
                   user?.department_id != 1 ?
                     <div className=''>
-                      <button className='rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 
+                      <button disabled={disabled} className='rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 
                   focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
                         onClick={() => {
+                          setDisabled(true);
                           if (year != null) {
                             axios.get(
                               `${API.API_ROOT}${API.FILE.EXPORT}`.replace(':id', user?.id),
@@ -79,13 +89,13 @@ function Dashboard() {
                                 }
                               },
                             ).then((response) => {
-                              console.log(response);
                               const url = window.URL.createObjectURL(new Blob([response.data]));
                               const link = document.createElement('a');
                               link.href = url;
-                              link.setAttribute('download', 'report.xlsx'); //or any other extension
+                              link.setAttribute('download', 'report.pdf'); //or any other extension
                               document.body.appendChild(link);
                               link.click();
+                              setDisabled(false)
                             })
                           } else {
 

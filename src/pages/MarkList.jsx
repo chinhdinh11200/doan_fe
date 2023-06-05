@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import Sidebar from '../partials/Sidebar';
 import Header from '../partials/Header';
 import FilterButton from '../partials/actions/FilterButton';
-import { PAGE_SIZE } from '../constants';
+import { FORM_MARK, PAGE_SIZE } from '../constants';
 import { Button, Modal, Space, Table, Tooltip } from 'antd';
 import Loading from '../components/Loading';
 import { useRoomDelete, useRoomList } from '../hooks/room';
@@ -318,20 +318,20 @@ const ModalDetail = ({ markId, setShowModal }) => {
 
             <div className="relative border">
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2 break-words">Tên lớp học:</p>
-                <p className="w-1/2 break-words">{dataMark?.name}</p>
+                {/* <p className="w-1/2 break-words">Tên lớp học:</p>
+                <p className="w-1/2 break-words">{dataMark?.name}</p> */}
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
                 <p className="w-1/2 break-words">Môn thi:</p>
-                <p className="w-1/2 break-words">{dataMark?.subject_id}</p>
+                <p className="w-1/2 break-words">{dataMark?.subject?.name}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
                 <p className="w-1/2 break-words">Người chấm thi:</p>
-                <p className="w-1/2 break-words">{dataMark?.user_id}</p>
+                <p className="w-1/2 break-words">{dataMark?.user?.name}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
                 <p className="w-1/2 break-words">Hình thức chấm thi:</p>
-                <p className="w-1/2 break-words">{dataMark?.form_mark}</p>
+                <p className="w-1/2 break-words">{FORM_MARK.find(form => form.value == dataMark?.type)?.label}</p>
               </div>
               <div className="flex justify-between py-2 pl-2">
                 <p className="w-1/2 break-words">Số bài chấm thi:</p>
@@ -339,7 +339,7 @@ const ModalDetail = ({ markId, setShowModal }) => {
               </div>
               <div className="flex justify-between py-2 pl-2">
                 <p className="w-1/2 break-words">Ngày chấm thi:</p>
-                <p className="w-1/2 break-words">{dataMark?.date_exam}</p>
+                <p className="w-1/2 break-words">{moment(new Date(dataMark?.date_exam)).format("DD-MM-YYYY")}</p>
               </div>
               <div className="flex justify-between py-2 pl-2">
                 <p className="w-1/2 break-words">Kì học:</p>
@@ -347,7 +347,7 @@ const ModalDetail = ({ markId, setShowModal }) => {
               </div>
               <div className="flex justify-between py-2 pl-2">
                 <p className="w-1/2 break-words">Năm học:</p>
-                <p className="w-1/2 break-words">{dataMark?.year_id}</p>
+                <p className="w-1/2 break-words">{dataMark?.year?.name}</p>
               </div>
             </div>
           </div>

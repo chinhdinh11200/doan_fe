@@ -309,15 +309,11 @@ const ModalDetail = ({ staffId, setShowModal }) => {
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
                 <p className="w-1/2 break-words">Phòng ban:</p>
-                <p className="w-1/2 break-words">{dataStaff?.department_id}</p>
+                <p className="w-1/2 break-words">{dataStaff?.department?.departmentName}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
                 <p className="w-1/2 break-words">Email:</p>
                 <p className="w-1/2 break-words">{dataStaff?.email}</p>
-              </div>
-              <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2 break-words">Mật khẩu:</p>
-                <p className="w-1/2 break-words">{dataStaff?.password}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 ">
                 <p className="w-1/2 break-words">Vị trí:</p>

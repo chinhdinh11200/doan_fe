@@ -331,11 +331,11 @@ const ModalDetail = ({ roomId, setShowModal }) => {
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
                 <p className="w-1/2 break-words">Môn thi:</p>
-                <p className="w-1/2 break-words">{dataRoom?.subject_id}</p>
+                <p className="w-1/2 break-words">{dataRoom?.subject?.name}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
                 <p className="w-1/2 break-words">Người coi thi:</p>
-                <p className="w-1/2 break-words">{dataRoom?.user_id}</p>
+                <p className="w-1/2 break-words">{dataRoom?.user?.name}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
                 <p className="w-1/2 break-words">Số ca coi thi:</p>
@@ -355,7 +355,7 @@ const ModalDetail = ({ roomId, setShowModal }) => {
               </div>
               <div className="flex justify-between py-2 pl-2">
                 <p className="w-1/2 break-words">Năm học:</p>
-                <p className="w-1/2 break-words">{dataRoom?.year_id}</p>
+                <p className="w-1/2 break-words">{dataRoom?.year?.name}</p>
               </div>
             </div>
           </div>

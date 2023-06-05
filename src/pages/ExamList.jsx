@@ -60,7 +60,7 @@ function ExamList() {
       key: "user_id",
       sortDirections: ["descend", "ascend", "descend"],
       sorter: () => { },
-      render: (_, record) => <p className='text-start'>{record.users.name}</p>
+      render: (_, record) => <p className='text-start'>{record.user.name}</p>
     },
     {
       title: <div className="text-center">Hình thức thi</div>,
@@ -309,15 +309,15 @@ const ModalDetail = ({ examId, setShowModal }) => {
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
                 <p className="w-1/2 break-words">Môn thi:</p>
-                <p className="w-1/2 break-words">{dataExam?.subject_id}</p>
+                <p className="w-1/2 break-words">{dataExam?.subject?.name}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
                 <p className="w-1/2 break-words">Người ra đề:</p>
-                <p className="w-1/2 break-words">{dataExam?.user_id}</p>
+                <p className="w-1/2 break-words">{dataExam?.user?.name}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
                 <p className="w-1/2 break-words">Hình thức thi:</p>
-                <p className="w-1/2 break-words">{dataExam?.type}</p>
+                <p className="w-1/2 break-words">{FORM_EXAM.find(form => form.value == dataExam?.type)?.label}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
                 <p className="w-1/2 break-words">Số câu hỏi/ số đề (tự luận):</p>
@@ -329,7 +329,7 @@ const ModalDetail = ({ examId, setShowModal }) => {
               </div>
               <div className="flex justify-between py-2 pl-2">
                 <p className="w-1/2 break-words">Năm học:</p>
-                <p className="w-1/2 break-words">{dataExam?.year_id}</p>
+                <p className="w-1/2 break-words">{dataExam?.year?.name}</p>
               </div>
             </div>
           </div>
