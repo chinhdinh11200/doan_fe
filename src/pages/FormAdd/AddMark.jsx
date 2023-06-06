@@ -14,6 +14,7 @@ import { FORM_EXAM, FORM_MARK, SEMESTER} from '../../constants';
 import { useCreateMark, useMarkDetail, useUpdateMark } from '../../hooks/mark';
 import { useExamDetail } from '../../hooks/exam';
 import { useYearList } from '../../hooks/year';
+import moment from 'moment/moment';
 function AddMark() {
   const currentLocation = useLocation();
   const [searchParams] = useSearchParams();
@@ -303,9 +304,10 @@ const FormEdit = ({ markId }) => {
 
   useEffect(() => {
     if (mark) {
-      console.log(staffs?.find((user) => user.id === mark.user_id));
+      console.log(mark);
       reset({
         ...mark,
+        date_exam: moment(new Date(mark.date_exam)).format("YYYY-MM-DD"),
         subjectSelected: subjects?.find((subject) => subject.id === mark.subject_id),
         userSelected: staffs?.find((user) => user.id === mark.user_id),
         formMarkSelected: FORM_MARK?.find((formMark) => formMark.value == mark.type),

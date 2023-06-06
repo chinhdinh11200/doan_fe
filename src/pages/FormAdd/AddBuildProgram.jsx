@@ -11,6 +11,7 @@ import { NavLink, useLocation, useNavigate, useSearchParams } from 'react-router
 import { useStaffList } from '../../hooks/staffs';
 import { POSITION_STAFF, FORM_CONSTRUCTION} from '../../constants';
 import { useYearList } from '../../hooks/year';
+import moment from 'moment/moment';
 
 function AddProgram() {
   const currentLocation = useLocation();
@@ -333,6 +334,7 @@ function FormEdit({ programId }) {
       reset({
         ...dataProgram,
         password: '',
+        date_decision: moment(new Date(dataProgram?.date_decision)).format('YYYY-MM-DD'),
         departmentSelected: departments?.find(department => department.id === dataProgram.department_id),
         positionSelected: POSITION_STAFF.find(position => position.value == dataProgram.position),
         form_constructionSelected: FORM_CONSTRUCTION.find(construction => construction.value == dataProgram.form_construction),

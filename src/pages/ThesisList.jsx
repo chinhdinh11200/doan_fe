@@ -40,10 +40,13 @@ function ThesisList() {
     },
     {
       title: <div className="text-center uppercase">Năm</div>,
-      dataIndex: "name",
-      key: "name",
+      dataIndex: "year_id",
+      key: "year_id",
       sortDirections: ["descend", "ascend", "descend"],
       sorter: () => { },
+      render: (_, record) => {
+        return <>{record?.year?.name + record.year_id}</>
+      }
     },
     {
       title: <div className="text-center uppercase">KHÓA ĐÀO TẠO</div>,
@@ -268,9 +271,7 @@ function ThesisList() {
 }
 
 const ModalDetail = ({ thesisId, setShowModal }) => {
-  console.log(thesisId);
   const { data: dataThesis } = useThesisDetail(thesisId);
-  console.log(dataThesis);
   return (
     <>
       <div className="justify-center items-center flex overflow-x-hidden 
@@ -314,7 +315,7 @@ const ModalDetail = ({ thesisId, setShowModal }) => {
                   {
                     dataThesis?.users.map(user => {
                       return (
-                        <div className='flex'>
+                        <div className='flex' key={user?.id}>
                           <p className="w-1/2 break-words">
                             {user.name}
                           </p>

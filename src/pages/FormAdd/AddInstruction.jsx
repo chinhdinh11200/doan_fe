@@ -346,7 +346,7 @@ function FormEdit({ scientificId }) {
         positionSelected: POSITION_STAFF.find(position => position.value == dataScientific.position),
         positionLevelSelected: RESULT_FACULTY.find(result => result.value == dataScientific.result_level),
         positionAcademySelected: RESULT_ACADEMY.find(result => result.value == dataScientific.result_academy),
-        yearSelected: years?.find((year) => year.id == dataScientific.year_id),
+        yearSelected: years?.find((year) => year.id == dataScientific.year?.id),
         roleSelected: dataScientific?.users,
         role: dataScientific?.users?.map(user => user.id).join(','),
         type: 5,

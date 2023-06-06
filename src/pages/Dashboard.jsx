@@ -96,7 +96,9 @@ function Dashboard() {
                               document.body.appendChild(link);
                               link.click();
                               setDisabled(false)
-                            })
+                            }).catch(() => {
+                              setDisabled(false)
+                            }) 
                           } else {
 
                           }

@@ -369,7 +369,7 @@ const FormEdit = ({ classId }) => {
   })
   const { data: { data: staffs = [] } = {}, isLoading: isLoadingStaff } = useStaffList();
   const { data: { data: years = [] } = {}, isLoading: isLoadingYear } = useYearList();
-  const { data: classs = {} } = useClassDetail(classId);
+  const { data: classs } = useClassDetail(classId);
   staffs?.map(staff => {
     staff.label = staff.name
     staff.value = staff.id
@@ -420,8 +420,8 @@ const FormEdit = ({ classId }) => {
       setExamSupervision(classs.exam_supervision == 1 ? true : false);
       reset({
         ...classs,
-        startDate: moment(new Date(classs.startDate)).format('MM/DD/YYYY'),
-        endDate: moment(new Date(classs.endDate)).format('MM/DD/YYYY'),
+        startDate: moment(new Date(classs?.startDate)).format('YYYY-MM-DD'),
+        endDate: moment(new Date(classs?.endDate)).format('YYYY-MM-DD'),
         subjectSelected: subjects?.find((subject) => subject.id === classs.subject_id),
         userSelected: staffs?.find((staff) => staff.id === classs.user_id),
         form_examSelected: FORM_EXAM_SEMESTER?.find((exam) => exam.value === classs.form_exam),

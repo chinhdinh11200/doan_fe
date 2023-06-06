@@ -312,6 +312,8 @@ function FormEdit({ articleId }) {
     isLoading,
     error,
     data: dataCreate } = useUpdateArticle(articleId);
+    const [open_access, setOpenAccess] = useState(false);
+    const [open_access_scopus, setOpenAccessScopus] = useState(false);
 
   const { data: dataArticle } = useArticleDetail(articleId);
   const { data: { data: staffs = [] } = {}, isLoading: isLoadingStaff } = useStaffList();
@@ -369,6 +371,9 @@ function FormEdit({ articleId }) {
 
   useEffect(() => {
     if (dataArticle) {
+      console.log(type_article.find(article => article.value == dataArticle.type_article), dataArticle);
+      setOpenAccess(dataArticle.open_access == 1 ? true : false)
+      setOpenAccessScopus(dataArticle.open_access_scopus == 1 ? true : false)
       reset({
         ...dataArticle,
         password: '',
@@ -376,7 +381,7 @@ function FormEdit({ articleId }) {
         positionSelected: POSITION_STAFF.find(position => position.value == dataArticle.position),
         roleSelected: dataArticle?.users,
         yearSelected: years?.find((year) => year.id == dataArticle.year.id),
-        // articleSelected: type_article.find(article => article.value == dataArticle.type_article),
+        articleSelected: type_article.find(article => article.value == dataArticle.type),
         type_articlescientificSelected: TYPE_ARTICLESCIENTIFIC.find(article => article.value == dataArticle.type),
         role: dataArticle?.users?.map(user => user.id).join(','),
         type: 2,
@@ -384,6 +389,10 @@ function FormEdit({ articleId }) {
     }
   }, [dataArticle, years]);
 
+  useEffect(() => {
+    console.log("open_access", open_access);
+    console.log("open_access_scopus", open_access_scopus);
+  }, [open_access, open_access_scopus])
   return (
     <div className="w-full">
       <div className="border-b border-gray-900/10 pb-12">
@@ -427,12 +436,13 @@ function FormEdit({ articleId }) {
             <div className="mt-2">
               <Controller
                 control={control}
-                name="type_article"
+                name="articleSelected"
                 render={({ field: { value, onChange, ref } }) => (
                   <Select
                     options={type_article}
                     name="type_article"
                     id="type_article"
+                    value={value}
                     placeholder="Lựa chọn"
                     {...register('type_article')}
                     onChange={(val) => {
@@ -495,7 +505,7 @@ function FormEdit({ articleId }) {
                   <Select
                     options={TYPE_ARTICLESCIENTIFIC}
                     value={value}
-                    name="type_articlescientificSelected"
+                    name="type_articles"
                     id="type_articlescientific"
                     placeholder="Lựa chọn"
                     {...register('type_articlescientific')}
@@ -542,9 +552,14 @@ function FormEdit({ articleId }) {
                 id="open_access"
                 autoComplete="open_access"
                 className="block border-gray-300"
+                checked={open_access}
                 onChange={(e) => {
-                  console.log(e.target.checked)
+                  console.log(e.target.checked + "cccc")
+                  setOpenAccess(true)
+                  setOpenAccessScopus(false)
+
                   setValue('open_access', 1)
+                  setValue('open_access_scopus', null)
                 }}
               />
               <label htmlFor="open_access">Open Access</label>
@@ -559,9 +574,12 @@ function FormEdit({ articleId }) {
                 id="open_access_scopus"
                 autoComplete="open_access_scopus"
                 className="block border-gray-300"
+                checked={open_access_scopus}
                 onChange={(e) => {
-                  console.log(e.target.checked)
+                  setOpenAccess(false)
+                  setOpenAccessScopus(true)
                   setValue('open_access_scopus', 1)
+                  setValue('open_access', null)
                 }}
               />
               <label htmlFor="open_access_scopus">Open Access Scopus</label>

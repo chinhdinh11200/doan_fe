@@ -316,7 +316,7 @@ function FormEdit({ thesisId }) {
         password: '',
         departmentSelected: departments?.find(department => department.id === dataThesis.department_id),
         positionSelected: POSITION_STAFF.find(position => position.value == dataThesis.position),
-        yearSelected: years?.find((year) => year.id == dataThesis.year.id),
+        yearSelected: years?.find((year) => year.id == dataThesis?.year?.id),
         roleSelected: dataThesis?.users,
         role: dataThesis?.users?.map(user => user.id).join(','),
         typeSelected: TYPE_THESIS.find(type => type.value === dataThesis.type)

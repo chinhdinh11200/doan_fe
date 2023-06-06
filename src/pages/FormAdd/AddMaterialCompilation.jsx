@@ -11,6 +11,7 @@ import { NavLink, useLocation, useNavigate, useSearchParams } from 'react-router
 import { useStaffList } from '../../hooks/staffs';
 import { POSITION_STAFF, FORM_COMPILATION} from '../../constants';
 import { useYearList } from '../../hooks/year';
+import moment from 'moment/moment';
 
 function AddCompilation() {
   const currentLocation = useLocation();
@@ -336,6 +337,7 @@ function FormEdit({ compilationId }) {
       reset({
         ...dataCompilation,
         password: '',
+        date_decision: moment(new Date(dataCompilation?.date_decision)).format('YYYY-MM-DD'),
         departmentSelected: departments?.find(department => department.id === dataCompilation.department_id),
         positionSelected: POSITION_STAFF.find(position => position.value == dataCompilation.position),
         form_constructionSelected: FORM_COMPILATION.find(construction => construction.value == dataCompilation.form_construction),

@@ -11,6 +11,7 @@ import { NavLink, useLocation, useNavigate, useSearchParams } from 'react-router
 import { useStaffList } from '../../hooks/staffs';
 import { POSITION_STAFF, TYPE_INVENTIONS, YEAR_ID, SEMESTER } from '../../constants';
 import { useYearList } from '../../hooks/year';
+import moment from 'moment';
 const role = [
   {
     label: "Tác giả chính",
@@ -333,6 +334,7 @@ function FormEdit({ inventionId }) {
       reset({
         ...dataInvention,
         password: '',
+        date_recognition: moment(new Date(dataInvention?.date_recognition)).format('YYYY-MM-DD'),
         departmentSelected: departments?.find(department => department.id === dataInvention.department_id),
         positionSelected: POSITION_STAFF.find(position => position.value == dataInvention.position),
         yearSelected: years?.find((year) => year.id == dataInvention.year_id),

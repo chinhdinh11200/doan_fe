@@ -11,6 +11,7 @@ import { NavLink, useLocation, useNavigate, useSearchParams } from 'react-router
 import { useStaffList } from '../../hooks/staffs';
 import { POSITION_STAFF, LEVEL_RESEARCH, RESULT_RESEARCH} from '../../constants';
 import { useYearList } from '../../hooks/year';
+import moment from 'moment';
 const role = [
   {
     label: "Chủ trì",
@@ -370,6 +371,9 @@ function FormEdit({ topicId }) {
       reset({
         ...dataTopic,
         password: '',
+        startDate: moment(new Date(dataTopic?.startDate)).format('YYYY-MM-DD'),
+        endDate: moment(new Date(dataTopic?.endDate)).format('YYYY-MM-DD'),
+        acceptDate: moment(new Date(dataTopic?.acceptDate)).format('YYYY-MM-DD'),
         departmentSelected: departments?.find(department => department.id === dataTopic.department_id),
         positionSelected: POSITION_STAFF.find(position => position.value == dataTopic.position),
         yearSelected: years?.find((year) => year.id == dataTopic.year?.id),
