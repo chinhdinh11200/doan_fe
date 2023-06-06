@@ -214,7 +214,6 @@ function FormCreate() {
                 render={({ field: { value, onChange, ref } }) => (
                   <Select
                     options={TYPE_INVENTIONS}
-                    value={value}
                     name="type_inventions"
                     id="type_inventions"
                     placeholder="Lựa chọn"

@@ -249,7 +249,6 @@ function FormCreate() {
                 render={({ field: { value, onChange, ref } }) => (
                   <Select
                     options={years}
-                    value={value}
                     id="year_id"
                     placeholder="Lựa chọn"
                     {...register('year_id')}

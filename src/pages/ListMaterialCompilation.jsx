@@ -10,7 +10,7 @@ import { BiEdit, BiTrash } from 'react-icons/bi';
 import { FORM_COMPILATION, PAGE_SIZE } from '../constants';
 import Search from '../components/Search';
 import { debounce } from 'lodash';
-
+import moment from 'moment/moment';
 function compilationList() {
   const [tableParams, setTableParams] = useState({
     pagination: {
@@ -316,7 +316,7 @@ const ModalDetail = ({ compilationId, setShowModal }) => {
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
                 <p className="w-1/2 break-words">Ngày ký QĐ giao nhiệm vụ:</p>
-                <p className="w-1/2 break-words">{dataCompialtion?.date_decision}</p>
+                <p className="w-1/2 break-words">{moment(new Date(dataCompialtion?.date_decision)).format("DD-MM-YYYY")}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
                 <p className="w-1/2 break-words">Số tác giả tham gia:</p>
