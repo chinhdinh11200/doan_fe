@@ -87,7 +87,6 @@ function FormCreate() {
         <form
           name='add-staff'
           onSubmit={handleSubmit((values) => {
-            console.log(values);
             mutate(values)
           })}
         >
@@ -137,7 +136,6 @@ function FormEdit({subjectId}) {
     error,
     data: dataCreate } = useUpdateSubject(subjectId);
   const {data: subject = {}} = useSubjectDetail(subjectId);
-  console.log(subject);
   const { data: departments } = useDepartmentList();
   departments?.data?.map(department => {
     department.label = department.name
@@ -186,9 +184,7 @@ function FormEdit({subjectId}) {
       <div className="border-b border-gray-900/10 pb-12">
         <form
           name='add-staff'
-          onSubmit={handleSubmit((values) => {
-            console.log(values);
-            
+          onSubmit={handleSubmit((values) => {            
             mutate(values)
           })}
         >

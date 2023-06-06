@@ -95,7 +95,6 @@ function FormCreate() {
     }
   })
   useEffect(() => {
-    console.log("dataCreate");
     if (dataCreate) {
       navigate('/list-compilation');
     }
@@ -108,7 +107,6 @@ function FormCreate() {
         <form
           name='add-compilation'
           onSubmit={handleSubmit((values) => {
-            console.log(values);
             mutate(values)
           })}
         >
@@ -356,7 +354,6 @@ function FormEdit({ compilationId }) {
         <form
           name='add-compilation'
           onSubmit={handleSubmit((values) => {
-            console.log(values);
             mutate(values)
           })}
         >

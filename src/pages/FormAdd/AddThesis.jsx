@@ -92,7 +92,6 @@ function FormCreate() {
   })
 
   useEffect(() => {
-    console.log(dataCreate);
     if (dataCreate) {
       navigate('/list-thesis');
     }
@@ -104,7 +103,6 @@ function FormCreate() {
         <form
           name='add-thesis'
           onSubmit={handleSubmit((values) => {
-            console.log(values);
             mutate(values)
           })}
         >
@@ -330,7 +328,6 @@ function FormEdit({ thesisId }) {
         <form
           name='add-thesis'
           onSubmit={handleSubmit((values) => {
-            console.log(values);
             mutate(values)
           })}
         >

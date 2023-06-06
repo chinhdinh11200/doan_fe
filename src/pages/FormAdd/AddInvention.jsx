@@ -106,7 +106,6 @@ function FormCreate() {
   })
 
   useEffect(() => {
-    console.log(dataCreate);
     if (dataCreate) {
       navigate('/invention-list');
     }
@@ -118,7 +117,6 @@ function FormCreate() {
         <form
           name='add-scientific-articles'
           onSubmit={handleSubmit((values) => {
-            console.log(values);
             mutate(values)
           })}
         >
@@ -351,7 +349,6 @@ function FormEdit({ inventionId }) {
         <form
           name='add-scientific-articles'
           onSubmit={handleSubmit((values) => {
-            console.log(values);
             mutate(values)
           })}
         >

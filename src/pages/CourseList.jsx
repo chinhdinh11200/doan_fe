@@ -12,7 +12,6 @@ function Dashboard() {
       ...tableParams,
       search: search
     })
-    console.log(search);
   }
   return (
     <div className="flex h-screen overflow-hidden">

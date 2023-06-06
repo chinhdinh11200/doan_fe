@@ -304,7 +304,6 @@ const FormEdit = ({ markId }) => {
 
   useEffect(() => {
     if (mark) {
-      console.log(mark);
       reset({
         ...mark,
         date_exam: moment(new Date(mark.date_exam)).format("YYYY-MM-DD"),
@@ -323,7 +322,6 @@ const FormEdit = ({ markId }) => {
           name='add-class'
           onSubmit={handleSubmit((values) => {
             mutate(values)
-            console.log(values)
           })}
         >
           <div className="col-span-full mb-2">

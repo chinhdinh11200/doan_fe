@@ -273,7 +273,6 @@ function inventionList() {
 
 const ModalDetail = ({ inventionId, setShowModal }) => {
   const { data: dataInvention } = useInventionsDetail(inventionId);
-  console.log(dataInvention)
   return (
     <>
       <div className="justify-center items-center flex overflow-x-hidden 

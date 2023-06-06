@@ -275,9 +275,7 @@ function Dashboard() {
 }
 
 const ModalDetail = ({ articleId, setShowModal }) => {
-  console.log(articleId);
   const { data: dataArticle } = useArticleDetail(articleId);
-  console.log(dataArticle);
   return (<>
     <div className="justify-center items-center flex overflow-x-hidden 
     overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"

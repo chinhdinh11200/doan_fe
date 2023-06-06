@@ -118,7 +118,6 @@ function FormCreate() {
         <form
           name='add-scientific-articles'
           onSubmit={handleSubmit((values) => {
-            console.log(values);
             mutate(values)
           })}
         >
@@ -267,7 +266,6 @@ function FormCreate() {
                 value={0}
                 className="block border-gray-300"
                 onChange={(e) => {
-                  console.log(e.target.checked)
                   setValue('open_access', 1)
                 }}
               // {...register('open_access', { required: true })}
@@ -371,7 +369,6 @@ function FormEdit({ articleId }) {
 
   useEffect(() => {
     if (dataArticle) {
-      console.log(type_article.find(article => article.value == dataArticle.type_article), dataArticle);
       setOpenAccess(dataArticle.open_access == 1 ? true : false)
       setOpenAccessScopus(dataArticle.open_access_scopus == 1 ? true : false)
       reset({
@@ -399,7 +396,6 @@ function FormEdit({ articleId }) {
         <form
           name='add-scientific-articles'
           onSubmit={handleSubmit((values) => {
-            console.log(values);
             mutate(values)
           })}
         >
@@ -554,7 +550,6 @@ function FormEdit({ articleId }) {
                 className="block border-gray-300"
                 checked={open_access}
                 onChange={(e) => {
-                  console.log(e.target.checked + "cccc")
                   setOpenAccess(true)
                   setOpenAccessScopus(false)
 

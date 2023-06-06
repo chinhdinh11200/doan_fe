@@ -74,7 +74,6 @@ function EditAccount() {
     }, [dataUpdate])
     useEffect(() => {
         if (dataUpdatePass) {
-            console.log(errorPass);
             toast.success('Đổi mật khẩu thành công!', {
                 position: 'top-right',
                 autoClose: 2000,
@@ -87,8 +86,6 @@ function EditAccount() {
         }
     }, [dataUpdatePass])
     const handleSubmitInfo = (values) => {
-        console.log(values);
-
         let formData = new FormData();
         let file = values.avatarUpload[0];
 

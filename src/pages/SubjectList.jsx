@@ -237,7 +237,6 @@ function SubjectList() {
                       <input type='file' ref={fileInputRef} name='import' className="hidden" onChange={(e) => {
                         const formData = new FormData();
                         formData.append('import', e.target.files[0]);
-                        console.log(e.target.files[0], e);
                         mutateImport(formData);
                         fileInputRef.current.value = null;
                       }} />
