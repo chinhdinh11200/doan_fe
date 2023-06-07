@@ -199,7 +199,7 @@ function staffList() {
                   {/* Filter button */}
                   <div className='flex gap-2'>
                     <Search onChangeSearch={onChangeSearch} />
-                    <FilterButton />
+                    
                   </div>
                   <NavLink end to="/add-staff" className="btn bg-indigo-500 hover:bg-indigo-600 text-white">
                     <svg className="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
@@ -315,15 +315,19 @@ const ModalDetail = ({ staffId, setShowModal }) => {
                 <p className="w-1/2 break-words">Email:</p>
                 <p className="w-1/2 break-words">{dataStaff?.email}</p>
               </div>
-              <div className="flex justify-between py-2 pl-2 ">
+              <div className="flex justify-between py-2 pl-2 border-b">
+                <p className="w-1/2 break-words">Học hàm, học vị:</p>
+                <p className="w-1/2 break-words">{dataStaff?.degree}</p>
+              </div>
+              <div className="flex justify-between py-2 pl-2 border-b">
                 <p className="w-1/2 break-words">Vị trí:</p>
                 <p className="w-1/2 break-words">{POSITION_STAFF.find(formTopic => formTopic.value == dataStaff?.position)?.label}</p>
               </div>
-              <div className="flex justify-between py-2 pl-2 ">
+              <div className="flex justify-between py-2 pl-2 border-b">
                 <p className="w-1/2 break-words">Hệ số lương:</p>
                 <p className="w-1/2 break-words">{dataStaff?.number_salary}</p>
               </div>
-              <div className="flex justify-between py-2 pl-2 ">
+              <div className="flex justify-between py-2 pl-2 border-b">
                 <p className="w-1/2 break-words">Thu nhập:</p>
                 <p className="w-1/2 break-words">{dataStaff?.income}</p>
               </div>

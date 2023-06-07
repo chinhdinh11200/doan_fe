@@ -200,7 +200,7 @@ function bookList() {
                 <div className="flex justify-between flex-row-reverse gap-4">
                   <div className='flex gap-2'>
                     <Search onChangeSearch={onChangeSearch} />
-                    <FilterButton />
+                    
                   </div>
                   <NavLink end to="/add-book" className="btn bg-indigo-500 hover:bg-indigo-600 text-white">
                     <svg className="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
