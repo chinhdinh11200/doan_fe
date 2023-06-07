@@ -14,6 +14,10 @@ import { toast } from 'react-toastify';
 
 function EditAccount() {
     const { user } = useContext(UserContext)
+    console.log(user);
+    if (!user) {
+        return null ; 
+    }
     const { setUser } = useContext(UserContext);
     const { data: dataUser } = useStaffDetail(user?.id)
     const [avatar, setAvatar] = useState('');
@@ -87,12 +91,12 @@ function EditAccount() {
     }, [dataUpdatePass])
     const handleSubmitInfo = (values) => {
         let formData = new FormData();
-        let file = values.avatarUpload[0];
+        let file = avatar.raw;
 
         formData.append('avatar', file);
         formData.append('name', values.name);
         formData.append('email', values.email);
-        formData.append('birthday', values.birthday);
+        // formData.append('birthday', values.birthday);
 
         mutate(formData)
     }
@@ -124,10 +128,9 @@ function EditAccount() {
                         </div> */}
                         <div className="bg-white space-y-6 pt-4">
                             <form
-                                name='update-staff'
-                                onSubmit={handleSubmit((values) => {
-                                    handleSubmitInfo(values);
-                                })}>
+                                // name='update-staffc'
+                                onSubmit={handleSubmit(handleSubmitInfo)}
+                            >
                                 <div className='mt-4 flex justify-center'>
                                     <label htmlFor='avatarUpload'>
                                         <img
@@ -136,8 +139,9 @@ function EditAccount() {
                                             src={avatar.preview}
                                         />
                                     </label>
-                                    <input type="file" hidden id='avatarUpload' name='avatarUpload' {...register('avatarUpload')} onChange={(e) => {
+                                    <input type="file" hidden id='avatarUpload' {...register('avatarUpload')} onChange={(e) => {
                                         if (e.target.files.length) {
+                                            console.log(e.target.files[0])
                                             setAvatar({
                                                 preview: URL.createObjectURL(e.target.files[0]),
                                                 raw: e.target.files[0],
