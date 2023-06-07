@@ -199,7 +199,7 @@ function scientificList() {
                 <div className="flex justify-between flex-row-reverse gap-4">
                   <div className='flex gap-2'>
                     <Search onChangeSearch={onChangeSearch} />
-                    <FilterButton />
+                    
                   </div>
                   <div className='flex gap-2'>
                   <NavLink end to="/add-instructions" className="btn bg-indigo-500 hover:bg-indigo-600 text-white">
@@ -208,14 +208,6 @@ function scientificList() {
                     </svg>
                     <span className="ml-2">
                       Thêm hướng dẫn
-                    </span>
-                  </NavLink>
-                  <NavLink end to="/add-coach" className="btn bg-indigo-500 hover:bg-indigo-600 text-white">
-                    <svg className="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
-                      <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
-                    </svg>
-                    <span className="ml-2">
-                      Thêm huấn luyện đội tuyển
                     </span>
                   </NavLink>
                   </div>

@@ -179,6 +179,20 @@ function FormCreate() {
             </div>
           </div>
           <div className="col-span-full mb-2">
+            <label htmlFor="degree" className="block text-sm font-medium leading-6 text-gray-900">Học hàm, học vị</label>
+            <div className="mt-2">
+              <input
+                type="text"
+                name="degree"
+                id="degree"
+                autoComplete="degree"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                {...register('degree', { required: true })}
+              />
+              {errors.degree && <p className="text-red-500">{errors.degree.message}</p>}
+            </div>
+          </div>
+          <div className="col-span-full mb-2">
             <label htmlFor="position" className="block text-sm font-medium leading-6 text-gray-900">Vị trí</label>
             <div className="mt-2">
               <Controller
@@ -379,6 +393,20 @@ function FormEdit({ staffId }) {
                 {...register('password', { required: true })}
               />
               {errors.password && <p className="text-red-500">{errors.password.message}</p>}
+            </div>
+          </div>
+          <div className="col-span-full mb-2">
+            <label htmlFor="degree" className="block text-sm font-medium leading-6 text-gray-900">Học hàm, học vị</label>
+            <div className="mt-2">
+              <input
+                type="text"
+                name="degree"
+                id="degree"
+                autoComplete="degree"
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                {...register('degree', { required: true })}
+              />
+              {errors.degree && <p className="text-red-500">{errors.degree.message}</p>}
             </div>
           </div>
           <div className="col-span-full mb-2">

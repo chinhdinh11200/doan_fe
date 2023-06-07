@@ -217,7 +217,7 @@ function SubjectList() {
                   {/* Filter button */}
                   <div className='flex gap-2'>
                     <Search onChangeSearch={onChangeSearch} />
-                    <FilterButton />
+                    
                   </div>
                   <div className="flex bg-grey-lighter gap-2">
                     <NavLink end to="/add-subject" className="btn bg-indigo-500 hover:bg-indigo-600 text-white">
