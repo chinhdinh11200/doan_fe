@@ -73,7 +73,7 @@ const FormCreate = () => {
 
   const schema = yup.object().shape({
     name: yup.string().trim().required('Tên lớp học là bắt buộc').max(191, 'Tên không dài quá 191 kí tự'),
-    code: yup.string().required('Mã lớp học là bắt buộc.').min(4, "Mã lớp học không được nhỏ hơn 4 kí tự."),
+    code: yup.string().required('Mã lớp học là bắt buộc.').min(4, "Mã lớp học không được nhỏ hơn 4 kí tự.").matches(/^(A|C|D|H|TC).*/, "Trường mã lớp học không hợp lệ"),
     position: yup.string(),
   })
 
@@ -389,7 +389,7 @@ const FormEdit = ({ classId }) => {
 
   const schema = yup.object().shape({
     name: yup.string().trim().required('Tên lớp học là bắt buộc').max(191, 'Tên không dài quá 191 kí tự'),
-    code: yup.string().required('Mã lớp học là bắt buộc.').min(4, "Mã lớp học không được nhỏ hơn 4 kí tự."),
+    code: yup.string().required('Mã lớp học là bắt buộc.').min(4, "Mã lớp học không được nhỏ hơn 4 kí tự.").matches(/^(A|C|D|H|TC).*/, "Trường mã lớp học không hợp lệ"),
     position: yup.string(),
   })
 
