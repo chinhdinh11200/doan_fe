@@ -216,7 +216,6 @@ function FormCreate() {
                 render={({ field: { value, onChange, ref } }) => (
                   <Select
                     options={FORM_COMPILATION}
-                    value={value}
                     name="form_construction"
                     id="form_construction"
                     placeholder="Lựa chọn"
