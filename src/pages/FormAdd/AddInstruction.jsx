@@ -249,7 +249,6 @@ function FormCreate() {
                 render={({ field: { value, onChange, ref } }) => (
                   <Select
                     options={years}
-                    value={value}
                     id="year_id"
                     placeholder="Lựa chọn"
                     {...register('year_id')}
@@ -353,7 +352,7 @@ function FormEdit({ scientificId }) {
         typeScientific: 0,
       })
     }
-  }, [dataScientific]);
+  }, [dataScientific, years]);
 
   return (
     <div className="w-full">

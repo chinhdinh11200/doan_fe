@@ -62,7 +62,9 @@ function Dashboard() {
               {/* Datepicker built with flatpickr */}
               {/* <Datepicker /> */}
               <div className='flex gap-3'>
-                <div className=''>
+                {
+                  user?.department_id && user.department_id != 1 ? (
+                    <div className=''>
                   { defaultValue && (<Select
                     className='w-[200px] h-[38px]'
                     options={years}
@@ -72,8 +74,10 @@ function Dashboard() {
                     }}
                   />)}
                 </div>
+                  ): null
+                }
                 {
-                  user?.department_id != 1 ?
+                  user?.department_id && user?.department_id != 1 ?
                     <div className=''>
                       <button disabled={disabled} className='rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 
                   focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
@@ -114,16 +118,22 @@ function Dashboard() {
             {/* Cards */}
             <div className="grid grid-cols-12 gap-6">
               {
-                user?.department_id != 1 ? <DashboardCard12 /> : null
+                user?.department_id && user?.department_id != 1 ? <DashboardCard12 /> : null
               }
+              {
+                user?.department_id && user?.department_id != 1 ? <DashboardCard10 /> : null
+              }
+              {
+                user?.department_id && user?.department_id != 1 ? <DashboardCard07 /> : null
+              }
+
+              {/* <DashboardCard10 />
+
 
               <DashboardCard10 />
 
 
-              {/* <DashboardCard10 /> */}
-
-
-              <DashboardCard07 />
+              <DashboardCard07 /> */}
 
 
             </div>

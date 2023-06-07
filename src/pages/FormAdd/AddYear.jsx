@@ -11,6 +11,7 @@ import { NavLink, useLocation, useNavigate, useSearchParams } from 'react-router
 import { useStaffList } from '../../hooks/staffs';
 import { POSITION_STAFF, TYPE_THESIS, YEAR_ID, SEMESTER } from '../../constants';
 import { useCreateYear, useUpdateYear, useYearDelete, useYearDetail, useYearList } from '../../hooks/year';
+import moment from 'moment';
 function AddYear() {
   const currentLocation = useLocation();
   const [searchParams] = useSearchParams();
@@ -183,6 +184,8 @@ function FormEdit({ yearId }) {
     if (dataYear) {
       reset({
         ...dataYear,
+        startDate: moment(new Date(dataYear?.startDate)).format('YYYY-MM-DD'),
+        endDate: moment(new Date(dataYear?.endDate)).format('YYYY-MM-DD'),
       })
     }
   }, [dataYear]);

@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 
 import SidebarLinkGroup from './SidebarLinkGroup';
+import { UserContext } from '../context/userInfo';
 
 function Sidebar({ sidebarOpen, setSidebarOpen }) {
   const location = useLocation();
@@ -9,6 +10,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
 
   const trigger = useRef(null);
   const sidebar = useRef(null);
+  const { user } = useContext(UserContext);
 
   const storedSidebarExpanded = localStorage.getItem('sidebar-expanded');
   const [sidebarExpanded, setSidebarExpanded] = useState(storedSidebarExpanded === null ? false : storedSidebarExpanded === 'true');
@@ -244,7 +246,9 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 }}
               </SidebarLinkGroup>
 
-              <SidebarLinkGroup activecondition={pathname.includes('job')}>
+              {
+                (user?.department_id == 1 || user?.department_id == null) &&(
+                  <SidebarLinkGroup activecondition={pathname.includes('job')}>
                 {(handleClick, open) => {
                   return (
                     <React.Fragment>
@@ -332,6 +336,8 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                   );
                 }}
               </SidebarLinkGroup>
+                )
+              }
 
               <SidebarLinkGroup activecondition={pathname.includes('tasks')}>
                 {(handleClick, open) => {
