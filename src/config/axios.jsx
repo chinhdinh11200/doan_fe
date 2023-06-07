@@ -18,15 +18,6 @@ instance.interceptors.response.use(
         }
         if (error?.response?.status === 403) {
             console.log("test");
-            // if (typeof window !== "undefined") {
-            //     failAuth++;
-            //     if (failAuth === 2) {
-            //         localStorage.setItem("accessToken", "");
-            //         localStorage.setItem("email", "");
-            //         window.location.replace("/login");
-            //         failAuth = 0;
-            //     }
-            // }
         }
         return Promise.reject(error);
     }

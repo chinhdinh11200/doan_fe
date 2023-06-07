@@ -99,7 +99,6 @@ function FormCreate() {
   })
 
   useEffect(() => {
-    console.log("dataCreate");
     if (dataCreate) {
       navigate('/build-program-list');
     }
@@ -112,7 +111,6 @@ function FormCreate() {
         <form
           name='add-education'
           onSubmit={handleSubmit((values) => {
-            console.log(values);
             mutate(values)
           })}
         >
@@ -353,7 +351,6 @@ function FormEdit({ programId }) {
         <form
           name='add-education'
           onSubmit={handleSubmit((values) => {
-            console.log(values);
             mutate(values)
           })}
         >

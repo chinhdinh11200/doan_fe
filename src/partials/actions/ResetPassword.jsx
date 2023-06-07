@@ -37,7 +37,6 @@ export default function ResetPassword() {
   })
 
   useEffect(() => {
-    console.log(dataCreate);
     if (dataCreate?.data.success) {
       toast.success('Đặt lại mật khẩu thành công!', {
         position: 'top-right',

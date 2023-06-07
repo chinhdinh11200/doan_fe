@@ -73,7 +73,6 @@ function FormCreate() {
   })
 
   useEffect(() => {
-    console.log(dataCreate);
     if (dataCreate) {
       navigate('/list-year');
     }
@@ -85,7 +84,6 @@ function FormCreate() {
         <form
           name='add-thesis'
           onSubmit={handleSubmit((values) => {
-            console.log(values);
             mutate(values)
           })}
         >
@@ -196,7 +194,6 @@ function FormEdit({ yearId }) {
         <form
           name='add-year'
           onSubmit={handleSubmit((values) => {
-            console.log(values);
             mutate(values)
           })}
         >

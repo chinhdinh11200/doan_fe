@@ -106,7 +106,6 @@ function FormCreate() {
   })
 
   useEffect(() => {
-    console.log(dataCreate);
     if (dataCreate) {
       navigate('/invention-list');
     }
@@ -118,7 +117,6 @@ function FormCreate() {
         <form
           name='add-scientific-articles'
           onSubmit={handleSubmit((values) => {
-            console.log(values);
             mutate(values)
           })}
         >
@@ -214,7 +212,6 @@ function FormCreate() {
                 render={({ field: { value, onChange, ref } }) => (
                   <Select
                     options={TYPE_INVENTIONS}
-                    value={value}
                     name="type_inventions"
                     id="type_inventions"
                     placeholder="Lựa chọn"
@@ -352,7 +349,6 @@ function FormEdit({ inventionId }) {
         <form
           name='add-scientific-articles'
           onSubmit={handleSubmit((values) => {
-            console.log(values);
             mutate(values)
           })}
         >

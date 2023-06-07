@@ -97,7 +97,6 @@ const FormCreate = () => {
           name='add-class'
           onSubmit={handleSubmit((values) => {
             mutate(values)
-            console.log(values)
           })}
         >
           <div className="col-span-full mb-2">
@@ -335,7 +334,6 @@ const FormEdit = ({ examId }) => {
         <form
           name='add-class'
           onSubmit={handleSubmit((values) => {
-            console.log(values)
             mutate(values)
           })}
         >

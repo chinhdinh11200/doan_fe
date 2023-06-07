@@ -134,7 +134,6 @@ function ExamList() {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [isLoadingg, setIsLoading] = useState(false);
   const { data: { data: dataExam = [], total } = {}, isLoading } = useExamList(tableParams);
-  console.log(dataExam);
   const { mutate, isLoading: isLoadingDelete, isSuccess } = useExamDelete();
   const onChangeTableParams = (pagination, filters, sorter, extra) => {
     setPage(pagination.current);

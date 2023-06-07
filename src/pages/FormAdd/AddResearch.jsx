@@ -127,7 +127,6 @@ function FormCreate() {
           name='add-topic'
           onSubmit={handleSubmit((values) => {
             mutate(values)
-            console.log(values)
           })}
         >
           <div className="col-span-full mb-2.5">
@@ -393,7 +392,6 @@ function FormEdit({ topicId }) {
           name='add-topic'
           onSubmit={handleSubmit((values) => {
             mutate(values)
-            // console.log(values)
           })}
         >
           <div className="col-span-full mb-2.5">
@@ -439,7 +437,6 @@ function FormEdit({ topicId }) {
                     placeholder="Lựa chọn"
                     {...register('level_research')}
                     onChange={(val) => {
-                      console.log(val, val.value)
                       onChange(val);
                       setValue("level_research", val.value);
                     }}

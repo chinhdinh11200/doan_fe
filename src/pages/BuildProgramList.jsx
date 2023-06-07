@@ -10,6 +10,7 @@ import { BiEdit, BiTrash } from 'react-icons/bi';
 import { PAGE_SIZE, FORM_CONSTRUCTION } from '../constants';
 import Search from '../components/Search';
 import { debounce } from 'lodash';
+import moment from 'moment/moment';
 function educationList() {
   const [tableParams, setTableParams] = useState({
     pagination: {
@@ -321,7 +322,7 @@ const ModalDetail = ({ educationId, setShowModal }) => {
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
                 <p className="w-1/2 break-words">Ngày QĐ giao nhiệm vụ:</p>
-                <p className="w-1/2 break-words">{dataEducation?.date_decision}</p>
+                <p className="w-1/2 break-words">{moment(new Date(dataEducation?.date_decision)).format("DD-MM-YYYY")}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
                 <p className="w-1/2 break-words">Số tác giả tham gia:</p>

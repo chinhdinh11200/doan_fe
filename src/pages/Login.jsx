@@ -43,7 +43,6 @@ export default function Login() {
                 draggable: true,
                 progress: undefined,
             });
-            console.log(dataLogin.user, {...dataLogin.user});
             setDefaultHeaders({
                 Authorization: 'Bearer ' + dataLogin.accessToken,
             });

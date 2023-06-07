@@ -261,9 +261,7 @@ function YearList() {
 }
 
 const ModalDetail = ({ yearId, setShowModal }) => {
-  console.log(yearId);
   const { data: dataThesis } = useThesisDetail(yearId);
-  console.log(dataThesis);
   return (
     <>
       <div className="justify-center items-center flex overflow-x-hidden 

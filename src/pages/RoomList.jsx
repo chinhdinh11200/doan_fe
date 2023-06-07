@@ -157,7 +157,6 @@ function RoomList() {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [isLoadingg, setIsLoading] = useState(false);
   const { data: { data: dataRoom = [], total } = {}, isLoading } = useRoomList(tableParams);
-  console.log(dataRoom);
   const { mutate, isLoading: isLoadingDelete, isSuccess } = useRoomDelete();
   const onChangeTableParams = (pagination, filters, sorter, extra) => {
     setPage(pagination.current);

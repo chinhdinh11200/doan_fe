@@ -34,7 +34,6 @@ export default function Login() {
   })
 
   useEffect(() => {
-    console.log(dataCreate);
     if (dataCreate?.data.success) {
       toast.success('Gửi mail thành công!', {
         position: 'top-right',

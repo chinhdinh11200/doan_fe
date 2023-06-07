@@ -98,7 +98,6 @@ function FormCreate() {
   })
 
   useEffect(() => {
-    console.log("dataCreate");
     if (dataCreate) {
       navigate('/instruction-list');
     }
@@ -110,7 +109,6 @@ function FormCreate() {
         <form
           name='add-scientific'
           onSubmit={handleSubmit((values) => {
-            console.log(values);
             mutate(values)
           })}
         >
@@ -338,7 +336,6 @@ function FormEdit({ scientificId }) {
         <form
           name='add-scientific'
           onSubmit={handleSubmit((values) => {
-            console.log(values);
             mutate(values)
           })}
         >

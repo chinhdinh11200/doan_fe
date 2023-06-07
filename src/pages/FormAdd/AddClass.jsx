@@ -437,7 +437,6 @@ const FormEdit = ({ classId }) => {
         <form
           name='add-class'
           onSubmit={handleSubmit((values) => {
-            console.log({ marking, exam_create, exam_supervision });
             mutate({ ...values /*, marking: marking, exam_create: exam_create, exam_supervision: exam_supervision*/ })
           })}
         >

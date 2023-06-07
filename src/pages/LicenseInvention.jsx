@@ -10,7 +10,7 @@ import { BiEdit, BiTrash } from 'react-icons/bi';
 import { PAGE_SIZE, TYPE_INVENTIONS } from '../constants';
 import Search from '../components/Search';
 import { debounce } from 'lodash';
-
+import moment from 'moment/moment';
 function inventionList() {
   const [tableParams, setTableParams] = useState({
     pagination: {
@@ -273,7 +273,6 @@ function inventionList() {
 
 const ModalDetail = ({ inventionId, setShowModal }) => {
   const { data: dataInvention } = useInventionsDetail(inventionId);
-  console.log(dataInvention)
   return (
     <>
       <div className="justify-center items-center flex overflow-x-hidden 
@@ -313,7 +312,7 @@ const ModalDetail = ({ inventionId, setShowModal }) => {
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
                 <p className="w-1/2 break-words">Ngày QĐ công nhận:</p>
-                <p className="w-1/2 break-words">{dataInvention?.date_recognition}</p>
+                <p className="w-1/2 break-words">{moment(new Date(dataInvention?.date_recognition)).format("DD-MM-YYYY")}</p>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
                 <p className="w-1/2 break-words">Số tác giả tham gia:</p>
