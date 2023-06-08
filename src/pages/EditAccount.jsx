@@ -192,7 +192,19 @@ function EditAccount() {
                                                 />
                                             </div>
                                         </div>
-                                        
+                                        <div>
+                                            <label className="text-sm text-gray-400">Ngày sinh</label>
+                                            <div className="w-full inline-flex border">
+
+                                                <input
+                                                    type="text"
+                                                    className="w-full bg-slate-100 focus:outline-none focus:text-gray-600 p-2"
+                                                    placeholder="Ngày sinh"
+                                                    {...register('birthday')}
+                                                />
+                                            </div>
+                                        </div>
+                                    
                                         <div>
                                             <label className="text-sm text-gray-400">Học hàm/học vị</label>
                                             <div className="w-full inline-flex border">

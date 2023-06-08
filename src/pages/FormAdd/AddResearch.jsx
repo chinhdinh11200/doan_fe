@@ -514,7 +514,7 @@ function FormEdit({ topicId }) {
               {errors.role && <p className="text-red-500">{errors.role.message}</p>}
             </div>
           </div>
-          {/* <div className="col-span-full mb-2.5">
+          <div className="col-span-full mb-2.5">
             <label htmlFor="resultresearchSelected" className="block text-sm font-medium leading-6 text-gray-900">Kết quả</label>
             <div className="mt-2">
               <Controller
@@ -537,7 +537,7 @@ function FormEdit({ topicId }) {
               />
               {errors.result && <p className="text-red-500">{errors.result.message}</p>}
             </div>
-          </div> */}
+          </div>
           <div className="col-span-full mb-2">
             <label htmlFor="yearSelected" className="block text-sm font-medium leading-6 text-gray-900">Năm học</label>
             <div className="mt-2">
