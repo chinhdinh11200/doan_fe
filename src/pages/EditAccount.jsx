@@ -58,15 +58,16 @@ function EditAccount() {
 
     useEffect(() => {
         if (dataUser) {
+            console.log(dataUser.email);
             setAvatar({ preview: dataUser.avatar });
             reset({
                 ...dataUser,
                 position: POSITION_STAFF.find(position => position.value == dataUser.position)?.label,
                 birthday: moment(dataUser.birthday).format("YYYY-MM-DD"),
             }),
-                resetFormPass({
-                    email: dataUser.email,
-                })
+            resetFormPass({
+                email: dataUser.email,
+            })
         }
     }, [dataUser])
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -88,6 +89,11 @@ function EditAccount() {
                 progress: undefined,
             });
         }
+        resetFormPass({
+            password: "",
+            newPassword: "",
+            confirmPassword: "",
+        })
     }, [dataUpdatePass])
     const handleSubmitInfo = (values) => {
         let formData = new FormData();
@@ -181,7 +187,9 @@ function EditAccount() {
                                 </div>
 
                                 <hr />
-                                <div className="md:inline-flex  space-y-4 md:space-y-0  w-full p-4 text-gray-500 items-center">
+                                {
+                                    user?.department_id && (
+                                        <div className="md:inline-flex  space-y-4 md:space-y-0  w-full p-4 text-gray-500 items-center">
                                     <h2 className="md:w-1/3 mx-auto max-w-sm">Thông tin cá nhân</h2>
                                     <div className="md:w-2/3 mx-auto max-w-sm space-y-5">
                                         <div>
@@ -223,6 +231,8 @@ function EditAccount() {
                                         </div>
                                     </div>
                                 </div>
+                                    )
+                                }
                                 <div className="w-full p-4 text-right text-gray-500">
                                     <button type='submit' className='bg-blue-600 rounded-md p-2 text-white'>
                                         Cập nhật
@@ -252,7 +262,7 @@ function EditAccount() {
                                         <div className="w-full inline-flex border-b">
 
                                             <input
-                                                type="newPassword"
+                                                type="password"
                                                 className="w-full focus:outline-none focus:text-gray-600 p-2"
                                                 placeholder="Mật khẩu mới"
                                                 {...registerFormPass('newPassword')}
@@ -261,7 +271,7 @@ function EditAccount() {
                                         <div className="w-full inline-flex border-b">
 
                                             <input
-                                                type="confirmPassword"
+                                                type="password"
                                                 className="w-full focus:outline-none focus:text-gray-600 p-2"
                                                 placeholder="Nhập lại khẩu mới"
                                                 {...registerFormPass('confirmPassword')}

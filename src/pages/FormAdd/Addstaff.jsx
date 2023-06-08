@@ -296,6 +296,7 @@ function FormEdit({ staffId }) {
 
   useEffect(() => {
     if (dataStaff) {
+      console.log(dataStaff);
       reset({
         ...dataStaff,
         password: '',
