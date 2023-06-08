@@ -14,6 +14,7 @@ import axios from '../config/axios';
 import API from '../constants/api'
 import { useYearList } from '../hooks/year';
 import { Select } from 'antd';
+import moment from 'moment';
 
 
 function Dashboard() {
@@ -96,7 +97,8 @@ function Dashboard() {
                               const url = window.URL.createObjectURL(new Blob([response.data]));
                               const link = document.createElement('a');
                               link.href = url;
-                              link.setAttribute('download', 'report.pdf'); //or any other extension
+                              let nameFile = `report-${moment(new Date()).format("DD-MM-YYYY")}-${Date.now()}.pdf`
+                              link.setAttribute('download', nameFile);
                               document.body.appendChild(link);
                               link.click();
                               setDisabled(false)

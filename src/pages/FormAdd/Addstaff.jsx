@@ -296,6 +296,7 @@ function FormEdit({ staffId }) {
 
   useEffect(() => {
     if (dataStaff) {
+      console.log(dataStaff);
       reset({
         ...dataStaff,
         password: '',
@@ -303,7 +304,7 @@ function FormEdit({ staffId }) {
         positionSelected: POSITION_STAFF.find(position => position.value == dataStaff.position)
       })
     }
-  }, [dataStaff]);
+  }, [dataStaff, departments]);
 
   return (
     <div className="w-full">

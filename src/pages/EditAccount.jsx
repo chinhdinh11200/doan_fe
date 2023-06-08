@@ -14,6 +14,10 @@ import { toast } from 'react-toastify';
 
 function EditAccount() {
     const { user } = useContext(UserContext)
+    console.log(user);
+    if (!user) {
+        return null ; 
+    }
     const { setUser } = useContext(UserContext);
     const { data: dataUser } = useStaffDetail(user?.id)
     const [avatar, setAvatar] = useState('');
@@ -54,15 +58,16 @@ function EditAccount() {
 
     useEffect(() => {
         if (dataUser) {
+            console.log(dataUser.email);
             setAvatar({ preview: dataUser.avatar });
             reset({
                 ...dataUser,
                 position: POSITION_STAFF.find(position => position.value == dataUser.position)?.label,
                 birthday: moment(dataUser.birthday).format("YYYY-MM-DD"),
             }),
-                resetFormPass({
-                    email: dataUser.email,
-                })
+            resetFormPass({
+                email: dataUser.email,
+            })
         }
     }, [dataUser])
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -84,15 +89,20 @@ function EditAccount() {
                 progress: undefined,
             });
         }
+        resetFormPass({
+            password: "",
+            newPassword: "",
+            confirmPassword: "",
+        })
     }, [dataUpdatePass])
     const handleSubmitInfo = (values) => {
         let formData = new FormData();
-        let file = values.avatarUpload[0];
+        let file = avatar.raw;
 
         formData.append('avatar', file);
         formData.append('name', values.name);
         formData.append('email', values.email);
-        formData.append('birthday', values.birthday);
+        // formData.append('birthday', values.birthday);
 
         mutate(formData)
     }
@@ -124,10 +134,9 @@ function EditAccount() {
                         </div> */}
                         <div className="bg-white space-y-6 pt-4">
                             <form
-                                name='update-staff'
-                                onSubmit={handleSubmit((values) => {
-                                    handleSubmitInfo(values);
-                                })}>
+                                // name='update-staffc'
+                                onSubmit={handleSubmit(handleSubmitInfo)}
+                            >
                                 <div className='mt-4 flex justify-center'>
                                     <label htmlFor='avatarUpload'>
                                         <img
@@ -136,8 +145,9 @@ function EditAccount() {
                                             src={avatar.preview}
                                         />
                                     </label>
-                                    <input type="file" hidden id='avatarUpload' name='avatarUpload' {...register('avatarUpload')} onChange={(e) => {
+                                    <input type="file" hidden id='avatarUpload' {...register('avatarUpload')} onChange={(e) => {
                                         if (e.target.files.length) {
+                                            console.log(e.target.files[0])
                                             setAvatar({
                                                 preview: URL.createObjectURL(e.target.files[0]),
                                                 raw: e.target.files[0],
@@ -177,7 +187,9 @@ function EditAccount() {
                                 </div>
 
                                 <hr />
-                                <div className="md:inline-flex  space-y-4 md:space-y-0  w-full p-4 text-gray-500 items-center">
+                                {
+                                    user?.department_id && (
+                                        <div className="md:inline-flex  space-y-4 md:space-y-0  w-full p-4 text-gray-500 items-center">
                                     <h2 className="md:w-1/3 mx-auto max-w-sm">Thông tin cá nhân</h2>
                                     <div className="md:w-2/3 mx-auto max-w-sm space-y-5">
                                         <div>
@@ -231,6 +243,8 @@ function EditAccount() {
                                         </div>
                                     </div>
                                 </div>
+                                    )
+                                }
                                 <div className="w-full p-4 text-right text-gray-500">
                                     <button type='submit' className='bg-blue-600 rounded-md p-2 text-white'>
                                         Cập nhật
@@ -260,7 +274,7 @@ function EditAccount() {
                                         <div className="w-full inline-flex border-b">
 
                                             <input
-                                                type="newPassword"
+                                                type="password"
                                                 className="w-full focus:outline-none focus:text-gray-600 p-2"
                                                 placeholder="Mật khẩu mới"
                                                 {...registerFormPass('newPassword')}
@@ -269,7 +283,7 @@ function EditAccount() {
                                         <div className="w-full inline-flex border-b">
 
                                             <input
-                                                type="confirmPassword"
+                                                type="password"
                                                 className="w-full focus:outline-none focus:text-gray-600 p-2"
                                                 placeholder="Nhập lại khẩu mới"
                                                 {...registerFormPass('confirmPassword')}

@@ -338,6 +338,7 @@ function FormEdit({ inventionId }) {
         roleSelected: dataInvention?.users,
         role: dataInvention?.users?.map(user => user.id).join(','),
         type_inventionsSelected: TYPE_INVENTIONS.find(invention => invention.value == dataInvention.level),
+        type_inventions: dataInvention.level,
         type: 3
       })
     }
