@@ -15,20 +15,29 @@ import API from '../constants/api'
 import { useYearList } from '../hooks/year';
 import { Select } from 'antd';
 import moment from 'moment';
+import { useStaffList } from '../hooks/staffs';
 
 
 function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [defaultValue, setDefaultValue] = useState({});
   const [year, setYear] = useState(null);
+  const [userExport, setUserExport] = useState(null);
   const { user } = useContext(UserContext);
   const [disabled, setDisabled] = useState(false)
   const { data: { data: years = [] } = {} } = useYearList();
+  const { data: { data: users = [] } = {} } = useStaffList();
   years?.map(year => {
     year.label = year.name
     year.value = year.id
 
     return year;
+  })
+  users?.map(user => {
+    user.label = user.name
+    user.value = user.id
+
+    return user;
   })
   useEffect(() => {
     if (years) {
@@ -63,9 +72,8 @@ function Dashboard() {
               {/* Datepicker built with flatpickr */}
               {/* <Datepicker /> */}
               <div className='flex gap-3'>
-                {
-                  user?.department_id && user.department_id != 1 ? (
-                    <div className=''>
+                <label for="year">Chọn năm</label>
+                <div className=''>
                   { defaultValue && (<Select
                     className='w-[200px] h-[38px]'
                     options={years}
@@ -74,19 +82,31 @@ function Dashboard() {
                       setYear(val)
                     }}
                   />)}
+                <label className='ml-2' for="user">Chọn giảng viên</label>
+                  <Select
+                    className='w-[200px] h-[38px]'
+                    options={users}
+                    onChange={(val, item) => {
+                      console.log(val, item);
+                      setUserExport({
+                        id: val,
+                        name: item.name
+                      })
+                    }}
+                  />
                 </div>
-                  ): null
-                }
-                {
-                  user?.department_id && user?.department_id != 1 ?
-                    <div className=''>
+                <div className=''>
                       <button disabled={disabled} className='rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 
                   focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
                         onClick={() => {
                           setDisabled(true);
+                          let id = user?.id;
+                          if (!user?.department_id) {
+                            id = userExport.id;
+                          }
                           if (year != null) {
                             axios.get(
-                              `${API.API_ROOT}${API.FILE.EXPORT}`.replace(':id', user?.id),
+                              `${API.API_ROOT}${API.FILE.EXPORT}`.replace(':id', id),
                               {
                                 responseType: 'blob',
                                 params: {
@@ -97,7 +117,7 @@ function Dashboard() {
                               const url = window.URL.createObjectURL(new Blob([response.data]));
                               const link = document.createElement('a');
                               link.href = url;
-                              let nameFile = `report-${moment(new Date()).format("DD-MM-YYYY")}-${Date.now()}.pdf`
+                              let nameFile = "report" + `-${userExport.name}` + `-${moment(new Date()).format("DD-MM-YYYY")}-${Date.now()}.pdf`
                               link.setAttribute('download', nameFile);
                               document.body.appendChild(link);
                               link.click();
@@ -112,8 +132,7 @@ function Dashboard() {
                       >
                         Xuất File
                       </button>
-                    </div> : null
-                }
+                    </div>
               </div>
             </div>
 

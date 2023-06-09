@@ -134,6 +134,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
               </SidebarLinkGroup>
 
               {/* Community */}
+              {(user?.department_id == null) &&(
               <SidebarLinkGroup activecondition={pathname.includes('community')}>
                 {(handleClick, open) => {
                   return (
@@ -168,7 +169,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                     </React.Fragment>
                   );
                 }}
-              </SidebarLinkGroup>
+              </SidebarLinkGroup>)}
               <SidebarLinkGroup activecondition={pathname.includes('teaching')}>
                 {(handleClick, open) => {
                   return (
