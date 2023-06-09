@@ -7,7 +7,7 @@ import { useScientificDelete, useScientificDetail, useScientificList } from '../
 import Loading from '../components/Loading';
 import { Button, Modal, Space, Table, Tooltip } from 'antd';
 import { BiEdit, BiTrash } from 'react-icons/bi';
-import { PAGE_SIZE } from '../constants';
+import { PAGE_SIZE, RESULT_ACADEMY, RESULT_FACULTY } from '../constants';
 import Search from '../components/Search';
 import { debounce } from 'lodash';
 
@@ -335,13 +335,17 @@ const ModalDetail = ({ scientificId, setShowModal }) => {
                 </div>
               </div>
               <div className="flex justify-between py-2 pl-2 border-b">
-                <p className="w-1/2 break-words">Thể loại:</p>
-                <p className="w-1/2 break-words">{dataScientific?.type}</p>
+                <p className="w-1/2 break-words">Kết quả bảo vệ cấp Khoa:</p>
+                <p className="w-1/2 break-words">{RESULT_FACULTY.find(formTopic => formTopic.value == dataScientific?.result_level)?.label}</p>
               </div>
-              {/* <div className="flex justify-between py-2 pl-2">
+              <div className="flex justify-between py-2 pl-2 border-b">
+                <p className="w-1/2 break-words">Kết quả bảo vệ cấp Học viện:</p>
+                <p className="w-1/2 break-words">{RESULT_ACADEMY.find(formTopic => formTopic.value == dataScientific?.result_academy)?.label}</p>
+              </div>
+              <div className="flex justify-between py-2 pl-2">
                 <p className="w-1/2 break-words">Năm học:</p>
-                <p className="w-1/2 break-words">{dataScientific?.year_id}</p>
-              </div> */}
+                <p className="w-1/2 break-words">{dataScientific?.year.name}</p>
+              </div>
             </div>
           </div>
         </div>

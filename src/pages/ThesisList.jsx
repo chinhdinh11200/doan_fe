@@ -39,14 +39,11 @@ function ThesisList() {
       ),
     },
     {
-      title: <div className="text-center uppercase">Năm</div>,
-      dataIndex: "year_id",
-      key: "year_id",
+      title: <div className="text-center uppercase">Họ tên nghiên cứu sinh</div>,
+      dataIndex: "name_student",
+      key: "name_student",
       sortDirections: ["descend", "ascend", "descend"],
       sorter: () => { },
-      render: (_, record) => {
-        return <>{record?.year?.name + record.year_id}</>
-      }
     },
     {
       title: <div className="text-center uppercase">KHÓA ĐÀO TẠO</div>,
