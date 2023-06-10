@@ -172,7 +172,7 @@ function FormCreate() {
                     {...register('level_research')}
                     onChange={(val) => {
                       onChange(val);
-                      setValue("level_research", val.value);
+                      setValue("level", val.value);
                     }}
                   />
                 )}
